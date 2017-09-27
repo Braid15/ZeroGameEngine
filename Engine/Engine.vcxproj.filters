@@ -34,6 +34,12 @@
     <Filter Include="Header Files\Framework">
       <UniqueIdentifier>{e0e807a6-c971-4f34-a921-20f4d25dc0c4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Framework\SDL">
+      <UniqueIdentifier>{e0052698-a380-45b6-a84c-3c1d26d0fcb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Framework\SDL">
+      <UniqueIdentifier>{90fc56fb-7b95-4f07-adf4-15a654228223}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\3rdParty\SDL\SDL_video.h">
@@ -261,20 +267,23 @@
     <ClInclude Include="include\3rdParty\TinyXML\tinyxml.h">
       <Filter>Header Files\3rdParty\TinyXML</Filter>
     </ClInclude>
-    <ClInclude Include="include\Framework\Framework.h">
+    <ClInclude Include="src\Framework\Framework.h">
       <Filter>Header Files\Framework</Filter>
     </ClInclude>
-    <ClInclude Include="include\Framework\IFrameworkFactory.h">
+    <ClInclude Include="src\Framework\IFrameworkFactory.h">
       <Filter>Header Files\Framework</Filter>
     </ClInclude>
-    <ClInclude Include="include\Framework\NullFrameworkFactory.h">
+    <ClInclude Include="src\Framework\NullFrameworkFactory.h">
       <Filter>Header Files\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\SDL\SDLFrameworkFactory.h">
+      <Filter>Header Files\Framework\SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ZeroEngine.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Framework\ZeroEngineMain.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\3rdParty\TinyXML\tinyxml.cpp">
       <Filter>Source Files\3rdParty\TinyXML</Filter>
     </ClCompile>
@@ -292,6 +301,12 @@
     </ClCompile>
     <ClCompile Include="src\Framework\IFrameworkFactory.cpp">
       <Filter>Source Files\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\SDL\SDLFrameworkFactory.cpp">
+      <Filter>Source Files\Framework\SDL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ZeroEngineMain.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

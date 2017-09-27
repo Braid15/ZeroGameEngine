@@ -234,9 +234,11 @@
     <ClInclude Include="include\3rdParty\SDL\SDL_video.h" />
     <ClInclude Include="include\3rdParty\TinyXML\tinystr.h" />
     <ClInclude Include="include\3rdParty\TinyXML\tinyxml.h" />
-    <ClInclude Include="include\Framework\Framework.h" />
-    <ClInclude Include="include\Framework\IFrameworkFactory.h" />
-    <ClInclude Include="include\Framework\NullFrameworkFactory.h" />
+    <ClInclude Include="src\Framework\Framework.h" />
+    <ClInclude Include="src\Framework\IFrameworkFactory.h" />
+    <ClInclude Include="src\Framework\NullFrameworkFactory.h" />
+    <ClInclude Include="src\Framework\SDL\SDLFrameworkFactory.h" />
+    <ClInclude Include="src\ZeroEngine.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\3rdParty\TinyXML\tinystr.cpp" />
@@ -245,7 +247,8 @@
     <ClCompile Include="src\3rdParty\TinyXML\tinyxmlparser.cpp" />
     <ClCompile Include="src\Framework\IFrameworkFactory.cpp" />
     <ClCompile Include="src\Framework\NullFrameworkFactory.cpp" />
-    <ClCompile Include="src\Framework\ZeroEngineMain.cpp" />
+    <ClCompile Include="src\Framework\SDL\SDLFrameworkFactory.cpp" />
+    <ClCompile Include="src\ZeroEngineMain.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
