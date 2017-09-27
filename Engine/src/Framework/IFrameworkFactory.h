@@ -1,8 +1,8 @@
 #pragma once
-
+#include <iostream>
 #include <map>
 
-namespace ZeroEngine { namespace Framework {
+namespace ZeroEngine {
 
     // Interface for all framework factories.
     // Framework factories are facades for the entire framework.
@@ -15,13 +15,14 @@ namespace ZeroEngine { namespace Framework {
 
     public:
         static IFrameworkFactory* Instance();
-        static void SetFramework( FrameworkName name );
+        static void SetFramework( IFrameworkFactory* framework_factory );
+        virtual void Cleanup();
         FrameworkName GetName();
 
     protected:
         IFrameworkFactory();
+        virtual ~IFrameworkFactory() { std::cout <<"deleting base" << std::endl; };
         IFrameworkFactory( FrameworkName name );
-        void Cleanup();
         void SetName( FrameworkName name );
 
     private:
@@ -30,4 +31,4 @@ namespace ZeroEngine { namespace Framework {
         static IFrameworkFactory* _instance;
     };
 
-} }
+}

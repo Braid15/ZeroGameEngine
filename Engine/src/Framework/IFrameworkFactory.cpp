@@ -1,44 +1,41 @@
 #include "IFrameworkFactory.h"
+//TODO: Get rid of this include
 #include "NullFrameworkFactory.h"
 
-using ZeroEngine::Framework::IFrameworkFactory;
+namespace ZeroEngine {
 
-IFrameworkFactory::FrameworkName IFrameworkFactory::_current_framework = "NO FRAMEWORK";
-IFrameworkFactory* IFrameworkFactory::_instance = nullptr;
+    IFrameworkFactory* IFrameworkFactory::_instance = nullptr;
 
-IFrameworkFactory::IFrameworkFactory() {
-    _name = "NO NAME";
-}
+    IFrameworkFactory::IFrameworkFactory() {
+        _name = "NO NAME";
+    }
 
-IFrameworkFactory::IFrameworkFactory( IFrameworkFactory::FrameworkName name ) {
-    _name = name;
-}
+    IFrameworkFactory::IFrameworkFactory( IFrameworkFactory::FrameworkName name ) {
+        _name = name;
+    }
 
-IFrameworkFactory* IFrameworkFactory::Instance () {
-    if ( _instance == nullptr ) {
-        if ( strcmp( _current_framework, "SDL_FRAMEWORK" ) == 0 ) {
-            _instance = nullptr;
-        } else {
+    IFrameworkFactory* IFrameworkFactory::Instance () {
+        if ( _instance == nullptr ) {
             _instance = new NullFrameworkFactory();
         }
+        return _instance;
     }
-    return _instance;
-}
 
-IFrameworkFactory::FrameworkName IFrameworkFactory::GetName() {
-    return _name;
-}
+    IFrameworkFactory::FrameworkName IFrameworkFactory::GetName() {
+        return _name;
+    }
 
-void IFrameworkFactory::SetName( IFrameworkFactory::FrameworkName name ) {
-    _name = name;
-}
+    void IFrameworkFactory::SetName( IFrameworkFactory::FrameworkName name ) {
+        _name = name;
+    }
 
-void IFrameworkFactory::SetFramework( IFrameworkFactory::FrameworkName name ) {
-    _current_framework = name;
-}
+    void IFrameworkFactory::SetFramework( IFrameworkFactory* framework_factory ) {
+        _instance = framework_factory;
+    }
 
-void IFrameworkFactory::Cleanup() {
-    delete _instance;
-    _instance = nullptr;
-}
+    void IFrameworkFactory::Cleanup() {
+        delete _instance;
+        _instance = nullptr;
+    }
 
+}

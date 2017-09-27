@@ -2,7 +2,7 @@
 
 #include "IFrameworkFactory.h"
 
-namespace ZeroEngine { namespace Framework {
+namespace ZeroEngine {
 
     class NullFrameworkFactory : public IFrameworkFactory {
 
@@ -11,5 +11,5 @@ namespace ZeroEngine { namespace Framework {
         ~NullFrameworkFactory();
     };
 
-} }
+}
 
