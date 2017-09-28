@@ -1,9 +1,18 @@
 #include "NullFrameworkFactory.h"
 
-using ZeroEngine::NullFrameworkFactory;
+namespace ZeroEngine {
 
-NullFrameworkFactory::NullFrameworkFactory() : IFrameworkFactory::IFrameworkFactory( "Null_Framework_Factory" ) {}
+    NullFrameworkFactory::NullFrameworkFactory() : BaseFrameworkFactory( "Null Factory" ) {}
 
-NullFrameworkFactory::~NullFrameworkFactory() {
-    IFrameworkFactory::Cleanup();
+    NullFrameworkFactory::~NullFrameworkFactory() {}
+
+    bool NullFrameworkFactory::Initialize() {
+        return true;
+    }
+
+    bool NullFrameworkFactory::Shutdown() {
+        return true;
+    }
 }
+
+

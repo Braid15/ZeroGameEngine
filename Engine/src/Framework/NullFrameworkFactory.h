@@ -1,14 +1,17 @@
 #pragma once
 
-#include "IFrameworkFactory.h"
+#include "../ZeroEngineStd.h"
+#include "BaseFrameworkFactory.h"
 
 namespace ZeroEngine {
 
-    class NullFrameworkFactory : public IFrameworkFactory {
+    class NullFrameworkFactory : public BaseFrameworkFactory {
 
     public:
         NullFrameworkFactory();
         ~NullFrameworkFactory();
+        bool Initialize() override;
+        bool Shutdown() override;
     };
 
 }

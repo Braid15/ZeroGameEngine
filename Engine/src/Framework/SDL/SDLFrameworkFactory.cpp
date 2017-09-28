@@ -1,9 +1,19 @@
 #include "SDLFrameworkFactory.h"
-#include <iostream>
 
 namespace ZeroEngine {
 
-    SDLFrameworkFactory::SDLFrameworkFactory() : IFrameworkFactory( "SDL_Framework_Factory" ) {}
+    SDLFrameworkFactory::SDLFrameworkFactory() : BaseFrameworkFactory( "SDL" ) {}
 
-    SDLFrameworkFactory::~SDLFrameworkFactory() { std::cout << "deleting derived" << std::endl; }
+    SDLFrameworkFactory::~SDLFrameworkFactory() {}
+
+    bool SDLFrameworkFactory::Initialize() {
+        bool success = true;
+        return success;
+    }
+
+    bool SDLFrameworkFactory::Shutdown() {
+        bool success = true;
+        return success;
+    }
+
 }

@@ -110,6 +110,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_CRT_DEBUG_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -122,6 +123,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_CRT_DEBUG_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -234,18 +236,24 @@
     <ClInclude Include="include\3rdParty\SDL\SDL_video.h" />
     <ClInclude Include="include\3rdParty\TinyXML\tinystr.h" />
     <ClInclude Include="include\3rdParty\TinyXML\tinyxml.h" />
+    <ClInclude Include="src\Framework\BaseFrameworkFactory.h" />
     <ClInclude Include="src\Framework\Framework.h" />
     <ClInclude Include="src\Framework\IFrameworkFactory.h" />
     <ClInclude Include="src\Framework\NullFrameworkFactory.h" />
     <ClInclude Include="src\Framework\SDL\SDLFrameworkFactory.h" />
+    <ClInclude Include="src\Logger\ILoggable.h" />
+    <ClInclude Include="src\Logger\ILogger.h" />
+    <ClInclude Include="src\Logger\Logger.h" />
     <ClInclude Include="src\ZeroEngine.h" />
+    <ClInclude Include="src\ZeroEngineStd.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\3rdParty\TinyXML\tinystr.cpp" />
     <ClCompile Include="src\3rdParty\TinyXML\tinyxml.cpp" />
     <ClCompile Include="src\3rdParty\TinyXML\tinyxmlerror.cpp" />
     <ClCompile Include="src\3rdParty\TinyXML\tinyxmlparser.cpp" />
-    <ClCompile Include="src\Framework\IFrameworkFactory.cpp" />
+    <ClCompile Include="src\Framework\BaseFrameworkFactory.cpp" />
+    <ClCompile Include="src\Framework\framework.cpp" />
     <ClCompile Include="src\Framework\NullFrameworkFactory.cpp" />
     <ClCompile Include="src\Framework\SDL\SDLFrameworkFactory.cpp" />
     <ClCompile Include="src\ZeroEngineMain.cpp" />
