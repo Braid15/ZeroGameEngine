@@ -1,5 +1,6 @@
 #include "Framework.h"
 
+// @@TEMPORARY - 9/27/17
 #define _SDL_FRAMEWORK_
 
 namespace ZeroEngine {
