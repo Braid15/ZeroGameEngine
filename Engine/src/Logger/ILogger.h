@@ -7,8 +7,6 @@ namespace ZeroEngine {
     // The methods that take in tags can be used with a config file.
     // The config file will specify whether the certain tag should be logged or not
 
-    // TODO: Implement Tag class
-    class Tag;
     class ILoggable;
 
     // Defines the interface for Engine logging
@@ -24,14 +22,14 @@ namespace ZeroEngine {
         virtual bool shutdown() = 0;
         virtual bool log( const std::string& message ) const = 0;
         virtual bool log( const char* message ) const = 0;
-        virtual bool log( const Tag& tag, const std::string& message ) const = 0;
-        virtual bool log( const Tag& tag, const char* message ) const = 0;
+        virtual bool log( const IType& type, const std::string& message ) const = 0;
+        virtual bool log( const IType& type, const char* message ) const = 0;
         virtual bool log( const ILoggable& loggable, const char* message ) const = 0;
         virtual bool log( const ILoggable& loggable, const std::string& message ) const = 0;
 
     /* IType interface */
     public:
-        virtual const Type get_type() const = 0;
+        virtual const TypeID get_type() const = 0;
         virtual const char* to_string() const = 0;
     };
 }

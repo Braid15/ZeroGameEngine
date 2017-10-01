@@ -24,7 +24,7 @@ namespace ZeroEngine {
 
     /* IType interface */
     public:
-        const Type get_type() const override { return _THIS; }
+        const TypeID get_type() const override { return _THIS; }
         const char* to_string() const override { return "Framework"; }
 
     private:

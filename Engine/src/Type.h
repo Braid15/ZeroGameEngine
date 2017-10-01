@@ -10,7 +10,7 @@ namespace ZeroEngine {
     // Helper macro to get objects type
     #define _THIS typeid( this ).name()
 
-    typedef const char* Type;
+    typedef const char* TypeID;
 
     // TODO: 10/1/17
     // IType should hold a reference to type_info so that it can 
@@ -22,7 +22,7 @@ namespace ZeroEngine {
 
     /* Public Interface */
     public:
-        virtual const Type get_type() const = 0;
+        virtual const TypeID get_type() const = 0;
         virtual const char* to_string() const = 0;
     };
 }

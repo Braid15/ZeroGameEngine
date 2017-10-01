@@ -16,7 +16,7 @@ namespace ZeroEngine {
 
     /* IType interface */
     public:
-        virtual const Type get_type() const override { return _THIS; }
+        virtual const TypeID get_type() const override { return _THIS; }
         virtual const char* to_string() const override { return "SDLFrameworkFactory"; }
     };
 }

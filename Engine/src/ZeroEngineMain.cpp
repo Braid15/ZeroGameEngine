@@ -23,6 +23,8 @@ int main ( int argc, char* args[] ) {
 
     ILogger* logger = new BaseLogger();
 
+    logger->log( *logger, "passing in by IType" ); 
+
     std::cout << logger->to_string() << std::endl;
     Framework::instance()->shutdown();
 

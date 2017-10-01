@@ -12,7 +12,7 @@ namespace ZeroEngine {
 
     /* IType interface */
     public:
-        virtual const Type get_type() const = 0;
+        virtual const TypeID get_type() const = 0;
         virtual const char* to_string() const = 0;
     };
 }

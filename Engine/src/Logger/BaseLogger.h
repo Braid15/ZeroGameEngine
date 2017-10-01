@@ -5,6 +5,7 @@
 
 namespace ZeroEngine {
 
+    // TODO: NEed to add a map and function to toggle which types should be logged
     class BaseLogger : public ILogger {
 
     /* BaseLogger interface */
@@ -22,14 +23,14 @@ namespace ZeroEngine {
         virtual bool shutdown() override;
         virtual bool log( const std::string& message ) const override;
         virtual bool log( const char* message ) const override;
-        virtual bool log( const Tag& tag, const std::string& message ) const override;
-        virtual bool log( const Tag& tag, const char* message ) const override;
+        virtual bool log( const IType& type, const std::string& message ) const override;
+        virtual bool log( const IType& type, const char* message ) const override;
         virtual bool log( const ILoggable& loggable, const char* message ) const override;
         virtual bool log( const ILoggable& loggable, const std::string& message ) const override;
 
     /* IType interface */
     public:
-        virtual const Type get_type() const override { return _THIS; }
+        virtual const TypeID get_type() const override { return _THIS; }
         virtual const char* to_string() const override { return "BaseLogger"; }
 
     /* Fields */
