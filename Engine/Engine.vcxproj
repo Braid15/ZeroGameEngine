@@ -110,7 +110,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_CRT_DEBUG_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_X86;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -123,7 +123,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_CRT_DEBUG_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_X64;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -137,6 +137,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_X86;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -152,6 +153,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_X64;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -241,11 +243,13 @@
     <ClInclude Include="src\Framework\IFrameworkFactory.h" />
     <ClInclude Include="src\Framework\NullFrameworkFactory.h" />
     <ClInclude Include="src\Framework\SDL\SDLFrameworkFactory.h" />
+    <ClInclude Include="src\Logger\BaseLogger.h" />
     <ClInclude Include="src\Logger\ILoggable.h" />
     <ClInclude Include="src\Logger\ILogger.h" />
     <ClInclude Include="src\Logger\Logger.h" />
     <ClInclude Include="src\ZeroEngine.h" />
     <ClInclude Include="src\ZeroEngineStd.h" />
+    <ClInclude Include="utils\String.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\3rdParty\TinyXML\tinystr.cpp" />
@@ -256,7 +260,9 @@
     <ClCompile Include="src\Framework\framework.cpp" />
     <ClCompile Include="src\Framework\NullFrameworkFactory.cpp" />
     <ClCompile Include="src\Framework\SDL\SDLFrameworkFactory.cpp" />
+    <ClCompile Include="src\Logger\BaseLogger.cpp" />
     <ClCompile Include="src\ZeroEngineMain.cpp" />
+    <ClCompile Include="utils\String.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

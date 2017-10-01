@@ -42,6 +42,12 @@
     <Filter Include="Source Files\Logger">
       <UniqueIdentifier>{a4c1dbad-e343-43f6-b0ca-2afa2655e99a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Utilities">
+      <UniqueIdentifier>{ff3cfce2-b56d-404c-8bfc-fae1032d0dcc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utilities">
+      <UniqueIdentifier>{f66994b3-3eb9-489c-99e0-99d7ff43f2b9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\3rdParty\SDL\SDL_video.h">
@@ -299,6 +305,12 @@
     <ClInclude Include="src\Logger\Logger.h">
       <Filter>Header Files\Logger</Filter>
     </ClInclude>
+    <ClInclude Include="src\Logger\BaseLogger.h">
+      <Filter>Header Files\Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\String.h">
+      <Filter>Header Files\Utilities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\3rdParty\TinyXML\tinyxml.cpp">
@@ -327,6 +339,12 @@
     </ClCompile>
     <ClCompile Include="src\Framework\framework.cpp">
       <Filter>Source Files\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\String.cpp">
+      <Filter>Source Files\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Logger\BaseLogger.cpp">
+      <Filter>Source Files\Logger</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
