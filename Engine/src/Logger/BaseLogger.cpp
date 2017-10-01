@@ -24,59 +24,59 @@ namespace ZeroEngine {
 
     /* ILogger interface */
 
-    bool BaseLogger::Initialize() {
+    bool BaseLogger::initialize() {
         bool success = false;
         // Overwrite previous log file
         success = _write_line_to_file( "Logger initialized", true );
         return success;
     }
 
-    bool BaseLogger::Initialize( const char* config_file_path ) {
+    bool BaseLogger::initialize( const char* config_file_path ) {
         bool success = false;
         // Overwrite previous log file
         success = _write_line_to_file( "Logger initialized", true );
         return success;
     }
 
-    bool BaseLogger::Initialize( const std::string& config_file_path ) {
+    bool BaseLogger::initialize( const std::string& config_file_path ) {
         bool success = false;
         // Overwrite previous log file
         success = _write_line_to_file( "Logger initialized", true );
         return success;
     }
 
-    bool BaseLogger::Shutdown() {
+    bool BaseLogger::shutdown() {
         return true;
     }
 
-    bool BaseLogger::Log( const std::string* const message ) {
-        return _write_line_to_file( *message, false );
-    }
-
-    bool BaseLogger::Log( const std::string& message ) {
+    bool BaseLogger::log( const std::string& message ) const {
         return _write_line_to_file( message, false );
     }
 
-    bool BaseLogger::Log( const char* message ) {
+    bool BaseLogger::log( const char* message ) const {
         return _write_line_to_file( std::string( message ), false );
     }
 
-    bool BaseLogger::Log( const Tag& tag, const std::string& message ) {
+    bool BaseLogger::log( const Tag& tag, const std::string& message ) const {
         return _write_line_to_file( "[TAG] - " + message, false );
     }
 
-    bool BaseLogger::Log( const Tag& tag, const char* message ) {
+    bool BaseLogger::log( const Tag& tag, const char* message ) const {
         return _write_line_to_file( "[TAG] - " + std::string( message ), false );
     }
 
-    bool BaseLogger::Log( const ILoggable& loggable ) {
-        return _write_line_to_file( "ILOGGABLE", false );
+    bool BaseLogger::log( const ILoggable& loggable, const char* message ) const {
+        return _write_line_to_file( "ILOGGABLE const char*", false );
+    }
+
+    bool BaseLogger::log( const ILoggable& loggable, const std::string& message ) const {
+        return _write_line_to_file( "ILOGGABLE - const std::string&", false );
     }
 
 
     /* Instance methods */
 
-    const std::string BaseLogger::_get_default_file_name() {
+    const std::string BaseLogger::_get_default_file_name() const {
         #ifdef _DEBUG
         std::string configuration = "D";
         #else
@@ -95,7 +95,7 @@ namespace ZeroEngine {
         return file_name;
     }
 
-    const std::string BaseLogger::_get_default_log_path() {
+    const std::string BaseLogger::_get_default_log_path() const {
         // TODO: Need to put application root in main app class
         return std::string( "S://projects//game-engines//zerogameengine//engine//log//" );
     }
@@ -120,11 +120,11 @@ namespace ZeroEngine {
     /* Unit Test */
     void BaseLogger::_UNIT_TEST_() {
         BaseLogger logger;
-        logger.Initialize();
-        logger.Log( "LOG MESSAGE" );
-        logger.Log( std::string( "LOG MESSAGE 2" ) );
-        std::string msg = "Const string* const";
-        const std::string* p_msg = &msg;
-        logger.Log( p_msg );
+        if ( logger.initialize() ) {
+            logger.log( "LOG MESSAGE" );
+            logger.log( std::string( "LOG MESSAGE 2" ) );
+        } else {
+            std::cout << "Logger was unable to initialize" << std::endl;
+        }
     }
 }

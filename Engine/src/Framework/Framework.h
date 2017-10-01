@@ -12,14 +12,20 @@ namespace ZeroEngine {
     // system access to creating framework dependent objects
     // such as windows, renderers, etc.
 
-    class Framework {
+    class Framework : public IType {
 
+    /* Interface */
     public:
         ~Framework();
-        bool Initialize();
-        bool Shutdown();
-        static Framework* Instance();
-        IFrameworkFactory* GetFrameworkFactory();
+        bool initialize();
+        bool shutdown();
+        static Framework* instance();
+        IFrameworkFactory* get_framework_factory();
+
+    /* IType interface */
+    public:
+        const Type get_type() const override { return _THIS; }
+        const char* to_string() const override { return "Framework"; }
 
     private:
         Framework();

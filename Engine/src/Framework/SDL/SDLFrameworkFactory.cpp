@@ -6,12 +6,12 @@ namespace ZeroEngine {
 
     SDLFrameworkFactory::~SDLFrameworkFactory() {}
 
-    bool SDLFrameworkFactory::Initialize() {
+    bool SDLFrameworkFactory::initialize() {
         bool success = true;
         return success;
     }
 
-    bool SDLFrameworkFactory::Shutdown() {
+    bool SDLFrameworkFactory::shutdown() {
         bool success = true;
         return success;
     }

@@ -247,9 +247,9 @@
     <ClInclude Include="src\Logger\ILoggable.h" />
     <ClInclude Include="src\Logger\ILogger.h" />
     <ClInclude Include="src\Logger\Logger.h" />
+    <ClInclude Include="src\Type.h" />
     <ClInclude Include="src\ZeroEngine.h" />
     <ClInclude Include="src\ZeroEngineStd.h" />
-    <ClInclude Include="utils\String.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\3rdParty\TinyXML\tinystr.cpp" />
@@ -262,7 +262,6 @@
     <ClCompile Include="src\Framework\SDL\SDLFrameworkFactory.cpp" />
     <ClCompile Include="src\Logger\BaseLogger.cpp" />
     <ClCompile Include="src\ZeroEngineMain.cpp" />
-    <ClCompile Include="utils\String.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

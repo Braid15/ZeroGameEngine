@@ -10,7 +10,7 @@ namespace ZeroEngine {
         _id = nullptr;
     }
 
-    FrameworkFactoryID BaseFrameworkFactory::GetID() {
+    FrameworkFactoryID BaseFrameworkFactory::get_id() {
         return _id;
     }
 }

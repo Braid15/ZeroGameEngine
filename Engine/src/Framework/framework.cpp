@@ -19,14 +19,14 @@ namespace ZeroEngine {
     // Because this is a singleton and it has an 
     // initialization method, it is necessary that the
     // initialization method is the first method used with this class
-    Framework* Framework::Instance() {
+    Framework* Framework::instance() {
         if ( !_instance ) {
             _instance = new Framework();
         }
         return _instance;
     }
 
-    bool Framework::Initialize() {
+    bool Framework::initialize() {
         bool success = true;
 
         //@@TODO: 9/27/2017
@@ -38,17 +38,17 @@ namespace ZeroEngine {
         _framework_factory = new NullFrameworkFactory();
         #endif
 
-        success = _framework_factory->Initialize();
+        success = _framework_factory->initialize();
         return success;
     }
 
-    bool Framework::Shutdown() {
+    bool Framework::shutdown() {
         bool success = true;
-        success = _framework_factory->Shutdown();
+        success = _framework_factory->shutdown();
         return success;
     }
 
-    IFrameworkFactory* Framework::GetFrameworkFactory() {
+    IFrameworkFactory* Framework::get_framework_factory() {
         return _framework_factory;
     }
             

@@ -11,7 +11,12 @@ namespace ZeroEngine {
     public:
         SDLFrameworkFactory();
         virtual ~SDLFrameworkFactory();
-        virtual bool Initialize() override;
-        virtual bool Shutdown() override;
+        virtual bool initialize() override;
+        virtual bool shutdown() override;
+
+    /* IType interface */
+    public:
+        virtual const Type get_type() const override { return _THIS; }
+        virtual const char* to_string() const override { return "SDLFrameworkFactory"; }
     };
 }

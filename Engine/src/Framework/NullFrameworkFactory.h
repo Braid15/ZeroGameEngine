@@ -10,8 +10,13 @@ namespace ZeroEngine {
     public:
         NullFrameworkFactory();
         ~NullFrameworkFactory();
-        bool Initialize() override;
-        bool Shutdown() override;
+        bool initialize() override;
+        bool shutdown() override;
+
+    /* IType interface */
+    public:
+        virtual const Type get_type() const override { return _THIS; }
+        virtual const char* to_string() const override { return "NullFrameworkFactory"; }
     };
 
 }

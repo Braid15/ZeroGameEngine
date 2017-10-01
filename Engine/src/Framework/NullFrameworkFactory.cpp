@@ -6,11 +6,11 @@ namespace ZeroEngine {
 
     NullFrameworkFactory::~NullFrameworkFactory() {}
 
-    bool NullFrameworkFactory::Initialize() {
+    bool NullFrameworkFactory::initialize() {
         return true;
     }
 
-    bool NullFrameworkFactory::Shutdown() {
+    bool NullFrameworkFactory::shutdown() {
         return true;
     }
 }

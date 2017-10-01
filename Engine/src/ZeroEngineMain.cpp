@@ -13,15 +13,18 @@ int main ( int argc, char* args[] ) {
     #endif
 
     
-    if ( Framework::Instance()->Initialize() ) {
-        std::cout << "Framework initialized to " << Framework::Instance()->GetFrameworkFactory()->GetID() << std::endl;
+    if ( Framework::instance()->initialize() ) {
+        std::cout << "Framework initialized to " << Framework::instance()->get_framework_factory()->get_id() << std::endl;
     } else {
         std::cout << "Error initializing framework" << std::endl;
     }
 
-    BaseLogger::_UNIT_TEST_();
+    std::cout << Framework::instance()->get_framework_factory()->to_string() << std::endl;
 
-    Framework::Instance()->Shutdown();
+    ILogger* logger = new BaseLogger();
+
+    std::cout << logger->to_string() << std::endl;
+    Framework::instance()->shutdown();
 
     #ifdef _DEBUG
     _CrtDumpMemoryLeaks();
