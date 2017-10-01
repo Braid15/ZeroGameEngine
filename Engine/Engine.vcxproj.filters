@@ -42,6 +42,21 @@
     <Filter Include="Source Files\Logger">
       <UniqueIdentifier>{a4c1dbad-e343-43f6-b0ca-2afa2655e99a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\AppLayer">
+      <UniqueIdentifier>{dfc545f0-f144-4e0c-88ce-0b33e400f455}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\AppLayer">
+      <UniqueIdentifier>{6569f483-f998-4c00-a654-d99061da577a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Graphics">
+      <UniqueIdentifier>{92dabdfc-c03f-463b-b134-e2c7004d3a35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics">
+      <UniqueIdentifier>{30186eb2-66fa-47d6-88fb-1e8b1a882134}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Assets">
+      <UniqueIdentifier>{17427979-33a3-4260-bbc7-7801fa6e1719}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\3rdParty\SDL\SDL_video.h">
@@ -305,6 +320,15 @@
     <ClInclude Include="src\Type.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\AppLayer\ZeroEngineApp.h">
+      <Filter>Header Files\AppLayer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\Point.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\Graphics.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\3rdParty\TinyXML\tinyxml.cpp">
@@ -337,5 +361,13 @@
     <ClCompile Include="src\Logger\BaseLogger.cpp">
       <Filter>Source Files\Logger</Filter>
     </ClCompile>
+    <ClCompile Include="src\Graphics\Point.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="assets\Strings\strlib.xml">
+      <Filter>Header Files\Assets</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

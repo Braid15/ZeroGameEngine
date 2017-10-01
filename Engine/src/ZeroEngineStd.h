@@ -7,7 +7,14 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <sstream>
 #include <map>
 #include <vector>
+#include <math.h>
+#include <list>
+#include <type_traits>
+#include <iomanip>
+
+#include "3rdParty\TinyXML\tinyxml.h"
 
 #include "Type.h"

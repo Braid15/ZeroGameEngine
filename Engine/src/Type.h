@@ -7,22 +7,13 @@
 
 namespace ZeroEngine {
 
-    // Helper macro to get objects type
-    #define _THIS typeid( this ).name()
+    typedef const char* TypeName;
 
-    typedef const char* TypeID;
-
-    // TODO: 10/1/17
-    // IType should hold a reference to type_info so that it can 
-    // use type_info's overloaded == and != operators
-    //
     // Base class that all Zero Engine types will derive from.
-    // It will provide an interface for basic operations such as to_string, etc. 
     class IType {
 
     /* Public Interface */
     public:
-        virtual const TypeID get_type() const = 0;
-        virtual const char* to_string() const = 0;
+        virtual TypeName get_type() const = 0;
     };
 }

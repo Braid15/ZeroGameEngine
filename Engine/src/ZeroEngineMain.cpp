@@ -19,13 +19,15 @@ int main ( int argc, char* args[] ) {
         std::cout << "Error initializing framework" << std::endl;
     }
 
-    std::cout << Framework::instance()->get_framework_factory()->to_string() << std::endl;
-
+    std::cout << Framework::instance()->get_framework_factory()->get_type() << std::endl;
     ILogger* logger = new BaseLogger();
 
-    logger->log( *logger, "passing in by IType" ); 
+    PointUnitTest::run();
 
-    std::cout << logger->to_string() << std::endl;
+
+
+
+
     Framework::instance()->shutdown();
 
     #ifdef _DEBUG

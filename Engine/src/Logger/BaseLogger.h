@@ -30,8 +30,7 @@ namespace ZeroEngine {
 
     /* IType interface */
     public:
-        virtual const TypeID get_type() const override { return _THIS; }
-        virtual const char* to_string() const override { return "BaseLogger"; }
+        virtual TypeName get_type() const override { return "BaseLogger"; }
 
     /* Fields */
     private:

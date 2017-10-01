@@ -238,11 +238,14 @@
     <ClInclude Include="include\3rdParty\SDL\SDL_video.h" />
     <ClInclude Include="include\3rdParty\TinyXML\tinystr.h" />
     <ClInclude Include="include\3rdParty\TinyXML\tinyxml.h" />
+    <ClInclude Include="src\AppLayer\ZeroEngineApp.h" />
     <ClInclude Include="src\Framework\BaseFrameworkFactory.h" />
     <ClInclude Include="src\Framework\Framework.h" />
     <ClInclude Include="src\Framework\IFrameworkFactory.h" />
     <ClInclude Include="src\Framework\NullFrameworkFactory.h" />
     <ClInclude Include="src\Framework\SDL\SDLFrameworkFactory.h" />
+    <ClInclude Include="src\Graphics\Graphics.h" />
+    <ClInclude Include="src\Graphics\Point.h" />
     <ClInclude Include="src\Logger\BaseLogger.h" />
     <ClInclude Include="src\Logger\ILoggable.h" />
     <ClInclude Include="src\Logger\ILogger.h" />
@@ -260,8 +263,12 @@
     <ClCompile Include="src\Framework\framework.cpp" />
     <ClCompile Include="src\Framework\NullFrameworkFactory.cpp" />
     <ClCompile Include="src\Framework\SDL\SDLFrameworkFactory.cpp" />
+    <ClCompile Include="src\Graphics\Point.cpp" />
     <ClCompile Include="src\Logger\BaseLogger.cpp" />
     <ClCompile Include="src\ZeroEngineMain.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="assets\Strings\strlib.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
