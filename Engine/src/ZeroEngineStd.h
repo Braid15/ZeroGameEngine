@@ -14,6 +14,7 @@
 #include <list>
 #include <type_traits>
 #include <iomanip>
+#include <cassert>
 
 #include "3rdParty\TinyXML\tinyxml.h"
 

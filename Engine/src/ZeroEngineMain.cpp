@@ -22,8 +22,8 @@ int main ( int argc, char* args[] ) {
     std::cout << Framework::instance()->get_framework_factory()->get_type() << std::endl;
     ILogger* logger = new BaseLogger();
 
-    PointUnitTest::run();
 
+    RectUnitTest::run();
 
 
 

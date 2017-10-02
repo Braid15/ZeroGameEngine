@@ -140,36 +140,83 @@ namespace ZeroEngine {
     }
 
 
-
-    /* static interface */
+    /* Method interface */
+    template <class T>
+    Point<int> Point<T>::to_int() const {
+        Point<int> ret_point;
+        if ( std::is_same<T, int>::value ) {
+            ret_point = this;
+        } else {
+            ret_point.set( (int)_x, (int)_y );
+        }
+        return ret_point;
+    }
 
     template <class T>
-    const Point<T> Point<T>::zero;
-
-
-
-    /* IType interface */
-
-    template<>
-    TypeName Point<float>::get_type() const {
-       return "Point<float>"; 
+    Point<float> Point<T>::to_float() const {
+        Point<float> ret_point;
+        if ( std::is_same<T, float>::value ) {
+            ret_point = this;
+        } else {
+            ret_point.set( (float)_x, (float)_y );
+        }
+        return ret_point;
     }
 
-    template<>
-    TypeName Point<int>::get_type() const {
-        return "Point<int>";
+    template <class T>
+    Point<long> Point<T>::to_long() const {
+        Point<long> ret_point;
+        if ( std::is_same<T, long>::value ) {
+            ret_point = this;
+        } else {
+            ret_point.set( (long)_x, (long)_y );
+        }
+        return ret_point;
     }
 
-    template<>
-    TypeName Point<double>::get_type() const {
-        return "Point<double>";
+    template <class T>
+    Point<double> Point<T>::to_double() const {
+        Point<double> ret_point;
+        if ( std::is_same<T, double>::value ) {
+            ret_point = this;
+        } else {
+            ret_point.set( (double)_x, (double)_y );
+        }
+        return ret_point;
     }
 
-    template<>
-    TypeName Point<long>::get_type() const {
-        return "Point<long>";
+    template <class T>
+    void Point<T>::reset() {
+        _x = 0;
+        _y = 0;
     }
 
+    template <>
+    void Point<float>::reset() {
+        _x = 0.0f;
+        _y = 0.0f;
+    }
+
+    template <>
+    void Point<double>::reset() {
+        _x = 0.0;
+        _y = 0.0;
+    }
+
+    template <class T>
+    bool Point<T>::is_zero() const {
+        return _x == 0 && _y == 0;
+    }
+
+    template <>
+    bool Point<float>::is_zero() const {
+        return _x == 0.0f && _y == 0.0f;
+    }
+
+    template <>
+    bool Point<double>::is_zero() const {
+        return _x == 0.0 && _y == 0.0;
+    }
 
 
     /* ostream/istream */
@@ -180,6 +227,27 @@ namespace ZeroEngine {
     }
 
 
+    /* IType interface */
+
+    template <>
+    TypeName Point<float>::get_type() const {
+       return "Point<float>"; 
+    }
+
+    template <>
+    TypeName Point<int>::get_type() const {
+        return "Point<int>";
+    }
+
+    template <>
+    TypeName Point<double>::get_type() const {
+        return "Point<double>";
+    }
+
+    template <>
+    TypeName Point<long>::get_type() const {
+        return "Point<long>";
+    }
 
 
 
@@ -187,8 +255,8 @@ namespace ZeroEngine {
 
         extern void run() {
 
-            Point<int> a( 1, 1 );
-            Point<int> b( 1, 1 );
+            Point<long> a( 1, 1 );
+            Point<long> b( 1, 1 );
             std::cout << a + b << std::endl;
             a -= b;
             std::cout << a << std::endl;

@@ -329,6 +329,9 @@
     <ClInclude Include="src\Graphics\Graphics.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="src\Graphics\Rect.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\3rdParty\TinyXML\tinyxml.cpp">
@@ -362,6 +365,9 @@
       <Filter>Source Files\Logger</Filter>
     </ClCompile>
     <ClCompile Include="src\Graphics\Point.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Graphics\Rect.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
   </ItemGroup>

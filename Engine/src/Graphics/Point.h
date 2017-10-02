@@ -9,10 +9,6 @@ namespace ZeroEngine {
         static_assert( std::is_arithmetic<T>::value,
                        "Point can only be initialized with arithmetic types" );
 
-    /* static interface */
-    public:
-        static const Point<T> zero;
-
     /* Construction interface */
     public:
         Point();
@@ -42,6 +38,14 @@ namespace ZeroEngine {
         bool operator==( const Point<T>& point ) const;
         bool operator!=( const Point<T>& point ) const;
 
+    /* Method interface */
+    public:
+        Point<int> to_int() const;
+        Point<float> to_float() const;
+        Point<long> to_long() const;
+        Point<double> to_double() const;
+        void reset();
+        bool is_zero() const;
 
     private:
         T _x;
