@@ -5,7 +5,7 @@
 namespace ZeroEngine {
 
     template <class T> 
-    class Point : public IType {
+    class Point final : public IType {
         static_assert( std::is_arithmetic<T>::value,
                        "Point can only be initialized with arithmetic types" );
 
@@ -40,10 +40,8 @@ namespace ZeroEngine {
 
     /* Method interface */
     public:
-        Point<int> to_int() const;
-        Point<float> to_float() const;
-        Point<long> to_long() const;
-        Point<double> to_double() const;
+        template <class U>
+        Point<U> convert() const;
         void reset();
         bool is_zero() const;
 
@@ -60,10 +58,12 @@ namespace ZeroEngine {
     template <class T>
     std::ostream& operator<<( std::ostream& os, const Point<T>& point );
 
-
         
+    #ifdef _DEBUG
     namespace PointUnitTest {
 
         extern void run();
     }
+    #endif
 }
+

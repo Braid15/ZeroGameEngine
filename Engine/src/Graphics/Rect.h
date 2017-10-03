@@ -10,7 +10,7 @@ namespace ZeroEngine {
     /* Construction interface */
     public:
         Rect();
-        Rect( const long x, const long y, const long width, const long height );
+        Rect( const long left, const long top, const long right, const long bottom );
         Rect( const Point<long>& center, const long width, const long height );
         Rect( const Point<long>* center, const long width, const long height );
         Rect( const Rect* rect );
@@ -36,14 +36,17 @@ namespace ZeroEngine {
         Point<long> get_bottom_right() const;
         void set_x( const long x );
         void set_y( const long y );
-        void set( long left, long right, long top, long bottom );
-        void set_top( long top );
-        void set_left( long left );
-        void set_right( long right );
-        void set_bottom( long bottom );
+        void set( const long left, const long top, const long right, const long bottom );
+        void set_top( const long top );
+        void set_left( const long left );
+        void set_right( const long right );
+        void set_bottom( const long bottom );
 
     /* Method interface */
     public:
+        bool is_valid() const;
+        bool is_zero() const;
+        void reset();
         void shift_x( const long delta_x );
         void shift_y( const long delta_y );
         void move_delta( const long delta_x, const long delta_y );
@@ -55,8 +58,6 @@ namespace ZeroEngine {
         void move_center_to( const Point<long>* point );
         void move_center_to( const Point<long>& point );
         void move_center_to( const long x, const long y );
-        bool is_valid() const;
-        bool is_zero() const;
         bool is_collision( const Point<long>& point ) const;
         bool is_collision( const Point<long>* point ) const;
         bool is_collision( const Rect& rect ) const;
