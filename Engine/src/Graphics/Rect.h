@@ -11,8 +11,6 @@ namespace ZeroEngine {
     public:
         Rect();
         Rect( const long left, const long top, const long right, const long bottom );
-        Rect( const Point<long>& center, const long width, const long height );
-        Rect( const Point<long>* center, const long width, const long height );
         Rect( const Rect* rect );
         Rect( const Rect& rect );
         Rect( const Point<long>& top_left, const Point<long>& bottom_right );
@@ -52,16 +50,13 @@ namespace ZeroEngine {
         void move_delta( const long delta_x, const long delta_y );
         void move_delta( const Point<long>& delta );
         void move_delta( const Point<long>* delta );
+        void move_to( const long x, const long y );
         void move_to( const Point<long>* point );
         void move_to( const Point<long>& point );
-        void move_to( const long x, const long y );
-        void move_center_to( const Point<long>* point );
-        void move_center_to( const Point<long>& point );
-        void move_center_to( const long x, const long y );
         bool is_collision( const Point<long>& point ) const;
         bool is_collision( const Point<long>* point ) const;
-        bool is_collision( const Rect& rect ) const;
-        bool is_collision( const Rect* rect ) const;
+        bool is_collision( const Rect& other ) const;
+        bool is_collision( const Rect* other ) const;
         bool is_within( const Point<long>& point ) const;
         bool is_within( const Point<long>* point ) const;
         bool is_within( const Rect& rect ) const;

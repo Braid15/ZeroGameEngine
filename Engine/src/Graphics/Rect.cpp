@@ -17,16 +17,6 @@ namespace ZeroEngine {
         _bottom = bottom;
     }
 
-    // TODO: 10/1
-    Rect::Rect( const Point<long>& center, const long width, const long height ) {
-
-    }
-
-    // TODO: 10/1
-    Rect::Rect( const Point<long>* center, const long width, const long height ) {
-
-    }
-
     Rect::Rect( const Rect& rect ) {
         _left = rect.get_left();
         _top = rect.get_top();
@@ -83,7 +73,6 @@ namespace ZeroEngine {
         return _left;
     }
 
-    // TODO: Unit Test - 10/2/2017
     Point<long> Rect::get_center() const {
         Point<long> ret_point;
         if ( is_valid() ) {
@@ -160,12 +149,146 @@ namespace ZeroEngine {
     inline bool Rect::is_zero() const {
         return _left == 0 && _top == 0 && _right == 0 && _bottom == 0;
     }
+    
+    inline void Rect::reset() {
+        _left = 0;
+        _top = 0;
+        _right = 0;
+        _bottom = 0;
+    }
+
+    inline void Rect::shift_x( const long delta_x ) {
+        _left += delta_x;
+        _right += delta_x;
+    }
+
+    inline void Rect::shift_y( const long delta_y ) {
+        _top += delta_y;
+        _bottom += delta_y;
+    }
+
+    inline void Rect::move_delta( const long delta_x, const long delta_y ) {
+        _left += delta_x;
+        _top += delta_y;
+        _right += delta_x;
+        _bottom += delta_y;
+    }
+
+    inline void Rect::move_delta( const Point<long>& delta ) {
+        move_delta( delta.get_x() , delta.get_y() );
+    }
+
+    inline void Rect::move_delta( const Point<long>* delta ) {
+        move_delta( delta->get_x(), delta->get_y() );
+    }
+
+    inline void Rect::move_to( const long x, const long y ) {
+        long width = get_width();
+        long height = get_height();
+        _left = x;
+        _right = _left + width;
+        _top = y;
+        _bottom = _top + height;
+    }
+
+    inline void Rect::move_to( const Point<long>& point ) {
+        move_to( point.get_x(), point.get_y() );
+    }
+
+    inline void Rect::move_to( const Point<long>* point ) {
+        move_to( point->get_x(), point->get_y() );
+    }
+
+    inline bool Rect::is_collision( const Point<long>& point ) const {
+        return ( point.get_x() >= _left && point.get_x() <= _right ) && 
+               ( point.get_y() >= _top && point.get_y() <= _bottom );
+    }
+
+    inline bool Rect::is_collision( const Point<long>* point ) const {
+        return is_collision( *point );
+    }
+
+    inline bool Rect::is_collision( const Rect& other ) const {
+        return !( other.get_bottom() < _top || other.get_right() < _left ||
+                  other.get_left() > _right || other.get_top() > _bottom );
+    }
+
+    inline bool Rect::is_collision( const Rect* other ) const {
+        return is_collision( *other );
+    }
+
+    inline bool Rect::is_within( const Point<long>& point ) const {
+        return ( point.get_x() > _left && point.get_x() < _right ) &&
+               ( point.get_y() > _top && point.get_y() < _bottom );
+    }
+
+    inline bool Rect::is_within( const Point<long>* point ) const {
+        return is_within( *point );
+    }
+
+    inline bool Rect::is_within( const Rect& other ) const {
+        return ( other.get_left() >= _left && other.get_right() <= _right ) &&
+               ( other.get_top() >= _top && other.get_bottom() <= _bottom );
+    }
+
+    inline bool Rect::is_within( const Rect* other ) const {
+        return is_within( *other );
+    }
+
+    /* operator overloads */
+
+    inline Rect& Rect::operator=( const Rect& new_rect ) {
+        _left = new_rect.get_left();
+        _top = new_rect.get_top();
+        _right = new_rect.get_right();
+        _bottom = new_rect.get_bottom();
+        return ( *this );
+    }
+
+    inline Rect& Rect::operator=( const Rect* new_rect ) {
+        _left = new_rect->get_left();
+        _top = new_rect->get_top();
+        _right = new_rect->get_right();
+        _bottom = new_rect->get_bottom();
+        return ( *this );
+    }
+
+    // TODO: 10/3/17 - Unit Test
+    inline Rect& Rect::operator+=( const Rect& new_rect ) {
+        _left += new_rect.get_left();
+        _top += new_rect.get_top();
+        _right += new_rect.get_right();
+        _bottom += new_rect.get_bottom();
+        return ( *this );
+    }
+
+    inline Rect& Rect::operator-=( const Rect& new_rect ) {
+        _left -= new_rect.get_left();
+        _top -= new_rect.get_top();
+        _right -= new_rect.get_right();
+        _bottom -= new_rect.get_bottom();
+        return ( *this );
+    }
+
+    inline Rect& Rect::operator+=( const Rect* new_rect ) {
+
+    }
+
+    inline Rect& Rect::operator-=( const Rect* new_rect ) {
+
+    }
+
+
+
+
+
+
 
     /* ostream/istream */
 
     std::ostream& operator<<( std::ostream& os, const Rect& rect ) {
-        os << rect.get_type() << " - left:" << rect.get_left() << " right:" << rect.get_right()
-            << " top:" << rect.get_top() << " bottom:" << rect.get_bottom();
+        os << rect.get_type() << " - left:" << rect.get_left() << " top:" << rect.get_top()
+            << " right:" << rect.get_right() << " bottom:" << rect.get_bottom();
         return os;
     }
 
@@ -252,6 +375,13 @@ namespace ZeroEngine {
             assert( rect2.get_height() == 4 );
         }
 
+        static void getter_get_center() {
+            std::cout << "getter_get_center" << std::endl;
+            Rect rect( 1, 1, 5, 5 );
+            Point<long> center = rect.get_center();
+            assert( center == Point<long>( 3, 3 ) );
+        }
+
         static void getters_tl_tr_bl_br() {
             std::cout << "get_tl_tr_bl_br" << std::endl;
             long left = 3;
@@ -298,8 +428,8 @@ namespace ZeroEngine {
             assert( result );
         }
 
-        static void methods_is_valid_is_zero() {
-            std::cout << "methods_is_valid_is_zero" << std::endl;
+        static void methods_is_valid_is_zero_reset() {
+            std::cout << "methods_is_valid_is_zero_reset" << std::endl;
             Rect rect;
             assert( rect.is_zero() == true );
             rect.set_top( 3 );
@@ -311,6 +441,144 @@ namespace ZeroEngine {
             assert( rect.is_valid() == false );
             rect.set_right( 10 );
             assert( rect.is_valid() == true );
+            rect.reset();
+            assert( rect.is_zero() == true );
+        }
+
+        static void methods_shift_x_shift_y() {
+            std::cout << "methods_shift_x_shift_y" << std::endl;
+            long left = 3;
+            long top = 3;
+            long right = 6;
+            long bottom = 6;
+            Rect rect( left, top, right, bottom );
+            long delta = 3;
+            rect.shift_x( delta );
+            assert( rect.get_left() == left + delta );
+            assert( rect.get_right() == right + delta );
+            rect.shift_y( delta );
+            assert( rect.get_top() == top + delta );
+            assert( rect.get_bottom() == bottom + delta );
+        }
+
+        static void methods_move_delta() {
+            std::cout << "methods_move_delta" << std::endl;
+            long left = 2;
+            long top = 2;
+            long right = 5;
+            long bottom = 5;
+            Rect rect( left, top, right, bottom );
+            Point<long> point( 3, 3 );
+            rect.move_delta( point.get_x(), point.get_y() );
+            assert( rect.get_left() == left + point.get_x() );
+            assert( rect.get_top() == top + point.get_y() );
+            assert( rect.get_right() == right + point.get_x() );
+            assert( rect.get_bottom() == bottom + point.get_y() );
+            left = rect.get_left();
+            top = rect.get_top();
+            right = rect.get_right();
+            bottom = rect.get_bottom();
+            rect.move_delta( point );
+            assert( rect.get_left() == left + point.get_x() );
+            assert( rect.get_top() == top + point.get_y() );
+            assert( rect.get_right() == right + point.get_x() );
+            assert( rect.get_bottom() == bottom + point.get_y() );
+            left = rect.get_left();
+            top = rect.get_top();
+            right = rect.get_right();
+            bottom = rect.get_bottom();
+            rect.move_delta( &point );
+            assert( rect.get_left() == left + point.get_x() );
+            assert( rect.get_top() == top + point.get_y() );
+            assert( rect.get_right() == right + point.get_x() );
+            assert( rect.get_bottom() == bottom + point.get_y() );
+        }
+
+        static void methods_move_to() {
+            std::cout << "methods_move_to" << std::endl;
+            Point<long> start_tl( 1, 1 );
+            Point<long> start_br( 5, 5 );
+            Point<long> delta( 3, 3 );
+            Rect rect( start_tl, start_br );
+            rect.move_to( delta.get_x(), delta.get_y() );
+            assert( rect.get_left() == 3 
+                    && rect.get_top() == 3 
+                    && rect.get_right() == 7 
+                    && rect.get_bottom() == 7 
+            );
+            rect.set_left( start_tl.get_x() );
+            rect.set_top( start_tl.get_y() );
+            rect.set_right( start_br.get_x() ); 
+            rect.set_bottom( start_br.get_y() );
+            rect.move_to( delta );
+            assert( rect.get_left() == 3 
+                    && rect.get_top() == 3 
+                    && rect.get_right() == 7 
+                    && rect.get_bottom() == 7 
+            );
+            rect.set_left( start_tl.get_x() );
+            rect.set_top( start_tl.get_y() );
+            rect.set_right( start_br.get_x() ); 
+            rect.set_bottom( start_br.get_y() );
+            rect.move_to( &delta );
+            assert( rect.get_left() == 3 
+                    && rect.get_top() == 3 
+                    && rect.get_right() == 7 
+                    && rect.get_bottom() == 7 
+            );
+        }
+
+        static void methods_is_collision() {
+            std::cout << "methods_is_collision" << std::endl;
+            Rect rect1( 1, 1, 4, 4 );
+            Point<long> point1( 2, 2 );
+            assert( rect1.is_collision( point1 ) == true );
+            point1.set( 5, 5 );
+            assert( rect1.is_collision( point1 ) == false );
+            point1.set( 3, 3 );
+            assert( rect1.is_collision( &point1 ) == true );
+            point1.set( 4, 4 );
+            assert( rect1.is_collision( &point1 ) == true );
+            Rect rect2( 5, 3, 8, 6 );
+            assert( rect1.is_collision( rect2 ) == false );
+            rect2.move_to( 3, 1 );
+            assert( rect1.is_collision( &rect2 ) == true );
+            rect2.move_to( 4, 3 );
+            assert( rect1.is_collision( rect2 ) == true );
+        }
+
+        static void methods_is_within() {
+            std::cout << "methods_is_within" << std::endl;
+            Rect rect( 1, 1, 4, 4 );
+            Point<long> point( 2, 2 );
+            assert( rect.is_within( point ) == true );
+            point.set( 4, 4 );
+            assert( rect.is_within( &point ) == false );
+            Rect other( 1, 1, 3, 3 );
+            assert( rect.is_within( other ) == true );
+            other.set_bottom( rect.get_bottom() );
+            other.set_right( rect.get_right() );
+            assert( rect.is_within( other ) == true );
+            other.move_to( 4, 4 );
+            assert( rect.is_within( &other ) == false );
+        }
+
+        static void operator_assignment() {
+            std::cout << "operator_assignment" << std::endl;
+            Rect rect( 1, 1, 3, 3 );
+            Rect rect2 = rect;
+            assert( rect.get_left() == rect2.get_left()
+                    && rect.get_top() == rect2.get_top()
+                    && rect.get_right() == rect2.get_right()
+                    && rect.get_bottom() == rect2.get_bottom()
+            );
+            Rect rect3( 4, 4, 8, 8 );
+            rect2 = &rect3;
+            assert( rect2.get_left() == rect3.get_left()
+                    && rect2.get_top() == rect3.get_top()
+                    && rect2.get_right() == rect3.get_right()
+                    && rect2.get_bottom() == rect3.get_bottom() 
+            );
         }
 
         extern void run() {
@@ -324,8 +592,15 @@ namespace ZeroEngine {
             ctor_ptr_point_tl_br();
             get_width_get_height();
             getters_tl_tr_bl_br();
+            getter_get_center();
             setters_x_y_set_t_l_r_b();
-            methods_is_valid_is_zero();
+            methods_is_valid_is_zero_reset();
+            methods_shift_x_shift_y();
+            methods_move_delta();
+            methods_move_to();
+            methods_is_collision();
+            methods_is_within();
+            operator_assignment();
             std::cout << "--------------------" << std::endl;
             std::cout << "Rect Unit Test end" << std::endl; 
         }
