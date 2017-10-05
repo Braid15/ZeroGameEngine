@@ -253,7 +253,6 @@ namespace ZeroEngine {
         return ( *this );
     }
 
-    // TODO: 10/3/17 - Unit Test
     inline Rect& Rect::operator+=( const Rect& new_rect ) {
         _left += new_rect.get_left();
         _top += new_rect.get_top();
@@ -271,18 +270,42 @@ namespace ZeroEngine {
     }
 
     inline Rect& Rect::operator+=( const Rect* new_rect ) {
-
+        _left += new_rect->get_left();
+        _top += new_rect->get_top();
+        _right += new_rect->get_right();
+        _bottom += new_rect->get_bottom();
+        return ( *this );
     }
 
     inline Rect& Rect::operator-=( const Rect* new_rect ) {
-
+        _left -= new_rect->get_left();
+        _top -= new_rect->get_top();
+        _right -= new_rect->get_right();
+        _bottom -= new_rect->get_bottom();
+        return ( *this );
     }
 
+    inline Rect Rect::operator+( const Rect& rect ) const {
+        Rect ret_rect( this );
+        ret_rect += rect;
+        return ret_rect;
+    }
 
+    inline Rect Rect::operator-( const Rect& rect ) const {
+        Rect ret_rect( this );
+        ret_rect -= rect;
+        return ret_rect;
+    }
 
+    inline bool Rect::operator==( const Rect& other ) const {
+        return _left == other.get_left() && _top == other.get_top()
+            && _right == other.get_right() && _bottom == other.get_bottom();
+    }
 
-
-
+    inline bool Rect::operator!=( const Rect& other ) const {
+        return _left != other.get_left() || _top != other.get_top()
+            || _right != other.get_right() || _bottom != other.get_bottom();
+    }
 
     /* ostream/istream */
 
@@ -291,6 +314,7 @@ namespace ZeroEngine {
             << " right:" << rect.get_right() << " bottom:" << rect.get_bottom();
         return os;
     }
+
 
     #ifdef _DEBUG
     namespace RectUnitTest {
@@ -581,6 +605,63 @@ namespace ZeroEngine {
             );
         }
 
+        static void operator_compounds() {
+            std::cout << "operator_compounds" << std::endl;
+            Rect rect( 1, 1, 2, 2 );
+            Rect rect2 = rect;
+            rect += rect2;
+            assert( rect.get_left() == 2
+                    && rect.get_top() == 2
+                    && rect.get_right() == 4
+                    && rect.get_bottom() == 4
+            );
+            rect += &rect2;
+            assert( rect.get_left() == 3 
+                    && rect.get_top() == 3 
+                    && rect.get_right() == 6 
+                    && rect.get_bottom() == 6 
+            );
+            rect -= rect2;
+            assert( rect.get_left() == 2 
+                    && rect.get_top() == 2 
+                    && rect.get_right() == 4 
+                    && rect.get_bottom() == 4 
+            );
+            rect -= &rect2;
+            assert( rect.get_left() == 1 
+                    && rect.get_top() == 1 
+                    && rect.get_right() == 2 
+                    && rect.get_bottom() == 2 
+            );
+        }
+
+        static void operator_add_subtract() {
+            std::cout << "operator_add_subtract" << std::endl;
+            Rect rect1( 1, 1, 2, 2 );
+            Rect rect2( rect1 );
+            Rect rect = rect1 + rect2;
+            assert( rect.get_left() == 2
+                    && rect.get_top() == 2
+                    && rect.get_right() == 4
+                    && rect.get_bottom() == 4
+            );
+            rect = rect1 - rect2;
+            assert( rect.is_zero() == true );
+        }
+
+        static void operator_comparison() {
+            std::cout << "operator_comparison" << std::endl;
+            Rect rect1( 3, 3, 5, 5 );
+            Rect rect2( 3, 3, 5, 5 );
+            assert( rect1 == rect2 );
+            rect2.set( 2, 2, 6, 6 );
+            assert( rect1 != rect2 );
+            rect2 = rect1;
+            assert( ( rect1 != rect2 ) == false );
+            rect2.set( 2, 2, 6, 6 );
+            assert( ( rect1 == rect2 ) == false );
+        }
+
         extern void run() {
             std::cout << "Rect Unit Test begin" << std::endl;
             std::cout << "--------------------" << std::endl;
@@ -601,6 +682,9 @@ namespace ZeroEngine {
             methods_is_collision();
             methods_is_within();
             operator_assignment();
+            operator_compounds();
+            operator_add_subtract();
+            operator_comparison();
             std::cout << "--------------------" << std::endl;
             std::cout << "Rect Unit Test end" << std::endl; 
         }
