@@ -370,6 +370,9 @@
     <ClCompile Include="src\Graphics\Point.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="src\AppLayer\ZeroEngineApp.cpp">
+      <Filter>Source Files\AppLayer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="assets\Strings\strlib.xml">

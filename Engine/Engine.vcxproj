@@ -260,6 +260,7 @@
     <ClCompile Include="src\3rdParty\TinyXML\tinyxml.cpp" />
     <ClCompile Include="src\3rdParty\TinyXML\tinyxmlerror.cpp" />
     <ClCompile Include="src\3rdParty\TinyXML\tinyxmlparser.cpp" />
+    <ClCompile Include="src\AppLayer\ZeroEngineApp.cpp" />
     <ClCompile Include="src\Framework\BaseFrameworkFactory.cpp" />
     <ClCompile Include="src\Framework\framework.cpp" />
     <ClCompile Include="src\Framework\NullFrameworkFactory.cpp" />
