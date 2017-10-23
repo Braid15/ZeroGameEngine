@@ -4,14 +4,14 @@
 
 namespace ZeroEngine {
 
-    class ILoggable : public IType {
+    class ILoggable : public IZeroObject {
 
     /* Interface */
     public:
         virtual const std::string get_log_data() const = 0;
 
-    /* IType interface */
+    /* IZeroObject */
     public:
-        virtual TypeName get_type() const = 0;
+        virtual StringRepr to_string() const = 0;
     };
 }

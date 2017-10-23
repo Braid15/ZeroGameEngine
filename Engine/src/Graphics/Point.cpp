@@ -190,7 +190,7 @@ namespace ZeroEngine {
      // TODO - 10/2/2017 - Handle float point precision
      template <class T>
      inline std::ostream& operator<<( std::ostream& os, const Point<T>& point ) {
-         os << point.get_type() << " - x: " << point.get_x() << " y: " << point.get_y();
+         os << point.to_string() << " - x: " << point.get_x() << " y: " << point.get_y();
          return os;
      }
 
@@ -198,22 +198,22 @@ namespace ZeroEngine {
      /* IType interface */
 
      template <>
-     inline TypeName Point<float>::get_type() const {
+     inline StringRepr Point<float>::to_string() const {
          return "Point<float>";
      }
 
      template <>
-     inline TypeName Point<int>::get_type() const {
+     inline StringRepr Point<int>::to_string() const {
          return "Point<int>";
      }
 
      template <>
-     inline TypeName Point<double>::get_type() const {
+     inline StringRepr Point<double>::to_string() const {
          return "Point<double>";
      }
 
      template <>
-     inline TypeName Point<long>::get_type() const {
+     inline StringRepr Point<long>::to_string() const {
          return "Point<long>";
      }
 

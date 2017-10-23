@@ -5,7 +5,7 @@
 
 namespace ZeroEngine {
 
-    class Rect : public IType {
+    class Rect : public IZeroObject {
 
     /* Construction interface */
     public:
@@ -83,7 +83,7 @@ namespace ZeroEngine {
 
     /* IType interface */
     public:
-        virtual TypeName get_type() const { return "Rect"; }
+        virtual StringRepr to_string() const { return "Rect"; }
     };
 
     /* ostream/istream */

@@ -1,382 +1,114 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <Text Include="TODO.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source">
+      <UniqueIdentifier>{45ec64c1-0694-4934-9dc8-cc7745660203}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    <Filter Include="Source\Logger">
+      <UniqueIdentifier>{92a1a491-0092-49e0-a4b3-4c323b9de3b4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\3rdParty">
-      <UniqueIdentifier>{94747405-5567-4ebf-b640-e9c62d66480e}</UniqueIdentifier>
+    <Filter Include="Source\Graphics">
+      <UniqueIdentifier>{22e9fbdb-dc80-4b36-9481-de707412e2ef}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\3rdParty\TinyXML">
-      <UniqueIdentifier>{c3445251-66df-419f-937f-30cb8c4387f6}</UniqueIdentifier>
+    <Filter Include="Source\Framework">
+      <UniqueIdentifier>{83d6ce26-285b-44db-a2fc-05f491e6c214}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Framework">
-      <UniqueIdentifier>{d3fb2ec6-f89b-4b74-859b-33548cef17a8}</UniqueIdentifier>
+    <Filter Include="Testing">
+      <UniqueIdentifier>{26a77774-d93b-407e-8582-42f21bb38540}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\3rdParty">
-      <UniqueIdentifier>{bc9bf6cf-fe0d-4829-b701-78db9a7cc343}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\3rdParty\SDL">
-      <UniqueIdentifier>{e808d987-7245-4c86-8a1c-a627869391ca}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\3rdParty\TinyXML">
-      <UniqueIdentifier>{e1e81438-5bc6-45f6-9802-25f22c5c2755}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Framework">
-      <UniqueIdentifier>{e0e807a6-c971-4f34-a921-20f4d25dc0c4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Framework\SDL">
-      <UniqueIdentifier>{e0052698-a380-45b6-a84c-3c1d26d0fcb8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Framework\SDL">
-      <UniqueIdentifier>{90fc56fb-7b95-4f07-adf4-15a654228223}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Logger">
-      <UniqueIdentifier>{aefb95e7-9c8e-42fc-a03c-1690c2bd7f93}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Logger">
-      <UniqueIdentifier>{a4c1dbad-e343-43f6-b0ca-2afa2655e99a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\AppLayer">
-      <UniqueIdentifier>{dfc545f0-f144-4e0c-88ce-0b33e400f455}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\AppLayer">
-      <UniqueIdentifier>{6569f483-f998-4c00-a654-d99061da577a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Graphics">
-      <UniqueIdentifier>{92dabdfc-c03f-463b-b134-e2c7004d3a35}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Graphics">
-      <UniqueIdentifier>{30186eb2-66fa-47d6-88fb-1e8b1a882134}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Assets">
-      <UniqueIdentifier>{17427979-33a3-4260-bbc7-7801fa6e1719}</UniqueIdentifier>
+    <Filter Include="Source\AppLayer">
+      <UniqueIdentifier>{eac5809a-4c8b-415e-a114-b138c01bdde0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\3rdParty\SDL\SDL_video.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_assert.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_atomic.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_audio.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_bits.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_blendmode.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_clipboard.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_config.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_cpuinfo.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_egl.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_endian.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_error.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_events.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_filesystem.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_gamecontroller.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_gesture.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_haptic.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_hints.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_image.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_joystick.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_keyboard.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_keycode.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_loadso.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_log.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_main.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_messagebox.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_mixer.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_mouse.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_mutex.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_name.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_opengl.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_opengl_glext.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_opengles.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_opengles2.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_opengles2_gl2.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_opengles2_gl2ext.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_opengles2_gl2platform.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_opengles2_khrplatform.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_pixels.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_platform.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_power.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_quit.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_rect.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_render.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_revision.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_rwops.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_scancode.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_shape.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_stdinc.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_surface.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_system.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_syswm.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_test.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_test_assert.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_test_common.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_test_compare.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_test_crc32.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_test_font.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_test_fuzzer.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_test_harness.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_test_images.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_test_log.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_test_md5.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_test_random.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_thread.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_timer.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_touch.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_ttf.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_types.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\SDL_version.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\begin_code.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\SDL\close_code.h">
-      <Filter>Header Files\3rdParty\SDL</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\TinyXML\tinystr.h">
-      <Filter>Header Files\3rdParty\TinyXML</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\TinyXML\tinyxml.h">
-      <Filter>Header Files\3rdParty\TinyXML</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Framework\Framework.h">
-      <Filter>Header Files\Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Framework\IFrameworkFactory.h">
-      <Filter>Header Files\Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Framework\NullFrameworkFactory.h">
-      <Filter>Header Files\Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Framework\SDL\SDLFrameworkFactory.h">
-      <Filter>Header Files\Framework\SDL</Filter>
-    </ClInclude>
     <ClInclude Include="src\ZeroEngine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Framework\BaseFrameworkFactory.h">
-      <Filter>Header Files\Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Logger\ILogger.h">
-      <Filter>Header Files\Logger</Filter>
+      <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="src\ZeroEngineStd.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Logger\ILoggable.h">
-      <Filter>Header Files\Logger</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Logger\Logger.h">
-      <Filter>Header Files\Logger</Filter>
+      <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="src\Logger\BaseLogger.h">
-      <Filter>Header Files\Logger</Filter>
+      <Filter>Source\Logger</Filter>
     </ClInclude>
-    <ClInclude Include="src\Type.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\Logger\ILoggable.h">
+      <Filter>Source\Logger</Filter>
     </ClInclude>
-    <ClInclude Include="src\AppLayer\ZeroEngineApp.h">
-      <Filter>Header Files\AppLayer</Filter>
+    <ClInclude Include="src\Logger\ILogger.h">
+      <Filter>Source\Logger</Filter>
     </ClInclude>
-    <ClInclude Include="src\Graphics\Graphics.h">
-      <Filter>Header Files\Graphics</Filter>
+    <ClInclude Include="src\Logger\Logger.h">
+      <Filter>Source\Logger</Filter>
     </ClInclude>
     <ClInclude Include="src\Graphics\Rect.h">
-      <Filter>Header Files\Graphics</Filter>
+      <Filter>Source\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\Graphics.h">
+      <Filter>Source\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="src\Graphics\Point.h">
-      <Filter>Header Files\Graphics</Filter>
+      <Filter>Source\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\IRenderer.h">
+      <Filter>Source\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\IWindow.h">
+      <Filter>Source\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AppLayer\ZeroEngineApp.h">
+      <Filter>Source\AppLayer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Framework.h">
+      <Filter>Source\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\AFramework.h">
+      <Filter>Source\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IZeroObject.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AppMsg.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Time.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="test\IFrameworkTesting.h">
+      <Filter>Testing</Filter>
+    </ClInclude>
+    <ClInclude Include="test\TestApp.h">
+      <Filter>Testing</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\3rdParty\TinyXML\tinyxml.cpp">
-      <Filter>Source Files\3rdParty\TinyXML</Filter>
-    </ClCompile>
-    <ClCompile Include="src\3rdParty\TinyXML\tinystr.cpp">
-      <Filter>Source Files\3rdParty\TinyXML</Filter>
-    </ClCompile>
-    <ClCompile Include="src\3rdParty\TinyXML\tinyxmlparser.cpp">
-      <Filter>Source Files\3rdParty\TinyXML</Filter>
-    </ClCompile>
-    <ClCompile Include="src\3rdParty\TinyXML\tinyxmlerror.cpp">
-      <Filter>Source Files\3rdParty\TinyXML</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Framework\NullFrameworkFactory.cpp">
-      <Filter>Source Files\Framework</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Framework\SDL\SDLFrameworkFactory.cpp">
-      <Filter>Source Files\Framework\SDL</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ZeroEngineMain.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Framework\BaseFrameworkFactory.cpp">
-      <Filter>Source Files\Framework</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Framework\framework.cpp">
-      <Filter>Source Files\Framework</Filter>
-    </ClCompile>
     <ClCompile Include="src\Logger\BaseLogger.cpp">
-      <Filter>Source Files\Logger</Filter>
+      <Filter>Source\Logger</Filter>
     </ClCompile>
     <ClCompile Include="src\Graphics\Rect.cpp">
-      <Filter>Source Files\Graphics</Filter>
+      <Filter>Source\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="src\Graphics\Point.cpp">
-      <Filter>Source Files\Graphics</Filter>
+      <Filter>Source\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="src\AppLayer\ZeroEngineApp.cpp">
-      <Filter>Source Files\AppLayer</Filter>
+      <Filter>Source\AppLayer</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Xml Include="assets\Strings\strlib.xml">
-      <Filter>Header Files\Assets</Filter>
-    </Xml>
+    <ClCompile Include="src\main.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\AFramework.cpp">
+      <Filter>Source\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AppMsg.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="test\IFrameworkTesting.cpp">
+      <Filter>Testing</Filter>
+    </ClCompile>
+    <ClCompile Include="test\TestApp.cpp">
+      <Filter>Testing</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

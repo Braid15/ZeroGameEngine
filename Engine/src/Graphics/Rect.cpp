@@ -310,7 +310,7 @@ namespace ZeroEngine {
     /* ostream/istream */
 
     std::ostream& operator<<( std::ostream& os, const Rect& rect ) {
-        os << rect.get_type() << " - left:" << rect.get_left() << " top:" << rect.get_top()
+        os << rect.to_string() << " - left:" << rect.get_left() << " top:" << rect.get_top()
             << " right:" << rect.get_right() << " bottom:" << rect.get_bottom();
         return os;
     }

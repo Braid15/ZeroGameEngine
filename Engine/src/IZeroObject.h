@@ -7,13 +7,13 @@
 
 namespace ZeroEngine {
 
-    typedef const char* TypeName;
+    typedef const char* StringRepr;
 
     // Base class that all Zero Engine types will derive from.
-    class IType {
+    class IZeroObject {
 
     /* Public Interface */
     public:
-        virtual TypeName get_type() const = 0;
+        virtual StringRepr to_string() const = 0;
     };
 }

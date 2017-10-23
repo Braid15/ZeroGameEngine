@@ -5,7 +5,7 @@
 namespace ZeroEngine {
 
     template <class T> 
-    class Point final : public IType {
+    class Point final : public IZeroObject {
         static_assert( std::is_arithmetic<T>::value,
                        "Point can only be initialized with arithmetic types" );
 
@@ -51,7 +51,7 @@ namespace ZeroEngine {
 
     /* IType interface */
     public:
-        virtual TypeName get_type() const override { return "Point<>"; }
+        virtual StringRepr to_string() const override { return "Point<>"; }
     };
 
     /* ostream/istream */

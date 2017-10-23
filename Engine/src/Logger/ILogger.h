@@ -12,7 +12,7 @@ namespace ZeroEngine {
     // Defines the interface for Engine logging
     // This should just be used for normal logging and not debug logging.
     // Debug logging will use macros so as to use __FILE__, __func__, __LINE__
-    class ILogger : public IType {
+    class ILogger : public IZeroObject {
 
     /* Public interface */
     public:
@@ -22,13 +22,13 @@ namespace ZeroEngine {
         virtual bool shutdown() = 0;
         virtual bool log( const std::string& message ) const = 0;
         virtual bool log( const char* message ) const = 0;
-        virtual bool log( const IType& type, const std::string& message ) const = 0;
-        virtual bool log( const IType& type, const char* message ) const = 0;
+        virtual bool log( const IZeroObject& type, const std::string& message ) const = 0;
+        virtual bool log( const IZeroObject& type, const char* message ) const = 0;
         virtual bool log( const ILoggable& loggable, const char* message ) const = 0;
         virtual bool log( const ILoggable& loggable, const std::string& message ) const = 0;
 
     /* IType interface */
     public:
-        virtual TypeName get_type() const = 0;
+        virtual StringRepr to_string() const = 0;
     };
 }

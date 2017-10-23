@@ -23,14 +23,14 @@ namespace ZeroEngine {
         virtual bool shutdown() override;
         virtual bool log( const std::string& message ) const override;
         virtual bool log( const char* message ) const override;
-        virtual bool log( const IType& type, const std::string& message ) const override;
-        virtual bool log( const IType& type, const char* message ) const override;
+        virtual bool log( const IZeroObject& type, const std::string& message ) const override;
+        virtual bool log( const IZeroObject& type, const char* message ) const override;
         virtual bool log( const ILoggable& loggable, const char* message ) const override;
         virtual bool log( const ILoggable& loggable, const std::string& message ) const override;
 
     /* IType interface */
     public:
-        virtual TypeName get_type() const override { return "BaseLogger"; }
+        virtual StringRepr to_string() const override { return "BaseLogger"; }
 
     /* Fields */
     private:

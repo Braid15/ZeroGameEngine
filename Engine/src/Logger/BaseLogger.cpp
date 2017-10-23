@@ -57,12 +57,12 @@ namespace ZeroEngine {
         return _write_line_to_file( std::string( message ), false );
     }
 
-    bool BaseLogger::log( const IType& type, const std::string& message ) const {
-        return _write_line_to_file( std::string( type.get_type() ) + " - " + message, false );
+    bool BaseLogger::log( const IZeroObject& type, const std::string& message ) const {
+        return _write_line_to_file( std::string( type.to_string() ) + " - " + message, false );
     }
 
-    bool BaseLogger::log( const IType& type, const char* message ) const {
-        return _write_line_to_file( std::string( type.get_type() ) + " - " + 
+    bool BaseLogger::log( const IZeroObject& type, const char* message ) const {
+        return _write_line_to_file( std::string( type.to_string() ) + " - " + 
             std::string( message ), false );
     }
 
