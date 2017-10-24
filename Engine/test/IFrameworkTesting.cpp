@@ -5,6 +5,7 @@
 namespace IFrameworkTesting {
 
     bool MockFramework::initialize() {
+
         bool success = false;
         if ( SDL_Init( SDL_INIT_VIDEO ) < 0 ) {
             std::cout << "SDL_Error: " << SDL_GetError() << std::endl;
@@ -31,6 +32,7 @@ namespace IFrameworkTesting {
         SDL_DestroyWindow( _window );
         _window = nullptr;
         SDL_Quit();
+        AppMsg::destroy_memory_pool();
         return true;
     }
 

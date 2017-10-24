@@ -22,6 +22,9 @@
     <Filter Include="Source\AppLayer">
       <UniqueIdentifier>{eac5809a-4c8b-415e-a114-b138c01bdde0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Utils">
+      <UniqueIdentifier>{59746baf-b482-45e3-874a-1f9b2f7f4b26}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ZeroEngine.h">
@@ -81,6 +84,9 @@
     <ClInclude Include="test\TestApp.h">
       <Filter>Testing</Filter>
     </ClInclude>
+    <ClInclude Include="src\Utils\MemoryPool.h">
+      <Filter>Source\Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Logger\BaseLogger.cpp">
@@ -109,6 +115,9 @@
     </ClCompile>
     <ClCompile Include="test\TestApp.cpp">
       <Filter>Testing</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Utils\MemoryPool.cpp">
+      <Filter>Source\Utils</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

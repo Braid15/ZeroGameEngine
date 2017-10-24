@@ -17,7 +17,7 @@ namespace ZeroEngine {
     }
 
     bool ZeroEngineApp::on_app_msg( AppMsg& msg ) {
-        std::cout << msg.to_string() << std::endl;
+        // std::cout << msg.to_string() << std::endl;
         return true;
     }
 
@@ -28,9 +28,6 @@ namespace ZeroEngine {
     void ZeroEngineApp::on_render( Time time ) {
         // std::cout << "ZeroEngineApp::on_render()" << std::endl;
     }
-
-
-
 
 
     /* Public */

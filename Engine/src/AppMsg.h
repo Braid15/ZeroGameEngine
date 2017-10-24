@@ -2,6 +2,8 @@
 
 #include "IZeroObject.h"
 #include "Time.h"
+#include <iostream>
+#include "Utils\MemoryPool.h"
 
 namespace ZeroEngine {
 
@@ -43,16 +45,28 @@ namespace ZeroEngine {
     };
 
 
+    class MemoryPool;
 
     class AppMsg : public IZeroObject {
+        static int _allocations;
+        AppMsgArgs _args;
+        Time _creation_time;
+        static MemoryPool* _memory_pool;
+
     public:
         inline AppMsg( Time time ): 
             _creation_time( time ),
             _args( AppMsgArgs::empty ) 
-        {}
-        inline virtual ~AppMsg() {}
+        { std::cout << "new: " << ++_allocations << " " << this << std::endl; }
+        inline virtual ~AppMsg() { std::cout << "delete: " << --_allocations << " " << this << std::endl; }
         inline Time get_creation_time() { return _creation_time; }
         inline virtual AppMsgType get_type() const { return NULL_MSG; }
+
+        static void* operator new( size_t size );
+        static void operator delete( void* ptr );
+        static void inititialize_memory_pool( unsigned int chunks, const char* name = "AppMsgPool" );
+        static void destroy_memory_pool();
+
 
     /* IZeroObject */
     public:
@@ -61,9 +75,6 @@ namespace ZeroEngine {
     protected:
         inline AppMsgArgs get_args() { return _args; }
 
-    private:
-        AppMsgArgs _args;
-        Time _creation_time;
     };
 
     // So I can switch to shared_ptr at somepoint
@@ -99,8 +110,6 @@ namespace ZeroEngine {
     public:
         inline StringRepr to_string() const override { return "QuitMsg"; }
     };
-
-
 
 
 

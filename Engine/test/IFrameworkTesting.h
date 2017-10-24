@@ -26,7 +26,6 @@ namespace IFrameworkTesting {
         SDL_Window* _window = nullptr;
         SDL_Surface* _surface = nullptr;
     };
-
 }
 
 #endif

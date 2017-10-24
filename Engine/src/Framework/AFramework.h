@@ -22,7 +22,8 @@ namespace ZeroEngine {
         inline void set_app_msg_callback( bool (*callback)(AppMsg&) ) { _app_msg_callback = callback; }
 
     protected:
-        inline AFramework(): _current_message( new AppMsg( 0 ) ) {}
+        AFramework();
+        //inline AFramework(): _current_message( new AppMsg( 0 ) ) {}
         virtual ~AFramework();
         virtual bool get_app_msg() = 0;
         virtual void frame_begin( Time delta_time ) = 0;
