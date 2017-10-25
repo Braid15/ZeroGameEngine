@@ -42,15 +42,14 @@ namespace ZeroEngine {
         return _is_running;
     }
 
-    const Point<long>& ZeroEngineApp::get_screen_size() const {
-        return _screen_size;
+    Point<long> ZeroEngineApp::get_screen_size() const {
+        return _game_options.get_screen_size();
     }
 
     bool ZeroEngineApp::initialize() {
         bool success = true;
         register_engine_events();
         set_is_running( true );
-        set_screen_size( Point<long>( 640, 480 ) );
         return success;
     }
 
@@ -59,17 +58,10 @@ namespace ZeroEngine {
     }
 
 
-    /* Protected */
-
-    ZeroEngineApp::ZeroEngineApp() {
-        ZeroEngineApp::_app = nullptr;
+    ZeroEngineApp::ZeroEngineApp( GameOptions& options ) {
         _is_running = false;
-        _screen_size = Point<long>();
-        _save_game_directory = std::string(); 
-    }
-
-    void ZeroEngineApp::set_screen_size( Point<long> point ) {
-        _screen_size = point; 
+        _save_game_directory = std::string();
+        _game_options = options;
     }
 
     void ZeroEngineApp::set_is_running( bool running ) {

@@ -2,11 +2,15 @@
 
 #include "../ZeroEngineStd.h"
 #include "../Graphics/Graphics.h"
+#include "GameOptions.h"
 
 namespace ZeroEngine {
 
 
     class ZeroEngineApp : public IZeroObject {
+        bool _is_running;
+        std::string _save_game_directory;
+        static ZeroEngineApp* _app;
 
     /* abstract interface */
     public:
@@ -38,24 +42,22 @@ namespace ZeroEngine {
 
     /* getters/setters */
     public:
-        const Point<long>& get_screen_size() const;
+        Point<long> get_screen_size() const;
         bool is_running() const;
         
     protected:
-        ZeroEngineApp();
+        GameOptions _game_options;
+        ZeroEngineApp( GameOptions& );
 
     /* Protected Methods */
     protected:
         void set_is_running( bool running );
         void set_save_game_directory( std::string dir );
-        void set_screen_size( Point<long> point );
 
     private:
+        inline ZeroEngineApp() {}
         void register_engine_events();
-        Point<long> _screen_size;
-        bool _is_running;
-        std::string _save_game_directory;
-        static ZeroEngineApp* _app;
+
 
     /* IZeroObject */
     public:

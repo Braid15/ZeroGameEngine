@@ -9,6 +9,7 @@ namespace ZeroEngine {
 
     class AFramework : public IZeroObject {
     public:
+        virtual ~AFramework();
         virtual IRenderer* create_renderer() = 0;
         virtual IWindow* create_window() = 0;
         virtual bool initialize() = 0;
@@ -24,7 +25,6 @@ namespace ZeroEngine {
     protected:
         AFramework();
         //inline AFramework(): _current_message( new AppMsg( 0 ) ) {}
-        virtual ~AFramework();
         virtual bool get_app_msg() = 0;
         virtual void frame_begin( Time delta_time ) = 0;
         virtual void frame_render( Time delta_time ) = 0;

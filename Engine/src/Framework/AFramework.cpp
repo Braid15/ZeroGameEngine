@@ -12,8 +12,9 @@ namespace ZeroEngine {
     AFramework::~AFramework() {
         if ( _current_message ) {
             delete _current_message;
-            _current_message = nullptr;
         }
+        _current_message = nullptr;
+        AppMsg::destroy_memory_pool();
     }
 
     void AFramework::main_loop() {

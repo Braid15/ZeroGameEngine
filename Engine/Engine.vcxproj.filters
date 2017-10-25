@@ -87,6 +87,12 @@
     <ClInclude Include="src\Utils\MemoryPool.h">
       <Filter>Source\Utils</Filter>
     </ClInclude>
+    <ClInclude Include="src\AppLayer\GameOptions.h">
+      <Filter>Source\AppLayer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AppLayer\AppLayer.h">
+      <Filter>Source\AppLayer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Logger\BaseLogger.cpp">
@@ -118,6 +124,9 @@
     </ClCompile>
     <ClCompile Include="src\Utils\MemoryPool.cpp">
       <Filter>Source\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AppLayer\GameOptions.cpp">
+      <Filter>Source\AppLayer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -25,8 +25,6 @@
 #include <iomanip>
 #include <cassert>
 
-#include "3rdParty\TinyXML\tinyxml.h"
-
 #include "IZeroObject.h"
 #include "Logger\Logger.h"
 #include "Time.h"
