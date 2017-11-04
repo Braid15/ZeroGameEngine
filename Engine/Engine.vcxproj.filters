@@ -78,9 +78,6 @@
     <ClInclude Include="src\Time.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="test\IFrameworkTesting.h">
-      <Filter>Testing</Filter>
-    </ClInclude>
     <ClInclude Include="test\TestApp.h">
       <Filter>Testing</Filter>
     </ClInclude>
@@ -92,6 +89,12 @@
     </ClInclude>
     <ClInclude Include="src\AppLayer\AppLayer.h">
       <Filter>Source\AppLayer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\SdlFramework.h">
+      <Filter>Source\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AppMsgFactory.h">
+      <Filter>Source</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -116,9 +119,6 @@
     <ClCompile Include="src\AppMsg.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="test\IFrameworkTesting.cpp">
-      <Filter>Testing</Filter>
-    </ClCompile>
     <ClCompile Include="test\TestApp.cpp">
       <Filter>Testing</Filter>
     </ClCompile>
@@ -127,6 +127,12 @@
     </ClCompile>
     <ClCompile Include="src\AppLayer\GameOptions.cpp">
       <Filter>Source\AppLayer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\SdlFramework.cpp">
+      <Filter>Source\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AppMsgFactory.cpp">
+      <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

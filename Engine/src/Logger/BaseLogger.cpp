@@ -5,15 +5,15 @@ namespace ZeroEngine {
     /* BaseLogger interface */
 
     BaseLogger::BaseLogger() {
-        _log_file_path = new std::string( _get_default_log_path() + _get_default_file_name() );
+        _log_file_path = zero_new std::string( _get_default_log_path() + _get_default_file_name() );
     }
 
     BaseLogger::BaseLogger( const char* file_name ) {
-        _log_file_path = new std::string( _get_default_log_path() + std::string( file_name ) );
+        _log_file_path = zero_new std::string( _get_default_log_path() + std::string( file_name ) );
     }
 
     BaseLogger::BaseLogger( const std::string& file_name ) {
-        _log_file_path = new std::string( _get_default_log_path() + file_name );
+        _log_file_path = zero_new std::string( _get_default_log_path() + file_name );
     }
 
     BaseLogger::~BaseLogger() {

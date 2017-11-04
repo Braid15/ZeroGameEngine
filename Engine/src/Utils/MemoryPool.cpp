@@ -12,12 +12,13 @@ namespace ZeroEngine {
         destroy();
     }
 
-    bool MemoryPool::initialize( unsigned int chunk_size, unsigned int chunk_amount ) {
-        if ( _memory_array ) {
+    bool MemoryPool::initialize( unsigned int chunk_size, unsigned int chunk_amount, const char* name) {
+        if (_memory_array) {
             destroy();
         }
         _chunk_size = chunk_size;
         _chunk_amount = chunk_amount;
+        set_name(name);
 
         return grow_memory_array();
     }
@@ -70,7 +71,7 @@ namespace ZeroEngine {
         return (ret_memory + CHUNK_HEADER_SIZE);
     }
 
-    void MemoryPool::free( void* memory ) {
+    void MemoryPool::free_memory( void* memory ) {
         if ( memory != nullptr ) {
             // gets full  block of memory and not just data section
             unsigned char* block = ((unsigned char*)memory) - CHUNK_HEADER_SIZE;

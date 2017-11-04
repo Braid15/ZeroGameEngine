@@ -1,13 +1,12 @@
 #pragma once
 
-#include "IZeroObject.h"
+#include "ZeroEngineStd.h"
 #include "Time.h"
-#include <iostream>
 #include "Utils\MemoryPool.h"
 
 namespace ZeroEngine {
 
-    enum AppMsgType {
+      enum AppMsgType {
         NULL_MSG,
         QUIT_MSG,
         WINDOW_MSG,
@@ -51,15 +50,10 @@ namespace ZeroEngine {
 
     };
 
-
-
     class EmptyMsgArgs : public AppMsgArgs {
     public:
         inline EmptyMsgArgs() : AppMsgArgs() {}
         inline ~EmptyMsgArgs() {}
-
-    /* IZeroObject */
-    public:
         inline StringRepr to_string() const override { return "EmptyMsgArgs"; }
     };
 
@@ -72,23 +66,20 @@ namespace ZeroEngine {
         Time _creation_time;
 
     public:
-        AppMsg( Time );
-        AppMsg( Time, AppMsgArgs );
         virtual ~AppMsg();
         inline Time get_creation_time() { return _creation_time; }
-        inline virtual AppMsgType get_type() const { return NULL_MSG; }
-
-        static void* operator new( size_t size );
-        static void operator delete( void* ptr );
-        static void inititialize_memory_pool( unsigned int chunks, const char* name = "AppMsgPool" );
-        static void destroy_memory_pool();
-
-    /* IZeroObject */
-    public:
-        inline virtual StringRepr to_string() const override { return "NullMsg"; }
+        virtual AppMsgType get_type() const = 0;
+        virtual StringRepr to_string() const = 0;
+        static void* operator new(size_t);
+        static void* operator new[](size_t);
+        static void operator  delete(void*);
+        static void operator delete[](void*);
 
     protected:
+        AppMsg( Time );
+        AppMsg( Time, AppMsgArgs );
         inline AppMsgArgs get_args() { return _args; }
+    
 
     #ifdef _DEBUG
     private:
@@ -96,9 +87,19 @@ namespace ZeroEngine {
         void print_creation_data();
         void print_deletion_data();
     #endif
-
-
     };
+
+    class NullMsg : public AppMsg {
+    public:
+        static AppMsgType type;
+        inline NullMsg(Time time) : AppMsg(time) {}
+        inline ~NullMsg() {}
+        inline StringRepr to_string() const { return "NullMsg"; }
+        inline AppMsgType get_type() const { return type; }
+    };
+
+
+
 
     // So I can switch to shared_ptr at somepoint
     typedef AppMsg* AppMsgPtr;
@@ -108,14 +109,8 @@ namespace ZeroEngine {
     public:
         static AppMsgType type;
         inline MouseMsg( Time time ) : AppMsg( time ) {}
-
-    /* AppMsg */
-    public:
-        inline AppMsgType get_type() const override { return MOUSE_MSG; }
-
-    /* IZeroObject */
-    public:
-        inline StringRepr to_string() const override { return "MouseMsg"; }
+        inline AppMsgType get_type() const { return type; }
+        inline StringRepr to_string() const { return "MouseMsg"; }
     };
 
 
@@ -124,16 +119,7 @@ namespace ZeroEngine {
     public:
         static AppMsgType type;
         inline QuitMsg( Time time ) : AppMsg( time ) {}
-
-    /* AppMsg */
-    public:
-        inline AppMsgType get_type() const override { return QUIT_MSG; }
-
-    /* IZeroObject */
-    public:
-        inline StringRepr to_string() const override { return "QuitMsg"; }
+        inline AppMsgType get_type() const { return type; }
+        inline StringRepr to_string() const { return "QuitMsg"; }
     };
-
-
-
 }

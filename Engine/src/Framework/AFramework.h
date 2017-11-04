@@ -1,6 +1,10 @@
 #pragma once
 
 #include "../ZeroEngineStd.h"
+#include "../Graphics/Point.h"
+#include "../AppMsg.h"
+#include "../AppMsgFactory.h"
+#include "../Time.h"
 
 namespace ZeroEngine {
 
@@ -11,7 +15,7 @@ namespace ZeroEngine {
     public:
         virtual ~AFramework();
         virtual IRenderer* create_renderer() = 0;
-        virtual IWindow* create_window() = 0;
+        virtual IWindow* create_window(std::string title, Point<long> size) = 0;
         virtual bool initialize() = 0;
         virtual bool shutdown() = 0;
         virtual StringRepr to_string() const = 0;
@@ -26,10 +30,12 @@ namespace ZeroEngine {
         AFramework();
         //inline AFramework(): _current_message( new AppMsg( 0 ) ) {}
         virtual bool get_app_msg() = 0;
-        virtual void frame_begin( Time delta_time ) = 0;
-        virtual void frame_render( Time delta_time ) = 0;
-        inline virtual void frame_end( Time delta_time ) {}
+        virtual void frame_begin(Time delta_time) = 0;
+        virtual void frame_render(Time delta_time) = 0;
+        inline virtual void frame_end(Time delta_time) {}
         AppMsg* _current_message;
+        AppMsgFactory* _message_factory;
+        bool _is_running;
 
     //private:
     // TEMPORARY: I want these private I think

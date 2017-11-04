@@ -25,10 +25,13 @@ namespace ZeroEngine {
     public:
         MemoryPool();
         ~MemoryPool();
-        bool initialize( unsigned int chunk_size, unsigned int chunk_amount );
+        bool initialize(unsigned int chunk_size, 
+                        unsigned int chunk_amount,
+                        const char* name="MemoryPool"
+        );
         void destroy();
         void* allocate();
-        void free( void* memory );
+        void free_memory( void* memory );
         inline unsigned int get_chunk_size() const { return _chunk_size; }
         inline void set_all_resize( bool allow ) { _allow_resize = allow; }
 

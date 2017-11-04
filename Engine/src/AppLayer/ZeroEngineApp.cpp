@@ -33,9 +33,6 @@ namespace ZeroEngine {
     /* Public */
 
     ZeroEngineApp::~ZeroEngineApp() {
-        if ( ZeroEngineApp::_app ) {
-            delete ZeroEngineApp::_app;
-        }
     }
 
     bool ZeroEngineApp::is_running() const {

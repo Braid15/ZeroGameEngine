@@ -191,10 +191,12 @@
     <ClInclude Include="src\AppLayer\GameOptions.h" />
     <ClInclude Include="src\AppLayer\ZeroEngineApp.h" />
     <ClInclude Include="src\AppMsg.h" />
+    <ClInclude Include="src\AppMsgFactory.h" />
     <ClInclude Include="src\Framework\Framework.h" />
     <ClInclude Include="src\Framework\AFramework.h" />
     <ClInclude Include="src\Framework\IRenderer.h" />
     <ClInclude Include="src\Framework\IWindow.h" />
+    <ClInclude Include="src\Framework\SdlFramework.h" />
     <ClInclude Include="src\Graphics\Graphics.h" />
     <ClInclude Include="src\Graphics\Point.h" />
     <ClInclude Include="src\Graphics\Rect.h" />
@@ -207,20 +209,20 @@
     <ClInclude Include="src\Utils\MemoryPool.h" />
     <ClInclude Include="src\ZeroEngine.h" />
     <ClInclude Include="src\ZeroEngineStd.h" />
-    <ClInclude Include="test\IFrameworkTesting.h" />
     <ClInclude Include="test\TestApp.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\AppLayer\GameOptions.cpp" />
     <ClCompile Include="src\AppLayer\ZeroEngineApp.cpp" />
     <ClCompile Include="src\AppMsg.cpp" />
+    <ClCompile Include="src\AppMsgFactory.cpp" />
     <ClCompile Include="src\Framework\AFramework.cpp" />
+    <ClCompile Include="src\Framework\SdlFramework.cpp" />
     <ClCompile Include="src\Graphics\Point.cpp" />
     <ClCompile Include="src\Graphics\Rect.cpp" />
     <ClCompile Include="src\Logger\BaseLogger.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Utils\MemoryPool.cpp" />
-    <ClCompile Include="test\IFrameworkTesting.cpp" />
     <ClCompile Include="test\TestApp.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
