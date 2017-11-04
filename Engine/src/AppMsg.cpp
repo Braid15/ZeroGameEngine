@@ -6,6 +6,7 @@ namespace ZeroEngine {
     AppMsgType QuitMsg::type = QUIT_MSG;
     AppMsgType NullMsg::type = NULL_MSG;
     AppMsgArgs AppMsgArgs::empty = EmptyMsgArgs();
+    MemoryPool* AppMsg::_memory_pool;
 
     AppMsg::AppMsg( Time time ) {
         _creation_time = time;
