@@ -44,22 +44,22 @@ namespace ZeroEngine {
         return true;
     }
 
-    bool SdlFramework::get_app_msg() {
-        AppMsgPtr msg = nullptr;
+    bool SdlFramework::dispatch_message() {
+        static AppMsgType msg_type = NULL_MSG; 
         while (SDL_PollEvent(&_event) != 0) {
             switch (_event.type) {
                 case SDL_QUIT:
-                    msg = _message_factory->create_message(QUIT_MSG);
+                    msg_type = QUIT_MSG;
                     _is_running = false;
                     break;
                 case SDL_MOUSEBUTTONDOWN:
                 case SDL_MOUSEBUTTONUP:
                 case SDL_MOUSEMOTION:
                 case SDL_MOUSEWHEEL:
-                    msg = _message_factory->create_message(MOUSE_MSG);
+                    msg_type = MOUSE_MSG;
                     break;
             }
-            _app_msg_callback(*msg);
+            _app_msg_callback(*_message_factory->create_message(msg_type));
         }
         return true;
     }

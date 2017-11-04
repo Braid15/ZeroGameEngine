@@ -3,38 +3,30 @@
 namespace ZeroEngine {
 
     AppMsgFactory::AppMsgFactory() {
-        _current_message = nullptr;
-        _memory_pool = zero_new MemoryPool();
-        _memory_pool->initialize(sizeof(AppMsg), 1, "AppMsgFactory");
+        AppMsg::init_memory_pool();
+        _current_message = new NullMsg(0);
     }
 
     AppMsgFactory::~AppMsgFactory() {
-        free_current_message();
-        zero_delete(_memory_pool);
+        delete _current_message;
+        _current_message = nullptr;
+        AppMsg::destroy_memory_pool();
     }
 
     AppMsgPtr AppMsgFactory::create_message(AppMsgType msg_type) {
-        free_current_message();
+        delete _current_message;
         switch (msg_type) {
             case QUIT_MSG:
-                _current_message = (QuitMsg*)_memory_pool->allocate();
+                _current_message = new QuitMsg(0);
                 break;
             case MOUSE_MSG:
-                _current_message = (MouseMsg*)_memory_pool->allocate();
+                _current_message = new MouseMsg(0);
                 break;
             case NULL_MSG:
             default:
-                _current_message = (NullMsg*)_memory_pool->allocate();
+                _current_message = new NullMsg(0);
                 break;
         }
-        std::cout << _current_message->to_string() << std::endl;
         return _current_message;
-    }
-
-    void AppMsgFactory::free_current_message() {
-        assert(_memory_pool != nullptr);
-        if (_current_message) {
-            _memory_pool->free_memory(_current_message);
-        }
     }
 }

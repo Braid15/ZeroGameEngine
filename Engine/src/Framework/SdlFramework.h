@@ -27,7 +27,7 @@ namespace ZeroEngine {
         IWindow* create_window(std::string title, Point<long> size);
         bool initialize();
         bool shutdown();
-        bool get_app_msg();
+        bool dispatch_message();
         void frame_begin(Time delta_time);
         void frame_render(Time delta_time);
         inline StringRepr to_string() const {return "SdlFramework";}

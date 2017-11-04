@@ -6,7 +6,7 @@ namespace ZeroEngine {
     AppMsgType QuitMsg::type = QUIT_MSG;
     AppMsgType NullMsg::type = NULL_MSG;
     AppMsgArgs AppMsgArgs::empty = EmptyMsgArgs();
-    MemoryPool* AppMsg::_memory_pool;
+    MemoryPool* AppMsg::_memory_pool = nullptr;
 
     AppMsg::AppMsg( Time time ) {
         _creation_time = time;
@@ -30,6 +30,42 @@ namespace ZeroEngine {
         #ifdef _DEBUG
         print_deletion_data();
         #endif
+    }
+
+    void AppMsg::init_memory_pool() {
+        if (_memory_pool == nullptr) {
+            _memory_pool = zero_new MemoryPool();
+            _memory_pool->initialize(sizeof(AppMsg), 1);
+        }
+    }
+
+    void AppMsg::destroy_memory_pool() {
+        if (_memory_pool != nullptr) {
+            _memory_pool->destroy();
+            zero_delete(_memory_pool);
+        }
+    }
+
+    void* AppMsg::operator new(size_t size) {
+        assert(_memory_pool != nullptr);
+        void* memory = _memory_pool->allocate();
+        return memory;
+    }
+
+    void AppMsg::operator delete(void* ptr) {
+        assert(_memory_pool != nullptr);
+        _memory_pool->free_memory(ptr);
+    }
+
+    void AppMsg::operator delete[](void* ptr) {
+        assert(_memory_pool != nullptr);
+        _memory_pool->free_memory(ptr);
+    }
+
+    void* AppMsg::operator new[](size_t size) {
+        assert(_memory_pool != nullptr);
+        void* memory = _memory_pool->allocate();
+        return memory;
     }
 
 

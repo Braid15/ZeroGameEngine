@@ -29,11 +29,10 @@ namespace ZeroEngine {
     protected:
         AFramework();
         //inline AFramework(): _current_message( new AppMsg( 0 ) ) {}
-        virtual bool get_app_msg() = 0;
+        virtual bool dispatch_message() = 0;
         virtual void frame_begin(Time delta_time) = 0;
         virtual void frame_render(Time delta_time) = 0;
         inline virtual void frame_end(Time delta_time) {}
-        AppMsg* _current_message;
         AppMsgFactory* _message_factory;
         bool _is_running;
 

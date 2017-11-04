@@ -43,7 +43,7 @@ namespace ZeroEngine {
         static AppMsgArgs empty;
         inline virtual ~AppMsgArgs() {}
 
-    /* IZeroObject */
+    /* IZeroObject */;
     public:
         inline AppMsgArgs() {}
         inline virtual StringRepr to_string() const { return "AppMsgArgs"; }
@@ -72,9 +72,11 @@ namespace ZeroEngine {
         virtual StringRepr to_string() const = 0;
         static void* operator new(size_t);
         static void* operator new[](size_t);
-        static void operator  delete(void*);
+        static void operator delete(void*);
         static void operator delete[](void*);
-
+        static void init_memory_pool();
+        static void destroy_memory_pool();
+    
     protected:
         AppMsg( Time );
         AppMsg( Time, AppMsgArgs );
