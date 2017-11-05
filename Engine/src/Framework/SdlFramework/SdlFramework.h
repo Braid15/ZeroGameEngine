@@ -28,11 +28,11 @@ namespace ZeroEngine {
     public:
         IRenderer* create_renderer();
         IWindow* create_window(std::string title, Point<long> size);
-        bool initialize();
-        bool shutdown();
-        bool dispatch_message();
-        void frame_begin(Time delta_time);
-        void frame_render(Time delta_time);
+        bool on_init();
+        bool on_shutdown();
+        void poll_message();
+        Time get_current_time() const;
+        void frame_render_present(Time delta_time);
         inline StringRepr to_string() const { return "SdlFramework"; }
     };
 }

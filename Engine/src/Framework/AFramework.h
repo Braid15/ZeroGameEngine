@@ -18,12 +18,11 @@ namespace ZeroEngine {
         virtual ~AFramework();
         virtual IRenderer* create_renderer() = 0;
         virtual IWindow* create_window(std::string title, Point<long> size) = 0;
-        virtual bool initialize() = 0;
-        virtual bool shutdown() = 0;
+        bool initialize();
+        bool shutdown();
         virtual StringRepr to_string() const = 0;
+        virtual Time get_current_time() const = 0;
         inline virtual FrameworkMessageId get_current_message() const { return _current_message; }
-
-    public:
         virtual void main_loop();
         inline void set_update_callback( void (*callback)(Time) ) { _update_callback = callback; }
         inline void set_render_callback( void (*callback)(Time) ) { _render_callback = callback; }
@@ -32,13 +31,19 @@ namespace ZeroEngine {
     protected:
         AFramework();
         //inline AFramework(): _current_message( new AppMsg( 0 ) ) {}
-        virtual bool dispatch_message() = 0;
-        virtual void frame_begin(Time delta_time) = 0;
-        virtual void frame_render(Time delta_time) = 0;
-        inline virtual void frame_end(Time delta_time) {}
+        void set_app_msg_translator(IMessageTranslator*);
+        virtual void poll_message() = 0;
+        void dispatch_message(FrameworkMessageId);
+        inline virtual void frame_render_begin(Time delta_time) {}
+        virtual void frame_render_present(Time delta_time) = 0;
+        inline virtual void frame_render_end(Time delta_time) {}
+        virtual bool on_init() = 0;
+        virtual bool on_shutdown() = 0;
+
+    private:
+        bool _is_running;
         AppMsgFactory* _message_factory;
         IMessageTranslator* _message_translator;
-        bool _is_running;
         FrameworkMessageId _current_message;
 
     //private:

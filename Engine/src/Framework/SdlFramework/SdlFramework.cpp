@@ -2,9 +2,7 @@
 
 namespace ZeroEngine {
 
-    bool SdlFramework::initialize() {
-        _message_translator = zero_new SdlMessageTranslator();
-
+    bool SdlFramework::on_init() {
         bool success = true;
         if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
             std::cout << "SDL_Error: " << SDL_GetError() << std::endl;
@@ -31,10 +29,12 @@ namespace ZeroEngine {
             std::cout << "SDL Linear texture filtering not enabled" << std::endl;
         }
 
+        set_app_msg_translator(zero_new SdlMessageTranslator());
+
         return success;
     }
 
-    bool SdlFramework::shutdown() {
+    bool SdlFramework::on_shutdown() {
         SDL_DestroyRenderer(_renderer);
         SDL_DestroyWindow(_window);
         _renderer = nullptr;
@@ -46,27 +46,28 @@ namespace ZeroEngine {
         return true;
     }
 
-    bool SdlFramework::dispatch_message() {
+    void SdlFramework::poll_message() {
         while (SDL_PollEvent(&_event) != 0) {
-            // TEMP
-            _is_running = _event.type != SDL_QUIT ? true : false;
-            _current_message =  static_cast<FrameworkMessageId>(_event.type);
-            AppMsgType msg_type = _message_translator->translate_message(_current_message);
-            _app_msg_callback(*_message_factory->create_message(msg_type));
+            // @@TODO:
+            // 1) Need way to pass args to message_translator 
+            // 2) fix confusion responsiblilities of derived vs base class
+            // 3) fix confusion between AppMsgType, FrameworkMsgId, AppMsg
+            dispatch_message(static_cast<FrameworkMessageId>(_event.type));
         }
-        return true;
     }
 
-    void SdlFramework::frame_begin(Time delta_time) {
-        _update_callback(delta_time);
-    }
-
-    // @@TODO: Need pre-render and post-render
-    void SdlFramework::frame_render(Time delta_time) {
-        SDL_SetRenderDrawColor(_renderer, 255, 255, 255, 255);
+    void SdlFramework::frame_render_present(Time delta_time) {
+        SDL_SetRenderDrawColor(_renderer, 0, 0, 0, 255);
         SDL_RenderClear(_renderer);
         _render_callback(delta_time);
         SDL_RenderPresent(_renderer);
+    }
+
+    // @@TODO: May change this to protected get_current_framework_time() 
+    // and have AFramework have a public get_current_time() so that I have
+    // more control over the time
+    Time SdlFramework::get_current_time() const {
+        return SDL_GetTicks();
     }
 
     IWindow* SdlFramework::create_window(std::string title, Point<long> size) {
