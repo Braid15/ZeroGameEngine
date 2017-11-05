@@ -3,6 +3,8 @@
 namespace ZeroEngine {
 
     bool SdlFramework::initialize() {
+        _message_translator = zero_new SdlMessageTranslator();
+
         bool success = true;
         if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
             std::cout << "SDL_Error: " << SDL_GetError() << std::endl;
@@ -45,20 +47,11 @@ namespace ZeroEngine {
     }
 
     bool SdlFramework::dispatch_message() {
-        static AppMsgType msg_type = NULL_MSG; 
         while (SDL_PollEvent(&_event) != 0) {
-            switch (_event.type) {
-                case SDL_QUIT:
-                    msg_type = QUIT_MSG;
-                    _is_running = false;
-                    break;
-                case SDL_MOUSEBUTTONDOWN:
-                case SDL_MOUSEBUTTONUP:
-                case SDL_MOUSEMOTION:
-                case SDL_MOUSEWHEEL:
-                    msg_type = MOUSE_MSG;
-                    break;
-            }
+            // TEMP
+            _is_running = _event.type != SDL_QUIT ? true : false;
+            _current_message =  static_cast<FrameworkMessageId>(_event.type);
+            AppMsgType msg_type = _message_translator->translate_message(_current_message);
             _app_msg_callback(*_message_factory->create_message(msg_type));
         }
         return true;
@@ -67,7 +60,7 @@ namespace ZeroEngine {
     void SdlFramework::frame_begin(Time delta_time) {
         _update_callback(delta_time);
     }
-    
+
     // @@TODO: Need pre-render and post-render
     void SdlFramework::frame_render(Time delta_time) {
         SDL_SetRenderDrawColor(_renderer, 255, 255, 255, 255);

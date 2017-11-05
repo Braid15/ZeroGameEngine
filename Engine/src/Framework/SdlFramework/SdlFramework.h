@@ -1,17 +1,20 @@
 #pragma once
 
-#include "../ZeroEngineStd.h"
-#include "AFramework.h"
-#include "../Graphics/Point.h"
-#include "../Time.h"
-#include "../AppMsg.h"
-#include "../3rdParty/SDL/SDL.h"
-#include "../3rdParty/SDL/SDL_syswm.h"
-#include "../3rdParty/SDL/SDL_image.h"
-#include "../3rdParty/SDL/SDL_mixer.h"
-#include "../3rdParty/SDL/SDL_ttf.h"
+#include "../../ZeroEngineStd.h"
+#include "../../Graphics/Point.h"
+#include "../../Time.h"
+#include "../../AppMsg.h"
+#include "../AFramework.h"
+#include "SdlMessageTranslator.h"
+#include "../../3rdParty/SDL/SDL.h"
+#include "../../3rdParty/SDL/SDL_syswm.h"
+#include "../../3rdParty/SDL/SDL_image.h"
+#include "../../3rdParty/SDL/SDL_mixer.h"
+#include "../../3rdParty/SDL/SDL_ttf.h"
 
 namespace ZeroEngine {
+
+    class SdlMessageTranslator;
 
     class SdlFramework : public AFramework {
         SDL_Window* _window;
@@ -30,7 +33,7 @@ namespace ZeroEngine {
         bool dispatch_message();
         void frame_begin(Time delta_time);
         void frame_render(Time delta_time);
-        inline StringRepr to_string() const {return "SdlFramework";}
+        inline StringRepr to_string() const { return "SdlFramework"; }
     };
 }
 

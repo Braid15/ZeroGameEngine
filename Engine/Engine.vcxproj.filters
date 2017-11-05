@@ -25,6 +25,9 @@
     <Filter Include="Source\Utils">
       <UniqueIdentifier>{59746baf-b482-45e3-874a-1f9b2f7f4b26}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Framework\SdlFramework">
+      <UniqueIdentifier>{f6c1e5b8-b4e7-4942-a724-ee85b9b38a15}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ZeroEngine.h">
@@ -90,11 +93,17 @@
     <ClInclude Include="src\AppLayer\AppLayer.h">
       <Filter>Source\AppLayer</Filter>
     </ClInclude>
-    <ClInclude Include="src\Framework\SdlFramework.h">
-      <Filter>Source\Framework</Filter>
-    </ClInclude>
     <ClInclude Include="src\AppMsgFactory.h">
       <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IMessageTranslator.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\SdlFramework\SdlFramework.h">
+      <Filter>Source\Framework\SdlFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\SdlFramework\SdlMessageTranslator.h">
+      <Filter>Source\Framework\SdlFramework</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -128,11 +137,14 @@
     <ClCompile Include="src\AppLayer\GameOptions.cpp">
       <Filter>Source\AppLayer</Filter>
     </ClCompile>
-    <ClCompile Include="src\Framework\SdlFramework.cpp">
-      <Filter>Source\Framework</Filter>
-    </ClCompile>
     <ClCompile Include="src\AppMsgFactory.cpp">
       <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\SdlFramework\SdlFramework.cpp">
+      <Filter>Source\Framework\SdlFramework</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\SdlFramework\SdlMessageTranslator.cpp">
+      <Filter>Source\Framework\SdlFramework</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

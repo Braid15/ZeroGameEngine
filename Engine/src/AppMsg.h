@@ -6,16 +6,23 @@
 
 namespace ZeroEngine {
 
+    typedef uint32_t FrameworkMessageId;
+
       enum AppMsgType {
+        MSG_BEGIN,
         NULL_MSG,
         QUIT_MSG,
+        UNHANDLED_MSG,
         WINDOW_MSG,
         SYSTEM_MSG,
         KEYDOWN_MSG,
         KEYUP_MSG,
         KEYBOARD_MSG,
+        TEXT_EDIT_MSG,
+        TEXT_INPUT_MSG,
+        KEYMAP_CHANGE_MSG,
         MOUSE_MSG,
-        MOUSE_MOVE_MSG,
+        MOUSE_MOTION_MSG,
         MOUSE_BUTTON_DOWN_MSG,
         MOUSE_BUTTON_UP_MSG,
         MOUSE_WHEEL_MSG,
@@ -32,18 +39,27 @@ namespace ZeroEngine {
         CONTROLLER_DEVICE_ADDED_MSG,
         CONTROLLER_DEVICE_REMOVED_MSG,
         CONTROLLER_DEVICE_REMAPPED_MSG,
+        FINGER_DOWN_MSG,
+        FINGER_UP_MSG,
+        FINGER_MOTION_MSG,
+        CLIPBOARD_MSG,
+        DROP_FILE_MSG,
+        DROP_TEXT_MSG,
+        DROP_BEGIN_MSG,
+        DROP_COMPLETE_MSG,
         AUDIO_DEVICE_ADDED_MSG,
         AUDIO_DEVICE_REMOVED_MSG,
+        RENDER_TARGETS_RESET_MSG,
         RENDER_DEVICE_RESET_MSG,
-        RENDER_TARGETS_RESET_MSG
+        MSG_END
     };
 
+    
     class AppMsgArgs : public IZeroObject {
     public:
         static AppMsgArgs empty;
         inline virtual ~AppMsgArgs() {}
 
-    /* IZeroObject */;
     public:
         inline AppMsgArgs() {}
         inline virtual StringRepr to_string() const { return "AppMsgArgs"; }

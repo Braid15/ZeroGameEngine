@@ -4,12 +4,14 @@
 #include "../Graphics/Point.h"
 #include "../AppMsg.h"
 #include "../AppMsgFactory.h"
+#include "../IMessageTranslator.h"
 #include "../Time.h"
 
 namespace ZeroEngine {
 
     class IRenderer;
     class IWindow;
+    class IMessageTranslator;
 
     class AFramework : public IZeroObject {
     public:
@@ -19,6 +21,7 @@ namespace ZeroEngine {
         virtual bool initialize() = 0;
         virtual bool shutdown() = 0;
         virtual StringRepr to_string() const = 0;
+        inline virtual FrameworkMessageId get_current_message() const { return _current_message; }
 
     public:
         virtual void main_loop();
@@ -34,7 +37,9 @@ namespace ZeroEngine {
         virtual void frame_render(Time delta_time) = 0;
         inline virtual void frame_end(Time delta_time) {}
         AppMsgFactory* _message_factory;
+        IMessageTranslator* _message_translator;
         bool _is_running;
+        FrameworkMessageId _current_message;
 
     //private:
     // TEMPORARY: I want these private I think
