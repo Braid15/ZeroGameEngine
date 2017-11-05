@@ -1,5 +1,1 @@
-10/22/2017 - 
-	- AppMsg should be a struct instead of a class
-	- Maybe I should use an object pool instead and just reset the args on new creations
-	- Or have each derived class carry an instance of itself
-
+- Working on abstraction layer between AFramework and Derived classes. Trying to keep most of the work in AFramework.
