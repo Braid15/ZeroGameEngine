@@ -41,7 +41,6 @@ namespace ZeroEngine {
 
     void AppMsg::destroy_memory_pool() {
         if (_memory_pool != nullptr) {
-            _memory_pool->destroy();
             zero_delete(_memory_pool);
         }
     }
