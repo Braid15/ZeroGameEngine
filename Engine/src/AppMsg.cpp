@@ -2,12 +2,9 @@
 
 namespace ZeroEngine {
 
-    // @@TODO: MsgArgs takes in Time. Make class so I can call Time::zero or something
     // @@TODO: MsgArgs in own file
-    AppMsgArgs* AppMsgArgs::empty = zero_new EmptyMsgArgs(0);
 
     AppMsgArgs::~AppMsgArgs() {
-        zero_delete(empty);
     }
 
     MemoryPool* AppMsg::_memory_pool = nullptr;

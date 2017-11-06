@@ -69,7 +69,6 @@ namespace ZeroEngine {
     private:
         Time _creation_time;
     public:
-        static AppMsgArgs* empty;
         virtual ~AppMsgArgs();
     public:
         inline virtual StringRepr to_string() const = 0;

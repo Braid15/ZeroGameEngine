@@ -41,7 +41,9 @@ namespace ZeroEngine {
             iter = _creation_map->find(NullMsg::type);
         }
         app_msg_creation_delegate delegate = iter->second;
-        return delegate(AppMsgArgs::empty);
+        // TOOD:
+        // MsgArgs takes in time. Make Time class so I can call Time::zero or something
+        return delegate(zero_new EmptyMsgArgs(0));
     }
 
     void AppMsgFactory::register_app_messages() {
