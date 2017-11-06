@@ -2,11 +2,31 @@
 
 namespace ZeroEngine {
 
-    AppMsgType MouseMsg::type = MOUSE_MSG;
-    AppMsgType QuitMsg::type = QUIT_MSG;
-    AppMsgType NullMsg::type = NULL_MSG;
     AppMsgArgs AppMsgArgs::empty = EmptyMsgArgs();
+
     MemoryPool* AppMsg::_memory_pool = nullptr;
+
+
+    AppMsgType MouseMsg::type = MOUSE_MSG;
+    AppMsgPtr MouseMsg::create(AppMsgArgs args) {
+        return new MouseMsg(0);
+    }
+
+    AppMsgType QuitMsg::type = QUIT_MSG;
+    AppMsgPtr QuitMsg::create(AppMsgArgs args) {
+        return new QuitMsg(0);
+    }
+
+    AppMsgType NullMsg::type = NULL_MSG;
+    AppMsgPtr NullMsg::create(AppMsgArgs args) {
+        return new NullMsg(0);
+    }
+
+    AppMsgType UnhandledMsg::type = UNHANDLED_MSG;
+    AppMsgPtr UnhandledMsg::create(AppMsgArgs args) {
+        return new UnhandledMsg(0);
+    }
+
 
     AppMsg::AppMsg( Time time ) {
         _creation_time = time;
