@@ -4,6 +4,13 @@
 #include "Time.h"
 #include "Utils\MemoryPool.h"
 
+// @@TODO: AppMsg args should only take in AppMsgArgs in ctor
+// @@TODO: AppMsg needs to take on the responsibliy of deleting instances
+// insteade of AppMsgFactory and AppMsg needs to make it so only AppMsgFactory can
+// create instances.
+// @@TODO: Copyctors for AppMsg
+// @@TODO: Seperate file for AppMsgArgs
+
 namespace ZeroEngine {
 
     typedef uint32_t FrameworkMessageId;
@@ -54,26 +61,53 @@ namespace ZeroEngine {
         MSG_END
     };
 
-    
-    class AppMsgArgs : public IZeroObject {
-    public:
-        static AppMsgArgs empty;
-        inline virtual ~AppMsgArgs() {}
+    // 
+    // AppMsgArgs
+    // 
 
+    class AppMsgArgs {
+    private:
+        Time _creation_time;
     public:
-        inline AppMsgArgs() {}
-        inline virtual StringRepr to_string() const { return "AppMsgArgs"; }
-
+        static AppMsgArgs* empty;
+        virtual ~AppMsgArgs();
+    public:
+        inline virtual StringRepr to_string() const = 0;
+        inline Time get_creation_time() const { return _creation_time; }
+    protected:
+        inline AppMsgArgs(Time time) : _creation_time(time) {}
     };
 
     class EmptyMsgArgs : public AppMsgArgs {
     public:
-        inline EmptyMsgArgs() : AppMsgArgs() {}
+        inline EmptyMsgArgs(Time time) : AppMsgArgs(time) {}
         inline ~EmptyMsgArgs() {}
-        inline StringRepr to_string() const override { return "EmptyMsgArgs"; }
+        inline StringRepr to_string() const { return "EmptyMsgArgs"; }
     };
 
+    class MouseMsgArgs : public AppMsgArgs {
+    public:
+        inline MouseMsgArgs(Time create_time) : AppMsgArgs(create_time) {}
+        inline StringRepr to_string() const { return "MouseMsgArgs"; }
+    };
+
+    class WindowMsgArgs : public AppMsgArgs {
+    public:
+        inline WindowMsgArgs(Time create_time) : AppMsgArgs(create_time) {}
+        inline StringRepr to_string() const { return "WindowMsgArgs"; }
+    };
+
+
+
+    // 
+    // AppMsg classes
+    //
+
     class MemoryPool;
+
+    // @@TODO:
+    // So I can switch to shared_ptr at somepoint
+    typedef AppMsgArgs* AppMsgArgsPtr;
 
     // NOTE: AppMsg objects don't call zero_new or zero_delete.
     // Thier new and delete operators are overload to use a memory pool
@@ -81,37 +115,32 @@ namespace ZeroEngine {
     class AppMsg : public IZeroObject {
     private:
         static MemoryPool* _memory_pool;
-        AppMsgArgs _args;
-        Time _creation_time;
+        AppMsgArgsPtr _args;
+#ifdef _DEBUG
+        static int _allocations;
+        void print_creation_data();
+        void print_deletion_data();
+#endif
     public:
-        inline Time get_creation_time() { return _creation_time; }
         virtual AppMsgType get_type() const = 0;
         virtual StringRepr to_string() const = 0;
-        bool can_create(AppMsgType type) const { return type == get_type(); }
+        inline Time get_creation_time() { return _args->get_creation_time(); }
     protected:
-        friend class AppMsgFactory;
-        AppMsg( Time );
-        AppMsg( Time, AppMsgArgs );
+        AppMsg(AppMsgArgsPtr);
         virtual ~AppMsg();
-        inline AppMsgArgs get_args() { return _args; }
-        inline void set_args(AppMsgArgs args) { _args = args; }
+        inline AppMsgArgs& get_args() { return *_args; }
+        inline void set_args(AppMsgArgsPtr args) { _args = args; }
         static void* operator new(size_t);
         static void* operator new[](size_t);
         static void operator delete(void*);
         static void operator delete[](void*);
         static void init_memory_pool();
         static void destroy_memory_pool();
-
-    #ifdef _DEBUG
-    private:
-        static int _allocations;
-        void print_creation_data();
-        void print_deletion_data();
-    #endif
+        friend class AppMsgFactory;
     };
 
 
-    // TEMP:
+    // @@TODO:
     // So I can switch to shared_ptr at somepoint
     typedef AppMsg* AppMsgPtr;
 
@@ -121,34 +150,34 @@ namespace ZeroEngine {
         static AppMsgType type;
         inline StringRepr to_string() const { return "NullMsg"; }
         inline AppMsgType get_type() const { return type; }
-        static AppMsgPtr create(AppMsgArgs args);
+        static AppMsgPtr create(AppMsgArgsPtr args);
     protected:
-        inline NullMsg(Time time) : AppMsg(time) {}
+        inline NullMsg(AppMsgArgsPtr args) : AppMsg(args) {}
         inline ~NullMsg() {}
     };
 
 
     class MouseMsg : public AppMsg {
+    private:
+        MouseMsgArgs* _mouse_args;
     public:
         static AppMsgType type;
         inline AppMsgType get_type() const { return type; }
         inline StringRepr to_string() const { return "MouseMsg"; }
-        static AppMsgPtr create(AppMsgArgs args);
+        static AppMsgPtr create(AppMsgArgsPtr args);
     protected:
-        inline MouseMsg( Time time ) : AppMsg( time ) {}
+        MouseMsg(AppMsgArgsPtr args);
         inline ~MouseMsg() {}
     };
-
-
 
     class QuitMsg : public AppMsg {
     public:
         static AppMsgType type;
         inline AppMsgType get_type() const { return type; }
         inline StringRepr to_string() const { return "QuitMsg"; }
-        static AppMsgPtr create(AppMsgArgs args);
+        static AppMsgPtr create(AppMsgArgsPtr args);
     protected:
-        inline QuitMsg( Time time ) : AppMsg( time ) {}
+        inline QuitMsg(AppMsgArgsPtr args) : AppMsg(args) {}
         inline ~QuitMsg() {}
     };
 
@@ -157,12 +186,27 @@ namespace ZeroEngine {
         static AppMsgType type;
         inline AppMsgType get_type() const { return type; }
         inline StringRepr to_string() const { return "UnhandledMsg"; }
-        static AppMsgPtr create(AppMsgArgs arg);
+        static AppMsgPtr create(AppMsgArgsPtr arg);
     protected:
-        inline UnhandledMsg(Time time) : AppMsg(time) {}
+        inline UnhandledMsg(AppMsgArgsPtr args) : AppMsg(args) {}
         inline ~UnhandledMsg() {}
 
     };
+
+    class WindowMsg : public AppMsg {
+    private:
+        WindowMsgArgs* _window_msg_args;
+    public:
+        static AppMsgType type;
+        inline AppMsgType get_type() const { return type; }
+        inline StringRepr to_string() const { return "WindowMsg"; }
+        static AppMsgPtr create(AppMsgArgsPtr args);
+    protected:
+        WindowMsg(AppMsgArgsPtr args);
+        inline ~WindowMsg() {}
+    };
+
+
 
 
 }

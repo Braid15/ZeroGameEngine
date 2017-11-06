@@ -24,7 +24,7 @@ namespace ZeroEngine {
         return _current_message;
     }
 
-    AppMsgPtr AppMsgFactory::create_message(AppMsgType msg_type, AppMsgArgs args) {
+    AppMsgPtr AppMsgFactory::create_message(AppMsgType msg_type, AppMsgArgsPtr args) {
         create_message(msg_type);
         _current_message->set_args(args);
         return _current_message;

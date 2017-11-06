@@ -2,51 +2,28 @@
 
 namespace ZeroEngine {
 
-    AppMsgArgs AppMsgArgs::empty = EmptyMsgArgs();
+    // @@TODO: MsgArgs takes in Time. Make class so I can call Time::zero or something
+    // @@TODO: MsgArgs in own file
+    AppMsgArgs* AppMsgArgs::empty = zero_new EmptyMsgArgs(0);
+
+    AppMsgArgs::~AppMsgArgs() {
+        zero_delete(empty);
+    }
 
     MemoryPool* AppMsg::_memory_pool = nullptr;
+    #ifdef _DEBUG
+    int AppMsg::_allocations = 0;
+    #endif
 
-
-    AppMsgType MouseMsg::type = MOUSE_MSG;
-    AppMsgPtr MouseMsg::create(AppMsgArgs args) {
-        return new MouseMsg(0);
-    }
-
-    AppMsgType QuitMsg::type = QUIT_MSG;
-    AppMsgPtr QuitMsg::create(AppMsgArgs args) {
-        return new QuitMsg(0);
-    }
-
-    AppMsgType NullMsg::type = NULL_MSG;
-    AppMsgPtr NullMsg::create(AppMsgArgs args) {
-        return new NullMsg(0);
-    }
-
-    AppMsgType UnhandledMsg::type = UNHANDLED_MSG;
-    AppMsgPtr UnhandledMsg::create(AppMsgArgs args) {
-        return new UnhandledMsg(0);
-    }
-
-
-    AppMsg::AppMsg( Time time ) {
-        _creation_time = time;
-        _args = AppMsgArgs::empty; 
-
-        #ifdef _DEBUG
-        print_creation_data();
-        #endif
-    }
-
-    AppMsg::AppMsg( Time time, AppMsgArgs args ) {
-        _creation_time = time;
+    AppMsg::AppMsg(AppMsgArgsPtr args) {
         _args = args;
-
         #ifdef _DEBUG
         print_creation_data();
         #endif
     }
 
     AppMsg::~AppMsg() {
+        zero_delete(_args);
         #ifdef _DEBUG
         print_deletion_data();
         #endif
@@ -87,10 +64,7 @@ namespace ZeroEngine {
         return memory;
     }
 
-
     #ifdef _DEBUG
-    int AppMsg::_allocations = 0;
-
     void AppMsg::print_creation_data() {
         std::cout << "AppMsg created: " << ++_allocations << " : " << this << "\n";
     }
@@ -99,4 +73,41 @@ namespace ZeroEngine {
         std::cout << "AppMsg deleted: " << --_allocations << " : " << this << "\n";
     }
     #endif
+
+
+
+    AppMsgType NullMsg::type = NULL_MSG;
+    AppMsgPtr NullMsg::create(AppMsgArgsPtr args) {
+        return new NullMsg(args);
+    }
+
+
+    AppMsgType MouseMsg::type = MOUSE_MSG;
+    AppMsgPtr MouseMsg::create(AppMsgArgsPtr args) {
+        return new MouseMsg(args);
+    }
+
+    MouseMsg::MouseMsg(AppMsgArgsPtr args) : AppMsg(args) {
+        _mouse_args = dynamic_cast<MouseMsgArgs*>(args);
+    }
+
+    AppMsgType QuitMsg::type = QUIT_MSG;
+    AppMsgPtr QuitMsg::create(AppMsgArgsPtr args) {
+        return new QuitMsg(args);
+    }
+
+
+    AppMsgType UnhandledMsg::type = UNHANDLED_MSG;
+    AppMsgPtr UnhandledMsg::create(AppMsgArgsPtr args) {
+        return new UnhandledMsg(args);
+    }
+
+    AppMsgType WindowMsg::type = WINDOW_MSG;
+    AppMsgPtr WindowMsg::create(AppMsgArgsPtr args) {
+        return new WindowMsg(args);
+    }
+
+    WindowMsg::WindowMsg(AppMsgArgsPtr args) : AppMsg(args) {
+        _window_msg_args = dynamic_cast<WindowMsgArgs*>(args);
+    }
 }

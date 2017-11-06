@@ -5,7 +5,7 @@
 
 namespace ZeroEngine {
 
-    typedef AppMsgPtr (*app_msg_creation_delegate)(AppMsgArgs);
+    typedef AppMsgPtr (*app_msg_creation_delegate)(AppMsgArgsPtr);
 
     class AppMsgFactory {
     private:
@@ -15,7 +15,7 @@ namespace ZeroEngine {
         AppMsgFactory();
         virtual ~AppMsgFactory();
         AppMsgPtr create_message(AppMsgType);
-        AppMsgPtr create_message(AppMsgType, AppMsgArgs);
+        AppMsgPtr create_message(AppMsgType, AppMsgArgsPtr);
     private:
         inline AppMsgFactory(const AppMsgFactory&) {}
         void register_app_messages();
