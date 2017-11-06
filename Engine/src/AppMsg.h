@@ -4,12 +4,15 @@
 #include "Time.h"
 #include "Utils\MemoryPool.h"
 
-// @@TODO: AppMsg args should only take in AppMsgArgs in ctor
 // @@TODO: AppMsg needs to take on the responsibliy of deleting instances
 // insteade of AppMsgFactory and AppMsg needs to make it so only AppMsgFactory can
 // create instances.
 // @@TODO: Copyctors for AppMsg
 // @@TODO: Seperate file for AppMsgArgs
+
+// !!!
+// @@TODO: AppMsgArgs should be using memory pool
+
 
 namespace ZeroEngine {
 
@@ -28,7 +31,6 @@ namespace ZeroEngine {
         TEXT_EDIT_MSG,
         TEXT_INPUT_MSG,
         KEYMAP_CHANGE_MSG,
-        MOUSE_MSG,
         MOUSE_MOTION_MSG,
         MOUSE_BUTTON_DOWN_MSG,
         MOUSE_BUTTON_UP_MSG,
@@ -84,9 +86,9 @@ namespace ZeroEngine {
         inline StringRepr to_string() const { return "EmptyMsgArgs"; }
     };
 
-    class MouseMsgArgs : public AppMsgArgs {
+    class MouseMotionMsgArgs : public AppMsgArgs {
     public:
-        inline MouseMsgArgs(Time create_time) : AppMsgArgs(create_time) {}
+        inline MouseMotionMsgArgs(Time create_time) : AppMsgArgs(create_time) {}
         inline StringRepr to_string() const { return "MouseMsgArgs"; }
     };
 
@@ -156,17 +158,17 @@ namespace ZeroEngine {
     };
 
 
-    class MouseMsg : public AppMsg {
+    class MouseMotionMsg : public AppMsg {
     private:
-        MouseMsgArgs* _mouse_args;
+        MouseMotionMsgArgs* _mouse_args;
     public:
         static AppMsgType type;
         inline AppMsgType get_type() const { return type; }
-        inline StringRepr to_string() const { return "MouseMsg"; }
+        inline StringRepr to_string() const { return "MouseMotionMsg"; }
         static AppMsgPtr create(AppMsgArgsPtr args);
     protected:
-        MouseMsg(AppMsgArgsPtr args);
-        inline ~MouseMsg() {}
+        MouseMotionMsg(AppMsgArgsPtr args);
+        inline ~MouseMotionMsg() {}
     };
 
     class QuitMsg : public AppMsg {

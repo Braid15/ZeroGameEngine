@@ -23,8 +23,8 @@ namespace ZeroEngine {
     protected:
         virtual void register_game_events_() = 0;
 
-    /* static interface */
     public:
+        // @@TODO: THis might cause problems. How will derived class override?
         static bool on_app_msg( AppMsg& msg );
         static void on_update( Time time );
         static void on_render( Time time );

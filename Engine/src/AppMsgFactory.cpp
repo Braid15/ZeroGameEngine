@@ -49,8 +49,9 @@ namespace ZeroEngine {
     void AppMsgFactory::register_app_messages() {
         assert(_creation_map != nullptr);
         _creation_map->insert(std::make_pair(NullMsg::type, NullMsg::create));
-        _creation_map->insert(std::make_pair(MouseMsg::type, MouseMsg::create)); 
+        _creation_map->insert(std::make_pair(MouseMotionMsg::type, MouseMotionMsg::create)); 
         _creation_map->insert(std::make_pair(QuitMsg::type, QuitMsg::create));
         _creation_map->insert(std::make_pair(UnhandledMsg::type, UnhandledMsg::create));
+        _creation_map->insert(std::make_pair(WindowMsg::type, WindowMsg::create));
     }
 }

@@ -29,7 +29,9 @@ namespace ZeroEngine {
     void AppMsg::init_memory_pool() {
         if (_memory_pool == nullptr) {
             _memory_pool = zero_new MemoryPool();
-            _memory_pool->initialize(sizeof(AppMsg), 1);
+            // !! @@TODO: Need to find largest derived and base size off of that
+            // sizeof(AppMsg) causes heap corruption
+            _memory_pool->initialize(64, 1);
         }
     }
 
@@ -79,13 +81,13 @@ namespace ZeroEngine {
     }
 
 
-    AppMsgType MouseMsg::type = MOUSE_MSG;
-    AppMsgPtr MouseMsg::create(AppMsgArgsPtr args) {
-        return new MouseMsg(args);
+    AppMsgType MouseMotionMsg::type = MOUSE_MOTION_MSG;
+    AppMsgPtr MouseMotionMsg::create(AppMsgArgsPtr args) {
+        return new MouseMotionMsg(args);
     }
 
-    MouseMsg::MouseMsg(AppMsgArgsPtr args) : AppMsg(args) {
-        _mouse_args = dynamic_cast<MouseMsgArgs*>(args);
+    MouseMotionMsg::MouseMotionMsg(AppMsgArgsPtr args) : AppMsg(args) {
+        _mouse_args = dynamic_cast<MouseMotionMsgArgs*>(args);
     }
 
     AppMsgType QuitMsg::type = QUIT_MSG;
