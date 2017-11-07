@@ -193,10 +193,9 @@
     <ClInclude Include="src\AppMsg\AppMsg.h" />
     <ClInclude Include="src\AppMsg\AppMsgArgs.h" />
     <ClInclude Include="src\AppMsg\AppMsgFactory.h" />
-    <ClInclude Include="src\AppMsg\AppMsgType.h" />
     <ClInclude Include="src\Framework\IMsgTranslator.h" />
     <ClInclude Include="src\Framework\SdlFramework\SdlFramework.h" />
-    <ClInclude Include="src\Framework\SdlFramework\SdlMessageTranslator.h" />
+    <ClInclude Include="src\Framework\SdlFramework\SdlMsgTranslator.h" />
     <ClInclude Include="src\Framework\Framework.h" />
     <ClInclude Include="src\Framework\AFramework.h" />
     <ClInclude Include="src\Framework\IRenderer.h" />
@@ -223,7 +222,7 @@
     <ClCompile Include="src\AppMsg\AppMsgFactory.cpp" />
     <ClCompile Include="src\Framework\AFramework.cpp" />
     <ClCompile Include="src\Framework\SdlFramework\SdlFramework.cpp" />
-    <ClCompile Include="src\Framework\SdlFramework\SdlMessageTranslator.cpp" />
+    <ClCompile Include="src\Framework\SdlFramework\SdlMsgTranslator.cpp" />
     <ClCompile Include="src\Graphics\Point.cpp" />
     <ClCompile Include="src\Graphics\Rect.cpp" />
     <ClCompile Include="src\Logger\BaseLogger.cpp" />

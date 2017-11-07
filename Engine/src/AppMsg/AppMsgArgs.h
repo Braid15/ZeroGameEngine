@@ -2,7 +2,6 @@
 
 #include "../ZeroEngineStd.h"
 #include "../Time.h"
-#include "AppMsgType.h"
 
 namespace ZeroEngine {
 
@@ -37,6 +36,21 @@ namespace ZeroEngine {
         inline StringRepr to_string() const { return "WindowMsgArgs"; }
     };
 
-    // @@TODO: To switch to shared_ptr
-    typedef AppMsgArgs* AppMsgArgsPtr;
+    class SystemMsgArgs : public AppMsgArgs {
+    public:
+        inline SystemMsgArgs(Time create_time) : AppMsgArgs(create_time) {}
+        inline StringRepr to_string() const { return "SystemMsgArgs"; }
+    };
+
+    class KeyDownMsgArgs : public AppMsgArgs {
+    public:
+        inline KeyDownMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline StringRepr to_string() const { return "KeyDownMsgArgs"; }
+    };
+
+    class KeyUpMsgArgs : public AppMsgArgs {
+    public:
+        inline KeyUpMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline StringRepr to_string() const { return "KeyUpMsgArgs"; }
+    };
 }

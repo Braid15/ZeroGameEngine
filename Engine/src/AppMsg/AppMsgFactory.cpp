@@ -6,7 +6,7 @@ namespace ZeroEngine {
         AppMsg::init_memory_pool();
         _creation_map = zero_new std::map<AppMsgType, app_msg_creation_delegate>();
         register_app_messages();
-        _current_message = get_app_message(NullMsg::type);
+        _current_message = get_app_message(AppMsg::null);
     }
 
     AppMsgFactory::~AppMsgFactory() {
@@ -18,27 +18,27 @@ namespace ZeroEngine {
         AppMsg::destroy_memory_pool();
     }
 
-    AppMsgPtr AppMsgFactory::create_message(AppMsgType msg_type) {
+    AppMsg* AppMsgFactory::create_message(AppMsgType msg_type) {
         delete _current_message;
         _current_message = get_app_message(msg_type);
         return _current_message;
     }
 
-    AppMsgPtr AppMsgFactory::create_message(AppMsgType msg_type, AppMsgArgsPtr args) {
+    AppMsg* AppMsgFactory::create_message(AppMsgType msg_type, AppMsgArgs* args) {
         create_message(msg_type);
         _current_message->set_args(args);
         return _current_message;
     }
 
-    AppMsgPtr AppMsgFactory::get_app_message(AppMsgType msg_type) {
+    AppMsg* AppMsgFactory::get_app_message(AppMsgType msg_type) {
         assert(_creation_map != nullptr);
         std::map<AppMsgType, app_msg_creation_delegate>::iterator iter;
         iter = _creation_map->find(msg_type);
         if (iter == _creation_map->end()) {
             std::cout << "ERROR. AppMsgFactory create_message() failed.\n";
             // create NullMsg on error
-            assert( msg_type != NullMsg::type);
-            iter = _creation_map->find(NullMsg::type);
+            assert( msg_type != AppMsg::null);
+            iter = _creation_map->find(AppMsg::null);
         }
         app_msg_creation_delegate delegate = iter->second;
         // TOOD:
@@ -48,10 +48,13 @@ namespace ZeroEngine {
 
     void AppMsgFactory::register_app_messages() {
         assert(_creation_map != nullptr);
-        _creation_map->insert(std::make_pair(NullMsg::type, NullMsg::create));
-        _creation_map->insert(std::make_pair(MouseMotionMsg::type, MouseMotionMsg::create)); 
-        _creation_map->insert(std::make_pair(QuitMsg::type, QuitMsg::create));
-        _creation_map->insert(std::make_pair(UnhandledMsg::type, UnhandledMsg::create));
-        _creation_map->insert(std::make_pair(WindowMsg::type, WindowMsg::create));
+        _creation_map->insert(std::make_pair(AppMsg::null, NullMsg::create));
+        _creation_map->insert(std::make_pair(AppMsg::mouse_motion, MouseMotionMsg::create)); 
+        _creation_map->insert(std::make_pair(AppMsg::quit, QuitMsg::create));
+        _creation_map->insert(std::make_pair(AppMsg::unhandled, UnhandledMsg::create));
+        _creation_map->insert(std::make_pair(AppMsg::window, WindowMsg::create));
+        _creation_map->insert(std::make_pair(AppMsg::system, SystemMsg::create));
+        _creation_map->insert(std::make_pair(AppMsg::keydown, KeyDownMsg::create));
+        _creation_map->insert(std::make_pair(AppMsg::keyup, KeyUpMsg::create));
     }
 }

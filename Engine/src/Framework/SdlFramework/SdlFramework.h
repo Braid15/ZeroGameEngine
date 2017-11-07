@@ -5,12 +5,12 @@
 #include "../../Time.h"
 #include "../../AppMsg/AppMsg.h"
 #include "../AFramework.h"
-#include "SdlMessageTranslator.h"
 #include "../../3rdParty/SDL/SDL.h"
 #include "../../3rdParty/SDL/SDL_syswm.h"
 #include "../../3rdParty/SDL/SDL_image.h"
 #include "../../3rdParty/SDL/SDL_mixer.h"
 #include "../../3rdParty/SDL/SDL_ttf.h"
+#include "SdlMsgTranslator.h"
 
 namespace ZeroEngine {
 
