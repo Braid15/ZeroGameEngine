@@ -3,7 +3,7 @@
 #include "../../ZeroEngineStd.h"
 #include "../../Graphics/Point.h"
 #include "../../Time.h"
-#include "../../AppMsg.h"
+#include "../../AppMsg/AppMsg.h"
 #include "../AFramework.h"
 #include "SdlMessageTranslator.h"
 #include "../../3rdParty/SDL/SDL.h"
@@ -14,7 +14,7 @@
 
 namespace ZeroEngine {
 
-    class SdlMessageTranslator;
+    class SdlMsgTranslator;
 
     class SdlFramework : public AFramework {
         SDL_Window* _window;

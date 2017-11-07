@@ -2,11 +2,6 @@
 
 namespace ZeroEngine {
 
-    // @@TODO: MsgArgs in own file
-
-    AppMsgArgs::~AppMsgArgs() {
-    }
-
     MemoryPool* AppMsg::_memory_pool = nullptr;
     #ifdef _DEBUG
     int AppMsg::_allocations = 0;
@@ -72,7 +67,6 @@ namespace ZeroEngine {
         std::cout << "AppMsg deleted: " << --_allocations << " : " << this << "\n";
     }
     #endif
-
 
 
     AppMsgType NullMsg::type = NULL_MSG;

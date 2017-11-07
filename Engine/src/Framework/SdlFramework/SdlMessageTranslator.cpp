@@ -2,14 +2,14 @@
 
 namespace ZeroEngine {
 
-    AppMsgType SdlMessageTranslator::translate_message(FrameworkMessageId id) {
+    AppMsgType SdlMsgTranslator::translate_message(FrameworkMsgId id) {
         return _translation_map[id];
     }
 
     // TODO: _translation_map can be optimized.
     // The array is initialized to 65543 (0xffff) because
     // of the SDL_Event enum.
-    void SdlMessageTranslator::init_translation_map() {
+    void SdlMsgTranslator::init_translation_map() {
         for (int i = SDL_FIRSTEVENT; i < SDL_LASTEVENT; ++i) {
             _translation_map[i] = NULL_MSG;
         }

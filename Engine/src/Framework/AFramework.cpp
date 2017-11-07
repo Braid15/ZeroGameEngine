@@ -41,7 +41,7 @@ namespace ZeroEngine {
     }
 
 
-    void AFramework::dispatch_message(FrameworkMessageId msg_id) {
+    void AFramework::dispatch_message(FrameworkMsgId msg_id) {
         AppMsgType msg_type = _message_translator->translate_message(msg_id);
         // TEMP
         _is_running = msg_type != QUIT_MSG;
@@ -58,7 +58,7 @@ namespace ZeroEngine {
         return on_shutdown();
     }
 
-    void AFramework::set_app_msg_translator(IMessageTranslator* msg_translator) {
+    void AFramework::set_app_msg_translator(IMsgTranslator* msg_translator) {
         _message_translator = msg_translator;
     }
 }

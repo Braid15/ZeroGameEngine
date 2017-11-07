@@ -29,7 +29,7 @@ namespace ZeroEngine {
             std::cout << "SDL Linear texture filtering not enabled" << std::endl;
         }
 
-        set_app_msg_translator(zero_new SdlMessageTranslator());
+        set_app_msg_translator(zero_new SdlMsgTranslator());
 
         return success;
     }
@@ -52,7 +52,7 @@ namespace ZeroEngine {
             // 1) Need way to pass args to message_translator 
             // 2) fix confusion responsiblilities of derived vs base class
             // 3) fix confusion between AppMsgType, FrameworkMsgId, AppMsg
-            dispatch_message(static_cast<FrameworkMessageId>(_event.type));
+            dispatch_message(static_cast<FrameworkMsgId>(_event.type));
         }
     }
 

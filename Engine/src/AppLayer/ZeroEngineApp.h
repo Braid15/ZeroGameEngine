@@ -2,9 +2,9 @@
 
 #include "../ZeroEngineStd.h"
 #include "../Graphics/Graphics.h"
-#include "GameOptions.h"
 #include "../Time.h"
-#include "../AppMsg.h"
+#include "../AppMsg/AppMsg.h"
+#include "GameOptions.h"
 
 namespace ZeroEngine {
 

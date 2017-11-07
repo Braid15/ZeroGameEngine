@@ -1,17 +1,17 @@
 #pragma once
 
 #include "../ZeroEngineStd.h"
-#include "../Graphics/Point.h"
-#include "../AppMsg.h"
-#include "../AppMsgFactory.h"
-#include "../IMessageTranslator.h"
 #include "../Time.h"
+#include "../Graphics/Point.h"
+#include "../AppMsg/AppMsg.h"
+#include "../AppMsg/AppMsgFactory.h"
+#include "IMsgTranslator.h"
 
 namespace ZeroEngine {
 
     class IRenderer;
     class IWindow;
-    class IMessageTranslator;
+    class IMsgTranslator;
 
     class AFramework : public IZeroObject {
     public:
@@ -22,7 +22,7 @@ namespace ZeroEngine {
         bool shutdown();
         virtual StringRepr to_string() const = 0;
         virtual Time get_current_time() const = 0;
-        inline virtual FrameworkMessageId get_current_message() const { return _current_message; }
+        inline virtual FrameworkMsgId get_current_message() const { return _current_message; }
         virtual void main_loop();
         inline void set_update_callback( void (*callback)(Time) ) { _update_callback = callback; }
         inline void set_render_callback( void (*callback)(Time) ) { _render_callback = callback; }
@@ -31,9 +31,9 @@ namespace ZeroEngine {
     protected:
         AFramework();
         //inline AFramework(): _current_message( new AppMsg( 0 ) ) {}
-        void set_app_msg_translator(IMessageTranslator*);
+        void set_app_msg_translator(IMsgTranslator*);
         virtual void poll_message() = 0;
-        void dispatch_message(FrameworkMessageId);
+        void dispatch_message(FrameworkMsgId);
         inline virtual void frame_render_begin(Time delta_time) {}
         virtual void frame_render_present(Time delta_time) = 0;
         inline virtual void frame_render_end(Time delta_time) {}
@@ -43,8 +43,8 @@ namespace ZeroEngine {
     private:
         bool _is_running;
         AppMsgFactory* _message_factory;
-        IMessageTranslator* _message_translator;
-        FrameworkMessageId _current_message;
+        IMsgTranslator* _message_translator;
+        FrameworkMsgId _current_message;
 
     //private:
     // TEMPORARY: I want these private I think

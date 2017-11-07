@@ -1,11 +1,13 @@
-#pragma once
+#pragma once 
 
-#include "ZeroEngineStd.h"
+#include "../ZeroEngineStd.h"
+#include "AppMsgType.h"
+#include "AppMsgArgs.h"
 #include "AppMsg.h"
 
 namespace ZeroEngine {
 
-    typedef AppMsgPtr (*app_msg_creation_delegate)(AppMsgArgsPtr);
+  typedef AppMsgPtr (*app_msg_creation_delegate)(AppMsgArgsPtr);
 
     class AppMsgFactory {
     private:
