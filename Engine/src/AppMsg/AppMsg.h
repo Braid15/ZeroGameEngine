@@ -30,7 +30,7 @@ namespace ZeroEngine {
     public:
         virtual const AppMsgType get_type() const = 0;
         virtual StringRepr to_string() const = 0;
-        inline Time get_creation_time() { return _args->get_creation_time(); }
+        inline Time get_time_stamp() { return _args->get_creation_time(); }
 
         static const AppMsgType null;
         static const AppMsgType quit;
@@ -99,7 +99,7 @@ namespace ZeroEngine {
 
     class MouseMotionMsg : public AppMsg {
     private:
-        MouseMotionMsgArgs* _mouse_args;
+        MouseMotionMsgArgs* _args;
     public:
         inline const AppMsgType get_type() const { return AppMsg::mouse_motion; }
         inline StringRepr to_string() const { return "MouseMotionMsg"; }
@@ -132,7 +132,7 @@ namespace ZeroEngine {
 
     class WindowMsg : public AppMsg {
     private:
-        WindowMsgArgs* _window_msg_args;
+        WindowMsgArgs* _args;
     public:
         inline const AppMsgType get_type() const { return AppMsg::window; }
         inline StringRepr to_string() const { return "WindowMsg"; }
@@ -144,7 +144,7 @@ namespace ZeroEngine {
 
     class SystemMsg : public AppMsg {
     private:
-        SystemMsgArgs* _system_msg_args;
+        SystemMsgArgs* _args;
     public:
         inline const AppMsgType get_type() const { return AppMsg::system; }
         inline StringRepr to_string() const { return "SystemMsg"; }
@@ -156,7 +156,7 @@ namespace ZeroEngine {
 
     class KeyDownMsg : public AppMsg {
     private:
-        KeyDownMsgArgs* _keydown_msg_args;
+        KeyDownMsgArgs* _args;
     public:
         inline const AppMsgType get_type() const { return AppMsg::keydown; }
         inline StringRepr to_string() const { return "KeyDownMsg"; }
@@ -168,7 +168,7 @@ namespace ZeroEngine {
 
     class KeyUpMsg : public AppMsg {
     private:
-        KeyUpMsgArgs* _key_up_msg_args;
+        KeyUpMsgArgs* _args;
     public:
         inline const AppMsgType get_type() const { return AppMsg::keyup; }
         inline StringRepr to_string() const { return "KeyUpMsg"; }
@@ -176,6 +176,29 @@ namespace ZeroEngine {
     protected:
         KeyUpMsg(AppMsgArgs* args);
         inline ~KeyUpMsg() {}
+    };
 
+    class TextEditMsg : public AppMsg {
+    private:
+        TextEditMsgArgs* _args;
+    public:
+        inline const AppMsgType get_type() const { return AppMsg::text_edit; }
+        inline StringRepr to_string() const { return "TextEditMsg"; }
+        static AppMsg* create(AppMsgArgs* args);
+    protected:
+        TextEditMsg(AppMsgArgs* args);
+        inline ~TextEditMsg() {}
+    };
+
+    class TextInputMsg : public AppMsg {
+    private:
+        TextInputMsgArgs* _args;
+    public:
+        inline const AppMsgType get_type() const { return AppMsg::text_input; }
+        inline StringRepr to_string() const { return "TextInputMsg"; }
+        static AppMsg* create(AppMsgArgs* args);
+    protected:
+        TextInputMsg(AppMsgArgs* args);
+        inline ~TextInputMsg() {}
     };
 }

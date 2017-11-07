@@ -53,4 +53,16 @@ namespace ZeroEngine {
         inline KeyUpMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
         inline StringRepr to_string() const { return "KeyUpMsgArgs"; }
     };
+
+    class TextEditMsgArgs : public AppMsgArgs {
+    public:
+        inline TextEditMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline StringRepr to_string() const { return "TextEditMsgArgs"; }
+    };
+
+    class TextInputMsgArgs : public AppMsgArgs {
+    public:
+        inline TextInputMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline StringRepr to_string() const { return "TextInputMsgArgs"; }
+    };
 }

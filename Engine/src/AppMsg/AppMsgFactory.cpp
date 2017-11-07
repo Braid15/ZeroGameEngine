@@ -56,5 +56,7 @@ namespace ZeroEngine {
         _creation_map->insert(std::make_pair(AppMsg::system, SystemMsg::create));
         _creation_map->insert(std::make_pair(AppMsg::keydown, KeyDownMsg::create));
         _creation_map->insert(std::make_pair(AppMsg::keyup, KeyUpMsg::create));
+        _creation_map->insert(std::make_pair(AppMsg::text_edit, TextEditMsg::create));
+        _creation_map->insert(std::make_pair(AppMsg::text_input, TextInputMsg::create));
     }
 }

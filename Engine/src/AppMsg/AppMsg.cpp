@@ -127,7 +127,7 @@ namespace ZeroEngine {
     }
 
     MouseMotionMsg::MouseMotionMsg(AppMsgArgs* args) : AppMsg(args) {
-        _mouse_args = dynamic_cast<MouseMotionMsgArgs*>(args);
+        _args = dynamic_cast<MouseMotionMsgArgs*>(args);
     }
 
     //
@@ -156,7 +156,7 @@ namespace ZeroEngine {
     }
 
     WindowMsg::WindowMsg(AppMsgArgs* args) : AppMsg(args) {
-        _window_msg_args = dynamic_cast<WindowMsgArgs*>(args);
+        _args = dynamic_cast<WindowMsgArgs*>(args);
     }
 
 
@@ -169,7 +169,7 @@ namespace ZeroEngine {
     }
 
     SystemMsg::SystemMsg(AppMsgArgs* args) : AppMsg(args) {
-        _system_msg_args = dynamic_cast<SystemMsgArgs*>(args);
+        _args = dynamic_cast<SystemMsgArgs*>(args);
     }
 
     //
@@ -181,7 +181,7 @@ namespace ZeroEngine {
     }
 
     KeyDownMsg::KeyDownMsg(AppMsgArgs* args) : AppMsg(args) {
-        _keydown_msg_args = dynamic_cast<KeyDownMsgArgs*>(args);
+        _args = dynamic_cast<KeyDownMsgArgs*>(args);
     }
 
 
@@ -194,8 +194,36 @@ namespace ZeroEngine {
     }
 
     KeyUpMsg::KeyUpMsg(AppMsgArgs* args) : AppMsg(args) {
-        _key_up_msg_args = dynamic_cast<KeyUpMsgArgs*>(args);
+        _args = dynamic_cast<KeyUpMsgArgs*>(args);
     }
+
+
+    //
+    // TextEditMsg
+    //
+
+    AppMsg* TextEditMsg::create(AppMsgArgs* args) {
+        return new TextEditMsg(args);
+    }
+
+    TextEditMsg::TextEditMsg(AppMsgArgs* args) : AppMsg(args) {
+        _args = dynamic_cast<TextEditMsgArgs*>(args);
+    }
+
+    //
+    // TextInputMsg
+    //
+
+    AppMsg* TextInputMsg::create(AppMsgArgs* args) {
+        return new TextInputMsg(args);
+    }
+
+    TextInputMsg::TextInputMsg(AppMsgArgs* args) : AppMsg(args) {
+        _args = dynamic_cast<TextInputMsgArgs*>(args);
+    }
+
+
+
 
 
 }
