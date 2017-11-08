@@ -6,15 +6,16 @@
 
 namespace ZeroEngine {
 
-  typedef AppMsg* (*app_msg_creation_delegate)(AppMsgArgs*);
+  typedef AppMsg* (*app_msg_creation_delegate)(AppMsgAccessKey&, AppMsgArgs*);
 
-    class AppMsgFactory {
+    class AppMsgFactory final {
     private:
         std::map<AppMsgType, app_msg_creation_delegate>* _creation_map;
         AppMsg* _current_message;
+        AppMsgAccessKey _access_key;
     public:
         AppMsgFactory();
-        virtual ~AppMsgFactory();
+        ~AppMsgFactory();
         AppMsg* create_message(AppMsgType);
         AppMsg* create_message(AppMsgType, AppMsgArgs*);
     private:

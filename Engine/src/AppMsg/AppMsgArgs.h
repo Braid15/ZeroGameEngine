@@ -5,6 +5,10 @@
 
 namespace ZeroEngine {
 
+    //
+    // AppMsgArgs
+    //
+
     class AppMsgArgs {
     private:
         Time _creation_time;
@@ -17,6 +21,10 @@ namespace ZeroEngine {
         inline AppMsgArgs(Time time) : _creation_time(time) {}
     };
 
+    //
+    // EmptyMsgArgs
+    //
+
     class EmptyMsgArgs : public AppMsgArgs {
     public:
         inline EmptyMsgArgs(Time time) : AppMsgArgs(time) {}
@@ -24,11 +32,19 @@ namespace ZeroEngine {
         inline StringRepr to_string() const { return "EmptyMsgArgs"; }
     };
 
+    //
+    // MouseMotionMsgArgs
+    //
+
     class MouseMotionMsgArgs : public AppMsgArgs {
     public:
         inline MouseMotionMsgArgs(Time create_time) : AppMsgArgs(create_time) {}
         inline StringRepr to_string() const { return "MouseMsgArgs"; }
     };
+
+    //
+    // WindowMsgArgs
+    //
 
     class WindowMsgArgs : public AppMsgArgs {
     public:
@@ -36,23 +52,29 @@ namespace ZeroEngine {
         inline StringRepr to_string() const { return "WindowMsgArgs"; }
     };
 
+    //
+    // SystemMsgArgs
+    //
+
     class SystemMsgArgs : public AppMsgArgs {
     public:
         inline SystemMsgArgs(Time create_time) : AppMsgArgs(create_time) {}
         inline StringRepr to_string() const { return "SystemMsgArgs"; }
     };
 
-    class KeyDownMsgArgs : public AppMsgArgs {
+    //
+    // KeyboardMsgArgs
+    //
+
+    class KeyboardMsgArgs : public AppMsgArgs {
     public:
-        inline KeyDownMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
-        inline StringRepr to_string() const { return "KeyDownMsgArgs"; }
+        inline KeyboardMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline StringRepr to_string() const { return "KeyboardMsgArgs"; }
     };
 
-    class KeyUpMsgArgs : public AppMsgArgs {
-    public:
-        inline KeyUpMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
-        inline StringRepr to_string() const { return "KeyUpMsgArgs"; }
-    };
+    //
+    // TextEditMsgArgs
+    //
 
     class TextEditMsgArgs : public AppMsgArgs {
     public:
@@ -60,9 +82,64 @@ namespace ZeroEngine {
         inline StringRepr to_string() const { return "TextEditMsgArgs"; }
     };
 
+    //
+    // TextInputMsgArgs
+    //
+
     class TextInputMsgArgs : public AppMsgArgs {
     public:
         inline TextInputMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
         inline StringRepr to_string() const { return "TextInputMsgArgs"; }
+    };
+
+    //
+    // KeyMapChangedMsgArgs
+    //
+
+    class KeyMapChangedMsgArgs : public AppMsgArgs {
+    public:
+        inline KeyMapChangedMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline StringRepr to_string() const { return "KeyMapChangedMsgArgs"; }
+
+    };
+
+    //
+    // MouseButtonMsgArgs
+    //
+
+    class MouseButtonMsgArgs : public AppMsgArgs {
+    public:
+        inline MouseButtonMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline StringRepr to_string() const { return "MouseButtonMsgArgs"; }
+    };
+
+    //
+    // MouseWheelMsgArgs
+    //
+
+    class MouseWheelMsgArgs : public AppMsgArgs {
+    public:
+        inline MouseWheelMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline StringRepr to_string() const { return "MouseWheelMsgArgs"; }
+    };
+
+    //
+    // JoyAxisMotionMsgArgs
+    //
+
+    class JoyAxisMotionMsgArgs : public AppMsgArgs {
+    public:
+        inline JoyAxisMotionMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline StringRepr to_string() const { return "JoyAxisMotionMsgArgs"; }
+    };
+
+    //
+    // JoyBallMotionMsgArgs
+    //
+
+    class JoyBallMotionMsgArgs : public AppMsgArgs {
+    public:
+        inline JoyBallMotionMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline StringRepr to_string() const { return "JoyBallMotionMsgArgs"; }
     };
 }

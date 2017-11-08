@@ -61,7 +61,7 @@ namespace ZeroEngine {
         #endif
     }
 
-    void AppMsg::init_memory_pool() {
+    void AppMsg::init_memory_pool(AppMsgAccessKey& key) {
         if (_memory_pool == nullptr) {
             _memory_pool = zero_new MemoryPool();
             // !! @@TODO: Need to find largest derived and base size off of that
@@ -70,7 +70,7 @@ namespace ZeroEngine {
         }
     }
 
-    void AppMsg::destroy_memory_pool() {
+    void AppMsg::destroy_memory_pool(AppMsgAccessKey& key) {
         if (_memory_pool != nullptr) {
             zero_delete(_memory_pool);
         }
@@ -108,33 +108,19 @@ namespace ZeroEngine {
     }
     #endif
 
-
-
     //
     // NullMsg
     //
 
-    AppMsg* NullMsg::create(AppMsgArgs* args) {
+    AppMsg* NullMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
         return new NullMsg(args);
-    }
-
-    //
-    // MouseMotionMsg
-    //
-
-    AppMsg* MouseMotionMsg::create(AppMsgArgs* args) {
-        return new MouseMotionMsg(args);
-    }
-
-    MouseMotionMsg::MouseMotionMsg(AppMsgArgs* args) : AppMsg(args) {
-        _args = dynamic_cast<MouseMotionMsgArgs*>(args);
     }
 
     //
     // QuitMsg
     //
 
-    AppMsg* QuitMsg::create(AppMsgArgs* args) {
+    AppMsg* QuitMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
         return new QuitMsg(args);
     }
 
@@ -143,7 +129,7 @@ namespace ZeroEngine {
     // UnhandledMsg
     //
 
-    AppMsg* UnhandledMsg::create(AppMsgArgs* args) {
+    AppMsg* UnhandledMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
         return new UnhandledMsg(args);
     }
 
@@ -151,7 +137,7 @@ namespace ZeroEngine {
     // WindowMsg
     //
 
-    AppMsg* WindowMsg::create(AppMsgArgs* args) {
+    AppMsg* WindowMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
         return new WindowMsg(args);
     }
 
@@ -164,7 +150,7 @@ namespace ZeroEngine {
     // SystemMsg
     //
 
-    AppMsg* SystemMsg::create(AppMsgArgs* args) {
+    AppMsg* SystemMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
         return new SystemMsg(args);
     }
 
@@ -176,12 +162,12 @@ namespace ZeroEngine {
     // KeyDownMsg
     //
 
-    AppMsg* KeyDownMsg::create(AppMsgArgs* args) {
+    AppMsg* KeyDownMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
         return new KeyDownMsg(args);
     }
 
     KeyDownMsg::KeyDownMsg(AppMsgArgs* args) : AppMsg(args) {
-        _args = dynamic_cast<KeyDownMsgArgs*>(args);
+        _args = dynamic_cast<KeyboardMsgArgs*>(args);
     }
 
 
@@ -189,12 +175,12 @@ namespace ZeroEngine {
     // KeyUpMsg
     //
 
-    AppMsg* KeyUpMsg::create(AppMsgArgs* args) {
+    AppMsg* KeyUpMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
         return new KeyUpMsg(args);
     }
 
     KeyUpMsg::KeyUpMsg(AppMsgArgs* args) : AppMsg(args) {
-        _args = dynamic_cast<KeyUpMsgArgs*>(args);
+        _args = dynamic_cast<KeyboardMsgArgs*>(args);
     }
 
 
@@ -202,7 +188,7 @@ namespace ZeroEngine {
     // TextEditMsg
     //
 
-    AppMsg* TextEditMsg::create(AppMsgArgs* args) {
+    AppMsg* TextEditMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
         return new TextEditMsg(args);
     }
 
@@ -214,7 +200,7 @@ namespace ZeroEngine {
     // TextInputMsg
     //
 
-    AppMsg* TextInputMsg::create(AppMsgArgs* args) {
+    AppMsg* TextInputMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
         return new TextInputMsg(args);
     }
 
@@ -222,8 +208,87 @@ namespace ZeroEngine {
         _args = dynamic_cast<TextInputMsgArgs*>(args);
     }
 
+    //
+    // KeyMapChangedMsg
+    //
 
+    AppMsg* KeyMapChangedMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
+        return new KeyMapChangedMsg(args);
+    }
 
+    KeyMapChangedMsg::KeyMapChangedMsg(AppMsgArgs* args) : AppMsg(args) {
+        _args = dynamic_cast<KeyMapChangedMsgArgs*>(args);
+    }
 
+    // 
+    // MouseButtonDownMsg
+    //
 
+    AppMsg* MouseButtonDownMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
+        return new MouseButtonDownMsg(args);
+    }
+
+    MouseButtonDownMsg::MouseButtonDownMsg(AppMsgArgs* args) : AppMsg(args) {
+        _args = dynamic_cast<MouseButtonMsgArgs*>(args);
+    }
+
+    //
+    // MouseButtonUpMsg
+    //
+
+    AppMsg* MouseButtonUpMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
+        return new MouseButtonUpMsg(args);
+    }
+
+    MouseButtonUpMsg::MouseButtonUpMsg(AppMsgArgs* args) : AppMsg(args) {
+        _args = dynamic_cast<MouseButtonMsgArgs*>(args);
+    }
+
+    //
+    // MouseWheelMsg
+    //
+
+    AppMsg* MouseWheelMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
+        return new MouseWheelMsg(args);
+    }
+
+    MouseWheelMsg::MouseWheelMsg(AppMsgArgs* args) : AppMsg(args) {
+        _args = dynamic_cast<MouseWheelMsgArgs*>(args);
+    }
+
+    //
+    // MouseMotionMsg
+    //
+
+    AppMsg* MouseMotionMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
+        return new MouseMotionMsg(args);
+    }
+
+    MouseMotionMsg::MouseMotionMsg(AppMsgArgs* args) : AppMsg(args) {
+        _args = dynamic_cast<MouseMotionMsgArgs*>(args);
+    }
+
+    //
+    // JoyAxisMotionMsg
+    //
+
+    AppMsg* JoyAxisMotionMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
+        return new JoyAxisMotionMsg(args);
+    }
+
+    JoyAxisMotionMsg::JoyAxisMotionMsg(AppMsgArgs* args) : AppMsg(args) {
+        _args = dynamic_cast<JoyAxisMotionMsgArgs*>(args);
+    }
+
+    //
+    // JoyBallMotionMsg
+    //
+
+    AppMsg* JoyBallMotionMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
+        return new JoyBallMotionMsg(args);
+    }
+
+    JoyBallMotionMsg::JoyBallMotionMsg(AppMsgArgs* args) : AppMsg(args) {
+        _args = dynamic_cast<JoyBallMotionMsgArgs*>(args);
+    }
 }

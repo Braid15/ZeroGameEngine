@@ -3,30 +3,31 @@
 namespace ZeroEngine {
 
     AppMsgFactory::AppMsgFactory() {
-        AppMsg::init_memory_pool();
+        _access_key = AppMsgAccessKey();
+        AppMsg::init_memory_pool(_access_key);
         _creation_map = zero_new std::map<AppMsgType, app_msg_creation_delegate>();
         register_app_messages();
         _current_message = get_app_message(AppMsg::null);
     }
 
     AppMsgFactory::~AppMsgFactory() {
-        // @@TODO: Move delete into AppMsg class and make it so that the
-        // static create methods in derived class can only be called by AppMsgFactory
-        delete _current_message;
+        AppMsg::destroy(_access_key, _current_message);
         _current_message = nullptr;
         zero_delete(_creation_map);
-        AppMsg::destroy_memory_pool();
+        AppMsg::destroy_memory_pool(_access_key);
     }
 
     AppMsg* AppMsgFactory::create_message(AppMsgType msg_type) {
-        delete _current_message;
+        AppMsg::destroy(_access_key, _current_message);
         _current_message = get_app_message(msg_type);
         return _current_message;
     }
 
+    // @@TODO: this function wont work since the args arn't being passed in through the ctor
+    // All derived classes should override set_args()
     AppMsg* AppMsgFactory::create_message(AppMsgType msg_type, AppMsgArgs* args) {
         create_message(msg_type);
-        _current_message->set_args(args);
+        _current_message->set_args(_access_key, args);
         return _current_message;
     }
 
@@ -43,7 +44,7 @@ namespace ZeroEngine {
         app_msg_creation_delegate delegate = iter->second;
         // TOOD:
         // MsgArgs takes in time. Make Time class so I can call Time::zero or something
-        return delegate(zero_new EmptyMsgArgs(0));
+        return delegate(_access_key, zero_new EmptyMsgArgs(0));
     }
 
     void AppMsgFactory::register_app_messages() {
@@ -58,5 +59,11 @@ namespace ZeroEngine {
         _creation_map->insert(std::make_pair(AppMsg::keyup, KeyUpMsg::create));
         _creation_map->insert(std::make_pair(AppMsg::text_edit, TextEditMsg::create));
         _creation_map->insert(std::make_pair(AppMsg::text_input, TextInputMsg::create));
+        _creation_map->insert(std::make_pair(AppMsg::keymap_changed, KeyMapChangedMsg::create));
+        _creation_map->insert(std::make_pair(AppMsg::mouse_button_down, MouseButtonDownMsg::create));
+        _creation_map->insert(std::make_pair(AppMsg::mouse_button_up, MouseButtonUpMsg::create));
+        _creation_map->insert(std::make_pair(AppMsg::mouse_wheel, MouseWheelMsg::create));
+        _creation_map->insert(std::make_pair(AppMsg::joy_axis_motion, JoyAxisMotionMsg::create));
+        _creation_map->insert(std::make_pair(AppMsg::joy_ball_motion, JoyBallMotionMsg::create));
     }
 }
