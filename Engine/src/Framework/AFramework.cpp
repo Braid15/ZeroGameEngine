@@ -43,7 +43,7 @@ namespace ZeroEngine {
 
     void AFramework::dispatch_message(FrameworkMsgId msg_id) {
         AppMsgType msg_type = _message_translator->translate_message(msg_id);
-        // TEMP
+        // TEMP: an event should be posted that user quit which will set the _is_running flag to false
         _is_running = msg_type != AppMsg::quit;
         _app_msg_callback(*_message_factory->create_message(msg_type));
     }

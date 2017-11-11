@@ -100,11 +100,13 @@ namespace ZeroEngine {
 
     #ifdef _DEBUG
     void AppMsg::print_creation_data() {
-        std::cout << "AppMsg created: " << ++_allocations << " : " << this << "\n";
+        ++_allocations;
+        // std::cout << "AppMsg created: " << ++_allocations << " : " << this << "\n";
     }
 
     void AppMsg::print_deletion_data() {
-        std::cout << "AppMsg deleted: " << --_allocations << " : " << this << "\n";
+        --_allocations;
+        // std::cout << "AppMsg deleted: " << --_allocations << " : " << this << "\n";
     }
     #endif
 
