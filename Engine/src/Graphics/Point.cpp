@@ -195,8 +195,6 @@ namespace ZeroEngine {
      }
 
 
-     /* IType interface */
-
      template <>
      inline StringRepr Point<float>::to_string() const {
          return "Point<float>";
@@ -216,6 +214,58 @@ namespace ZeroEngine {
      inline StringRepr Point<long>::to_string() const {
          return "Point<long>";
      }
+
+     template<>
+     inline StringRepr Point<uint8_t>::to_string() const {
+        return "Point<uint8_t>";
+     }
+
+    template<>
+    inline StringRepr Point<uint16_t>::to_string() const {
+        return "Point<uint16_t>";
+    }
+
+    template<>
+    inline StringRepr Point<uint32_t>::to_string() const {
+        return "Point<uint32_t>";
+    }
+
+    template<>
+    inline StringRepr Point<uint64_t>::to_string() const {
+        return "Point<uint64_t>";
+    }
+
+    template<>
+    inline StringRepr Point<int8_t>::to_string() const {
+        return "Point<int8_t>";
+    }
+
+    template<>
+    inline StringRepr Point<int16_t>::to_string() const {
+        return "Point<int16_t>";
+    }
+
+    // These are commented out because they are typedefed to the basic types
+
+    //template<>
+    //inline StringRepr Point<int32_t>::to_string() const {
+    //    return "Point<int32_t>";
+    //}
+
+    template<>
+    inline StringRepr Point<int64_t>::to_string() const {
+        return "Point<int64_t>";
+    }
+
+    // template<>
+    // inline StringRepr Point<float_t>::to_string() const {
+    //     return "Point<float_t>";
+    // }
+
+    // template<>
+    // inline StringRepr Point<double_t>::to_string() const {
+    //     return "Point<double_t>";
+    // }
 
     template class Point<int>;
     template class Point<long>;
