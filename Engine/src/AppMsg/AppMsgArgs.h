@@ -2,8 +2,18 @@
 
 #include "../ZeroEngineStd.h"
 #include "../Time.h"
+#include "../Graphics/Point.h"
 
 namespace ZeroEngine {
+
+    // @TODO: Add dtors to all derived types
+    // @TODO: Make all derived types final
+
+    // @TODO: Put this in different file?
+    enum ButtonState {
+        BUTTON_STATE_RELEASED,
+        BUTTON_STATE_PRESSED,
+    };
 
     //
     // AppMsgArgs
@@ -25,7 +35,7 @@ namespace ZeroEngine {
     // EmptyMsgArgs
     //
 
-    class EmptyMsgArgs : public AppMsgArgs {
+    class EmptyMsgArgs final : public AppMsgArgs {
     public:
         inline EmptyMsgArgs(Time time) : AppMsgArgs(time) {}
         inline ~EmptyMsgArgs() {}
@@ -37,7 +47,7 @@ namespace ZeroEngine {
     //
 
     // @TODO: Fields are sdl
-    class WindowMsgArgs : public AppMsgArgs {
+    class WindowMsgArgs final : public AppMsgArgs {
     private:
         uint32_t _window_id;
         uint8_t _event;
@@ -45,6 +55,7 @@ namespace ZeroEngine {
         int32_t data2;
     public:
         inline WindowMsgArgs(Time create_time) : AppMsgArgs(create_time) {}
+        inline ~WindowMsgArgs() {}
         inline StringRepr to_string() const override { return "WindowMsgArgs"; }
     };
 
@@ -54,9 +65,10 @@ namespace ZeroEngine {
 
     // This event is for video driver
     // @@TODO: See SDL_events.h line: 520
-    class SystemMsgArgs : public AppMsgArgs {
+    class SystemMsgArgs final : public AppMsgArgs {
     public:
         inline SystemMsgArgs(Time create_time) : AppMsgArgs(create_time) {}
+        inline ~SystemMsgArgs() {}
         inline StringRepr to_string() const override { return "SystemMsgArgs"; }
     };
     
@@ -65,7 +77,7 @@ namespace ZeroEngine {
     //
 
     // @TODO: Fields are sdl
-    class KeyboardMsgArgs : public AppMsgArgs {
+    class KeyboardMsgArgs final : public AppMsgArgs {
     private:
         uint8_t _state;
         uint8_t _repeat;
@@ -73,6 +85,7 @@ namespace ZeroEngine {
         uint32_t _window;
     public:
         inline KeyboardMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline ~KeyboardMsgArgs() {}
         inline StringRepr to_string() const override { return "KeyboardMsgArgs"; }
     };
 
@@ -89,6 +102,7 @@ namespace ZeroEngine {
         int32_t _length;
     public:
         inline TextEditMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline ~TextEditMsgArgs() {}
         inline StringRepr to_string() const override { return "TextEditMsgArgs"; }
     };
 
@@ -103,6 +117,7 @@ namespace ZeroEngine {
         char _text[32];
     public:
         inline TextInputMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline ~TextInputMsgArgs() {}
         inline StringRepr to_string() const override { return "TextInputMsgArgs"; }
     };
 
@@ -116,6 +131,7 @@ namespace ZeroEngine {
 
     public:
         inline KeyMapChangedMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline ~KeyMapChangedMsgArgs() {}
         inline StringRepr to_string() const override { return "KeyMapChangedMsgArgs"; }
 
     };
@@ -130,12 +146,11 @@ namespace ZeroEngine {
         uint32_t _window;
         uint32_t _mouse_id;
         uint32_t _button_state;
-        int32_t _x;
-        int32_t _y;
-        int32_t _x_rel;
-        int32_t _y_rel;
+        Point<int32_t> _x_y_coordinates;
+        Point<int32_t> _x_y_relative;
     public:
         inline MouseMotionMsgArgs(Time create_time) : AppMsgArgs(create_time) {}
+        inline ~MouseMotionMsgArgs() {}
         inline StringRepr to_string() const override { return "MouseMsgArgs"; }
     };
 
@@ -143,19 +158,35 @@ namespace ZeroEngine {
     // MouseButtonMsgArgs
     //
 
-    // @TODO: Fields are sdl
-    class MouseButtonMsgArgs : public AppMsgArgs {
+    enum MouseButton {
+        MSB_NULL,
+        MSB_LEFT,
+        MSB_MIDDLE,
+        MSB_RIGHT,
+        MSB_FOUR,
+        MSB_FIVE,
+    };
+
+    class MouseButtonMsgArgs final : public AppMsgArgs {
     private:
         uint32_t _window;
         uint32_t _mouse_id;
-        uint8_t _button;
-        uint8_t _state;
+        ButtonState _state;
         uint8_t _clicks;
-        int32_t _x;
-        int32_t _y;
+        MouseButton _button;
+        Point<int32_t> _x_y_coordinates;
     public:
+        MouseButtonMsgArgs(Time time_stamp, uint32_t window, uint32_t mouse_id, ButtonState state,
+                           uint8_t num_clicks, MouseButton button, int32_t x_pos, int32_t y_pos);
         inline MouseButtonMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline ~MouseButtonMsgArgs() {}
         inline StringRepr to_string() const override { return "MouseButtonMsgArgs"; }
+        inline uint8_t get_num_clicks() const { return _clicks; }
+        inline int32_t get_x_pos() const { return _x_y_coordinates.get_x(); }
+        inline int32_t get_y_pos() const { return _x_y_coordinates.get_y(); }
+        inline Point<int32_t> get_coordinates() const { return _x_y_coordinates; }
+        inline MouseButton get_button() const { return _button; }
+        inline ButtonState get_state() const { return _state; }
     };
 
     //
@@ -167,11 +198,11 @@ namespace ZeroEngine {
     private:
         uint32_t _window;
         uint32_t _mouse_id;
-        int32_t _x;
-        int32_t _y;
+        Point<int32_t> _x_y_coordinates;
         uint32_t _direction;
     public:
         inline MouseWheelMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline ~MouseWheelMsgArgs() {}
         inline StringRepr to_string() const override { return "MouseWheelMsgArgs"; }
     };
 
@@ -188,6 +219,7 @@ namespace ZeroEngine {
         int8_t _value;
     public:
         inline JoyAxisMotionMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline ~JoyAxisMotionMsgArgs() {}
         inline StringRepr to_string() const override { return "JoyAxisMotionMsgArgs"; }
     };
 
@@ -205,6 +237,7 @@ namespace ZeroEngine {
         int16_t _y_rel;
     public:
         inline JoyBallMotionMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline ~JoyBallMotionMsgArgs() {}
         inline StringRepr to_string() const override { return "JoyBallMotionMsgArgs"; }
     };
 
@@ -221,6 +254,7 @@ namespace ZeroEngine {
         uint8_t _value;
     public:
         inline JoyHatMotionMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline ~JoyHatMotionMsgArgs() {}
         inline StringRepr to_string() const override { return "JoyHatMotionMsgArgs"; }
     };
 
@@ -237,6 +271,7 @@ namespace ZeroEngine {
         uint8_t _state;
     public:
         inline JoyButtonMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline ~JoyButtonMsgArgs() {}
         inline StringRepr to_string() const override { return "JoyButtonMsgArgs"; }
     };
 
@@ -250,6 +285,7 @@ namespace ZeroEngine {
         int32_t _device_id;
     public:
         inline JoyDeviceAddedMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline ~JoyDeviceAddedMsgArgs() {}
         inline StringRepr to_string() const override { return "JoyDeviceAddedMsgArgs"; }
     };
 
@@ -262,6 +298,7 @@ namespace ZeroEngine {
         int32_t _device_id;
     public:
         inline JoyDeviceRemovedMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline ~JoyDeviceRemovedMsgArgs() {}
         inline StringRepr to_string() const override { return "JoyDeviceRemovedMsgArgs"; }
     };
 
@@ -279,6 +316,7 @@ namespace ZeroEngine {
         int16_t _value;
     public:
         inline ControllerAxisMotionMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline ~ControllerAxisMotionMsgArgs() {}
         inline StringRepr to_string() const override { return "ControllerAxisMotionMsgArgs"; }
     };
 
@@ -295,6 +333,7 @@ namespace ZeroEngine {
         uint8_t _state;
     public:
         inline ControllerButtonMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline ~ControllerButtonMsgArgs() {}
         inline StringRepr to_string() const override { return "ControllerAxisButtonMsgArgs"; }
     };
 
@@ -309,6 +348,7 @@ namespace ZeroEngine {
         uint32_t _which;
     public:
         inline ControllerDeviceAddedMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline ~ControllerDeviceAddedMsgArgs() {}
         inline StringRepr to_string() const override { return "ControllerDeviceAddedMsgArgs"; }
     };
 
@@ -322,6 +362,7 @@ namespace ZeroEngine {
         uint32_t _which;
     public:
         inline ControllerDeviceRemovedMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline ~ControllerDeviceRemovedMsgArgs() {}
         inline StringRepr to_string() const override { return "ControllerDeviceRemovedMsgArgs"; }
     };
 
@@ -335,6 +376,7 @@ namespace ZeroEngine {
         uint32_t _which;
     public:
         inline ControllerDeviceRemappedMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline ~ControllerDeviceRemappedMsgArgs() {}
         inline StringRepr to_string() const override { return "ControllerDeviceRemappedMsgArgs"; }
     };
 
@@ -358,6 +400,7 @@ namespace ZeroEngine {
         float_t _pressure;
     public:
         inline FingerDownMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline ~FingerDownMsgArgs() {}
         inline StringRepr to_string() const override { return "FingerDownMsgArgs"; }
     };
 
@@ -369,6 +412,7 @@ namespace ZeroEngine {
     // @@TODO: See above REFACTOR
     public:
         inline FingerUpMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline ~FingerUpMsgArgs() {}
         inline StringRepr to_string() const override { return "FingerUpMsgArgs"; }
     };
 
@@ -380,6 +424,7 @@ namespace ZeroEngine {
     // @@TODO: See above REFACTOR
     public:
         inline FingerMotionMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline ~FingerMotionMsgArgs() {}
         inline StringRepr to_string() const override { return "FingerMotionMsgArgs"; }
     };
 
@@ -390,6 +435,7 @@ namespace ZeroEngine {
     class ClipboardMsgArgs : public AppMsgArgs {
     public:
         inline ClipboardMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline ~ClipboardMsgArgs() {}
         inline StringRepr to_string() const override { return "ClipboardMsgArgs"; }
     };
 
@@ -405,6 +451,7 @@ namespace ZeroEngine {
         uint32_t _window_id;
     public:
         inline DropFileMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline ~DropFileMsgArgs() {}
         inline StringRepr to_string() const override { return "DropFileMsgArgs"; }
     };
 
@@ -416,6 +463,7 @@ namespace ZeroEngine {
     // @@TODO: See above REFACTOR
     public:
         inline DropTextMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline ~DropTextMsgArgs() {}
         inline StringRepr to_string() const override { return "DropTextMsgArgs"; }
     };
 
@@ -427,6 +475,7 @@ namespace ZeroEngine {
     // @@TODO: See above REFACTOR
     public:
         inline DropBeginMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline ~DropBeginMsgArgs() {}
         inline StringRepr to_string() const override { return "DropBeginMsgArgs"; }
     };
 
@@ -438,6 +487,7 @@ namespace ZeroEngine {
     // @@TODO: See above REFACTOR
     public:
         inline DropCompleteMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline ~DropCompleteMsgArgs() {}
         inline StringRepr to_string() const override { return "DropCompleteMsgArgs"; }
     };
 
@@ -454,6 +504,7 @@ namespace ZeroEngine {
         uint8_t _is_captured;
     public:
         inline AudioDeviceAddedMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline ~AudioDeviceAddedMsgArgs() {}
         inline StringRepr to_string() const override { return "AudioDeviceAddedMsgArgs"; }
     };
 
@@ -465,6 +516,7 @@ namespace ZeroEngine {
     // @@TODO: See above REFACTOR
     public:
         inline AudioDeviceRemovedMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline ~AudioDeviceRemovedMsgArgs() {}
         inline StringRepr to_string() const override { return "AudioDeviceRemovedMsgArgs"; }
     };
 
@@ -475,6 +527,7 @@ namespace ZeroEngine {
     class RenderTargetsResetMsgArgs : public AppMsgArgs {
     public:
         inline RenderTargetsResetMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline ~RenderTargetsResetMsgArgs() {}
         inline StringRepr to_string() const override { return "RenderTargetsResetMsgArgs"; }
     };
 
@@ -485,6 +538,7 @@ namespace ZeroEngine {
     class RenderDeviceResetMsgArgs : public AppMsgArgs {
     public:
         inline RenderDeviceResetMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline ~RenderDeviceResetMsgArgs() {}
         inline StringRepr to_string() const override { return "RenderDeviceResetMsgArgs"; }
     };
 }

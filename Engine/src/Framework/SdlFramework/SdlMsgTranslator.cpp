@@ -35,10 +35,42 @@ namespace ZeroEngine {
                 return _factory->create_message(AppMsg::keymap_changed, zero_new KeyMapChangedMsgArgs(time));
             case SDL_MOUSEMOTION:
                 return _factory->create_message(AppMsg::mouse_motion, zero_new MouseMotionMsgArgs(time));
+
             case SDL_MOUSEBUTTONDOWN:
-                return _factory->create_message(AppMsg::mouse_button_down, zero_new MouseButtonMsgArgs(time));
             case SDL_MOUSEBUTTONUP:
-                return _factory->create_message(AppMsg::mouse_button_up, zero_new MouseButtonMsgArgs(time));
+            {
+                uint32_t window = _sdl_event.button.windowID;
+                uint32_t which = _sdl_event.button.which;
+                ButtonState state = (_sdl_event.type == SDL_MOUSEBUTTONDOWN) ? BUTTON_STATE_PRESSED : BUTTON_STATE_RELEASED;
+                uint8_t clicks = _sdl_event.button.clicks;
+
+                MouseButton button = MSB_NULL;
+
+                if (_sdl_event.button.button == 1) {
+                    button = MSB_LEFT;
+                } else if (_sdl_event.button.button == 2) {
+                    button = MSB_MIDDLE;
+                } else if (_sdl_event.button.button == 3) {
+                    button = MSB_RIGHT;
+                } else if (_sdl_event.button.button == 4) {
+                    button = MSB_FOUR;
+                } else if (_sdl_event.button.button == 5) {
+                    button = MSB_FIVE;
+                }
+
+                int32_t x = _sdl_event.button.x;
+                int32_t y = _sdl_event.button.y;
+
+                MouseButtonMsgArgs* args = 
+                    zero_new MouseButtonMsgArgs(time, window, which, state, clicks, button, x, y);
+
+                if (_sdl_event.type == SDL_MOUSEBUTTONDOWN) {
+                    return _factory->create_message(AppMsg::mouse_button_down, args);
+                } else {
+                    return _factory->create_message(AppMsg::mouse_button_up, args);
+                }
+            }
+
             case SDL_MOUSEWHEEL:
                 return _factory->create_message(AppMsg::mouse_wheel, zero_new MouseWheelMsgArgs(time));
             case SDL_JOYAXISMOTION:

@@ -290,6 +290,12 @@ namespace ZeroEngine {
         inline const AppMsgType get_type() const override { return AppMsg::mouse_button_down; }
         inline StringRepr to_string() const override { return "MouseButtonDownMsg"; }
         static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
+        inline uint8_t get_num_clicks() const { return _args->get_num_clicks(); }
+        inline int32_t get_x_pos() const { return _args->get_x_pos(); }
+        inline int32_t get_y_pos() const { return _args->get_y_pos(); }
+        inline Point<int32_t> get_coordinates() const { return _args->get_coordinates(); }
+        inline MouseButton get_button() const { return _args->get_button(); }
+        inline ButtonState get_state() const { return _args->get_state(); }
     protected:
         inline ~MouseButtonDownMsg() {}
     private:
@@ -307,6 +313,12 @@ namespace ZeroEngine {
         inline const AppMsgType get_type() const override { return AppMsg::mouse_button_up; }
         inline StringRepr to_string() const override { return "MouseButtonUpMsg"; }
         static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
+        inline uint8_t get_num_clicks() const { return _args->get_num_clicks(); }
+        inline int32_t get_x_pos() const { return _args->get_x_pos(); }
+        inline int32_t get_y_pos() const { return _args->get_y_pos(); }
+        inline Point<int32_t> get_coordinates() const { return _args->get_coordinates(); }
+        inline MouseButton get_button() const { return _args->get_button(); }
+        inline ButtonState get_state() const { return _args->get_state(); }
     protected:
         inline ~MouseButtonUpMsg() {}
     private:

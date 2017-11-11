@@ -221,6 +221,16 @@ namespace ZeroEngine {
     template class Point<long>;
     template class Point<double>;
     template class Point<float>;
+    template class Point<uint8_t>;
+    template class Point<uint16_t>;
+    template class Point<uint32_t>;
+    template class Point<uint64_t>;
+    template class Point<int8_t>;
+    template class Point<int16_t>;
+    template class Point<int32_t>;
+    template class Point<int64_t>;
+    template class Point<float_t>;
+    template class Point<double_t>;
 
     #ifdef _DEBUG
     namespace PointUnitTest {
