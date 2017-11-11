@@ -29,7 +29,7 @@ namespace ZeroEngine {
     public:
         inline EmptyMsgArgs(Time time) : AppMsgArgs(time) {}
         inline ~EmptyMsgArgs() {}
-        inline StringRepr to_string() const { return "EmptyMsgArgs"; }
+        inline StringRepr to_string() const override { return "EmptyMsgArgs"; }
     };
 
     //
@@ -39,7 +39,7 @@ namespace ZeroEngine {
     class MouseMotionMsgArgs : public AppMsgArgs {
     public:
         inline MouseMotionMsgArgs(Time create_time) : AppMsgArgs(create_time) {}
-        inline StringRepr to_string() const { return "MouseMsgArgs"; }
+        inline StringRepr to_string() const override { return "MouseMsgArgs"; }
     };
 
     //
@@ -49,7 +49,7 @@ namespace ZeroEngine {
     class WindowMsgArgs : public AppMsgArgs {
     public:
         inline WindowMsgArgs(Time create_time) : AppMsgArgs(create_time) {}
-        inline StringRepr to_string() const { return "WindowMsgArgs"; }
+        inline StringRepr to_string() const override { return "WindowMsgArgs"; }
     };
 
     //
@@ -59,7 +59,7 @@ namespace ZeroEngine {
     class SystemMsgArgs : public AppMsgArgs {
     public:
         inline SystemMsgArgs(Time create_time) : AppMsgArgs(create_time) {}
-        inline StringRepr to_string() const { return "SystemMsgArgs"; }
+        inline StringRepr to_string() const override { return "SystemMsgArgs"; }
     };
 
     //
@@ -69,7 +69,7 @@ namespace ZeroEngine {
     class KeyboardMsgArgs : public AppMsgArgs {
     public:
         inline KeyboardMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
-        inline StringRepr to_string() const { return "KeyboardMsgArgs"; }
+        inline StringRepr to_string() const override { return "KeyboardMsgArgs"; }
     };
 
     //
@@ -79,7 +79,7 @@ namespace ZeroEngine {
     class TextEditMsgArgs : public AppMsgArgs {
     public:
         inline TextEditMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
-        inline StringRepr to_string() const { return "TextEditMsgArgs"; }
+        inline StringRepr to_string() const override { return "TextEditMsgArgs"; }
     };
 
     //
@@ -89,7 +89,7 @@ namespace ZeroEngine {
     class TextInputMsgArgs : public AppMsgArgs {
     public:
         inline TextInputMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
-        inline StringRepr to_string() const { return "TextInputMsgArgs"; }
+        inline StringRepr to_string() const override { return "TextInputMsgArgs"; }
     };
 
     //
@@ -99,7 +99,7 @@ namespace ZeroEngine {
     class KeyMapChangedMsgArgs : public AppMsgArgs {
     public:
         inline KeyMapChangedMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
-        inline StringRepr to_string() const { return "KeyMapChangedMsgArgs"; }
+        inline StringRepr to_string() const override { return "KeyMapChangedMsgArgs"; }
 
     };
 
@@ -110,7 +110,7 @@ namespace ZeroEngine {
     class MouseButtonMsgArgs : public AppMsgArgs {
     public:
         inline MouseButtonMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
-        inline StringRepr to_string() const { return "MouseButtonMsgArgs"; }
+        inline StringRepr to_string() const override { return "MouseButtonMsgArgs"; }
     };
 
     //
@@ -120,7 +120,7 @@ namespace ZeroEngine {
     class MouseWheelMsgArgs : public AppMsgArgs {
     public:
         inline MouseWheelMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
-        inline StringRepr to_string() const { return "MouseWheelMsgArgs"; }
+        inline StringRepr to_string() const override { return "MouseWheelMsgArgs"; }
     };
 
     //
@@ -130,7 +130,7 @@ namespace ZeroEngine {
     class JoyAxisMotionMsgArgs : public AppMsgArgs {
     public:
         inline JoyAxisMotionMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
-        inline StringRepr to_string() const { return "JoyAxisMotionMsgArgs"; }
+        inline StringRepr to_string() const override { return "JoyAxisMotionMsgArgs"; }
     };
 
     //
@@ -140,6 +140,217 @@ namespace ZeroEngine {
     class JoyBallMotionMsgArgs : public AppMsgArgs {
     public:
         inline JoyBallMotionMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
-        inline StringRepr to_string() const { return "JoyBallMotionMsgArgs"; }
+        inline StringRepr to_string() const override { return "JoyBallMotionMsgArgs"; }
+    };
+
+    //
+    // JoyHatMotionMsgArgs
+    //
+
+    class JoyHatMotionMsgArgs : public AppMsgArgs {
+    public:
+        inline JoyHatMotionMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline StringRepr to_string() const override { return "JoyHatMotionMsgArgs"; }
+    };
+
+    // 
+    // JoyButtonMsgArgs
+    //
+
+    class JoyButtonMsgArgs : public AppMsgArgs {
+    public:
+        inline JoyButtonMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline StringRepr to_string() const override { return "JoyButtonMsgArgs"; }
+    };
+
+    //
+    // JoyDeviceAddedMsgArgs
+    //
+
+    class JoyDeviceAddedMsgArgs : public AppMsgArgs {
+    public:
+        inline JoyDeviceAddedMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline StringRepr to_string() const override { return "JoyDeviceAddedMsgArgs"; }
+    };
+
+    //
+    // JoyDeviceRemovedMsgArgs
+    //
+
+    class JoyDeviceRemovedMsgArgs : public AppMsgArgs {
+    public:
+        inline JoyDeviceRemovedMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline StringRepr to_string() const override { return "JoyDeviceRemovedMsgArgs"; }
+    };
+
+    //
+    // ControllerAxisMotionMsgArgs
+    //
+
+    class ControllerAxisMotionMsgArgs : public AppMsgArgs {
+    public:
+        inline ControllerAxisMotionMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline StringRepr to_string() const override { return "ControllerAxisMotionMsgArgs"; }
+    };
+
+    //
+    // ControllerAxisButtonMsgArgs
+    //
+
+    class ControllerButtonMsgArgs : public AppMsgArgs {
+    public:
+        inline ControllerButtonMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline StringRepr to_string() const override { return "ControllerAxisButtonMsgArgs"; }
+    };
+
+    //
+    // ControllerDeviceAddedMsgArgs
+    //
+
+    class ControllerDeviceAddedMsgArgs : public AppMsgArgs {
+    public:
+        inline ControllerDeviceAddedMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline StringRepr to_string() const override { return "ControllerDeviceAddedMsgArgs"; }
+    };
+
+    //
+    // ControllerDeviceRemovedMsgArgs
+    //
+
+    class ControllerDeviceRemovedMsgArgs : public AppMsgArgs {
+    public:
+        inline ControllerDeviceRemovedMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline StringRepr to_string() const override { return "ControllerDeviceRemovedMsgArgs"; }
+    };
+
+    //
+    // ControllerDeviceRemappedMsgArgs
+    //
+
+    class ControllerDeviceRemappedMsgArgs : public AppMsgArgs {
+    public:
+        inline ControllerDeviceRemappedMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline StringRepr to_string() const override { return "ControllerDeviceRemappedMsgArgs"; }
+    };
+
+    // @@TODO: Can probably put FingerDownMsgArgs and FingerUpMsgArgs into one class
+
+    //
+    // FingerDownMsgArgs
+    //
+
+    class FingerDownMsgArgs : public AppMsgArgs {
+    public:
+        inline FingerDownMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline StringRepr to_string() const override { return "FingerDownMsgArgs"; }
+    };
+
+    //
+    // FingerUpMsgArgs
+    //
+
+    class FingerUpMsgArgs : public AppMsgArgs {
+    public:
+        inline FingerUpMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline StringRepr to_string() const override { return "FingerUpMsgArgs"; }
+    };
+
+    //
+    // FingerMotionMsgArgs
+    //
+
+    class FingerMotionMsgArgs : public AppMsgArgs {
+        inline FingerMotionMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline StringRepr to_string() const override { return "FingerMotionMsgArgs"; }
+    };
+
+    //
+    // ClipboardMsgArgs
+    //
+
+    class ClipboardMsgArgs : public AppMsgArgs {
+    public:
+        inline ClipboardMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline StringRepr to_string() const override { return "ClipboardMsgArgs"; }
+    };
+
+    //
+    // DropFileMsgArgs
+    //
+
+    class DropFileMsgArgs : public AppMsgArgs {
+    public:
+        inline DropFileMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline StringRepr to_string() const override { return "DropFileMsgArgs"; }
+    };
+
+    //
+    // DropTextMsgArgs
+    //
+
+    class DropTextMsgArgs : public AppMsgArgs {
+    public:
+        inline DropTextMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline StringRepr to_string() const override { return "DropTextMsgArgs"; }
+    };
+
+    // 
+    // DropBeginMsgArgs
+    //
+
+    class DropBeginMsgArgs : public AppMsgArgs {
+    public:
+        inline DropBeginMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline StringRepr to_string() const override { return "DropBeginMsgArgs"; }
+    };
+
+    //
+    // DropCompleteMsgArgs
+    //
+
+    class DropCompleteMsgArgs : public AppMsgArgs {
+    public:
+        inline DropCompleteMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline StringRepr to_string() const override { return "DropCompleteMsgArgs"; }
+    };
+
+    //
+    // AudioDeviceAddedMsgArgs
+    //
+
+    class AudioDeviceAddedMsgArgs : public AppMsgArgs {
+    public:
+        inline AudioDeviceAddedMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline StringRepr to_string() const override { return "AudioDeviceAddedMsgArgs"; }
+    };
+
+    //
+    // AudioDeviceRemovedMsgArgs
+    //
+
+    class AudioDeviceRemovedMsgArgs : public AppMsgArgs {
+    public:
+        inline AudioDeviceRemovedMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline StringRepr to_string() const override { return "AudioDeviceRemovedMsgArgs"; }
+    };
+
+    //
+    // RenderTargetsResetMsgArgs
+    //
+
+    class RenderTargetsResetMsgArgs : public AppMsgArgs {
+    public:
+        inline RenderTargetsResetMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline StringRepr to_string() const override { return "RenderTargetsResetMsgArgs"; }
+    };
+
+    //
+    // RenderDeviceResetMsgArgs
+    //
+
+    class RenderDeviceResetMsgArgs : public AppMsgArgs {
+    public:
+        inline RenderDeviceResetMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        inline StringRepr to_string() const override { return "RenderDeviceResetMsgArgs"; }
     };
 }

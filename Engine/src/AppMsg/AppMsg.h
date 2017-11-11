@@ -381,5 +381,401 @@ namespace ZeroEngine {
         JoyBallMotionMsg(AppMsgArgs*);
     };
 
+    //
+    // JoyHatMotionMsg
+    //
+
+    class JoyHatMotionMsg final : public AppMsg {
+    private:
+        JoyHatMotionMsgArgs* _args;
+    public:
+        inline const AppMsgType get_type() const override { return AppMsg::joy_hat_motion; }
+        inline StringRepr to_string() const override { return "JoyHatMotionMsg"; }
+        static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
+    protected:
+        inline ~JoyHatMotionMsg() {}
+    private:
+        JoyHatMotionMsg(AppMsgArgs*);
+    };
+
+    //
+    // JoyButtonDownMsg
+    //
+
+    class JoyButtonDownMsg final : public AppMsg {
+    private:
+        JoyButtonMsgArgs* _args;
+    public:
+        inline const AppMsgType get_type() const override { return AppMsg::joy_button_down; }
+        inline StringRepr to_string() const override { return "JoyButtonDownMsg"; }
+        static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
+    protected:
+        inline ~JoyButtonDownMsg() {}
+    private:
+        JoyButtonDownMsg(AppMsgArgs*);
+    };
+
+    //
+    // JoyButtonUpMsg
+    //
+
+    class JoyButtonUpMsg final : public AppMsg {
+    private:
+        JoyButtonMsgArgs* _args;
+    public:
+        inline const AppMsgType get_type() const override { return AppMsg::joy_button_up; }
+        inline StringRepr to_string() const override { return "JoyButtonUpMsg"; }
+        static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
+    protected:
+        inline ~JoyButtonUpMsg() {}
+    private:
+        JoyButtonUpMsg(AppMsgArgs*);
+    };
+
+    //
+    // JoyDeviceAddedMsg
+    //
+
+    class JoyDeviceAddedMsg final : public AppMsg {
+    private:
+        JoyDeviceAddedMsgArgs* _args;
+    public:
+        inline const AppMsgType get_type() const override { return AppMsg::joy_device_added; }
+        inline StringRepr to_string() const override { return "JoyDeviceAddedMsg"; }
+        static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
+    protected:
+        inline ~JoyDeviceAddedMsg() {}
+    private:
+        JoyDeviceAddedMsg(AppMsgArgs*);
+    };
+
+    //
+    // JoyDeviceRemovedMsg
+    //
+
+    class JoyDeviceRemovedMsg final : public AppMsg {
+    private:
+        JoyDeviceRemovedMsgArgs* _args;
+    public:
+        inline const AppMsgType get_type() const override { return AppMsg::joy_device_removed; }
+        inline StringRepr to_string() const override { return "JoyDeviceRemovedMsg"; }
+        static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
+    protected:
+        inline ~JoyDeviceRemovedMsg() {}
+    private:
+        JoyDeviceRemovedMsg(AppMsgArgs*);
+    };
+
+    //
+    // ControllerAxisMotionMsg
+    //
+
+    class ControllerAxisMotionMsg final : public AppMsg {
+    private:
+        ControllerAxisMotionMsgArgs* _args;
+    public:
+        inline const AppMsgType get_type() const override { return AppMsg::controller_axis_motion; }
+        inline StringRepr to_string() const override { return "ControllerAxisMotionMsg"; }
+        static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
+    protected:
+        inline ~ControllerAxisMotionMsg() {}
+    private:
+        ControllerAxisMotionMsg(AppMsgArgs*);
+    };
+
+    //
+    // ControllerAxisButtonDownMsg
+    //
+
+    // @TODO: Checkou if ControllerAxis or ControllerButton
+    class ControllerButtonDownMsg final : public AppMsg {
+    private:
+        ControllerButtonMsgArgs* _args;
+    public:
+        inline const AppMsgType get_type() const override { return AppMsg::controller_button_up; }
+        inline StringRepr to_string() const override { return "ControllerAxisButtonMsg"; }
+        static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
+    protected:
+        inline ~ControllerButtonDownMsg() {}
+    private:
+        ControllerButtonDownMsg(AppMsgArgs*);
+    };
+
+    //
+    // ControllerAxisButtonUpMsg
+    //
+
+    class ControllerButtonUpMsg final : public AppMsg {
+    private:
+        ControllerButtonMsgArgs* _args;
+    public:
+        inline const AppMsgType get_type() const override { return AppMsg::controller_button_up; }
+        inline StringRepr to_string() const override { return "ControllerAxisButtonUpMsg"; }
+        static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
+    protected:
+        inline ~ControllerButtonUpMsg() {}
+    private:
+        ControllerButtonUpMsg(AppMsgArgs*);
+    };
+
+    //
+    // ControllerDeviceAddedMsg
+    //
+
+    class ControllerDeviceAddedMsg final : public AppMsg {
+    private:
+        ControllerDeviceAddedMsgArgs* _args;
+    public:
+        inline const AppMsgType get_type() const override { return AppMsg::controller_device_added; }
+        inline StringRepr to_string() const override { return "ControllerDeviceAddedMsg"; }
+        static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
+    protected:
+        inline ~ControllerDeviceAddedMsg() {}
+    private:
+        ControllerDeviceAddedMsg(AppMsgArgs*);
+    };
+
+    //
+    // ControllerDeviceRemovedMsg
+    //
+
+    class ControllerDeviceRemovedMsg final : public AppMsg {
+    private:
+        ControllerDeviceRemovedMsgArgs* _args;
+    public:
+        inline const AppMsgType get_type() const override { return AppMsg::controller_device_removed; }
+        inline StringRepr to_string() const override { return "ControllerDeviceRemovedMsg"; }
+        static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
+    protected:
+        inline ~ControllerDeviceRemovedMsg() {}
+    private:
+        ControllerDeviceRemovedMsg(AppMsgArgs*);
+    };
+
+    //
+    // ControllerDeviceRemappedMsg
+    //
+
+    class ControllerDeviceRemappedMsg final : public AppMsg {
+    private:
+        ControllerDeviceRemappedMsgArgs* _args;
+    public:
+        inline const AppMsgType get_type() const override { return AppMsg::controller_device_removed; }
+        inline StringRepr to_string() const override { return "ControllerDeviceRemappedMsg"; }
+        static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
+    protected:
+        inline ~ControllerDeviceRemappedMsg() {}
+    private:
+        ControllerDeviceRemappedMsg(AppMsgArgs*);
+    };
+
+    //
+    // FingerDownMsg
+    //
+
+    class FingerDownMsg final : public AppMsg {
+    private:
+        FingerDownMsgArgs* _args;
+    public:
+        inline const AppMsgType get_type() const override { return AppMsg::finger_down; }
+        inline StringRepr to_string() const override { return "FingerDownMsg"; }
+        static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
+    protected:
+        inline ~FingerDownMsg() {}
+    private:
+        FingerDownMsg(AppMsgArgs*);
+    };
+
+    //
+    // FingerUpMsg
+    //
+
+    class FingerUpMsg final : public AppMsg {
+    private:
+        FingerUpMsgArgs* _args;
+    public:
+        inline const AppMsgType get_type() const override { return AppMsg::finger_up; }
+        inline StringRepr to_string() const override { return "FingerUpMsg"; }
+        static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
+    protected:
+        inline ~FingerUpMsg() {}
+    private:
+        FingerUpMsg(AppMsgArgs*);
+    };
+
+    //
+    // FingerMotionMsg
+    //
+
+    class FingerMotionMsg final : public AppMsg {
+    private:
+        FingerMotionMsgArgs* _args;
+    public:
+        inline const AppMsgType get_type() const override { return AppMsg::finger_motion; }
+        inline StringRepr to_string() const override { return "FingerMotionMsg"; }
+        static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
+    protected:
+        inline ~FingerMotionMsg() {}
+    private:
+        FingerMotionMsg(AppMsgArgs*);
+    };
+
+    //
+    // ClipboardMsg
+    //
+
+    class ClipboardMsg final : public AppMsg {
+    private:
+        ClipboardMsgArgs* _args;
+    public:
+        inline const AppMsgType get_type() const override { return AppMsg::clipboard; }
+        inline StringRepr to_string() const override { return "ClipboardMsg"; }
+        static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
+    protected:
+        inline ~ClipboardMsg() {}
+    private:
+        ClipboardMsg(AppMsgArgs*);
+    };
+
+    //
+    // DropFileMsg
+    //
+
+    class DropFileMsg final : public AppMsg {
+    private:
+        DropFileMsgArgs* _args;
+    public:
+        inline const AppMsgType get_type() const override { return AppMsg::drop_file; }
+        inline StringRepr to_string() const override { return "DropFileMsg"; }
+        static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
+    protected:
+        inline ~DropFileMsg() {}
+    private:
+        DropFileMsg(AppMsgArgs*);
+    };
+
+    //
+    // DropTextMsg
+    //
+
+    class DropTextMsg final : public AppMsg {
+    private:
+        DropTextMsgArgs* _args;
+    public:
+        inline const AppMsgType get_type() const override { return AppMsg::drop_text; }
+        inline StringRepr to_string() const override { return "DropTextMsg"; }
+        static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
+    protected:
+        inline ~DropTextMsg() {}
+    private:
+        DropTextMsg(AppMsgArgs*);
+    };
+
+    // 
+    // DropBeginMsg
+    //
+
+    class DropBeginMsg final : public AppMsg {
+    private:
+        DropBeginMsgArgs* _args;
+    public:
+        inline const AppMsgType get_type() const override { return AppMsg::drop_begin; }
+        inline StringRepr to_string() const override { return "DropBeginMsg"; }
+        static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
+    protected:
+        inline ~DropBeginMsg() {}
+    private:
+        DropBeginMsg(AppMsgArgs*);
+    };
+
+    //
+    // DropCompleteMsg
+    //
+
+    class DropCompleteMsg final : public AppMsg {
+    private:
+        DropCompleteMsgArgs* _args;
+    public:
+        inline const AppMsgType get_type() const override { return AppMsg::drop_complete; }
+        inline StringRepr to_string() const override { return "DropCompleteMsg"; }
+        static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
+    protected:
+        inline ~DropCompleteMsg() {}
+    private:
+        DropCompleteMsg(AppMsgArgs*);
+    };
+
+    //
+    // AudioDeviceAddedMsg
+    //
+
+    class AudioDeviceAddedMsg final : public AppMsg {
+    private:
+        AudioDeviceAddedMsgArgs* _args;
+    public:
+        inline const AppMsgType get_type() const override { return AppMsg::audio_device_added; }
+        inline StringRepr to_string() const override { return "AudioDeviceAddedMsg"; }
+        static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
+    protected:
+        inline ~AudioDeviceAddedMsg() {}
+    private:
+        AudioDeviceAddedMsg(AppMsgArgs*);
+    };
+
+    //
+    // AudioDeviceRemovedMsg
+    //
+
+    class AudioDeviceRemovedMsg final : public AppMsg {
+    private:
+        AudioDeviceRemovedMsgArgs* _args;
+    public:
+        inline const AppMsgType get_type() const override { return AppMsg::audio_device_removed; }
+        inline StringRepr to_string() const override { return "AudioDeviceRemovedMsg"; }
+        static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
+    protected:
+        inline ~AudioDeviceRemovedMsg() {}
+    private:
+        AudioDeviceRemovedMsg(AppMsgArgs*);
+    };
+
+    //
+    // RenderTargetsResetMsg
+    //
+
+    class RenderTargetsResetMsg final : public AppMsg {
+    private:
+        RenderTargetsResetMsgArgs* _args;
+    public:
+        inline const AppMsgType get_type() const override { return AppMsg::render_targets_reset; }
+        inline StringRepr to_string() const override { return "RenderTargetsResetMsg"; }
+        static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
+    protected:
+        inline ~RenderTargetsResetMsg() {}
+    private:
+        RenderTargetsResetMsg(AppMsgArgs*);
+    };
+
+    //
+    // RenderDeviceResetMsg
+    //
+
+    class RenderDeviceResetMsg final : public AppMsg {
+    private:
+        RenderDeviceResetMsgArgs* _args;
+    public:
+        inline const AppMsgType get_type() const override { return AppMsg::render_device_reset; }
+        inline StringRepr to_string() const override { return "RenderDeviceResetMsg"; }
+        static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
+    protected:
+        inline ~RenderDeviceResetMsg() {}
+    private:
+        RenderDeviceResetMsg(AppMsgArgs*);
+    };
+
+
+
+
+
 
 }

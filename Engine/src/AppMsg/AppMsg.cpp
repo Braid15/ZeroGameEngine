@@ -291,4 +291,280 @@ namespace ZeroEngine {
     JoyBallMotionMsg::JoyBallMotionMsg(AppMsgArgs* args) : AppMsg(args) {
         _args = dynamic_cast<JoyBallMotionMsgArgs*>(args);
     }
+
+    //
+    // JoyHatMotionMsg
+    //
+
+    AppMsg* JoyHatMotionMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
+        return new JoyHatMotionMsg(args);
+    }
+
+    JoyHatMotionMsg::JoyHatMotionMsg(AppMsgArgs* args) : AppMsg(args) {
+        _args = dynamic_cast<JoyHatMotionMsgArgs*>(args);
+    }
+
+    //
+    // JoyButtonDownMsg
+    //
+
+    AppMsg* JoyButtonDownMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
+        return new JoyButtonDownMsg(args);
+    }
+
+    JoyButtonDownMsg::JoyButtonDownMsg(AppMsgArgs* args) : AppMsg(args) {
+        _args = dynamic_cast<JoyButtonMsgArgs*>(args);
+    }
+
+    //
+    // JoyButtonUpMsg
+    //
+
+    AppMsg* JoyButtonUpMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
+        return new JoyButtonUpMsg(args);
+    }
+
+    JoyButtonUpMsg::JoyButtonUpMsg(AppMsgArgs* args) : AppMsg(args) {
+        _args = dynamic_cast<JoyButtonMsgArgs*>(args);
+    }
+
+    //
+    // JoyDeviceAddedMsg
+    //
+
+    AppMsg* JoyDeviceAddedMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
+        return new JoyDeviceAddedMsg(args);
+    }
+
+    JoyDeviceAddedMsg::JoyDeviceAddedMsg(AppMsgArgs* args) : AppMsg(args) {
+        _args = dynamic_cast<JoyDeviceAddedMsgArgs*>(args);
+    }
+
+    //
+    // JoyDeviceRemovedMsg
+    //
+
+    AppMsg* JoyDeviceRemovedMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
+        return new JoyDeviceRemovedMsg(args);
+    }
+
+    JoyDeviceRemovedMsg::JoyDeviceRemovedMsg(AppMsgArgs* args) : AppMsg(args) {
+        _args = dynamic_cast<JoyDeviceRemovedMsgArgs*>(args);
+    }
+
+    //
+    // ControllerAxisMotionMsg
+    //
+
+    AppMsg* ControllerAxisMotionMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
+        return new ControllerAxisMotionMsg(args);
+    }
+
+    ControllerAxisMotionMsg::ControllerAxisMotionMsg(AppMsgArgs* args) : AppMsg(args) {
+        _args = dynamic_cast<ControllerAxisMotionMsgArgs*>(args);
+    }
+
+    //
+    // ControllerAxisButtonDownMsg
+    //
+
+    AppMsg* ControllerButtonDownMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
+        return new ControllerButtonDownMsg(args);
+    }
+
+    ControllerButtonDownMsg::ControllerButtonDownMsg(AppMsgArgs* args) : AppMsg(args) {
+        _args = dynamic_cast<ControllerButtonMsgArgs*>(args);
+    }
+
+    //
+    // ControllerAxisButtonUpMsg
+    //
+
+    AppMsg* ControllerButtonUpMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
+        return new ControllerButtonUpMsg(args);
+    }
+
+    ControllerButtonUpMsg::ControllerButtonUpMsg(AppMsgArgs* args) : AppMsg(args) {
+        _args = dynamic_cast<ControllerButtonMsgArgs*>(args);
+    }
+
+    //
+    // ControllerDeviceAddedMsg
+    //
+
+    AppMsg* ControllerDeviceAddedMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
+        return new ControllerDeviceAddedMsg(args);
+    }
+
+    ControllerDeviceAddedMsg::ControllerDeviceAddedMsg(AppMsgArgs* args) : AppMsg(args) {
+        _args = dynamic_cast<ControllerDeviceAddedMsgArgs*>(args);
+    }
+
+    //
+    // ControllerDeviceRemovedMsg
+    //
+
+    AppMsg* ControllerDeviceRemovedMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
+        return new ControllerDeviceRemovedMsg(args);
+    }
+
+    ControllerDeviceRemovedMsg::ControllerDeviceRemovedMsg(AppMsgArgs* args) : AppMsg(args) {
+        _args = dynamic_cast<ControllerDeviceRemovedMsgArgs*>(args);
+    }
+
+    //
+    // ControllerDeviceRemappedMsg
+    //
+
+    AppMsg* ControllerDeviceRemappedMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
+        return new ControllerDeviceRemappedMsg(args);
+    }
+
+    ControllerDeviceRemappedMsg::ControllerDeviceRemappedMsg(AppMsgArgs* args) : AppMsg(args) {
+        _args = dynamic_cast<ControllerDeviceRemappedMsgArgs*>(args);
+    }
+
+    //
+    // FingerDownMsg
+    //
+
+    AppMsg* FingerDownMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
+        return new FingerDownMsg(args);
+    }
+
+    FingerDownMsg::FingerDownMsg(AppMsgArgs* args) : AppMsg(args) {
+        _args = dynamic_cast<FingerDownMsgArgs*>(args);
+    }
+
+    //
+    // FingerUpMsg
+    //
+
+    AppMsg* FingerUpMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
+        return new FingerUpMsg(args);
+    }
+
+    FingerUpMsg::FingerUpMsg(AppMsgArgs* args) : AppMsg(args) {
+        _args = dynamic_cast<FingerUpMsgArgs*>(args);
+    }
+
+    //
+    // FingerMotionMsg
+    //
+
+    AppMsg* FingerMotionMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
+        return new FingerMotionMsg(args);
+    }
+
+    FingerMotionMsg::FingerMotionMsg(AppMsgArgs* args) : AppMsg(args) {
+        _args = dynamic_cast<FingerMotionMsgArgs*>(args);
+    }
+
+    //
+    // ClipboardMsg
+    //
+
+    AppMsg* ClipboardMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
+        return new ClipboardMsg(args);
+    }
+
+    ClipboardMsg::ClipboardMsg(AppMsgArgs* args) : AppMsg(args) {
+        _args = dynamic_cast<ClipboardMsgArgs*>(args);
+    }
+
+    //
+    // DropFileMsg
+    //
+        
+    AppMsg* DropFileMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
+        return new DropFileMsg(args);
+    }
+
+    DropFileMsg::DropFileMsg(AppMsgArgs* args) : AppMsg(args) {
+        _args = dynamic_cast<DropFileMsgArgs*>(args);
+    }
+
+    //
+    // DropTextMsg
+    //
+
+    AppMsg* DropTextMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
+        return new DropTextMsg(args);
+    }
+
+    DropTextMsg::DropTextMsg(AppMsgArgs* args) : AppMsg(args) {
+        _args = dynamic_cast<DropTextMsgArgs*>(args);
+    }
+
+    // 
+    // DropBeginMsg
+    //
+
+    AppMsg* DropBeginMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
+        return new DropBeginMsg(args);
+    }
+
+    DropBeginMsg::DropBeginMsg(AppMsgArgs* args) : AppMsg(args) {
+        _args = dynamic_cast<DropBeginMsgArgs*>(args);
+    }
+
+    //
+    // DropCompleteMsg
+    //
+
+    AppMsg* DropCompleteMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
+        return new DropCompleteMsg(args);
+    }
+
+    DropCompleteMsg::DropCompleteMsg(AppMsgArgs* args) : AppMsg(args) {
+        _args = dynamic_cast<DropCompleteMsgArgs*>(args);
+    }
+
+    //
+    // AudioDeviceAddedMsg
+    //
+
+    AppMsg* AudioDeviceAddedMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
+        return new AudioDeviceAddedMsg(args);
+    }
+
+    AudioDeviceAddedMsg::AudioDeviceAddedMsg(AppMsgArgs* args) : AppMsg(args) {
+        _args = dynamic_cast<AudioDeviceAddedMsgArgs*>(args);
+    }
+
+    //
+    // AudioDeviceRemovedMsg
+    //
+
+    AppMsg* AudioDeviceRemovedMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
+        return new AudioDeviceRemovedMsg(args);
+    }
+
+    AudioDeviceRemovedMsg::AudioDeviceRemovedMsg(AppMsgArgs* args) : AppMsg(args) {
+        _args = dynamic_cast<AudioDeviceRemovedMsgArgs*>(args);
+    }
+
+    //
+    // RenderTargetsResetMsg
+    //
+
+    AppMsg* RenderTargetsResetMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
+        return new RenderTargetsResetMsg(args);
+    }
+
+    RenderTargetsResetMsg::RenderTargetsResetMsg(AppMsgArgs* args) : AppMsg(args) {
+        _args = dynamic_cast<RenderTargetsResetMsgArgs*>(args);
+    }
+
+    //
+    // RenderDeviceResetMsg
+    //
+
+    AppMsg* RenderDeviceResetMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
+        return new RenderDeviceResetMsg(args);
+    }
+
+    RenderDeviceResetMsg::RenderDeviceResetMsg(AppMsgArgs* args) : AppMsg(args) {
+        _args = dynamic_cast<RenderDeviceResetMsgArgs*>(args);
+    }
 }
