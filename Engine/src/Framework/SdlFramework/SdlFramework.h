@@ -31,7 +31,7 @@ namespace ZeroEngine {
         IWindow* create_window(std::string title, Point<long> size);
         bool on_init();
         bool on_shutdown();
-        void poll_message();
+        void process_input();
         Time get_current_time() const;
         void frame_render_present(Time delta_time);
         inline StringRepr to_string() const { return "SdlFramework"; }

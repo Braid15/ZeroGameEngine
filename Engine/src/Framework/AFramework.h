@@ -23,13 +23,13 @@ namespace ZeroEngine {
         virtual StringRepr to_string() const = 0;
         virtual Time get_current_time() const = 0;
         virtual void main_loop();
-        inline void set_update_callback( void (*callback)(Time) ) { _update_callback = callback; }
-        inline void set_render_callback( void (*callback)(Time) ) { _render_callback = callback; }
-        inline void set_app_msg_callback( bool (*callback)(AppMsg&) ) { _app_msg_callback = callback; }
+        inline void set_update_callback(void (*callback)(Time)) { _update_callback = callback; }
+        inline void set_render_callback(void (*callback)(Time)) { _render_callback = callback; }
+        inline void set_app_msg_callback(bool (*callback)(const AppMsg* const)) { _app_msg_callback = callback; }
     protected:
         AFramework();
         void set_app_msg_translator(IMsgTranslator*);
-        virtual void poll_message() = 0;
+        virtual void process_input() = 0;
         void dispatch_message();
         inline virtual void frame_render_begin(Time delta_time) {}
         virtual void frame_render_present(Time delta_time) = 0;
@@ -45,8 +45,8 @@ namespace ZeroEngine {
     // TEMPORARY: I want these private I think
     protected:
         void (*_render_callback)( Time time );
-        void (*_update_callback)( Time time );
-        bool (*_app_msg_callback)( AppMsg& msg );
+        void (*_update_callback)(Time time);
+        bool (*_app_msg_callback)(const AppMsg* const msg);
     };
 }
 

@@ -8,7 +8,7 @@ namespace ZeroEngine {
 
     class IMsgTranslator {
     public:
-        virtual AppMsg& get_translated_message() = 0;
+        virtual const AppMsg* const get_translated_message() = 0;
     };
 
     // @TODO: Put in seperate file
@@ -17,7 +17,7 @@ namespace ZeroEngine {
         AppMsgFactory* _factory;
     public:
         inline virtual ~BaseMsgTranslator() { zero_delete(_factory); }
-        virtual AppMsg& get_translated_message() = 0;
+        virtual const AppMsg* const get_translated_message() = 0;
     protected:
         inline BaseMsgTranslator() { _factory = zero_new AppMsgFactory(); }
     };

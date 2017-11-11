@@ -22,7 +22,8 @@ namespace ZeroEngine {
             Time delta_time = current_time - previous_time;
             previous_time = current_time;
             lag += delta_time;
-            poll_message();
+
+            process_input();
 
             // @@TODO: passing delta_time as function arg might not work
             // in this implementation
@@ -37,18 +38,10 @@ namespace ZeroEngine {
         }
     }
 
-    // dispatch_msg(IMsgTranslator* translator) {
-    //  msg = translator->translated_msg(_msg_factory);
-    //  _callback(msg)
-    //
-    //
-    //
-
-
     void AFramework::dispatch_message() {
-        AppMsg& msg = _msg_translator->get_translated_message();
+        const AppMsg* const msg = _msg_translator->get_translated_message();
         // @@TEMP: _is_running should be switched via EventMaanager registered function
-        _is_running = msg.get_type() != AppMsg::quit;
+        _is_running = msg->get_type() != AppMsg::quit;
         _app_msg_callback(msg);
     }
 

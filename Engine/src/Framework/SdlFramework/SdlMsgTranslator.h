@@ -8,14 +8,11 @@ namespace ZeroEngine {
 
     class SdlMsgTranslator : public BaseMsgTranslator {
     private:
-        AppMsgType _translation_map[SDL_LASTEVENT];
-        SDL_Event _sdl_event_to_translate;
+        SDL_Event _sdl_event;
     public:
-        inline SdlMsgTranslator() { init_translation_map(); }
-        inline ~SdlMsgTranslator() { std::cout << "~SdlMsgTranslator\n"; }
-        AppMsg& get_translated_message() override;
+        inline SdlMsgTranslator() {}
+        inline ~SdlMsgTranslator() {}
+        const AppMsg* const get_translated_message() override;
         void set_sdl_event_to_translate(const SDL_Event&);
-    private:
-        void init_translation_map();
     };
 } 

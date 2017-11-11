@@ -48,7 +48,7 @@ namespace ZeroEngine {
         return true;
     }
 
-    void SdlFramework::poll_message() {
+    void SdlFramework::process_input() {
         while (SDL_PollEvent(&_event) != 0) {
             _msg_translator->set_sdl_event_to_translate(_event);
             dispatch_message();

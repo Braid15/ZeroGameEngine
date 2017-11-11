@@ -16,8 +16,9 @@ namespace ZeroEngine {
         }
     }
 
-    bool ZeroEngineApp::on_app_msg( AppMsg& msg ) {
-        std::cout << "ZeroEngineApp::on_app_msg -> " << msg.to_string() << std::endl;
+    bool ZeroEngineApp::on_app_msg(const AppMsg* const msg) {
+        std::cout << "ZeroEngineApp::on_app_msg -> " << msg->to_string() << " : " 
+            << msg->get_time_stamp() << std::endl;
         return true;
     }
 
