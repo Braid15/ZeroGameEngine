@@ -6,8 +6,7 @@
 
 namespace ZeroEngine {
 
-    // @TODO: Add dtors to all derived types
-    // @TODO: Make all derived types final
+    // @TODO: MsgArgs should be using MemoryPool 
 
     // @TODO: Put this in different file?
     enum ButtonState {
@@ -19,7 +18,7 @@ namespace ZeroEngine {
     // AppMsgArgs
     //
 
-    class AppMsgArgs {
+    class AppMsgArgs : public IZeroObject {
     private:
         Time _creation_time;
     public:
@@ -94,7 +93,7 @@ namespace ZeroEngine {
     //
 
     // @TODO: Fields are sdl
-    class TextEditMsgArgs : public AppMsgArgs {
+    class TextEditMsgArgs final : public AppMsgArgs {
     private:
         uint32_t _window;
         char _text[32];
@@ -111,7 +110,7 @@ namespace ZeroEngine {
     //
 
     // @TODO: Fields are sdl
-    class TextInputMsgArgs : public AppMsgArgs {
+    class TextInputMsgArgs final : public AppMsgArgs {
     private:
         uint32_t _window;
         char _text[32];
@@ -126,7 +125,7 @@ namespace ZeroEngine {
     //
 
     // @TODO: Fields are sdl
-    class KeyMapChangedMsgArgs : public AppMsgArgs {
+    class KeyMapChangedMsgArgs final : public AppMsgArgs {
     private:
 
     public:
@@ -141,7 +140,7 @@ namespace ZeroEngine {
     //
 
     // @TODO: Fields are sdl
-    class MouseMotionMsgArgs : public AppMsgArgs {
+    class MouseMotionMsgArgs final : public AppMsgArgs {
     private:
         uint32_t _window;
         uint32_t _mouse_id;
@@ -194,7 +193,7 @@ namespace ZeroEngine {
     //
 
     // @TODO: Fields are sdl
-    class MouseWheelMsgArgs : public AppMsgArgs {
+    class MouseWheelMsgArgs final : public AppMsgArgs {
     private:
         uint32_t _window;
         uint32_t _mouse_id;
@@ -211,7 +210,7 @@ namespace ZeroEngine {
     //
 
     // @TODO: Fields are sdl
-    class JoyAxisMotionMsgArgs : public AppMsgArgs {
+    class JoyAxisMotionMsgArgs final : public AppMsgArgs {
     private:
         // SDL_JoystickID
         uint32_t _joystick_id;
@@ -228,7 +227,7 @@ namespace ZeroEngine {
     //
 
     // @TODO: Fields are sdl
-    class JoyBallMotionMsgArgs : public AppMsgArgs {
+    class JoyBallMotionMsgArgs final : public AppMsgArgs {
     private:
         // SDL_JoystickID
         uint32_t _joystick_id;
@@ -246,7 +245,7 @@ namespace ZeroEngine {
     //
 
     // @TODO: Fields are sdl
-    class JoyHatMotionMsgArgs : public AppMsgArgs {
+    class JoyHatMotionMsgArgs final : public AppMsgArgs {
     private:
         // SDL_JoystickID
         uint32_t _joystick_id;
@@ -263,7 +262,7 @@ namespace ZeroEngine {
     //
 
     // @TODO: Fields are sdl
-    class JoyButtonMsgArgs : public AppMsgArgs {
+    class JoyButtonMsgArgs final : public AppMsgArgs {
     private:
         // SDL_JoystickID
         uint32_t _joystick_id;
@@ -280,7 +279,7 @@ namespace ZeroEngine {
     //
 
     // @TODO: FIelds are sdl
-    class JoyDeviceAddedMsgArgs : public AppMsgArgs {
+    class JoyDeviceAddedMsgArgs final : public AppMsgArgs {
     private:
         int32_t _device_id;
     public:
@@ -293,7 +292,7 @@ namespace ZeroEngine {
     // JoyDeviceRemovedMsgArgs
     //
 
-    class JoyDeviceRemovedMsgArgs : public AppMsgArgs {
+    class JoyDeviceRemovedMsgArgs final : public AppMsgArgs {
     private:
         int32_t _device_id;
     public:
@@ -307,7 +306,7 @@ namespace ZeroEngine {
     //
 
     // @TODO: Fields are sdl
-    class ControllerAxisMotionMsgArgs : public AppMsgArgs {
+    class ControllerAxisMotionMsgArgs final : public AppMsgArgs {
     private:
         // SDL_JoystickID
         uint32_t _which;
@@ -325,7 +324,7 @@ namespace ZeroEngine {
     //
 
     // @TODO: Fields are sdl
-    class ControllerButtonMsgArgs : public AppMsgArgs {
+    class ControllerButtonMsgArgs final : public AppMsgArgs {
     private:
         // SDL_JoystickID
         uint32_t _which;
@@ -342,7 +341,7 @@ namespace ZeroEngine {
     //
 
     // @TODO: Fields are sdl
-    class ControllerDeviceAddedMsgArgs : public AppMsgArgs {
+    class ControllerDeviceAddedMsgArgs final : public AppMsgArgs {
     private:
         // SDL_events.h line: 393
         uint32_t _which;
@@ -356,7 +355,7 @@ namespace ZeroEngine {
     // ControllerDeviceRemovedMsgArgs
     //
 
-    class ControllerDeviceRemovedMsgArgs : public AppMsgArgs {
+    class ControllerDeviceRemovedMsgArgs final : public AppMsgArgs {
     private:
         // SDL_events.h line: 393
         uint32_t _which;
@@ -370,7 +369,7 @@ namespace ZeroEngine {
     // ControllerDeviceRemappedMsgArgs
     //
 
-    class ControllerDeviceRemappedMsgArgs : public AppMsgArgs {
+    class ControllerDeviceRemappedMsgArgs final : public AppMsgArgs {
     private:
         // SDL_events.h line: 393
         uint32_t _which;
@@ -387,7 +386,7 @@ namespace ZeroEngine {
     //
 
     // TODO: Fields are sdl
-    class FingerDownMsgArgs : public AppMsgArgs {
+    class FingerDownMsgArgs final : public AppMsgArgs {
     private:
         // SDL_TouchID
         uint32_t _touch_id;
@@ -408,7 +407,7 @@ namespace ZeroEngine {
     // FingerUpMsgArgs
     //
 
-    class FingerUpMsgArgs : public AppMsgArgs {
+    class FingerUpMsgArgs final : public AppMsgArgs {
     // @@TODO: See above REFACTOR
     public:
         inline FingerUpMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
@@ -420,7 +419,7 @@ namespace ZeroEngine {
     // FingerMotionMsgArgs
     //
 
-    class FingerMotionMsgArgs : public AppMsgArgs {
+    class FingerMotionMsgArgs final : public AppMsgArgs {
     // @@TODO: See above REFACTOR
     public:
         inline FingerMotionMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
@@ -432,7 +431,7 @@ namespace ZeroEngine {
     // ClipboardMsgArgs
     //
 
-    class ClipboardMsgArgs : public AppMsgArgs {
+    class ClipboardMsgArgs final : public AppMsgArgs {
     public:
         inline ClipboardMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
         inline ~ClipboardMsgArgs() {}
@@ -445,7 +444,7 @@ namespace ZeroEngine {
 
     // @@REFACTOR: DropFileMsgArgs for DropBeginMsgArgs, DropTextMsgArgs and DropTextMsgArgs
     // @@TODO: Fields are sdl
-    class DropFileMsgArgs : public AppMsgArgs {
+    class DropFileMsgArgs final : public AppMsgArgs {
     private:
         char* _file;
         uint32_t _window_id;
@@ -459,7 +458,7 @@ namespace ZeroEngine {
     // DropTextMsgArgs
     //
 
-    class DropTextMsgArgs : public AppMsgArgs {
+    class DropTextMsgArgs final : public AppMsgArgs {
     // @@TODO: See above REFACTOR
     public:
         inline DropTextMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
@@ -471,7 +470,7 @@ namespace ZeroEngine {
     // DropBeginMsgArgs
     //
 
-    class DropBeginMsgArgs : public AppMsgArgs {
+    class DropBeginMsgArgs final : public AppMsgArgs {
     // @@TODO: See above REFACTOR
     public:
         inline DropBeginMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
@@ -483,7 +482,7 @@ namespace ZeroEngine {
     // DropCompleteMsgArgs
     //
 
-    class DropCompleteMsgArgs : public AppMsgArgs {
+    class DropCompleteMsgArgs final : public AppMsgArgs {
     // @@TODO: See above REFACTOR
     public:
         inline DropCompleteMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
@@ -497,7 +496,7 @@ namespace ZeroEngine {
 
     // @@REFACTOR: AudioDeviceMsgArgs for AudioDeviceAddedMsg and AudioDeviceRemovedMsg
     // @TODO: Fields are sdl
-    class AudioDeviceAddedMsgArgs : public AppMsgArgs {
+    class AudioDeviceAddedMsgArgs final : public AppMsgArgs {
     private:
         // SDL_events.hj line: 407
         uint32_t _which;
@@ -512,7 +511,7 @@ namespace ZeroEngine {
     // AudioDeviceRemovedMsgArgs
     //
 
-    class AudioDeviceRemovedMsgArgs : public AppMsgArgs {
+    class AudioDeviceRemovedMsgArgs final : public AppMsgArgs {
     // @@TODO: See above REFACTOR
     public:
         inline AudioDeviceRemovedMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
@@ -524,7 +523,7 @@ namespace ZeroEngine {
     // RenderTargetsResetMsgArgs
     //
 
-    class RenderTargetsResetMsgArgs : public AppMsgArgs {
+    class RenderTargetsResetMsgArgs final : public AppMsgArgs {
     public:
         inline RenderTargetsResetMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
         inline ~RenderTargetsResetMsgArgs() {}
@@ -535,7 +534,7 @@ namespace ZeroEngine {
     // RenderDeviceResetMsgArgs
     //
 
-    class RenderDeviceResetMsgArgs : public AppMsgArgs {
+    class RenderDeviceResetMsgArgs final : public AppMsgArgs {
     public:
         inline RenderDeviceResetMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
         inline ~RenderDeviceResetMsgArgs() {}
