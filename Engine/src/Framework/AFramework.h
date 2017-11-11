@@ -22,29 +22,24 @@ namespace ZeroEngine {
         bool shutdown();
         virtual StringRepr to_string() const = 0;
         virtual Time get_current_time() const = 0;
-        inline virtual FrameworkMsgId get_current_message() const { return _current_message; }
         virtual void main_loop();
         inline void set_update_callback( void (*callback)(Time) ) { _update_callback = callback; }
         inline void set_render_callback( void (*callback)(Time) ) { _render_callback = callback; }
         inline void set_app_msg_callback( bool (*callback)(AppMsg&) ) { _app_msg_callback = callback; }
-
     protected:
         AFramework();
-        //inline AFramework(): _current_message( new AppMsg( 0 ) ) {}
         void set_app_msg_translator(IMsgTranslator*);
         virtual void poll_message() = 0;
-        void dispatch_message(FrameworkMsgId);
+        void dispatch_message();
         inline virtual void frame_render_begin(Time delta_time) {}
         virtual void frame_render_present(Time delta_time) = 0;
         inline virtual void frame_render_end(Time delta_time) {}
         virtual bool on_init() = 0;
         virtual bool on_shutdown() = 0;
-
     private:
         bool _is_running;
-        AppMsgFactory* _message_factory;
-        IMsgTranslator* _message_translator;
-        FrameworkMsgId _current_message;
+        AppMsgFactory* _msg_factory;
+        IMsgTranslator* _msg_translator;
 
     //private:
     // TEMPORARY: I want these private I think

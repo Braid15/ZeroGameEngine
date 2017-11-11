@@ -2,12 +2,8 @@
 
 namespace ZeroEngine {
 
-    AppMsgType SdlMsgTranslator::translate_message(FrameworkMsgId id) {
-        return _translation_map[id];
-    }
-
     // TODO: _translation_map can be optimized.
-    // The array is initialized to 65543 (0xffff) because
+    // The array is initialized to 65535 (0xffff) because
     // of the SDL_Event enum.
     void SdlMsgTranslator::init_translation_map() {
         for (int i = SDL_FIRSTEVENT; i < SDL_LASTEVENT; ++i) {
@@ -60,6 +56,15 @@ namespace ZeroEngine {
         _translation_map[SDL_RENDER_TARGETS_RESET] = AppMsg::render_targets_reset;
         _translation_map[SDL_RENDER_DEVICE_RESET] = AppMsg::render_device_reset;
         _translation_map[SDL_USEREVENT] = AppMsg::unhandled;
+    }
+
+    AppMsg& SdlMsgTranslator::get_translated_message() {
+        return _factory->create_message(_translation_map[_sdl_event_to_translate.type]);
+    }
+
+
+    void SdlMsgTranslator::set_sdl_event_to_translate(const SDL_Event& event) {
+        _sdl_event_to_translate = event;
     }
 }
 

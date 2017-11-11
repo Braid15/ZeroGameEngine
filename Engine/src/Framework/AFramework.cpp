@@ -3,15 +3,12 @@
 namespace ZeroEngine {
 
     AFramework::AFramework() {
-        _message_factory = zero_new AppMsgFactory();;
-        _message_translator = nullptr; 
-        _current_message = 0;
+        _msg_translator = nullptr; 
         _is_running = false;
     }
 
     AFramework::~AFramework() {
-        zero_delete(_message_factory);
-        zero_delete(_message_translator);
+        //zero_delete(_msg_translator);
     }
 
     // @@TODO: Experimenting with main_loop design
@@ -40,16 +37,23 @@ namespace ZeroEngine {
         }
     }
 
+    // dispatch_msg(IMsgTranslator* translator) {
+    //  msg = translator->translated_msg(_msg_factory);
+    //  _callback(msg)
+    //
+    //
+    //
 
-    void AFramework::dispatch_message(FrameworkMsgId msg_id) {
-        AppMsgType msg_type = _message_translator->translate_message(msg_id);
-        // TEMP: an event should be posted that user quit which will set the _is_running flag to false
-        _is_running = msg_type != AppMsg::quit;
-        _app_msg_callback(*_message_factory->create_message(msg_type));
+
+    void AFramework::dispatch_message() {
+        AppMsg& msg = _msg_translator->get_translated_message();
+        // @@TEMP: _is_running should be switched via EventMaanager registered function
+        _is_running = msg.get_type() != AppMsg::quit;
+        _app_msg_callback(msg);
     }
 
     bool AFramework::initialize() {
-        _is_running = on_init() && (_message_factory != nullptr) && (_message_translator != nullptr);
+        _is_running = on_init() && (_msg_factory != nullptr) && (_msg_translator != nullptr);
         return _is_running;
     }
 
@@ -58,7 +62,8 @@ namespace ZeroEngine {
         return on_shutdown();
     }
 
+    // @@TODO: Use shared_ptr
     void AFramework::set_app_msg_translator(IMsgTranslator* msg_translator) {
-        _message_translator = msg_translator;
+        _msg_translator = msg_translator;
     }
 }

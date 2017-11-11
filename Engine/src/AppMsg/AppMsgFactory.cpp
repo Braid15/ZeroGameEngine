@@ -17,18 +17,18 @@ namespace ZeroEngine {
         AppMsg::destroy_memory_pool(_access_key);
     }
 
-    AppMsg* AppMsgFactory::create_message(AppMsgType msg_type) {
+    AppMsg& AppMsgFactory::create_message(AppMsgType msg_type) {
         AppMsg::destroy(_access_key, _current_message);
         _current_message = get_app_message(msg_type);
-        return _current_message;
+        return *_current_message;
     }
 
     // @@TODO: this function wont work since the args arn't being passed in through the ctor
     // All derived classes should override set_args()
-    AppMsg* AppMsgFactory::create_message(AppMsgType msg_type, AppMsgArgs* args) {
+    AppMsg& AppMsgFactory::create_message(AppMsgType msg_type, AppMsgArgs* args) {
         create_message(msg_type);
         _current_message->set_args(_access_key, args);
-        return _current_message;
+        return *_current_message;
     }
 
     AppMsg* AppMsgFactory::get_app_message(AppMsgType msg_type) {

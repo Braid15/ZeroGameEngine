@@ -16,8 +16,8 @@ namespace ZeroEngine {
     public:
         AppMsgFactory();
         ~AppMsgFactory();
-        AppMsg* create_message(AppMsgType);
-        AppMsg* create_message(AppMsgType, AppMsgArgs*);
+        AppMsg& create_message(AppMsgType);
+        AppMsg& create_message(AppMsgType, AppMsgArgs*);
     private:
         inline AppMsgFactory(const AppMsgFactory&) {}
         void register_app_messages();
