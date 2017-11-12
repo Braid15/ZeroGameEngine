@@ -25,6 +25,8 @@ namespace ZeroEngine {
                 return _factory->create_message(AppMsg::window, zero_new WindowMsgArgs(time));
             case SDL_SYSWMEVENT:
                 return _factory->create_message(AppMsg::system, zero_new SystemMsgArgs(time));
+
+            // @TODO: FInish implementing KeydownMsg and KeyupMsg
             case SDL_KEYDOWN:
             case SDL_KEYUP:
             {
@@ -58,18 +60,26 @@ namespace ZeroEngine {
                 int32_t y_rel = _sdl_event.motion.yrel;
                 int32_t x_rel = _sdl_event.motion.xrel;
 
-                ButtonState button_states[static_cast<int>(MouseButton::end)];
+                // SDL_MouseMotionEvent.state returns a bitmask of the current state of the mouse.
+                // Perform bitwise & to check if a button is pressed.
+                // This is equivilant of calling SDL_GetMouseState() & SDL_BUTTON(<button_number>)
 
-                button_states[static_cast<int>(MouseButton::left)] = 
-                    (SDL_GetMouseState(nullptr, nullptr) & SDL_BUTTON(SDL_BUTTON_LEFT)) ? ButtonState::pressed : ButtonState::released;
-                button_states[static_cast<int>(MouseButton::middle)] = 
-                    (SDL_GetMouseState(nullptr, nullptr) & SDL_BUTTON(SDL_BUTTON_MIDDLE)) ? ButtonState::pressed : ButtonState::released;
-                button_states[static_cast<int>(MouseButton::right)] = 
-                    (SDL_GetMouseState(nullptr, nullptr) & SDL_BUTTON(SDL_BUTTON_RIGHT)) ? ButtonState::pressed : ButtonState::released;
-                button_states[static_cast<int>(MouseButton::four)] = 
-                    (SDL_GetMouseState(nullptr, nullptr) & 1 << (static_cast<int>(MouseButton::four) - 1)) ? ButtonState::pressed : ButtonState::released;
-                button_states[static_cast<int>(MouseButton::five)] = 
-                    (SDL_GetMouseState(nullptr, nullptr) & 1 << (static_cast<int>(MouseButton::five) - 1)) ? ButtonState::pressed : ButtonState::released;
+                MouseButtonStateArray button_states;
+
+                int left_button = static_cast<int>(MouseButton::left);
+                button_states[left_button] = (state & 1 << (left_button - 1)) ? ButtonState::pressed : ButtonState::released;
+
+                int middle_button = static_cast<int>(MouseButton::middle);
+                button_states[middle_button] = (state & 1 << (middle_button - 1)) ? ButtonState::pressed : ButtonState::released;
+
+                int right_button = static_cast<int>(MouseButton::right);
+                button_states[right_button] = (state & 1 << (right_button - 1)) ? ButtonState::pressed : ButtonState::released;
+
+                int button_four = static_cast<int>(MouseButton::four);
+                button_states[button_four] = (state & 1 << (button_four - 1)) ? ButtonState::pressed : ButtonState::released;
+
+                int button_five = static_cast<int>(MouseButton::five);
+                button_states[button_five] = (state & 1 << (button_five - 1)) ? ButtonState::pressed : ButtonState::released;
 
                 MouseMotionMsgArgs* args = 
                     zero_new MouseMotionMsgArgs(time, window, mouse, button_states, x_pos, y_pos, x_rel, y_rel);

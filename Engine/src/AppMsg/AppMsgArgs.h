@@ -158,16 +158,18 @@ namespace ZeroEngine {
         end,
     };
 
+    typedef std::array<ButtonState, static_cast<int>(MouseButton::end)> MouseButtonStateArray;
+
     class MouseMotionMsgArgs final : public AppMsgArgs {
     private:
         uint32_t _window;
         uint32_t _mouse_id;
-        ButtonState _buttons[static_cast<int>(MouseButton::end)];
+        MouseButtonStateArray _button_states;
         Point<int32_t> _x_y_coordinates;
         Point<int32_t> _x_y_relative;
     public:
         MouseMotionMsgArgs(Time time_stamp, uint32_t window, uint32_t mouse, 
-                           ButtonState buttons[static_cast<int>(MouseButton::end)], int32_t x_pos,
+                           MouseButtonStateArray buttons, int32_t x_pos,
                            int32_t y_pos, int32_t x_rel, int32_t y_rel);
         inline ~MouseMotionMsgArgs() {}
         inline StringRepr to_string() const override { return "MouseMsgArgs"; }
@@ -179,9 +181,8 @@ namespace ZeroEngine {
         inline int32_t get_x_rel() const { return _x_y_relative.get_x(); }
         inline int32_t get_y_rel() const { return _x_y_relative.get_y(); }
         inline Point<int32_t> get_rel_coordinates() const { return _x_y_relative; }
+        inline MouseButtonStateArray get_button_states() const { return _button_states; }
         bool is_pressed(MouseButton) const;
-
-
     };
 
     //

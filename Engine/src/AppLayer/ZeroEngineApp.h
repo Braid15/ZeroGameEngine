@@ -25,7 +25,7 @@ namespace ZeroEngine {
 
     public:
         // @@TODO: THis might cause problems. How will derived class override?
-        static bool on_app_msg(const AppMsg* const msg);
+        static bool app_msg_proc(const AppMsg* const msg);
         static void on_update(Time time);
         static void on_render(Time time);
 

@@ -353,6 +353,7 @@ namespace ZeroEngine {
         inline int32_t get_y_rel() const { return _args->get_y_rel(); }
         inline Point<int32_t> get_rel_coordinates() const { return _args->get_rel_coordinates(); }
         inline bool is_pressed(MouseButton button) const { return _args->is_pressed(button); }
+        inline MouseButtonStateArray get_button_states() const { return _args->get_button_states(); }
     protected:
         inline ~MouseMotionMsg() {}
     private:

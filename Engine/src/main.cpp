@@ -24,7 +24,7 @@ int main( int argc, char* args[] ) {
     framework->create_renderer();
 
 
-    framework->set_app_msg_callback(ZeroEngineApp::on_app_msg);
+    framework->set_app_msg_callback(ZeroEngineApp::app_msg_proc);
     framework->set_update_callback(ZeroEngineApp::on_update);
     framework->set_render_callback(ZeroEngineApp::on_render);
     framework->main_loop();

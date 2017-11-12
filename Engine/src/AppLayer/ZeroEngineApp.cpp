@@ -16,10 +16,7 @@ namespace ZeroEngine {
         }
     }
 
-    bool ZeroEngineApp::on_app_msg(const AppMsg* const msg) {
-        if (msg->get_type() == AppMsg::mouse_motion) {
-
-        }
+    bool ZeroEngineApp::app_msg_proc(const AppMsg* const msg) {
         return true;
     }
 
@@ -30,9 +27,6 @@ namespace ZeroEngine {
     void ZeroEngineApp::on_render( Time time ) {
         // std::cout << "ZeroEngineApp::on_render()" << std::endl;
     }
-
-
-    /* Public */
 
     ZeroEngineApp::~ZeroEngineApp() {
     }
