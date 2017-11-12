@@ -77,8 +77,11 @@ namespace ZeroEngine {
         IWindow* ret_window = nullptr;
         _window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_UNDEFINED,
                                    SDL_WINDOWPOS_UNDEFINED, size.get_x(), 
-                                   size.get_y(), SDL_WINDOW_SHOWN
+                                   size.get_y(), SDL_WINDOW_SHOWN | SDL_WINDOW_ALLOW_HIGHDPI
+                                   | SDL_WINDOW_RESIZABLE
+
         );
+
         if (!_window) {
             std::cout << "SDL_Error: " << SDL_GetError() << std::endl;
         }

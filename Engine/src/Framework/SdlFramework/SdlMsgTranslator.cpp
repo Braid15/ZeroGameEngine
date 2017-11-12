@@ -22,6 +22,11 @@ namespace ZeroEngine {
             case SDL_APP_DIDENTERFOREGROUND:
                 return _factory->create_message(AppMsg::unhandled, zero_new EmptyMsgArgs(time));
             case SDL_WINDOWEVENT:
+
+                //_sdl_event.window.event;
+                //_sdl_event.window.data1;
+                //_sdl_event.window.data2;
+
                 return _factory->create_message(AppMsg::window, zero_new WindowMsgArgs(time));
             case SDL_SYSWMEVENT:
                 return _factory->create_message(AppMsg::system, zero_new SystemMsgArgs(time));
@@ -122,8 +127,27 @@ namespace ZeroEngine {
                 }
             }
 
+            // @TODO: Doesn't handle scrolling along x axis
             case SDL_MOUSEWHEEL:
-                return _factory->create_message(AppMsg::mouse_wheel, zero_new MouseWheelMsgArgs(time));
+            {
+                uint32_t mouse = _sdl_event.wheel.which;
+                uint32_t window = _sdl_event.wheel.windowID;
+                int32_t x = _sdl_event.wheel.x;
+                int32_t y = _sdl_event.wheel.y;
+
+                // So the values are never flipped
+                if (_sdl_event.wheel.direction == SDL_MOUSEWHEEL_FLIPPED) {
+                    x *= -1;
+                    y *= -1;
+                }
+
+                MouseWheelDirection direction = (y > 0) ? MouseWheelDirection::up : MouseWheelDirection::down;
+
+                MouseWheelMsgArgs* args = zero_new MouseWheelMsgArgs(time, window, mouse, x, y, direction);
+
+                return _factory->create_message(AppMsg::mouse_wheel, args);
+            }
+
             case SDL_JOYAXISMOTION:
                 return _factory->create_message(AppMsg::joy_axis_motion, zero_new JoyAxisMotionMsgArgs(time));
             case SDL_JOYBALLMOTION:

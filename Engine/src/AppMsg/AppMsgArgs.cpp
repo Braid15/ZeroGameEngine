@@ -37,6 +37,20 @@ namespace ZeroEngine {
     }
 
     //
+    // MouseWheelMsgArgs
+    //
+
+    MouseWheelMsgArgs::MouseWheelMsgArgs(Time time_stamp, uint32_t window, uint32_t mouse,
+                                         int32_t x, int32_t y, MouseWheelDirection direction)
+                                         : AppMsgArgs(time_stamp) {
+        _window = window;
+        _mouse_id = mouse;
+        _x_y_coordinates.set(x, y);
+        _direction = direction;
+    }
+
+
+    //
     // KeyboardMsgArgs
     //
 

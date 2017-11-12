@@ -10,13 +10,30 @@ namespace ZeroEngine {
     // @TODO: MsgArgs should be using MemoryPool 
 
     // @TODO: Put this in different file?
-    enum class ButtonState : char {
+    enum class ButtonState : int8_t {
         null = -1,
         begin = 1,
         released = 1,
         pressed,
         end
     };
+
+    inline std::ostream& operator<<(std::ostream& os, ButtonState state) {
+        if (state == ButtonState::null) {
+            os << "ButtonState::null";
+        } else if (state == ButtonState::begin) {
+            os << "ButtonState::begin";
+        } else if (state == ButtonState::released) {
+            os << "ButtonState::released";
+        } else if (state == ButtonState::pressed) {
+            os << "ButtonState::pressed";
+        } else if (state == ButtonState::end) {
+            os << "ButtonState::end";
+        } else {
+            os.setstate(std::ios_base::failbit);
+        }
+        return os;
+    }
 
 
     //
@@ -158,6 +175,29 @@ namespace ZeroEngine {
         end,
     };
 
+    inline std::ostream& operator<<(std::ostream& os, MouseButton button) {
+        if (button == MouseButton::null) {
+            os << "MouseButton::null";
+        } else if (button == MouseButton::begin) {
+            os << "MouseButton::begin";
+        } else if (button == MouseButton::left) {
+            os << "MouseButton::left";
+        } else if (button == MouseButton::middle) {
+            os << "MouseButton::middle";
+        } else if (button == MouseButton::right) {
+            os << "MouseButton::right";
+        } else if (button == MouseButton::four) {
+            os << "MouseButton::four";
+        } else if (button == MouseButton::five) {
+            os << "MouseButton::five";
+        } else if (button == MouseButton::end) {
+            os << "MouseButton::end";
+        } else {
+            os.setstate(std::ios_base::failbit);
+        }
+        return os;
+    }
+
     typedef std::array<ButtonState, static_cast<int>(MouseButton::end)> MouseButtonStateArray;
 
     class MouseMotionMsgArgs final : public AppMsgArgs {
@@ -215,17 +255,42 @@ namespace ZeroEngine {
     // MouseWheelMsgArgs
     //
 
-    // @TODO: Fields are sdl
+    // @TODO: Different file?
+    enum class MouseWheelDirection : char {
+        null = -2,
+        down = -1,
+        up = 1,
+    };
+
+    inline std::ostream& operator<<(std::ostream& os, MouseWheelDirection direction) {
+        if (direction == MouseWheelDirection::null) {
+            os << "MouseWheelDirection::null";
+        } else if (direction == MouseWheelDirection::down) {
+            os << "MouseWheelDirection::down";
+        } else if (direction == MouseWheelDirection::up) {
+            os << "MouseWheelDirection::up";
+        } else {
+            os.setstate(std::ios_base::failbit);
+        }
+        return os;
+    }
+
     class MouseWheelMsgArgs final : public AppMsgArgs {
     private:
         uint32_t _window;
         uint32_t _mouse_id;
         Point<int32_t> _x_y_coordinates;
-        uint32_t _direction;
+        MouseWheelDirection _direction;
     public:
-        inline MouseWheelMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        MouseWheelMsgArgs(Time time_stamp, uint32_t window, uint32_t mouse,
+                                 int32_t x, int32_t y, MouseWheelDirection dir);
         inline ~MouseWheelMsgArgs() {}
         inline StringRepr to_string() const override { return "MouseWheelMsgArgs"; }
+        inline uint32_t get_window() const { return _window; }
+        inline uint32_t get_mouse() const { return _mouse_id; }
+        inline int32_t get_scroll_amount_x() const { return _x_y_coordinates.get_x(); }
+        inline int32_t get_scroll_amount_y() const { return _x_y_coordinates.get_y(); }
+        inline MouseWheelDirection get_direction() const { return _direction; }
     };
 
     //

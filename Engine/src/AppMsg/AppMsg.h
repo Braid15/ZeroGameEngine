@@ -371,6 +371,11 @@ namespace ZeroEngine {
         inline const AppMsgType get_type() const { return AppMsg::mouse_wheel; }
         inline StringRepr to_string() const { return "MouseWheenMsg"; }
         static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
+        inline uint32_t get_window() const { return _args->get_window(); }
+        inline uint32_t get_mouse() const { return _args->get_mouse(); }
+        inline int32_t get_scroll_amount_x() const { return _args->get_scroll_amount_x(); }
+        inline int32_t get_scroll_amount_y() const { return _args->get_scroll_amount_y(); }
+        inline MouseWheelDirection get_direction() const { return _args->get_direction(); }
     protected:
         inline ~MouseWheelMsg() {}
     private:
