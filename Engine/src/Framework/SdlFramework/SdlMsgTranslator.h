@@ -2,6 +2,7 @@
 
 #include "../../ZeroEngineStd.h"
 #include "../IMsgTranslator.h"
+#include "../../Input/Keys.h"
 #include "../../3rdParty/SDL/SDL_events.h"
 
 namespace ZeroEngine {

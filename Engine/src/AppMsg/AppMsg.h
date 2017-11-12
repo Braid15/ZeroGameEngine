@@ -205,6 +205,10 @@ namespace ZeroEngine {
         inline const AppMsgType get_type() const override { return AppMsg::keydown; }
         inline StringRepr to_string() const override { return "KeyDownMsg"; }
         static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
+        inline bool is_repeat() const { return _args->is_repeat(); }
+        inline Key get_key() const { return _args->get_key(); }
+        inline char get_key_char() const { return _args->get_key().get_key_char(); }
+        inline uint32_t get_window() const { return _args->get_window(); }
     protected:
         inline ~KeyDownMsg() {}
     private:
@@ -222,6 +226,10 @@ namespace ZeroEngine {
         inline const AppMsgType get_type() const override { return AppMsg::keyup; }
         inline StringRepr to_string() const override { return "KeyUpMsg"; }
         static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
+        inline bool is_repeat() const { return _args->is_repeat(); }
+        inline Key get_key() const { return _args->get_key(); }
+        inline char get_key_char() const { return _args->get_key().get_key_char(); }
+        inline uint32_t get_window() const { return _args->get_window(); }
     protected:
         inline ~KeyUpMsg() {}
     private:

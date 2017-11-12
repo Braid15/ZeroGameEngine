@@ -203,6 +203,7 @@
     <ClInclude Include="src\Graphics\Graphics.h" />
     <ClInclude Include="src\Graphics\Point.h" />
     <ClInclude Include="src\Graphics\Rect.h" />
+    <ClInclude Include="src\Input\Keys.h" />
     <ClInclude Include="src\Logger\BaseLogger.h" />
     <ClInclude Include="src\Logger\ILoggable.h" />
     <ClInclude Include="src\Logger\ILogger.h" />

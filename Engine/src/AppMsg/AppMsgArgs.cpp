@@ -17,4 +17,17 @@ namespace ZeroEngine {
         _button = button;
         _x_y_coordinates = Point<int32_t>(x_pos, y_pos);
     }
+
+    //
+    // KeyboardMsgArgs
+    //
+
+    KeyboardMsgArgs::KeyboardMsgArgs(Time time_stamp, uint32_t window, Key& key, bool repeat, KeyState state)
+                                     : AppMsgArgs(time_stamp) {
+        _window = window;
+        _key = key;
+        _is_repeat = repeat;
+        _state = state;
+    }
+                            
 }

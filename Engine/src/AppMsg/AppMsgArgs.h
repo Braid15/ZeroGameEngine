@@ -3,6 +3,7 @@
 #include "../ZeroEngineStd.h"
 #include "../Time.h"
 #include "../Graphics/Point.h"
+#include "../Input/Keys.h"
 
 namespace ZeroEngine {
 
@@ -13,6 +14,7 @@ namespace ZeroEngine {
         BUTTON_STATE_RELEASED,
         BUTTON_STATE_PRESSED,
     };
+
 
     //
     // AppMsgArgs
@@ -75,16 +77,19 @@ namespace ZeroEngine {
     // KeyboardMsgArgs
     //
 
-    // @TODO: Fields are sdl
     class KeyboardMsgArgs final : public AppMsgArgs {
     private:
-        uint8_t _state;
-        uint8_t _repeat;
-        uint32_t _key;
+        KeyState _state;
+        bool _is_repeat;
+        Key _key;
         uint32_t _window;
     public:
-        inline KeyboardMsgArgs(Time time_stamp) : AppMsgArgs(time_stamp) {}
+        KeyboardMsgArgs(Time time_stamp, uint32_t window, Key& key, bool repeat, KeyState state);
         inline ~KeyboardMsgArgs() {}
+        inline KeyState get_key_state() const { return _state; }
+        inline bool is_repeat() const { return _is_repeat; }
+        inline Key get_key() const { return _key; }
+        inline uint32_t get_window() const { return _window; }
         inline StringRepr to_string() const override { return "KeyboardMsgArgs"; }
     };
 

@@ -2,6 +2,8 @@
 
 namespace ZeroEngine {
 
+    static Key sdl_keysym_to_key_value_conversion(SDL_Keysym);
+
     const AppMsg* const SdlMsgTranslator::get_translated_message() {
         uint32_t time = _sdl_event.common.timestamp;
         switch (_sdl_event.type) {
@@ -24,9 +26,21 @@ namespace ZeroEngine {
             case SDL_SYSWMEVENT:
                 return _factory->create_message(AppMsg::system, zero_new SystemMsgArgs(time));
             case SDL_KEYDOWN:
-                return _factory->create_message(AppMsg::keydown, zero_new KeyboardMsgArgs(time));
             case SDL_KEYUP:
-                return _factory->create_message(AppMsg::keyup, zero_new KeyboardMsgArgs(time));
+            {
+                uint32_t window = _sdl_event.key.windowID;
+                bool repeat = _sdl_event.key.repeat == 1;
+                KeyState state = _sdl_event.key.state == 1 ? KeyState::pressed : KeyState::released;
+                Key key(sdl_keysym_to_key_value_conversion(_sdl_event.key.keysym));
+
+                KeyboardMsgArgs* args = zero_new KeyboardMsgArgs(time, window, key, repeat, state);
+
+                if (_sdl_event.type == SDL_KEYDOWN) {
+                    return _factory->create_message(AppMsg::keydown, args);
+                } else {
+                    return _factory->create_message(AppMsg::keyup, args);
+                }
+            }
             case SDL_TEXTEDITING:
                 return _factory->create_message(AppMsg::text_edit, zero_new TextEditMsgArgs(time));
             case SDL_TEXTINPUT:
@@ -139,5 +153,37 @@ namespace ZeroEngine {
 
     void SdlMsgTranslator::set_sdl_event_to_translate(const SDL_Event& event) {
         _sdl_event = event;
+    }
+
+    Key sdl_keysym_to_key_value_conversion(SDL_Keysym keysym) {
+        SDL_Keycode keycode = keysym.sym;
+        bool shift_pressed = keysym.mod == KMOD_SHIFT || keysym.mod == KMOD_LSHIFT || keysym.mod == KMOD_RSHIFT;
+
+        switch (keycode) {
+            case SDLK_0:
+                return shift_pressed ? KeyValue::right_paren : KeyValue::zero;
+            case SDLK_1:
+                return shift_pressed ? KeyValue::exclamation : KeyValue::one;
+            case SDLK_2:
+                return shift_pressed ? KeyValue::at : KeyValue::two;
+            case SDLK_3:
+                return shift_pressed ? KeyValue::hash : KeyValue::three;
+            case SDLK_4:
+                return shift_pressed ? KeyValue::dollar : KeyValue::four;
+            case SDLK_5:
+                return shift_pressed ? KeyValue::percent : KeyValue::five;
+            case SDLK_6:
+                return shift_pressed ? KeyValue::caret : KeyValue::six;
+            case SDLK_7:
+                return shift_pressed ? KeyValue::ampersand : KeyValue::seven;
+            case SDLK_8:
+                return shift_pressed ? KeyValue::asterisk : KeyValue::eight;
+            case SDLK_9:
+                return shift_pressed ? KeyValue::left_paren : KeyValue::nine;
+            case SDLK_a:
+                return shift_pressed ? KeyValue::A : KeyValue::a;
+            default:
+                return KeyValue::null;
+        }
     }
 }
