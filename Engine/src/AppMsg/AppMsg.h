@@ -344,6 +344,15 @@ namespace ZeroEngine {
         inline const AppMsgType get_type() const override { return AppMsg::mouse_motion; }
         inline StringRepr to_string() const override { return "MouseMotionMsg"; }
         static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
+        inline uint32_t get_window() const { return _args->get_window(); }
+        inline uint32_t get_mouse_id() const { return _args->get_mouse_id(); }
+        inline int32_t get_x_pos() const { return _args->get_x_pos(); }
+        inline int32_t get_y_pos() const { return _args->get_y_pos(); }
+        inline Point<int32_t> get_coordinates() const { return _args->get_coordinates(); }
+        inline int32_t get_x_rel() const { return _args->get_x_rel(); }
+        inline int32_t get_y_rel() const { return _args->get_y_rel(); }
+        inline Point<int32_t> get_rel_coordinates() const { return _args->get_rel_coordinates(); }
+        inline bool is_pressed(MouseButton button) const { return _args->is_pressed(button); }
     protected:
         inline ~MouseMotionMsg() {}
     private:

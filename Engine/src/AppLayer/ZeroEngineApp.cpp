@@ -17,14 +17,8 @@ namespace ZeroEngine {
     }
 
     bool ZeroEngineApp::on_app_msg(const AppMsg* const msg) {
-        if (msg->get_type() == AppMsg::keydown) {
-            const KeyDownMsg* const kd = dynamic_cast<const KeyDownMsg* const>(msg);
-            std::cout << kd->get_key_char() << std::endl;
-            std::cout << "\n";
-        } else if (msg->get_type() == AppMsg::keyup) {
-            // const KeyUpMsg* const ku = dynamic_cast<const KeyUpMsg* const>(msg);
-            // std::cout << "get_key().get_key_char(): " << ku->get_key_char() << std::endl;
-            // std::cout << "\n";
+        if (msg->get_type() == AppMsg::mouse_motion) {
+
         }
         return true;
     }

@@ -48,28 +48,55 @@ namespace ZeroEngine {
             case SDL_KEYMAPCHANGED:
                 return _factory->create_message(AppMsg::keymap_changed, zero_new KeyMapChangedMsgArgs(time));
             case SDL_MOUSEMOTION:
-                return _factory->create_message(AppMsg::mouse_motion, zero_new MouseMotionMsgArgs(time));
+            {
+
+                uint32_t state = _sdl_event.motion.state;
+                uint32_t mouse = _sdl_event.motion.which;
+                uint32_t window = _sdl_event.motion.windowID;
+                int32_t x_pos = _sdl_event.motion.x;
+                int32_t y_pos = _sdl_event.motion.y;
+                int32_t y_rel = _sdl_event.motion.yrel;
+                int32_t x_rel = _sdl_event.motion.xrel;
+
+                ButtonState button_states[static_cast<int>(MouseButton::end)];
+
+                button_states[static_cast<int>(MouseButton::left)] = 
+                    (SDL_GetMouseState(nullptr, nullptr) & SDL_BUTTON(SDL_BUTTON_LEFT)) ? ButtonState::pressed : ButtonState::released;
+                button_states[static_cast<int>(MouseButton::middle)] = 
+                    (SDL_GetMouseState(nullptr, nullptr) & SDL_BUTTON(SDL_BUTTON_MIDDLE)) ? ButtonState::pressed : ButtonState::released;
+                button_states[static_cast<int>(MouseButton::right)] = 
+                    (SDL_GetMouseState(nullptr, nullptr) & SDL_BUTTON(SDL_BUTTON_RIGHT)) ? ButtonState::pressed : ButtonState::released;
+                button_states[static_cast<int>(MouseButton::four)] = 
+                    (SDL_GetMouseState(nullptr, nullptr) & 1 << (static_cast<int>(MouseButton::four) - 1)) ? ButtonState::pressed : ButtonState::released;
+                button_states[static_cast<int>(MouseButton::five)] = 
+                    (SDL_GetMouseState(nullptr, nullptr) & 1 << (static_cast<int>(MouseButton::five) - 1)) ? ButtonState::pressed : ButtonState::released;
+
+                MouseMotionMsgArgs* args = 
+                    zero_new MouseMotionMsgArgs(time, window, mouse, button_states, x_pos, y_pos, x_rel, y_rel);
+
+                return _factory->create_message(AppMsg::mouse_motion, args);
+            }
 
             case SDL_MOUSEBUTTONDOWN:
             case SDL_MOUSEBUTTONUP:
             {
                 uint32_t window = _sdl_event.button.windowID;
                 uint32_t which = _sdl_event.button.which;
-                ButtonState state = (_sdl_event.type == SDL_MOUSEBUTTONDOWN) ? BUTTON_STATE_PRESSED : BUTTON_STATE_RELEASED;
+                ButtonState state = (_sdl_event.type == SDL_MOUSEBUTTONDOWN) ? ButtonState::pressed : ButtonState::released;
                 uint8_t clicks = _sdl_event.button.clicks;
 
-                MouseButton button = MSB_NULL;
+                MouseButton button = MouseButton::null;
 
                 if (_sdl_event.button.button == 1) {
-                    button = MSB_LEFT;
+                    button = MouseButton::left; 
                 } else if (_sdl_event.button.button == 2) {
-                    button = MSB_MIDDLE;
+                    button = MouseButton::middle;
                 } else if (_sdl_event.button.button == 3) {
-                    button = MSB_RIGHT;
+                    button = MouseButton::right;
                 } else if (_sdl_event.button.button == 4) {
-                    button = MSB_FOUR;
+                    button = MouseButton::four;
                 } else if (_sdl_event.button.button == 5) {
-                    button = MSB_FIVE;
+                    button = MouseButton::five;
                 }
 
                 int32_t x = _sdl_event.button.x;
