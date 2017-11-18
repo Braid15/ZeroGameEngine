@@ -29,7 +29,9 @@ namespace ZeroEngine {
             std::cout << "SDL Linear texture filtering not enabled" << std::endl;
         }
 
-        set_app_msg_translator(zero_new SdlMsgTranslator());
+        // @@TODO: Use shared_ptr for translator so deletion isn't an issue
+        _msg_translator = zero_new SdlMsgTranslator();
+        set_app_msg_translator(_msg_translator);
 
         return success;
     }
@@ -46,13 +48,14 @@ namespace ZeroEngine {
         return true;
     }
 
-    void SdlFramework::poll_message() {
+    void SdlFramework::process_input() {
         while (SDL_PollEvent(&_event) != 0) {
+            _msg_translator->set_sdl_event_to_translate(_event);
+            dispatch_message();
             // @@TODO:
             // 1) Need way to pass args to message_translator 
             // 2) fix confusion responsiblilities of derived vs base class
             // 3) fix confusion between AppMsgType, FrameworkMsgId, AppMsg
-            dispatch_message(static_cast<FrameworkMsgId>(_event.type));
         }
     }
 
@@ -74,8 +77,11 @@ namespace ZeroEngine {
         IWindow* ret_window = nullptr;
         _window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_UNDEFINED,
                                    SDL_WINDOWPOS_UNDEFINED, size.get_x(), 
-                                   size.get_y(), SDL_WINDOW_SHOWN
+                                   size.get_y(), SDL_WINDOW_SHOWN | SDL_WINDOW_ALLOW_HIGHDPI
+                                   | SDL_WINDOW_RESIZABLE
+
         );
+
         if (!_window) {
             std::cout << "SDL_Error: " << SDL_GetError() << std::endl;
         }

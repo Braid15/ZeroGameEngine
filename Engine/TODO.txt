@@ -1,1 +1,3 @@
-- Working on abstraction layer between AFramework and Derived classes. Trying to keep most of the work in AFramework.
+- Define types for for char, long, short etc that will change depending on framework or just use _t types
+
+- EmptyMsgArgs should be static so it doesn't need to be instantiated all of the time	

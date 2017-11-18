@@ -7,7 +7,7 @@ namespace ZeroEngine {
         AppMsg::init_memory_pool(_access_key);
         _creation_map = zero_new std::map<AppMsgType, app_msg_creation_delegate>();
         register_app_messages();
-        _current_message = get_app_message(AppMsg::null);
+        _current_message = get_app_message(AppMsg::null, zero_new EmptyMsgArgs(0));
     }
 
     AppMsgFactory::~AppMsgFactory() {
@@ -17,34 +17,29 @@ namespace ZeroEngine {
         AppMsg::destroy_memory_pool(_access_key);
     }
 
-    AppMsg* AppMsgFactory::create_message(AppMsgType msg_type) {
+    const AppMsg* const AppMsgFactory::create_message(AppMsgType msg_type, AppMsgArgs* args) {
         AppMsg::destroy(_access_key, _current_message);
-        _current_message = get_app_message(msg_type);
+        _current_message = get_app_message(msg_type, args);
         return _current_message;
     }
 
-    // @@TODO: this function wont work since the args arn't being passed in through the ctor
-    // All derived classes should override set_args()
-    AppMsg* AppMsgFactory::create_message(AppMsgType msg_type, AppMsgArgs* args) {
-        create_message(msg_type);
-        _current_message->set_args(_access_key, args);
-        return _current_message;
-    }
-
-    AppMsg* AppMsgFactory::get_app_message(AppMsgType msg_type) {
+    AppMsg* AppMsgFactory::get_app_message(AppMsgType msg_type, AppMsgArgs* args) {
         assert(_creation_map != nullptr);
+
         std::map<AppMsgType, app_msg_creation_delegate>::iterator iter;
+
         iter = _creation_map->find(msg_type);
+
         if (iter == _creation_map->end()) {
             std::cout << "ERROR. AppMsgFactory create_message() failed.\n";
             // create NullMsg on error
             assert( msg_type != AppMsg::null);
             iter = _creation_map->find(AppMsg::null);
         }
+
         app_msg_creation_delegate delegate = iter->second;
-        // TOOD:
-        // MsgArgs takes in time. Make Time class so I can call Time::zero or something
-        return delegate(_access_key, zero_new EmptyMsgArgs(0));
+
+        return delegate(_access_key, args);
     }
 
     void AppMsgFactory::register_app_messages() {

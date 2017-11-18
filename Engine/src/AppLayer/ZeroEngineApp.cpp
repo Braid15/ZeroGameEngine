@@ -16,9 +16,12 @@ namespace ZeroEngine {
         }
     }
 
-    bool ZeroEngineApp::on_app_msg( AppMsg& msg ) {
-        std::cout << "ZeroEngineApp::on_app_msg() => "
-            << msg.to_string() << std::endl;
+    bool ZeroEngineApp::app_msg_proc(const AppMsg* const msg) {
+        if (msg->get_type() == AppMsg::mouse_wheel) {
+            const MouseWheelMsg* const mw = dynamic_cast<const MouseWheelMsg* const>(msg);
+            std::cout << mw->get_direction() << std::endl;
+        }
+
         return true;
     }
 
@@ -29,9 +32,6 @@ namespace ZeroEngine {
     void ZeroEngineApp::on_render( Time time ) {
         // std::cout << "ZeroEngineApp::on_render()" << std::endl;
     }
-
-
-    /* Public */
 
     ZeroEngineApp::~ZeroEngineApp() {
     }
