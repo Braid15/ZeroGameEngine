@@ -47,6 +47,7 @@ namespace ZeroEngine {
     const AppMsgType AppMsg::render_targets_reset = 0x26;
     const AppMsgType AppMsg::render_device_reset = 0x27;
     const AppMsgType AppMsg::keyboard = 0x28;
+    const AppMsgType AppMsg::mouse_button = 0x29;
 
     AppMsg::AppMsg(AppMsgArgs* args) {
         _args = args;
@@ -266,11 +267,35 @@ namespace ZeroEngine {
     }
 
     //
+    // MouseButtonMsg
+    //
+
+    AppMsg* MouseButtonMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
+        return new MouseButtonMsg(args);
+    }
+
+    MouseButtonMsg::MouseButtonMsg(AppMsgArgs* args) : AppMsg(args) {
+        _args = dynamic_cast<MouseButtonMsgArgs*>(args);
+    }
+
+    const MouseButtonMsg* const MouseButtonMsg::cast(const AppMsg* const msg) {
+        assert(msg->get_type() == AppMsg::mouse_button);
+        const MouseButtonMsg* const ret = dynamic_cast<const MouseButtonMsg* const>(msg);
+        return ret;
+    }
+
+    //
     // MouseWheelMsg
     //
 
     AppMsg* MouseWheelMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
         return new MouseWheelMsg(args);
+    }
+
+    const MouseWheelMsg* const MouseWheelMsg::cast(const AppMsg* const msg) {
+        assert(msg->get_type() == AppMsg::mouse_wheel);
+        const MouseWheelMsg* const ret = dynamic_cast<const MouseWheelMsg* const>(msg);
+        return ret;
     }
 
     MouseWheelMsg::MouseWheelMsg(AppMsgArgs* args) : AppMsg(args) {

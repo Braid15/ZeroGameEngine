@@ -133,11 +133,14 @@ namespace ZeroEngine {
                 MouseButtonMsgArgs* args = 
                     zero_new MouseButtonMsgArgs(time, window, which, state, clicks, button, x, y);
 
+                return _factory->create_message(AppMsg::mouse_button, args);
+                /*
                 if (_sdl_event.type == SDL_MOUSEBUTTONDOWN) {
                     return _factory->create_message(AppMsg::mouse_button_down, args);
                 } else {
                     return _factory->create_message(AppMsg::mouse_button_up, args);
                 }
+                */
             }
 
             // @TODO: Doesn't handle scrolling along x axis

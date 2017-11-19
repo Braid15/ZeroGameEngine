@@ -80,6 +80,7 @@ namespace ZeroEngine {
         static const AppMsgType mouse_motion;
         static const AppMsgType mouse_button_down;
         static const AppMsgType mouse_button_up;
+        static const AppMsgType mouse_button;
         static const AppMsgType mouse_wheel;
         static const AppMsgType joy_axis_motion;
         static const AppMsgType joy_ball_motion;
@@ -315,7 +316,33 @@ namespace ZeroEngine {
     };
 
     // @TODO: MouseButtonMsg instead of MouseButtonUp/DOwn
+    
+    //
+    // MouseButtonMsg
+    //
+    class MouseButtonMsg final : public AppMsg {
+    private:
+        MouseButtonMsgArgs* _args;
+    public:
+        static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
+        static const MouseButtonMsg* const cast(const AppMsg* const);
 
+        inline const AppMsgType get_type() const override { return AppMsg::mouse_button; }
+        inline StringRepr to_string() const override { return "MouseButtonMsg"; }
+        inline uint8_t get_num_clicks() const { return _args->get_num_clicks(); }
+        inline int32_t get_x_pos() const { return _args->get_x_pos(); }
+        inline int32_t get_y_pos() const { return _args->get_y_pos(); }
+        inline Point<int32_t> get_coordinates() const { return _args->get_coordinates(); }
+        inline MouseButton get_button() const { return _args->get_button(); }
+        inline ButtonState get_state() const { return _args->get_state(); }
+        inline bool is_button_up() const { return _args->get_state() == ButtonState::released; }
+        inline bool is_button_down() const { return _args->get_state() == ButtonState::pressed; }
+    protected:
+        inline ~MouseButtonMsg() {}
+    private:
+        MouseButtonMsg(AppMsgArgs*);
+
+    };
     //
     // MouseButtonDownMsg
     //
@@ -398,9 +425,10 @@ namespace ZeroEngine {
     private:
         MouseWheelMsgArgs* _args;
     public:
+        static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
+        static const MouseWheelMsg* const cast(const AppMsg* const);
         inline const AppMsgType get_type() const { return AppMsg::mouse_wheel; }
         inline StringRepr to_string() const { return "MouseWheenMsg"; }
-        static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
         inline uint32_t get_window() const { return _args->get_window(); }
         inline uint32_t get_mouse() const { return _args->get_mouse(); }
         inline int32_t get_scroll_amount_x() const { return _args->get_scroll_amount_x(); }

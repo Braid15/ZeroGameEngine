@@ -16,10 +16,13 @@ namespace ZeroEngine {
     public:
         static bool is_pressed(const MouseButton& button);
         static const Point<int32_t>& position();
+        // @TODO: This isn't working properly yet
+        // static const MouseWheelDirection& wheel_direction();
 
         // @TEMP:
         static void set(const MouseMotionMsg* const);
-        // mouse wheel direction getter
+        static void set(const MouseButtonMsg* const);
+        static void set(const MouseWheelMsg* const);
     private:
         inline Mouse() {}
         inline Mouse(const Mouse&) {}

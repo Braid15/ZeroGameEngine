@@ -21,7 +21,6 @@ namespace ZeroEngine {
     }
 
     void ZeroEngineApp::on_update(Time time) {
-        std::cout << Mouse::is_pressed(MouseButton::left) << std::endl;
         // std::cout << "ZeroEngineApp::on_update()" << std::endl;
     }
 
