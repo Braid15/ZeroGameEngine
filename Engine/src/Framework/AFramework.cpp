@@ -42,6 +42,9 @@ namespace ZeroEngine {
         const AppMsg* const msg = _msg_translator->get_translated_message();
         // @@TEMP: _is_running should be switched via EventMaanager registered function
         _is_running = msg->get_type() != AppMsg::quit;
+        if (msg->get_type() == AppMsg::keyboard) {
+            Keyboard::set(KeyboardMsg::cast(msg));
+        }
         _app_msg_callback(msg);
     }
 

@@ -17,30 +17,17 @@ namespace ZeroEngine {
     }
 
     bool ZeroEngineApp::app_msg_proc(const AppMsg* const msg) {
-        if (msg->get_type() == AppMsg::keyboard) {
-            const KeyboardMsg* const keyboard = dynamic_cast<const KeyboardMsg* const>(msg);
-
-            Key key = keyboard->get_key();
-            if (keyboard->is_key_down()) {
-                std::cout << "Keydown\n";
-            }
-            if (keyboard->is_key_up()) {
-                std::cout << "Keyup\n";
-            }
-            //std::cout << "alt: " << key.is_alt_pressed() << std::endl;
-            //std::cout << "shift: " << key.is_shift_pressed() << std::endl;
-            //std::cout << "control: " << key.is_control_pressed() << std::endl;
-            //std::cout << "caps lock: " << key.is_caps_lock_on() << std::endl;
-        }
-
         return true;
     }
 
-    void ZeroEngineApp::on_update( Time time ) {
+    void ZeroEngineApp::on_update(Time time) {
+        if (Keyboard::is_pressed(KeyCode::w)) {
+            std::cout << "W is pressed\n";
+        }
         // std::cout << "ZeroEngineApp::on_update()" << std::endl;
     }
 
-    void ZeroEngineApp::on_render( Time time ) {
+    void ZeroEngineApp::on_render(Time time) {
         // std::cout << "ZeroEngineApp::on_render()" << std::endl;
     }
 

@@ -5,6 +5,7 @@
 #include "../Graphics/Point.h"
 #include "../AppMsg/AppMsg.h"
 #include "../AppMsg/AppMsgFactory.h"
+#include "../Input//Keyboard.h"
 #include "IMsgTranslator.h"
 
 namespace ZeroEngine {

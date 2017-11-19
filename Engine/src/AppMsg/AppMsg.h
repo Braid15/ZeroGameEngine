@@ -204,11 +204,13 @@ namespace ZeroEngine {
     private:
         KeyboardMsgArgs* _args;
     public:
+        static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
+        // @TODO: Each class should have a cast method
+        static const KeyboardMsg* const cast(const AppMsg* const);
         inline const AppMsgType get_type() const override { return AppMsg::keyboard; }
         inline StringRepr to_string() const override { return "KeyboardMsg"; }
-        static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
         inline bool is_repeat() const { return _args->is_repeat(); }
-        inline Key get_key() const { return _args->get_key(); }
+        inline Key key() const { return _args->get_key(); }
         inline char get_key_char() const { return _args->get_key().get_key_char(); }
         inline uint32_t get_window() const { return _args->get_window(); }
         inline bool is_key_down() const { return _args->get_key().is_pressed(); }

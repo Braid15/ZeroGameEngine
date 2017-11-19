@@ -173,6 +173,15 @@ namespace ZeroEngine {
         _args = dynamic_cast<KeyboardMsgArgs*>(args);
     }
 
+    const KeyboardMsg* const KeyboardMsg::cast(const AppMsg* const msg) {
+        if (msg->get_type() == AppMsg::keyboard) {
+            const KeyboardMsg* const ret = dynamic_cast<const KeyboardMsg* const>(msg);
+            return ret;
+        } else {
+            return nullptr;
+        }
+    }
+
     //
     // KeyDownMsg
     //

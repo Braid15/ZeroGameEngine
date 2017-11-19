@@ -4,6 +4,8 @@
 #include "../Graphics/Graphics.h"
 #include "../Time.h"
 #include "../AppMsg/AppMsg.h"
+#include "../Input/Keys.h"
+#include "../Input/Keyboard.h"
 #include "GameOptions.h"
 
 namespace ZeroEngine {
