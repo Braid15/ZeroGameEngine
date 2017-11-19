@@ -31,6 +31,9 @@
     <Filter Include="Source\AppMsg">
       <UniqueIdentifier>{c1cbecb8-ca83-4643-8aa8-cf6c3c8a5ea1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Input">
+      <UniqueIdentifier>{ae6724ec-bd83-4d80-99d1-40905a60ab89}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ZeroEngine.h">
@@ -111,6 +114,9 @@
     <ClInclude Include="src\Framework\SdlFramework\SdlMsgTranslator.h">
       <Filter>Source\Framework\SdlFramework</Filter>
     </ClInclude>
+    <ClInclude Include="src\Input\Keys.h">
+      <Filter>Source\Input</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Logger\BaseLogger.cpp">
@@ -154,6 +160,9 @@
     </ClCompile>
     <ClCompile Include="src\Framework\SdlFramework\SdlMsgTranslator.cpp">
       <Filter>Source\Framework\SdlFramework</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Input\Keys.cpp">
+      <Filter>Source\Input</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

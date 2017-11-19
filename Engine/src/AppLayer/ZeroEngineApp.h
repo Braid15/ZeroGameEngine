@@ -25,14 +25,14 @@ namespace ZeroEngine {
 
     public:
         // @@TODO: THis might cause problems. How will derived class override?
-        static bool on_app_msg( AppMsg& msg );
-        static void on_update( Time time );
-        static void on_render( Time time );
+        static bool app_msg_proc(const AppMsg* const msg);
+        static void on_update(Time time);
+        static void on_render(Time time);
 
         // TODO: 10/4/17 - using this instead of global pointer for now.
         // we will see how it works
         static ZeroEngineApp* const instance();
-        static void set_app( ZeroEngineApp* app );
+        static void set_app(ZeroEngineApp* app);
 
     public:
         virtual ~ZeroEngineApp();

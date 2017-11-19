@@ -41,6 +41,7 @@
 #include <string>
 #include <sstream>
 #include <map>
+#include <array>
 #include <vector>
 #include <math.h>
 #include <list>

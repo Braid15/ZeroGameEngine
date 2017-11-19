@@ -2,18 +2,18 @@
 
 #include "../../ZeroEngineStd.h"
 #include "../IMsgTranslator.h"
+#include "../../Input/Keys.h"
 #include "../../3rdParty/SDL/SDL_events.h"
 
 namespace ZeroEngine {
 
-    class SdlMsgTranslator : public IMsgTranslator {
+    class SdlMsgTranslator : public BaseMsgTranslator {
     private:
-        AppMsgType _translation_map[SDL_LASTEVENT];
+        SDL_Event _sdl_event;
     public:
-        inline SdlMsgTranslator() { init_translation_map(); }
+        inline SdlMsgTranslator() {}
         inline ~SdlMsgTranslator() {}
-        AppMsgType translate_message(FrameworkMsgId);
-    private:
-        void init_translation_map();
+        const AppMsg* const get_translated_message() override;
+        void set_sdl_event_to_translate(const SDL_Event&);
     };
 } 

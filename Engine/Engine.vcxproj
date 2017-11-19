@@ -203,6 +203,7 @@
     <ClInclude Include="src\Graphics\Graphics.h" />
     <ClInclude Include="src\Graphics\Point.h" />
     <ClInclude Include="src\Graphics\Rect.h" />
+    <ClInclude Include="src\Input\Keys.h" />
     <ClInclude Include="src\Logger\BaseLogger.h" />
     <ClInclude Include="src\Logger\ILoggable.h" />
     <ClInclude Include="src\Logger\ILogger.h" />
@@ -225,6 +226,7 @@
     <ClCompile Include="src\Framework\SdlFramework\SdlMsgTranslator.cpp" />
     <ClCompile Include="src\Graphics\Point.cpp" />
     <ClCompile Include="src\Graphics\Rect.cpp" />
+    <ClCompile Include="src\Input\Keys.cpp" />
     <ClCompile Include="src\Logger\BaseLogger.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Utils\MemoryPool.cpp" />

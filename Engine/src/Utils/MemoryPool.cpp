@@ -106,7 +106,7 @@ namespace ZeroEngine {
         std::string str( "Growing memory pool: [" + get_name() + ":" + 
             std::to_string( (unsigned long)_chunk_size ) + "] = " + 
             std::to_string( (unsigned long)_memory_array_size + 1 ) + "\n" );
-        std::cout << str;
+        // std::cout << str;
         #endif
 
         size_t allocation_size = sizeof( unsigned char* ) * ( _memory_array_size + 1 );
