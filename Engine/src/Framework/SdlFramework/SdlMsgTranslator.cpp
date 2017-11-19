@@ -2,7 +2,7 @@
 
 namespace ZeroEngine {
 
-    static Key sdl_keysym_to_key_value_conversion(SDL_Keysym);
+    static KeyCode sdl_keysym_to_keycode_conversion(SDL_Keysym);
 
     const AppMsg* const SdlMsgTranslator::get_translated_message() {
         uint32_t time = _sdl_event.common.timestamp;
@@ -35,12 +35,23 @@ namespace ZeroEngine {
             case SDL_KEYDOWN:
             case SDL_KEYUP:
             {
+                uint16_t mod_state = _sdl_event.key.keysym.mod;
+                KeyModStateArray keymod_states = { KeyState::null };
+                keymod_states[static_cast<int>(KeyMod::left_shift)] = (mod_state == KMOD_LSHIFT || mod_state == KMOD_SHIFT) ? KeyState::pressed : KeyState::released;
+                keymod_states[static_cast<int>(KeyMod::right_shift)] = (mod_state == KMOD_RSHIFT || mod_state == KMOD_SHIFT) ? KeyState::pressed : KeyState::released;
+                keymod_states[static_cast<int>(KeyMod::left_alt)] = (mod_state == KMOD_LALT || mod_state == KMOD_ALT) ? KeyState::pressed : KeyState::released;
+                keymod_states[static_cast<int>(KeyMod::right_alt)] = (mod_state == KMOD_RALT || mod_state == KMOD_ALT) ? KeyState::pressed : KeyState::released;
+                keymod_states[static_cast<int>(KeyMod::left_control)] = (mod_state == KMOD_LCTRL || mod_state == KMOD_CTRL) ? KeyState::pressed : KeyState::released;
+                keymod_states[static_cast<int>(KeyMod::right_control)] = (mod_state == KMOD_RCTRL || mod_state == KMOD_CTRL) ? KeyState::pressed : KeyState::released;
+                keymod_states[static_cast<int>(KeyMod::caps_lock)] = (mod_state == KMOD_CAPS) ? KeyState::pressed : KeyState::released;
+
+                KeyState state = _sdl_event.key.state == 1 ? KeyState::pressed : KeyState::released;
+                Key key(sdl_keysym_to_keycode_conversion(_sdl_event.key.keysym), state, keymod_states);
+
                 uint32_t window = _sdl_event.key.windowID;
                 bool repeat = _sdl_event.key.repeat == 1;
-                KeyState state = _sdl_event.key.state == 1 ? KeyState::pressed : KeyState::released;
-                Key key(sdl_keysym_to_key_value_conversion(_sdl_event.key.keysym));
 
-                KeyboardMsgArgs* args = zero_new KeyboardMsgArgs(time, window, key, repeat, state);
+                KeyboardMsgArgs* args = zero_new KeyboardMsgArgs(time, window, key, repeat);
 
                 if (_sdl_event.type == SDL_KEYDOWN) {
                     return _factory->create_message(AppMsg::keydown, args);
@@ -216,35 +227,176 @@ namespace ZeroEngine {
         _sdl_event = event;
     }
 
-    Key sdl_keysym_to_key_value_conversion(SDL_Keysym keysym) {
-        SDL_Keycode keycode = keysym.sym;
-        bool shift_pressed = keysym.mod == KMOD_SHIFT || keysym.mod == KMOD_LSHIFT || keysym.mod == KMOD_RSHIFT;
-
-        switch (keycode) {
+    KeyCode sdl_keysym_to_keycode_conversion(SDL_Keysym keysym) {
+        switch (keysym.sym) {
             case SDLK_0:
-                return shift_pressed ? KeyValue::right_paren : KeyValue::zero;
+                return KeyCode::zero;
             case SDLK_1:
-                return shift_pressed ? KeyValue::exclamation : KeyValue::one;
+                return KeyCode::one;
             case SDLK_2:
-                return shift_pressed ? KeyValue::at : KeyValue::two;
+                return KeyCode::two;
             case SDLK_3:
-                return shift_pressed ? KeyValue::hash : KeyValue::three;
+                return KeyCode::three;
             case SDLK_4:
-                return shift_pressed ? KeyValue::dollar : KeyValue::four;
+                return KeyCode::four;
             case SDLK_5:
-                return shift_pressed ? KeyValue::percent : KeyValue::five;
+                return KeyCode::five;
             case SDLK_6:
-                return shift_pressed ? KeyValue::caret : KeyValue::six;
+                return KeyCode::six;
             case SDLK_7:
-                return shift_pressed ? KeyValue::ampersand : KeyValue::seven;
+                return KeyCode::seven;
             case SDLK_8:
-                return shift_pressed ? KeyValue::asterisk : KeyValue::eight;
+                return KeyCode::eight;
             case SDLK_9:
-                return shift_pressed ? KeyValue::left_paren : KeyValue::nine;
+                return KeyCode::nine;
             case SDLK_a:
-                return shift_pressed ? KeyValue::A : KeyValue::a;
+                return KeyCode::a;
+            case SDLK_b:
+                return KeyCode::b;
+            case SDLK_c:
+                return KeyCode::c;
+            case SDLK_d:
+                return KeyCode::d;
+            case SDLK_e:
+                return KeyCode::e;
+            case SDLK_f:
+                return KeyCode::f;
+            case SDLK_g:
+                return KeyCode::g;
+            case SDLK_h:
+                return KeyCode::h;
+            case SDLK_i:
+                return KeyCode::i;
+            case SDLK_j:
+                return KeyCode::j;
+            case SDLK_k:
+                return KeyCode::k;
+            case SDLK_l:
+                return KeyCode::l;
+            case SDLK_m:
+                return KeyCode::m;
+            case SDLK_n:
+                return KeyCode::n;
+            case SDLK_o:
+                return KeyCode::o;
+            case SDLK_p:
+                return KeyCode::p;
+            case SDLK_q:
+                return KeyCode::q;
+            case SDLK_r:
+                return KeyCode::r;
+            case SDLK_s:
+                return KeyCode::s;
+            case SDLK_t:
+                return KeyCode::t;
+            case SDLK_u:
+                return KeyCode::u;
+            case SDLK_v:
+                return KeyCode::v;
+            case SDLK_w:
+                return KeyCode::w;
+            case SDLK_x:
+                return KeyCode::x;
+            case SDLK_y:
+                return KeyCode::y;
+            case SDLK_z:
+                return KeyCode::z;
+            case SDLK_UP:
+                return KeyCode::up;
+            case SDLK_RIGHT:
+                return KeyCode::right;
+            case SDLK_DOWN:
+                return KeyCode::down;
+            case SDLK_LEFT:
+                return KeyCode::left;
+            case SDLK_ESCAPE:
+                return KeyCode::escape;
+            case SDLK_BACKSPACE:
+                return KeyCode::backspace;
+            case SDLK_RETURN:
+                return KeyCode::enter;
+            case SDLK_LCTRL:
+                return KeyCode::left_control;
+            case SDLK_RCTRL:
+                return KeyCode::right_control;
+            case SDLK_LALT:
+                return KeyCode::left_alt;
+            case SDLK_RALT:
+                return KeyCode::right_alt;
+            case SDLK_LSHIFT:
+                return KeyCode::left_shift;
+            case SDLK_RSHIFT:
+                return KeyCode::right_shift;
+            case SDLK_TAB:
+                return KeyCode::tab;
+            case SDLK_DELETE:
+                return KeyCode::del;
+            case SDLK_SPACE:
+                return KeyCode::space;
+            case SDLK_AMPERSAND:
+                return KeyCode::ampersand;
+            case SDLK_ASTERISK:
+                return KeyCode::asterisk;
+            case SDLK_AT:
+                return KeyCode::at;
+            case SDLK_CARET:
+                return KeyCode::caret;
+            case SDLK_COLON:
+                return KeyCode::colon;
+            case SDLK_DOLLAR:
+                return KeyCode::dollar;
+            case SDLK_EXCLAIM:
+                return KeyCode::exclamation;
+            case SDLK_GREATER:
+                return KeyCode::greater_than;
+            case SDLK_HASH:
+                return KeyCode::hash;
+            case SDLK_LEFTPAREN:
+                return KeyCode::left_paren;
+            case SDLK_RIGHTPAREN:
+                return KeyCode::right_paren;
+            case SDLK_LESS:
+                return KeyCode::less_than;
+            case SDLK_PERCENT:
+                return KeyCode::percent;
+            case SDLK_PLUS:
+                return KeyCode::plus;
+            case SDLK_QUESTION:
+                return KeyCode::question_mark;
+            case SDLK_QUOTEDBL:
+                return KeyCode::double_quote;
+            case SDLK_UNDERSCORE:
+                return KeyCode::underscore;
+            case SDLK_SLASH:
+                return KeyCode::forward_slash;
+            case SDLK_BACKSLASH:
+                return KeyCode::back_slash;
+            case SDLK_SEMICOLON:
+                return KeyCode::semicolon;
+            case SDLK_RIGHTBRACKET:
+                return KeyCode::right_bracket;
+            case SDLK_PERIOD:
+                return KeyCode::period;
+            case SDLK_MINUS:
+                return KeyCode::minus;
+            case SDLK_LEFTBRACKET:
+                return KeyCode::left_bracket;
+            case SDLK_EQUALS:
+                return KeyCode::equal;
+            case SDLK_COMMA:
+                return KeyCode::comma;
+            case SDLK_QUOTE:
+                return KeyCode::single_quote;
+            case SDLK_BACKQUOTE:
+                return KeyCode::tilda;
+            case SDLK_PAGEDOWN:
+                return KeyCode::page_down;
+            case SDLK_PAGEUP:
+                return KeyCode::page_up;
+            case SDLK_CAPSLOCK:
+                return KeyCode::caps_lock;
             default:
-                return KeyValue::null;
+                return KeyCode::null;
         }
     }
 }

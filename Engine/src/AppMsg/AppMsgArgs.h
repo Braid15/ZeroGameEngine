@@ -97,16 +97,15 @@ namespace ZeroEngine {
     // KeyboardMsgArgs
     //
 
+
     class KeyboardMsgArgs final : public AppMsgArgs {
     private:
-        KeyState _state;
         bool _is_repeat;
         Key _key;
         uint32_t _window;
     public:
-        KeyboardMsgArgs(Time time_stamp, uint32_t window, Key& key, bool repeat, KeyState state);
+        KeyboardMsgArgs(Time time_stamp, uint32_t window, Key& key, bool repeat);
         inline ~KeyboardMsgArgs() {}
-        inline KeyState get_key_state() const { return _state; }
         inline bool is_repeat() const { return _is_repeat; }
         inline Key get_key() const { return _key; }
         inline uint32_t get_window() const { return _window; }

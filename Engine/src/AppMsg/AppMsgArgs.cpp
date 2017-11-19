@@ -54,11 +54,10 @@ namespace ZeroEngine {
     // KeyboardMsgArgs
     //
 
-    KeyboardMsgArgs::KeyboardMsgArgs(Time time_stamp, uint32_t window, Key& key, bool repeat, KeyState state)
+    KeyboardMsgArgs::KeyboardMsgArgs(Time time_stamp, uint32_t window, Key& key, bool repeat)
                                      : AppMsgArgs(time_stamp) {
         _window = window;
         _key = key;
         _is_repeat = repeat;
-        _state = state;
     }
 }

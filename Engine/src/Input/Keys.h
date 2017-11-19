@@ -6,27 +6,95 @@ namespace ZeroEngine {
 
     // @TODO: Unfinished
 
-    enum class KeyValue : unsigned char;
+    enum class KeyCode : unsigned char;
+
+    enum class KeyState : int8_t {
+        null = -1,
+        released = 0,
+        pressed = 1
+    };
+
+    inline std::ostream& operator<<(std::ostream& os, KeyState keystate) {
+        if (keystate == KeyState::released) {
+            os << "KeyState::released";
+        } else if (keystate == KeyState::pressed) {
+            os << "KeyState::pressed";
+        } else if (keystate == KeyState::null) {
+            os << "KeyState::null";
+        } else {
+            os.setstate(std::ios_base::failbit);
+        }
+        return os;
+    }
+
+    enum class KeyMod : unsigned char {
+        null = 0x00,
+        begin = 0x01,
+        left_shift,
+        right_shift,
+        left_alt,
+        right_alt,
+        left_control,
+        right_control,
+        caps_lock,
+        end
+    };
+
+    inline std::ostream& operator<<(std::ostream& os, KeyMod mod) {
+        if (mod == KeyMod::null) {
+            os << "KeyMod::null";
+        } else if (mod == KeyMod::begin) {
+            os << "KeyMod::begin";
+        } else if (mod == KeyMod::left_shift) {
+            os << "KeyMod::left_shift";
+        } else if (mod == KeyMod::right_shift) {
+            os << "KeyMod::right_shift";
+        } else if (mod == KeyMod::left_alt) {
+            os << "KeyMod::left_alt";
+        } else if (mod == KeyMod::right_alt) {
+            os << "KeyMod::right_alt";
+        } else if (mod == KeyMod::left_control) {
+            os << "KeyMod::left_control";
+        } else if (mod == KeyMod::right_control) {
+            os << "KeyMod::right_control";
+        } else if (mod == KeyMod::caps_lock) {
+            os << "KeyMod::caps_lock";
+        } else if (mod == KeyMod::end) {
+            os << "KeyMod::end";
+        } else {
+            os.setstate(std::ios_base::failbit);
+        }
+        return os;
+    }
+
+    typedef std::array<KeyState, static_cast<int>(KeyMod::end)> KeyModStateArray;
 
     class Key : public IZeroObject {
     private:
-        KeyValue _value;
+        KeyCode _keycode;
+        // @@TODO: There should only be one KeyModStateArray and each Key object
+        // will have a reference to it
+        KeyModStateArray _keymod_states;
+        KeyState _state;
     public:
         inline Key() {}
-        inline Key(KeyValue value) : _value(value) {}
+        Key(KeyCode keycode, 
+            KeyState state, 
+            KeyModStateArray mods);
         inline ~Key() {}
-        inline char get_key_char() const { return static_cast<char>(_value); }
+        bool is_keymod_pressed(const KeyMod& mod) const;
+        bool is_shift_pressed() const;
+        bool is_alt_pressed() const;
+        bool is_control_pressed() const;
+        bool is_caps_lock_on() const;
+        inline bool is_pressed() const { return _state == KeyState::pressed; }
+        inline KeyState get_key_state() const { return _state; }
+        char get_key_char() const;
         // @TODO: Trying to convert char to StringRepr prints out nonsense
         inline StringRepr to_string() const override { return "Key: FIX ME!"; }
     };
 
-    // @TODO: Maybe KeyState is not needed since there are seperate classes for KeyDown and KeyUp?
-    enum class KeyState : unsigned char {
-        released = 0x00,
-        pressed = 0xFF
-    };
-
-    enum class KeyValue : unsigned char {
+    enum class KeyCode : unsigned char {
         null = 0x00,
         enter = 0x0D,
         space = 0x20,
@@ -62,6 +130,9 @@ namespace ZeroEngine {
         greater_than = 0x3E,
         question_mark = 0x3F,
         at = 0x40,
+
+        /*
+        @ Capitals vs lowercase alphabetic chars only matter when getting the char
         A = 0x41,
         B = 0x42,
         C = 0x43,
@@ -88,10 +159,13 @@ namespace ZeroEngine {
         X = 0x58,
         Y = 0x59,
         Z = 0x5A,
+        */
+
         left_bracket = 0x5B,
         back_slash = 0x5C,
         right_bracket = 0x5D,
         caret = 0x5E,
+
         a = 0x61,
         b = 0x62,
         c = 0x63,
@@ -118,9 +192,31 @@ namespace ZeroEngine {
         x = 0x78,
         y = 0x79,
         z = 0x7A,
+
         left_brace = 0x7B,
         pipe = 0x7C,
         right_brace = 0x7D,
         tilda = 0x7E,
+        escape = 0x7F,
+        up = 0x80,
+        right = 0x81,
+        down = 0x82,
+        left = 0x83,
+        backspace = 0x84,
+
+        // These keys also have corresponding KeyMod values
+        left_shift = 0x85,
+        right_shift = 0x86,
+        left_alt = 0x87,
+        right_alt = 0x88,
+        left_control = 0x89,
+        right_control = 0x8A,
+        caps_lock = 0x8B,
+
+        tab = 0x8C,
+        del = 0x8D,
+        underscore = 0x8E,
+        page_down = 0x8F,
+        page_up = 0x90,
     };
 }

@@ -17,9 +17,14 @@ namespace ZeroEngine {
     }
 
     bool ZeroEngineApp::app_msg_proc(const AppMsg* const msg) {
-        if (msg->get_type() == AppMsg::mouse_wheel) {
-            const MouseWheelMsg* const mw = dynamic_cast<const MouseWheelMsg* const>(msg);
-            std::cout << mw->get_direction() << std::endl;
+        if (msg->get_type() == AppMsg::keydown) {
+            const KeyDownMsg* const keydown = dynamic_cast<const KeyDownMsg* const>(msg);
+            Key key = keydown->get_key();
+
+            std::cout << "alt: " << key.is_alt_pressed() << std::endl;
+            std::cout << "shift: " << key.is_shift_pressed() << std::endl;
+            std::cout << "control: " << key.is_control_pressed() << std::endl;
+            std::cout << "caps lock: " << key.is_caps_lock_on() << std::endl;
         }
 
         return true;
