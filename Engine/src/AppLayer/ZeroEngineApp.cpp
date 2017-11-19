@@ -21,9 +21,7 @@ namespace ZeroEngine {
     }
 
     void ZeroEngineApp::on_update(Time time) {
-        if (Keyboard::is_pressed(KeyCode::w)) {
-            std::cout << "W is pressed\n";
-        }
+        std::cout << Mouse::is_pressed(MouseButton::left) << std::endl;
         // std::cout << "ZeroEngineApp::on_update()" << std::endl;
     }
 

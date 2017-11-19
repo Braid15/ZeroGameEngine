@@ -163,6 +163,7 @@ namespace ZeroEngine {
     // MouseMotionMsgArgs
     //
 
+    // @@TODO: This, ButtonState, and MouseWheelDirection need to be in seperate file
     enum class MouseButton : int8_t {
         null = -1,
         begin = 1,

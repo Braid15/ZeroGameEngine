@@ -314,6 +314,8 @@ namespace ZeroEngine {
         KeyMapChangedMsg(AppMsgArgs*);
     };
 
+    // @TODO: MouseButtonMsg instead of MouseButtonUp/DOwn
+
     //
     // MouseButtonDownMsg
     //
@@ -368,9 +370,10 @@ namespace ZeroEngine {
     private:
         MouseMotionMsgArgs* _args;
     public:
+        static const MouseMotionMsg* const cast(const AppMsg* const);
+        static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
         inline const AppMsgType get_type() const override { return AppMsg::mouse_motion; }
         inline StringRepr to_string() const override { return "MouseMotionMsg"; }
-        static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
         inline uint32_t get_window() const { return _args->get_window(); }
         inline uint32_t get_mouse_id() const { return _args->get_mouse_id(); }
         inline int32_t get_x_pos() const { return _args->get_x_pos(); }

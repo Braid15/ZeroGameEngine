@@ -120,6 +120,9 @@
     <ClInclude Include="src\Input\Keyboard.h">
       <Filter>Source\Input</Filter>
     </ClInclude>
+    <ClInclude Include="src\Input\Mouse.h">
+      <Filter>Source\Input</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Logger\BaseLogger.cpp">
@@ -168,6 +171,9 @@
       <Filter>Source\Input</Filter>
     </ClCompile>
     <ClCompile Include="src\Input\Keyboard.cpp">
+      <Filter>Source\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Input\Mouse.cpp">
       <Filter>Source\Input</Filter>
     </ClCompile>
   </ItemGroup>

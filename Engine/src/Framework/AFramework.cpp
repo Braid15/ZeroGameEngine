@@ -45,6 +45,9 @@ namespace ZeroEngine {
         if (msg->get_type() == AppMsg::keyboard) {
             Keyboard::set(KeyboardMsg::cast(msg));
         }
+        if (msg->get_type() == AppMsg::mouse_motion) {
+            Mouse::set(MouseMotionMsg::cast(msg));
+        }
         _app_msg_callback(msg);
     }
 

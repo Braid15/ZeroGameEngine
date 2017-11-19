@@ -6,6 +6,7 @@
 #include "../AppMsg/AppMsg.h"
 #include "../Input/Keys.h"
 #include "../Input/Keyboard.h"
+#include "../Input/Mouse.h"
 #include "GameOptions.h"
 
 namespace ZeroEngine {

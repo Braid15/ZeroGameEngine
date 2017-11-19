@@ -174,12 +174,9 @@ namespace ZeroEngine {
     }
 
     const KeyboardMsg* const KeyboardMsg::cast(const AppMsg* const msg) {
-        if (msg->get_type() == AppMsg::keyboard) {
-            const KeyboardMsg* const ret = dynamic_cast<const KeyboardMsg* const>(msg);
-            return ret;
-        } else {
-            return nullptr;
-        }
+        assert(msg->get_type() == AppMsg::keyboard);
+        const KeyboardMsg* const ret = dynamic_cast<const KeyboardMsg* const>(msg);
+        return ret;
     }
 
     //
@@ -290,6 +287,12 @@ namespace ZeroEngine {
 
     MouseMotionMsg::MouseMotionMsg(AppMsgArgs* args) : AppMsg(args) {
         _args = dynamic_cast<MouseMotionMsgArgs*>(args);
+    }
+
+    const MouseMotionMsg* const MouseMotionMsg::cast(const AppMsg* const msg) {
+        assert(msg->get_type() == AppMsg::mouse_motion);
+        const MouseMotionMsg* const ret = dynamic_cast<const MouseMotionMsg* const>(msg);
+        return ret;
     }
 
     //
