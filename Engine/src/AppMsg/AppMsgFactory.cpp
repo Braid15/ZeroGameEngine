@@ -83,5 +83,6 @@ namespace ZeroEngine {
         _creation_map->insert(std::make_pair(AppMsg::audio_device_removed, AudioDeviceRemovedMsg::create));
         _creation_map->insert(std::make_pair(AppMsg::render_targets_reset, RenderTargetsResetMsg::create));
         _creation_map->insert(std::make_pair(AppMsg::render_device_reset, RenderDeviceResetMsg::create));
+        _creation_map->insert(std::make_pair(AppMsg::keyboard, KeyboardMsg::create));
     }
 }

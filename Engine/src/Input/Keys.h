@@ -89,11 +89,14 @@ namespace ZeroEngine {
         bool is_caps_lock_on() const;
         inline bool is_pressed() const { return _state == KeyState::pressed; }
         inline KeyState get_key_state() const { return _state; }
+        inline bool equals(const KeyCode& keycode) const { return _keycode == keycode; }
         char get_key_char() const;
         // @TODO: Trying to convert char to StringRepr prints out nonsense
         inline StringRepr to_string() const override { return "Key: FIX ME!"; }
     };
 
+    // @TODO: I Might factor these values into Key class just for convenience.
+    // Ex. key == Key::w rather than key.equals(KeyCode::w)
     enum class KeyCode : unsigned char {
         null = 0x00,
         enter = 0x0D,

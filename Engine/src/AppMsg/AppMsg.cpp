@@ -46,6 +46,7 @@ namespace ZeroEngine {
     const AppMsgType AppMsg::audio_device_removed = 0x25;
     const AppMsgType AppMsg::render_targets_reset = 0x26;
     const AppMsgType AppMsg::render_device_reset = 0x27;
+    const AppMsgType AppMsg::keyboard = 0x28;
 
     AppMsg::AppMsg(AppMsgArgs* args) {
         _args = args;
@@ -158,6 +159,18 @@ namespace ZeroEngine {
 
     SystemMsg::SystemMsg(AppMsgArgs* args) : AppMsg(args) {
         _args = dynamic_cast<SystemMsgArgs*>(args);
+    }
+
+    //
+    // KeyboardMsg
+    //
+
+    AppMsg* KeyboardMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
+        return new KeyboardMsg(args);
+    }
+
+    KeyboardMsg::KeyboardMsg(AppMsgArgs* args) : AppMsg(args) {
+        _args = dynamic_cast<KeyboardMsgArgs*>(args);
     }
 
     //

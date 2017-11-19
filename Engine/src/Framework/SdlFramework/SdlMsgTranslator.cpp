@@ -53,11 +53,14 @@ namespace ZeroEngine {
 
                 KeyboardMsgArgs* args = zero_new KeyboardMsgArgs(time, window, key, repeat);
 
+                return _factory->create_message(AppMsg::keyboard, args);
+                /*
                 if (_sdl_event.type == SDL_KEYDOWN) {
                     return _factory->create_message(AppMsg::keydown, args);
                 } else {
                     return _factory->create_message(AppMsg::keyup, args);
                 }
+                */
             }
             case SDL_TEXTEDITING:
                 return _factory->create_message(AppMsg::text_edit, zero_new TextEditMsgArgs(time));
