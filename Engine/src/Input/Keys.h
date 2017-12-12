@@ -6,7 +6,7 @@ namespace ZeroEngine {
 
     // @TODO: Unfinished
 
-    enum class KeyCode : unsigned char;
+    enum class Keys : unsigned char;
 
     enum class KeyState : int8_t {
         null = -1,
@@ -71,14 +71,14 @@ namespace ZeroEngine {
 
     class Key : public IZeroObject {
     private:
-        KeyCode _keycode;
+        Keys _keycode;
         // @@TODO: There should only be one KeyModStateArray and each Key object
         // will have a reference to it
         KeyModStateArray _keymod_states;
         KeyState _state;
     public:
         inline Key() {}
-        Key(KeyCode keycode, 
+        Key(Keys keycode, 
             KeyState state, 
             KeyModStateArray mods);
         inline ~Key() {}
@@ -89,16 +89,14 @@ namespace ZeroEngine {
         bool is_caps_lock_on() const;
         inline bool is_pressed() const { return _state == KeyState::pressed; }
         inline KeyState key_state() const { return _state; }
-        inline bool equals(const KeyCode& keycode) const { return _keycode == keycode; }
-        inline const KeyCode keycode() const { return _keycode; }
+        inline bool equals(const Keys& keycode) const { return _keycode == keycode; }
+        inline const Keys keycode() const { return _keycode; }
         char get_key_char() const;
         // @TODO: Trying to convert char to StringRepr prints out nonsense
         inline StringRepr to_string() const override { return "Key: FIX ME!"; }
     };
 
-    // @TODO: I Might factor these values into Key class just for convenience.
-    // Ex. key == Key::w rather than key.equals(KeyCode::w)
-    enum class KeyCode : unsigned char {
+    enum class Keys : unsigned char {
         null = 0x00,
         begin = 0x01,
         enter = 0x01,

@@ -34,6 +34,9 @@
     <Filter Include="Source\Input">
       <UniqueIdentifier>{ae6724ec-bd83-4d80-99d1-40905a60ab89}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Events">
+      <UniqueIdentifier>{d11c5042-a5ce-4274-a74c-5a658a70a39e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ZeroEngine.h">
@@ -123,6 +126,18 @@
     <ClInclude Include="src\Input\Mouse.h">
       <Filter>Source\Input</Filter>
     </ClInclude>
+    <ClInclude Include="src\Events\EventManager.h">
+      <Filter>Source\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Events\EventListener.h">
+      <Filter>Source\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Events\EventData.h">
+      <Filter>Source\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Events\EventType.h">
+      <Filter>Source\Events</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Logger\BaseLogger.cpp">
@@ -175,6 +190,12 @@
     </ClCompile>
     <ClCompile Include="src\Input\Mouse.cpp">
       <Filter>Source\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Events\EventManager.cpp">
+      <Filter>Source\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Events\EventListener.cpp">
+      <Filter>Source\Events</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

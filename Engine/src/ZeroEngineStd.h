@@ -49,5 +49,6 @@
 #include <type_traits>
 #include <iomanip>
 #include <cassert>
+#include <strstream>
 
 #include "IZeroObject.h"

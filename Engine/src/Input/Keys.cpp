@@ -2,7 +2,7 @@
 
 namespace ZeroEngine {
 
-    Key::Key(KeyCode keycode, KeyState state, KeyModStateArray keymods) {
+    Key::Key(Keys keycode, KeyState state, KeyModStateArray keymods) {
         _keycode = keycode;
         _state = state;
         _keymod_states = keymods;

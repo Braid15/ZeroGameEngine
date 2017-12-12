@@ -7,7 +7,7 @@
 
 namespace ZeroEngine {
     
-    // This class has a simalar responsiblity to Keyboard class
+    // This class has a similar responsiblity to Keyboard class
     class Mouse {
     private:
         static std::array<ButtonState, static_cast<int>(MouseButton::end)> _button_states;

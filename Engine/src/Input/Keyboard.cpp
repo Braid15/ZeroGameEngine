@@ -2,9 +2,9 @@
 
 namespace ZeroEngine {
 
-    std::array<KeyState, static_cast<int>(KeyCode::end)> Keyboard::_keyboard_state = { KeyState::released };
+    std::array<KeyState, static_cast<int>(Keys::end)> Keyboard::_keyboard_state = { KeyState::released };
 
-    bool Keyboard::is_pressed(const KeyCode& keycode) {
+    bool Keyboard::is_pressed(const Keys& keycode) {
         return _keyboard_state[static_cast<int>(keycode)] == KeyState::pressed;
     }
 
