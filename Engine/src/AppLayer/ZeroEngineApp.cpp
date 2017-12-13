@@ -24,7 +24,6 @@ namespace ZeroEngine {
     }
 
     void ZeroEngineApp::on_update(Time time) {
-        // std::cout << "ZeroEngineApp::on_update()" << std::endl;
         ZeroEventManager::update();
     }
 
@@ -72,7 +71,7 @@ namespace ZeroEngine {
     }
 
     void ZeroEngineApp::quit_event_delegate(IEventDataPtr event_data) {
-        std::shared_ptr<QuitEventData> quit_event = std::static_pointer_cast<QuitEventData>(event_data);
+        std::shared_ptr<QuitEventData> quit_event = QuitEventData::cast(event_data);
         std::cout << "ZeroEngineApp::quit_event_delegate() - " << std::to_string(quit_event->get_timestamp()) << "\n";
     }
 

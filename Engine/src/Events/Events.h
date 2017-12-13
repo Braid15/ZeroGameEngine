@@ -16,6 +16,7 @@ namespace ZeroEngine {
         static const EventType type;
     public:
         static std::shared_ptr<QuitEventData> create();
+        static std::shared_ptr<QuitEventData> cast(IEventDataPtr);
         inline QuitEventData() {}
         inline const EventType& get_event_type() const override { return type; }
         inline StringRepr to_string() const override { return "QuitEventData"; }
