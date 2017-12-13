@@ -26,7 +26,7 @@ namespace ZeroEngine {
         virtual void move_entity(const EntityId& entity_id, const Point<float>& location) = 0;
         virtual void destroy_entity(const EntityId& entity_id) = 0;
         virtual WeakEntityPtr get_entity(const EntityId& entity_id) = 0;
-        virtual StrongEntityPtr create_entity() = 0;
+        virtual EntityPtr create_entity() = 0;
         virtual StringRepr to_string() const = 0;
         virtual ~IGameLogic() {}
     };
