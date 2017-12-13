@@ -18,8 +18,7 @@ namespace ZeroEngine {
 
     bool ZeroEngineApp::app_msg_proc(const AppMsg* const msg) {
         if (msg->get_type() == AppMsg::quit) {
-            std::shared_ptr<QuitEventData> quit_event(zero_new QuitEventData());
-            ZeroEventManager::queue_event(quit_event);
+            ZeroEventManager::queue_event(QuitEventData::create());
         }
         return true;
     }
