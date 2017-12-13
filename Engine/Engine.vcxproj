@@ -196,6 +196,7 @@
     <ClInclude Include="src\Events\EventData.h" />
     <ClInclude Include="src\Events\EventListener.h" />
     <ClInclude Include="src\Events\EventManager.h" />
+    <ClInclude Include="src\Events\Events.h" />
     <ClInclude Include="src\Events\EventType.h" />
     <ClInclude Include="src\Framework\IMsgTranslator.h" />
     <ClInclude Include="src\Framework\SdlFramework\SdlFramework.h" />
@@ -229,7 +230,9 @@
     <ClCompile Include="src\AppMsg\AppMsgFactory.cpp" />
     <ClCompile Include="src\Events\EventListener.cpp" />
     <ClCompile Include="src\Events\EventManager.cpp" />
+    <ClCompile Include="src\Events\Events.cpp" />
     <ClCompile Include="src\Framework\AFramework.cpp" />
+    <ClCompile Include="src\Framework\Framework.cpp" />
     <ClCompile Include="src\Framework\SdlFramework\SdlFramework.cpp" />
     <ClCompile Include="src\Framework\SdlFramework\SdlMsgTranslator.cpp" />
     <ClCompile Include="src\Graphics\Point.cpp" />

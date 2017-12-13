@@ -4,6 +4,7 @@
 #include "EventType.h"
 #include "EventListener.h"
 #include "../Time.h"
+#include "../Framework/Framework.h"
 
 namespace ZeroEngine {
 
@@ -11,7 +12,7 @@ namespace ZeroEngine {
 
     class IEventData : public IZeroObject {
     public:
-        virtual const IEventType& get_event_type() const = 0;
+        virtual const EventType& get_event_type() const = 0;
         virtual StringRepr to_string() const = 0;
         virtual const Time& get_timestamp() const = 0;
         // @TODO: Make own stream class
@@ -24,12 +25,12 @@ namespace ZeroEngine {
         const Time _timestamp;
     public:
         inline virtual ~BaseEventData() {};
-        virtual const IEventType& get_event_type() const = 0;
+        virtual const EventType& get_event_type() const = 0;
         virtual StringRepr to_string() const = 0;
         virtual IEventDataPtr copy() const = 0;
         inline virtual void serialize(IEventDataStream out) const override {}
         inline const Time& get_timestamp() const override { return _timestamp; }
     protected:
-        inline explicit BaseEventData(const Time timestamp=0.0) : _timestamp(timestamp) {};
+        inline explicit BaseEventData(const Time timestamp=ZeroFramework::current_time()) : _timestamp(timestamp) {};
     };
 }

@@ -24,7 +24,7 @@ namespace ZeroEngine {
         bool shutdown();
         virtual StringRepr to_string() const = 0;
         virtual Time get_current_time() const = 0;
-        virtual void main_loop();
+        virtual void run_main_loop();
         inline void set_update_callback(void (*callback)(Time)) { _update_callback = callback; }
         inline void set_render_callback(void (*callback)(Time)) { _render_callback = callback; }
         inline void set_app_msg_callback(bool (*callback)(const AppMsg* const)) { _app_msg_callback = callback; }

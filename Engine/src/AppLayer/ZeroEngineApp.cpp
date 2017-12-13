@@ -17,11 +17,16 @@ namespace ZeroEngine {
     }
 
     bool ZeroEngineApp::app_msg_proc(const AppMsg* const msg) {
+        if (msg->get_type() == AppMsg::quit) {
+            std::shared_ptr<QuitEventData> quit_event(zero_new QuitEventData());
+            ZeroEventManager::queue_event(quit_event);
+        }
         return true;
     }
 
     void ZeroEngineApp::on_update(Time time) {
         // std::cout << "ZeroEngineApp::on_update()" << std::endl;
+        ZeroEventManager::update();
     }
 
     void ZeroEngineApp::on_render(Time time) {
@@ -29,6 +34,8 @@ namespace ZeroEngine {
     }
 
     ZeroEngineApp::~ZeroEngineApp() {
+        EventListenerDelegate delegate = fastdelegate::MakeDelegate(this, &ZeroEngineApp::quit_event_delegate);
+        ZeroEventManager::unregister_listener(delegate, QuitEventData::type);
     }
 
     bool ZeroEngineApp::is_running() const {
@@ -47,7 +54,7 @@ namespace ZeroEngine {
     }
 
     void ZeroEngineApp::shutdown() {
-        set_is_running( false );
+        set_is_running(false);
     }
 
 
@@ -65,9 +72,15 @@ namespace ZeroEngine {
         _save_game_directory = dir;
     }
 
+    void ZeroEngineApp::quit_event_delegate(IEventDataPtr event_data) {
+        std::shared_ptr<QuitEventData> quit_event = std::static_pointer_cast<QuitEventData>(event_data);
+        std::cout << "ZeroEngineApp::quit_event_delegate() - " << std::to_string(quit_event->get_timestamp()) << "\n";
+    }
+
     /* private methods */
 
     void ZeroEngineApp::register_engine_events() {
-
+        EventListenerDelegate delegate = fastdelegate::MakeDelegate(this, &ZeroEngineApp::quit_event_delegate);
+        ZeroEventManager::register_listener(delegate, QuitEventData::type);
     }
 }

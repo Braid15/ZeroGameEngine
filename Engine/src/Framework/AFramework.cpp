@@ -13,7 +13,7 @@ namespace ZeroEngine {
 
     // @@TODO: Experimenting with main_loop design
     // Game Programming Patterns Pg.123. + references at end of chapter.
-    void AFramework::main_loop() {
+    void AFramework::run_main_loop() {
         Time update_limit = 0.10;
         Time previous_time = get_current_time();
         Time lag = 0.0;
@@ -42,7 +42,6 @@ namespace ZeroEngine {
         const AppMsg* const msg = _msg_translator->get_translated_message();
         // @@TEMP: _is_running should be switched via EventMaanager registered function
         _is_running = msg->get_type() != AppMsg::quit;
-
 
         // @TODO: I don'd know if I want these here or not, but regardless,
         // I want a better way to update these without public methods

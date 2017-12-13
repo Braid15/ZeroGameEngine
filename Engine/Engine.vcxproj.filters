@@ -138,6 +138,9 @@
     <ClInclude Include="src\Events\EventType.h">
       <Filter>Source\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\Events\Events.h">
+      <Filter>Source\Events</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Logger\BaseLogger.cpp">
@@ -195,6 +198,12 @@
       <Filter>Source\Events</Filter>
     </ClCompile>
     <ClCompile Include="src\Events\EventListener.cpp">
+      <Filter>Source\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\Framework.cpp">
+      <Filter>Source\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Events\Events.cpp">
       <Filter>Source\Events</Filter>
     </ClCompile>
   </ItemGroup>

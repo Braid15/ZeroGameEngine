@@ -11,9 +11,9 @@ namespace ZeroEngine {
         _name = name;
     }
 
-    bool BaseEventManager::register_listener(const EventListenerDelegate& event_delegate, const IEventType& type) {
+    bool BaseEventManager::register_listener(const EventListenerDelegate& event_delegate, const EventType& type) {
         bool success = true;
-        EventListenerList& listener_list = _listener_map[type.guid()];
+        EventListenerList& listener_list = _listener_map[type];
         for (auto iter = listener_list.begin(); iter != listener_list.end(); ++iter) {
             if (event_delegate == (*iter)) {
                 std::cout << "Attempting to double register delegate. BaseEventManager::register_listener\n";
@@ -25,9 +25,9 @@ namespace ZeroEngine {
         return success;
     }
 
-    bool BaseEventManager::unregister_listener(const EventListenerDelegate& event_delegate, const IEventType& type) {
+    bool BaseEventManager::unregister_listener(const EventListenerDelegate& event_delegate, const EventType& type) {
         bool success = false;
-        auto iter = _listener_map.find(type.guid());
+        auto iter = _listener_map.find(type);
         if (iter != _listener_map.end()) {
             EventListenerList& listener_list = iter->second;
             for (auto it = listener_list.begin(); it != listener_list.end(); ++it) {
@@ -43,7 +43,7 @@ namespace ZeroEngine {
 
     bool BaseEventManager::trigger_event(const IEventDataPtr& event_data) const {
         bool success = false;
-        auto iter = _listener_map.find(event_data->get_event_type().guid());
+        auto iter = _listener_map.find(event_data->get_event_type());
 
         if (iter != _listener_map.end()) {
             const EventListenerList& listener_list = iter->second;
@@ -57,12 +57,12 @@ namespace ZeroEngine {
         return success;
     }
 
-    bool BaseEventManager::abort_event(const IEventType& type, bool all) {
+    bool BaseEventManager::abort_event(const EventType& type, bool all) {
         assert(_active_queue >= 0);
         assert(_active_queue < EVENT_MANAGER_QUEUE_COUNT);
 
         bool success = false;
-        auto iter = _listener_map.find(type.guid());
+        auto iter = _listener_map.find(type);
 
         if (iter != _listener_map.end()) {
             EventQueue& queue = _event_queues[_active_queue];
@@ -71,7 +71,7 @@ namespace ZeroEngine {
             while (it != queue.end()) {
                 auto this_iter = it;
                 ++it;
-                if ((*this_iter)->get_event_type().equals(type)) {
+                if ((*this_iter)->get_event_type()) {
                     queue.erase(this_iter);
                     success = true;
                     if (!all) {
@@ -89,7 +89,7 @@ namespace ZeroEngine {
         assert(_active_queue < EVENT_MANAGER_QUEUE_COUNT);
 
         bool success = false;
-        auto iter = _listener_map.find(event_data->get_event_type().guid());
+        auto iter = _listener_map.find(event_data->get_event_type());
 
         if (iter != _listener_map.end()) {
             _event_queues[_active_queue].push_back(event_data);
@@ -100,7 +100,9 @@ namespace ZeroEngine {
     }
 
     bool BaseEventManager::update(uint32_t max_milliseconds) {
-        // framework->get_time();
+        Time current_time = ZeroFramework::current_time();
+        Time max_time = (max_milliseconds == MAX_MILLISECONDS) ? MAX_MILLISECONDS
+            : current_time + max_milliseconds;
 
         int queue_to_process = _active_queue;
         _active_queue = (_active_queue + 1) % EVENT_MANAGER_QUEUE_COUNT;
@@ -111,9 +113,9 @@ namespace ZeroEngine {
             IEventDataPtr event_data = _event_queues[queue_to_process].front();
             _event_queues[queue_to_process].pop_front();
 
-            const IEventType& type = event_data->get_event_type();
+            const EventType& type = event_data->get_event_type();
 
-            auto iter = _listener_map.find(type.guid());
+            auto iter = _listener_map.find(type);
             if (iter != _listener_map.end()) {
                 const EventListenerList& listener_list = iter->second;
 
@@ -123,7 +125,11 @@ namespace ZeroEngine {
                 }
             }
 
-            // framework->get_time();
+            current_time = ZeroFramework::current_time();
+            if (max_milliseconds != MAX_MILLISECONDS && current_time >= max_time) {
+                std::cout << "Aborting event processing. BaseEventManager::update\n";
+                break;
+            }
         }
 
         bool queue_flushed = _event_queues[queue_to_process].empty();
@@ -149,14 +155,13 @@ namespace ZeroEngine {
     BaseEventManager* ZeroEventManager::_event_manager = zero_new ZeroEventManager();
 
     ZeroEventManager::~ZeroEventManager() {
-        zero_delete(_event_manager);
     }
 
-    bool ZeroEventManager::register_listener(const EventListenerDelegate& delegate, const IEventType& type) {
+    bool ZeroEventManager::register_listener(const EventListenerDelegate& delegate, const EventType& type) {
         return _event_manager->register_listener(delegate, type);
     }
 
-    bool ZeroEventManager::unregister_listener(const EventListenerDelegate& delegate, const IEventType& type) {
+    bool ZeroEventManager::unregister_listener(const EventListenerDelegate& delegate, const EventType& type) {
         return _event_manager->unregister_listener(delegate, type);
     }
 
@@ -164,7 +169,7 @@ namespace ZeroEngine {
         return _event_manager->trigger_event(event_data);
     }
 
-    bool ZeroEventManager::abort_event(const IEventType& type, bool all) {
+    bool ZeroEventManager::abort_event(const EventType& type, bool all) {
         return _event_manager->abort_event(type, all);
     }
 
@@ -182,5 +187,9 @@ namespace ZeroEngine {
 
     StringRepr ZeroEventManager::to_string() {
         return _event_manager->to_string();
+    }
+
+    void ZeroEventManager::shutdown() {
+        zero_delete(_event_manager);
     }
 }

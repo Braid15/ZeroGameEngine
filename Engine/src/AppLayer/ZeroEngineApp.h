@@ -8,6 +8,7 @@
 #include "../Input/Keyboard.h"
 #include "../Input/Mouse.h"
 #include "GameOptions.h"
+#include "../Events/Events.h"
 
 namespace ZeroEngine {
 
@@ -25,6 +26,7 @@ namespace ZeroEngine {
 
     protected:
         virtual void register_game_events_() = 0;
+        virtual void quit_event_delegate(IEventDataPtr event_data);
 
     public:
         // @@TODO: THis might cause problems. How will derived class override?
