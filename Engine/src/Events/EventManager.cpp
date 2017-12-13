@@ -100,8 +100,8 @@ namespace ZeroEngine {
     }
 
     bool BaseEventManager::update(uint32_t max_milliseconds) {
-        Time current_time = ZeroFramework::current_time();
-        Time max_time = (max_milliseconds == MAX_MILLISECONDS) ? MAX_MILLISECONDS
+        Ticks current_time = ZeroFramework::get_ticks();
+        Ticks max_time = (max_milliseconds == MAX_MILLISECONDS) ? MAX_MILLISECONDS
             : current_time + max_milliseconds;
 
         int queue_to_process = _active_queue;
@@ -125,7 +125,7 @@ namespace ZeroEngine {
                 }
             }
 
-            current_time = ZeroFramework::current_time();
+            current_time = ZeroFramework::get_ticks();
             if (max_milliseconds != MAX_MILLISECONDS && current_time >= max_time) {
                 std::cout << "Aborting event processing. BaseEventManager::update\n";
                 break;

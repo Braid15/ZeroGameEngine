@@ -19,7 +19,7 @@ namespace ZeroEngine {
         static const AFramework* _framework;
     public:
         ~ZeroFramework() {}
-        static Time current_time();
+        static Ticks get_ticks();
         static StringRepr to_string();
         static void set_framework(const AFramework*);
     private:

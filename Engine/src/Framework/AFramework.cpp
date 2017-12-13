@@ -14,12 +14,12 @@ namespace ZeroEngine {
     // @@TODO: Experimenting with main_loop design
     // Game Programming Patterns Pg.123. + references at end of chapter.
     void AFramework::run_main_loop() {
-        Time update_limit = 0.10;
-        Time previous_time = get_current_time();
-        Time lag = 0.0;
+        Ticks update_limit = 0.10;
+        Ticks previous_time = get_current_time();
+        Ticks lag = 0.0;
         while (_is_running) {
-            Time current_time = get_current_time();
-            Time delta_time = current_time - previous_time;
+            Ticks current_time = get_current_time();
+            Ticks delta_time = current_time - previous_time;
             previous_time = current_time;
             lag += delta_time;
 

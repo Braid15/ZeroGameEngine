@@ -4,7 +4,7 @@ namespace ZeroEngine {
 
     const AFramework* ZeroFramework::_framework = nullptr;
 
-    Time ZeroFramework::current_time() {
+    Ticks ZeroFramework::get_ticks() {
         assert(_framework != nullptr);
         return _framework->get_current_time();
     }

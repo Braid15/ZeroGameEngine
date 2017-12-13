@@ -31,8 +31,8 @@ namespace ZeroEngine {
     public:
         // @@TODO: THis might cause problems. How will derived class override?
         static bool app_msg_proc(const AppMsg* const msg);
-        static void on_update(Time time);
-        static void on_render(Time time);
+        static void on_update(Ticks time);
+        static void on_render(Ticks time);
 
         // TODO: 10/4/17 - using this instead of global pointer for now.
         // we will see how it works

@@ -23,11 +23,11 @@ namespace ZeroEngine {
         return true;
     }
 
-    void ZeroEngineApp::on_update(Time time) {
+    void ZeroEngineApp::on_update(Ticks time) {
         ZeroEventManager::update();
     }
 
-    void ZeroEngineApp::on_render(Time time) {
+    void ZeroEngineApp::on_render(Ticks time) {
         // std::cout << "ZeroEngineApp::on_render()" << std::endl;
     }
 

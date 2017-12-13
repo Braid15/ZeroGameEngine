@@ -193,6 +193,9 @@
     <ClInclude Include="src\AppMsg\AppMsg.h" />
     <ClInclude Include="src\AppMsg\AppMsgArgs.h" />
     <ClInclude Include="src\AppMsg\AppMsgFactory.h" />
+    <ClInclude Include="src\Entity\Entity.h" />
+    <ClInclude Include="src\Entity\EntityComponent.h" />
+    <ClInclude Include="src\Entity\EntityFactory.h" />
     <ClInclude Include="src\Events\EventData.h" />
     <ClInclude Include="src\Events\EventListener.h" />
     <ClInclude Include="src\Events\EventManager.h" />
@@ -228,6 +231,9 @@
     <ClCompile Include="src\AppMsg\AppMsg.cpp" />
     <ClCompile Include="src\AppMsg\AppMsgArgs.cpp" />
     <ClCompile Include="src\AppMsg\AppMsgFactory.cpp" />
+    <ClCompile Include="src\Entity\Entity.cpp" />
+    <ClCompile Include="src\Entity\EntityComponent.cpp" />
+    <ClCompile Include="src\Entity\EntityFactory.cpp" />
     <ClCompile Include="src\Events\EventListener.cpp" />
     <ClCompile Include="src\Events\EventManager.cpp" />
     <ClCompile Include="src\Events\Events.cpp" />
