@@ -17,18 +17,22 @@ namespace ZeroEngine {
     }
 
     bool ZeroEngineApp::app_msg_proc(const AppMsg* const msg) {
+        assert(ZeroEngineApp::instance() != nullptr);
         if (msg->get_type() == AppMsg::quit) {
             ZeroEventManager::queue_event(QuitEventData::create());
         }
-        return true;
+        return ZeroEngineApp::instance()->on_msg_proc(msg);
     }
 
-    void ZeroEngineApp::on_update(Ticks time) {
+    void ZeroEngineApp::update(Ticks time) {
+        assert(ZeroEngineApp::instance() != nullptr);
         ZeroEventManager::update();
+        ZeroEngineApp::instance()->on_update(time);
     }
 
-    void ZeroEngineApp::on_render(Ticks time) {
-        // std::cout << "ZeroEngineApp::on_render()" << std::endl;
+    void ZeroEngineApp::render(Ticks time) {
+        assert(ZeroEngineApp::instance() != nullptr);
+        ZeroEngineApp::instance()->on_render(time);
     }
 
     ZeroEngineApp::~ZeroEngineApp() {
@@ -47,6 +51,7 @@ namespace ZeroEngine {
     bool ZeroEngineApp::initialize() {
         bool success = true;
         register_engine_events();
+        register_game_events();
         set_is_running( true );
         return success;
     }

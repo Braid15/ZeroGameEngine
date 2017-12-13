@@ -19,6 +19,7 @@ int main( int argc, char* args[] ) {
     GameOptions options;
     ZeroEngineApp* app = zero_new ZeroEngineAppTest::MockZeroEngineApp(options);
     app->initialize();
+    ZeroEngineApp::set_app(app);
 
 
     framework->create_window(app->get_game_title(), app->get_screen_size() );
@@ -26,8 +27,8 @@ int main( int argc, char* args[] ) {
 
 
     framework->set_app_msg_callback(ZeroEngineApp::app_msg_proc);
-    framework->set_update_callback(ZeroEngineApp::on_update);
-    framework->set_render_callback(ZeroEngineApp::on_render);
+    framework->set_update_callback(ZeroEngineApp::update);
+    framework->set_render_callback(ZeroEngineApp::render);
     framework->run_main_loop();
 
     app->shutdown();

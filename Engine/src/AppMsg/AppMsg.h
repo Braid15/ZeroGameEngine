@@ -210,12 +210,17 @@ namespace ZeroEngine {
         static const KeyboardMsg* const cast(const AppMsg* const);
         inline const AppMsgType get_type() const override { return AppMsg::keyboard; }
         inline StringRepr to_string() const override { return "KeyboardMsg"; }
+        inline bool is_key(const Keys& keys) const { return key().equals(keys); }
         inline bool is_repeat() const { return _args->is_repeat(); }
         inline Key key() const { return _args->get_key(); }
         inline char get_key_char() const { return _args->get_key().get_key_char(); }
         inline uint32_t get_window() const { return _args->get_window(); }
         inline bool is_key_down() const { return _args->get_key().is_pressed(); }
+        inline bool is_key_down(const Keys& key) const { return (is_key_down() && is_key(key)); }
         inline bool is_key_up() const { return !(_args->get_key().is_pressed()); }
+        inline bool is_key_up(const Keys& key) const { return (is_key_up() && is_key(key)); }
+        inline bool is_key_press() const { return (is_key_down() && !is_repeat()); }
+        inline bool is_key_press(const Keys& key) const { return (is_key_down(key) && !is_repeat()); }
     protected:
         inline ~KeyboardMsg() {}
     private:

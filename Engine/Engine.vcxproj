@@ -211,6 +211,7 @@
     <ClInclude Include="src\Graphics\Graphics.h" />
     <ClInclude Include="src\Graphics\Point.h" />
     <ClInclude Include="src\Graphics\Rect.h" />
+    <ClInclude Include="src\Input\Input.h" />
     <ClInclude Include="src\Input\Keyboard.h" />
     <ClInclude Include="src\Input\Keys.h" />
     <ClInclude Include="src\Input\Mouse.h" />
