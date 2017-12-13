@@ -208,10 +208,15 @@
     <ClInclude Include="src\Framework\AFramework.h" />
     <ClInclude Include="src\Framework\IRenderer.h" />
     <ClInclude Include="src\Framework\IWindow.h" />
+    <ClInclude Include="src\GameLogic\IGameLogic.h" />
+    <ClInclude Include="src\GameView\IGameView.h" />
+    <ClInclude Include="src\GameView\IScreenElement.h" />
     <ClInclude Include="src\Graphics\Graphics.h" />
     <ClInclude Include="src\Graphics\Point.h" />
     <ClInclude Include="src\Graphics\Rect.h" />
+    <ClInclude Include="src\Input\Gamepad.h" />
     <ClInclude Include="src\Input\Input.h" />
+    <ClInclude Include="src\Input\Joystick.h" />
     <ClInclude Include="src\Input\Keyboard.h" />
     <ClInclude Include="src\Input\Keys.h" />
     <ClInclude Include="src\Input\Mouse.h" />

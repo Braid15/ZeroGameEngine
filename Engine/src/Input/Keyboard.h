@@ -6,6 +6,15 @@
 
 namespace ZeroEngine {
 
+    class IKeyboardHandler : public IZeroObject {
+    public:
+        virtual bool on_key_down(const Keys& key) = 0;
+        virtual bool on_key_up(const Keys& key) = 0;
+        virtual StringRepr to_string() const = 0;
+        virtual ~IKeyboardHandler() {}
+    };
+
+
     // This will be a static class which contains internal data about the present state of the keyboard.
     // The idea is so that client code doesn't need to get this data by watching for KeyboardMsg, but
     // can get this data at anypoint by calling this class

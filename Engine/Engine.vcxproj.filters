@@ -43,6 +43,15 @@
     <Filter Include="Source\Math">
       <UniqueIdentifier>{6d2f1a30-9b30-4ee1-853c-7c843289f1de}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\GameView">
+      <UniqueIdentifier>{96ae3056-8cbd-4666-a303-65e405c53893}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\GameLogic">
+      <UniqueIdentifier>{a796badd-c5f4-4b77-bc71-a5270669dabc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Physics">
+      <UniqueIdentifier>{0800bfdd-410a-476b-ad09-f4237c7ba8ea}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ZeroEngine.h">
@@ -157,6 +166,21 @@
       <Filter>Source\Entity</Filter>
     </ClInclude>
     <ClInclude Include="src\Input\Input.h">
+      <Filter>Source\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameView\IGameView.h">
+      <Filter>Source\GameView</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameView\IScreenElement.h">
+      <Filter>Source\GameView</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLogic\IGameLogic.h">
+      <Filter>Source\GameLogic</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Input\Gamepad.h">
+      <Filter>Source\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Input\Joystick.h">
       <Filter>Source\Input</Filter>
     </ClInclude>
   </ItemGroup>

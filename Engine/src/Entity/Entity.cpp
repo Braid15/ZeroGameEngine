@@ -2,6 +2,9 @@
 
 namespace ZeroEngine {
 
+    const EntityId INVALID_ENTITY_ID = 0;
+
+
     Entity::Entity(EntityId id) {
         _id = id;
         _name = "Entity_" + std::to_string(_id); 

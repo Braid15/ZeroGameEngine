@@ -4,10 +4,17 @@
 
 namespace ZeroEngine {
 
-    typedef uint32_t ComponentId;
+    typedef uint32_t EntityComponentId;
+    extern const EntityComponentId INVALID_ENTITY_COMPONENT_ID;
 
     class EntityFactory;
     class Entity;
+    class EntityComponent;
+
+    typedef std::shared_ptr<Entity> StrongEntityPtr;
+    typedef std::weak_ptr<Entity> WeakEntityPtr;
+    typedef std::shared_ptr<EntityComponent> StrongEntityComponentPtr;
+    typedef std::weak_ptr<EntityComponent> WeakEntityComponentPtr;
 
     class EntityComponent : public IZeroObject {
     private:
@@ -15,7 +22,7 @@ namespace ZeroEngine {
         std::shared_ptr<Entity> _owner;
     public:
         virtual ~EntityComponent() {}
-        virtual const ComponentId& get_id() const = 0; 
+        virtual const EntityComponentId& get_id() const = 0; 
         virtual StringRepr to_string() const = 0;
         virtual bool initialize() = 0;
         virtual void post_initialize() = 0;

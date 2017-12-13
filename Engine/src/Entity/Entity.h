@@ -6,11 +6,12 @@
 namespace ZeroEngine {
 
     typedef uint32_t EntityId;
+    extern const EntityId INVALID_ENTITY_ID;
 
     class EntityFactory;
 
     class Entity : public IZeroObject {
-        typedef std::map<ComponentId, std::shared_ptr<EntityComponent>> ComponentMap;
+        typedef std::map<EntityComponentId, std::shared_ptr<EntityComponent>> ComponentMap;
     private:
         friend class EntityFactory;
         EntityId _id;
@@ -31,7 +32,7 @@ namespace ZeroEngine {
         void destroy();
         void update(double delta_time);
         template <class ComponentType>
-        inline std::weak_ptr<ComponentType> get_component(ComponentId id) {
+        inline std::weak_ptr<ComponentType> get_component(EntityComponentId id) {
             ComponentMap::iterator iter = _components.find(id);
             if (iter != _components.end()) {
                 std::shared_ptr<EntityComponent> base_class_component(iter->second);
