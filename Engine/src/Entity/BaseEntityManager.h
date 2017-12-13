@@ -1,17 +1,16 @@
 #pragma once 
 
-#include "../ZeroEngineStd.h"
-
-#include "Entity.h"
-#include "EntityComponent.h"
-#include "EntityFactory.h"
+#include "IEntityManager.h"
 
 namespace ZeroEngine {
 
-    class EntityManager : public IZeroObject {
+    /*
+    class BaseEntityManager : public IEntityManager {
     public:
         bool initialize();
         bool shutdown();
+        void update_entities(Ticks delta_time);
         inline StringRepr to_string() const { return "EntityManager"; }
     };
+    */
 }

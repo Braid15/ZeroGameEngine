@@ -183,6 +183,30 @@
     <ClInclude Include="src\Input\Joystick.h">
       <Filter>Source\Input</Filter>
     </ClInclude>
+    <ClInclude Include="src\GameLogic\BaseGameLogic.h">
+      <Filter>Source\GameLogic</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameView\GameView.h">
+      <Filter>Source\GameView</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physics\IPhysics.h">
+      <Filter>Source\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physics\Physics.h">
+      <Filter>Source\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\IEntityManager.h">
+      <Filter>Source\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\BaseEntityManager.h">
+      <Filter>Source\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameView\HumanView.h">
+      <Filter>Source\GameView</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ZeroEngineEvents.h">
+      <Filter>Source</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Logger\BaseLogger.cpp">
@@ -256,6 +280,18 @@
     </ClCompile>
     <ClCompile Include="src\Entity\EntityComponent.cpp">
       <Filter>Source\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLogic\BaseGameLogic.cpp">
+      <Filter>Source\GameLogic</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\BaseEntityManager.cpp">
+      <Filter>Source\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameView\HumanView.cpp">
+      <Filter>Source\GameView</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ZeroEngineEvents.cpp">
+      <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -196,6 +196,8 @@
     <ClInclude Include="src\Entity\Entity.h" />
     <ClInclude Include="src\Entity\EntityComponent.h" />
     <ClInclude Include="src\Entity\EntityFactory.h" />
+    <ClInclude Include="src\Entity\BaseEntityManager.h" />
+    <ClInclude Include="src\Entity\IEntityManager.h" />
     <ClInclude Include="src\Events\EventData.h" />
     <ClInclude Include="src\Events\EventListener.h" />
     <ClInclude Include="src\Events\EventManager.h" />
@@ -208,7 +210,10 @@
     <ClInclude Include="src\Framework\AFramework.h" />
     <ClInclude Include="src\Framework\IRenderer.h" />
     <ClInclude Include="src\Framework\IWindow.h" />
+    <ClInclude Include="src\GameLogic\BaseGameLogic.h" />
     <ClInclude Include="src\GameLogic\IGameLogic.h" />
+    <ClInclude Include="src\GameView\HumanView.h" />
+    <ClInclude Include="src\GameView\GameView.h" />
     <ClInclude Include="src\GameView\IGameView.h" />
     <ClInclude Include="src\GameView\IScreenElement.h" />
     <ClInclude Include="src\Graphics\Graphics.h" />
@@ -225,9 +230,12 @@
     <ClInclude Include="src\Logger\ILogger.h" />
     <ClInclude Include="src\Logger\Logger.h" />
     <ClInclude Include="src\IZeroObject.h" />
+    <ClInclude Include="src\Physics\IPhysics.h" />
+    <ClInclude Include="src\Physics\Physics.h" />
     <ClInclude Include="src\Time.h" />
     <ClInclude Include="src\Utils\MemoryPool.h" />
     <ClInclude Include="src\ZeroEngine.h" />
+    <ClInclude Include="src\ZeroEngineEvents.h" />
     <ClInclude Include="src\ZeroEngineStd.h" />
     <ClInclude Include="test\TestApp.h" />
   </ItemGroup>
@@ -237,6 +245,7 @@
     <ClCompile Include="src\AppMsg\AppMsg.cpp" />
     <ClCompile Include="src\AppMsg\AppMsgArgs.cpp" />
     <ClCompile Include="src\AppMsg\AppMsgFactory.cpp" />
+    <ClCompile Include="src\Entity\BaseEntityManager.cpp" />
     <ClCompile Include="src\Entity\Entity.cpp" />
     <ClCompile Include="src\Entity\EntityComponent.cpp" />
     <ClCompile Include="src\Entity\EntityFactory.cpp" />
@@ -247,6 +256,8 @@
     <ClCompile Include="src\Framework\Framework.cpp" />
     <ClCompile Include="src\Framework\SdlFramework\SdlFramework.cpp" />
     <ClCompile Include="src\Framework\SdlFramework\SdlMsgTranslator.cpp" />
+    <ClCompile Include="src\GameLogic\BaseGameLogic.cpp" />
+    <ClCompile Include="src\GameView\HumanView.cpp" />
     <ClCompile Include="src\Graphics\Point.cpp" />
     <ClCompile Include="src\Graphics\Rect.cpp" />
     <ClCompile Include="src\Input\Keyboard.cpp" />
@@ -255,6 +266,7 @@
     <ClCompile Include="src\Logger\BaseLogger.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Utils\MemoryPool.cpp" />
+    <ClCompile Include="src\ZeroEngineEvents.cpp" />
     <ClCompile Include="test\TestApp.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
