@@ -32,5 +32,6 @@ namespace ZeroEngine {
         virtual StringRepr to_string() const = 0;
     };
 
-    typedef std::list<std::shared_ptr<IGameView>> GameViewList;
+    typedef std::shared_ptr<IGameView> IGameViewPtr;
+    typedef std::list<IGameViewPtr> GameViewList;
 }
