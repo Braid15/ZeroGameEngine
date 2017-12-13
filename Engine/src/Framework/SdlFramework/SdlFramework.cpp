@@ -59,7 +59,7 @@ namespace ZeroEngine {
         }
     }
 
-    void SdlFramework::frame_render_present(Time delta_time) {
+    void SdlFramework::frame_render_present(Ticks delta_time) {
         SDL_SetRenderDrawColor(_renderer, 0, 0, 0, 255);
         SDL_RenderClear(_renderer);
         _render_callback(delta_time);
@@ -69,7 +69,7 @@ namespace ZeroEngine {
     // @@TODO: May change this to protected get_current_framework_time() 
     // and have AFramework have a public get_current_time() so that I have
     // more control over the time
-    Time SdlFramework::get_current_time() const {
+    Ticks SdlFramework::get_current_time() const {
         return SDL_GetTicks();
     }
 

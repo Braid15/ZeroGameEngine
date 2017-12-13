@@ -17,28 +17,27 @@ namespace ZeroEngine {
     }
 
     bool ZeroEngineApp::app_msg_proc(const AppMsg* const msg) {
-        if (msg->get_type() == AppMsg::keydown) {
-            const KeyDownMsg* const keydown = dynamic_cast<const KeyDownMsg* const>(msg);
-            Key key = keydown->get_key();
-
-            std::cout << "alt: " << key.is_alt_pressed() << std::endl;
-            std::cout << "shift: " << key.is_shift_pressed() << std::endl;
-            std::cout << "control: " << key.is_control_pressed() << std::endl;
-            std::cout << "caps lock: " << key.is_caps_lock_on() << std::endl;
+        assert(ZeroEngineApp::instance() != nullptr);
+        if (msg->get_type() == AppMsg::quit) {
+            ZeroEventManager::queue_event(QuitEventData::create());
         }
-
-        return true;
+        return ZeroEngineApp::instance()->on_msg_proc(msg);
     }
 
-    void ZeroEngineApp::on_update( Time time ) {
-        // std::cout << "ZeroEngineApp::on_update()" << std::endl;
+    void ZeroEngineApp::update(Ticks time) {
+        assert(ZeroEngineApp::instance() != nullptr);
+        ZeroEventManager::update();
+        ZeroEngineApp::instance()->on_update(time);
     }
 
-    void ZeroEngineApp::on_render( Time time ) {
-        // std::cout << "ZeroEngineApp::on_render()" << std::endl;
+    void ZeroEngineApp::render(Ticks time) {
+        assert(ZeroEngineApp::instance() != nullptr);
+        ZeroEngineApp::instance()->on_render(time);
     }
 
     ZeroEngineApp::~ZeroEngineApp() {
+        EventListenerDelegate delegate = fastdelegate::MakeDelegate(this, &ZeroEngineApp::quit_event_delegate);
+        ZeroEventManager::unregister_listener(delegate, QuitEventData::type);
     }
 
     bool ZeroEngineApp::is_running() const {
@@ -52,12 +51,13 @@ namespace ZeroEngine {
     bool ZeroEngineApp::initialize() {
         bool success = true;
         register_engine_events();
+        register_game_events();
         set_is_running( true );
         return success;
     }
 
     void ZeroEngineApp::shutdown() {
-        set_is_running( false );
+        set_is_running(false);
     }
 
 
@@ -75,9 +75,15 @@ namespace ZeroEngine {
         _save_game_directory = dir;
     }
 
+    void ZeroEngineApp::quit_event_delegate(IEventDataPtr event_data) {
+        std::shared_ptr<QuitEventData> quit_event = QuitEventData::cast(event_data);
+        std::cout << "ZeroEngineApp::quit_event_delegate() - " << std::to_string(quit_event->get_timestamp()) << "\n";
+    }
+
     /* private methods */
 
     void ZeroEngineApp::register_engine_events() {
-
+        EventListenerDelegate delegate = fastdelegate::MakeDelegate(this, &ZeroEngineApp::quit_event_delegate);
+        ZeroEventManager::register_listener(delegate, QuitEventData::type);
     }
 }

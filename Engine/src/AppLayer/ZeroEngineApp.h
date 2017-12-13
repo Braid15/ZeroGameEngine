@@ -4,7 +4,11 @@
 #include "../Graphics/Graphics.h"
 #include "../Time.h"
 #include "../AppMsg/AppMsg.h"
+#include "../Input/Keys.h"
+#include "../Input/Keyboard.h"
+#include "../Input/Mouse.h"
 #include "GameOptions.h"
+#include "../Events/Events.h"
 
 namespace ZeroEngine {
 
@@ -21,13 +25,14 @@ namespace ZeroEngine {
         virtual bool load_game() = 0;
 
     protected:
-        virtual void register_game_events_() = 0;
+        virtual void register_game_events() = 0;
+        virtual void quit_event_delegate(IEventDataPtr event_data);
 
     public:
         // @@TODO: THis might cause problems. How will derived class override?
         static bool app_msg_proc(const AppMsg* const msg);
-        static void on_update(Time time);
-        static void on_render(Time time);
+        static void update(Ticks time);
+        static void render(Ticks time);
 
         // TODO: 10/4/17 - using this instead of global pointer for now.
         // we will see how it works
@@ -41,6 +46,10 @@ namespace ZeroEngine {
     public:
         bool initialize();
         void shutdown();
+        inline virtual bool on_msg_proc(const AppMsg* const msg) { return true; }
+        inline virtual void on_update(Ticks time) {}
+        inline virtual void on_render(Ticks time) {}
+
 
     /* getters/setters */
     public:

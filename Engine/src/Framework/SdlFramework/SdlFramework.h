@@ -32,8 +32,8 @@ namespace ZeroEngine {
         bool on_init();
         bool on_shutdown();
         void process_input();
-        Time get_current_time() const;
-        void frame_render_present(Time delta_time);
+        Ticks get_current_time() const;
+        void frame_render_present(Ticks delta_time);
         inline StringRepr to_string() const { return "SdlFramework"; }
     };
 }

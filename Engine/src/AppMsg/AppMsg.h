@@ -60,7 +60,7 @@ namespace ZeroEngine {
     public:
         virtual const AppMsgType get_type() const = 0;
         virtual StringRepr to_string() const = 0;
-        inline Time get_time_stamp() const { return _args->get_creation_time(); }
+        inline Ticks get_time_stamp() const { return _args->get_creation_time(); }
         virtual inline void set_args(AppMsgAccessKey&, AppMsgArgs* args) { _args = args; }
         static void destroy(AppMsgAccessKey& key, AppMsg* msg) { delete msg; }
         static void init_memory_pool(AppMsgAccessKey&);
@@ -73,12 +73,14 @@ namespace ZeroEngine {
         static const AppMsgType system;
         static const AppMsgType keydown;
         static const AppMsgType keyup;
+        static const AppMsgType keyboard;
         static const AppMsgType text_edit;
         static const AppMsgType text_input;
         static const AppMsgType keymap_changed;
         static const AppMsgType mouse_motion;
         static const AppMsgType mouse_button_down;
         static const AppMsgType mouse_button_up;
+        static const AppMsgType mouse_button;
         static const AppMsgType mouse_wheel;
         static const AppMsgType joy_axis_motion;
         static const AppMsgType joy_ball_motion;
@@ -105,6 +107,7 @@ namespace ZeroEngine {
         static const AppMsgType audio_device_removed;
         static const AppMsgType render_targets_reset;
         static const AppMsgType render_device_reset;
+
     protected:
         AppMsg(AppMsgArgs*);
         virtual ~AppMsg();
@@ -194,6 +197,36 @@ namespace ZeroEngine {
         SystemMsg(AppMsgArgs*);
     };
 
+    //
+    // KeyboardMsg
+    //
+
+    class KeyboardMsg final : public AppMsg {
+    private:
+        KeyboardMsgArgs* _args;
+    public:
+        static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
+        // @TODO: Each class should have a cast method
+        static const KeyboardMsg* const cast(const AppMsg* const);
+        inline const AppMsgType get_type() const override { return AppMsg::keyboard; }
+        inline StringRepr to_string() const override { return "KeyboardMsg"; }
+        inline bool is_key(const Keys& keys) const { return key().equals(keys); }
+        inline bool is_repeat() const { return _args->is_repeat(); }
+        inline Key key() const { return _args->get_key(); }
+        inline char get_key_char() const { return _args->get_key().get_key_char(); }
+        inline uint32_t get_window() const { return _args->get_window(); }
+        inline bool is_key_down() const { return _args->get_key().is_pressed(); }
+        inline bool is_key_down(const Keys& key) const { return (is_key_down() && is_key(key)); }
+        inline bool is_key_up() const { return !(_args->get_key().is_pressed()); }
+        inline bool is_key_up(const Keys& key) const { return (is_key_up() && is_key(key)); }
+        inline bool is_key_press() const { return (is_key_down() && !is_repeat()); }
+        inline bool is_key_press(const Keys& key) const { return (is_key_down(key) && !is_repeat()); }
+    protected:
+        inline ~KeyboardMsg() {}
+    private:
+        KeyboardMsg(AppMsgArgs*);
+    };
+    
     //
     // KeyDownMsg
     //
@@ -287,6 +320,34 @@ namespace ZeroEngine {
         KeyMapChangedMsg(AppMsgArgs*);
     };
 
+    // @TODO: MouseButtonMsg instead of MouseButtonUp/DOwn
+    
+    //
+    // MouseButtonMsg
+    //
+    class MouseButtonMsg final : public AppMsg {
+    private:
+        MouseButtonMsgArgs* _args;
+    public:
+        static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
+        static const MouseButtonMsg* const cast(const AppMsg* const);
+
+        inline const AppMsgType get_type() const override { return AppMsg::mouse_button; }
+        inline StringRepr to_string() const override { return "MouseButtonMsg"; }
+        inline uint8_t get_num_clicks() const { return _args->get_num_clicks(); }
+        inline int32_t get_x_pos() const { return _args->get_x_pos(); }
+        inline int32_t get_y_pos() const { return _args->get_y_pos(); }
+        inline Point<int32_t> get_coordinates() const { return _args->get_coordinates(); }
+        inline MouseButton get_button() const { return _args->get_button(); }
+        inline ButtonState get_state() const { return _args->get_state(); }
+        inline bool is_button_up() const { return _args->get_state() == ButtonState::released; }
+        inline bool is_button_down() const { return _args->get_state() == ButtonState::pressed; }
+    protected:
+        inline ~MouseButtonMsg() {}
+    private:
+        MouseButtonMsg(AppMsgArgs*);
+
+    };
     //
     // MouseButtonDownMsg
     //
@@ -341,9 +402,10 @@ namespace ZeroEngine {
     private:
         MouseMotionMsgArgs* _args;
     public:
+        static const MouseMotionMsg* const cast(const AppMsg* const);
+        static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
         inline const AppMsgType get_type() const override { return AppMsg::mouse_motion; }
         inline StringRepr to_string() const override { return "MouseMotionMsg"; }
-        static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
         inline uint32_t get_window() const { return _args->get_window(); }
         inline uint32_t get_mouse_id() const { return _args->get_mouse_id(); }
         inline int32_t get_x_pos() const { return _args->get_x_pos(); }
@@ -368,9 +430,10 @@ namespace ZeroEngine {
     private:
         MouseWheelMsgArgs* _args;
     public:
+        static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
+        static const MouseWheelMsg* const cast(const AppMsg* const);
         inline const AppMsgType get_type() const { return AppMsg::mouse_wheel; }
         inline StringRepr to_string() const { return "MouseWheenMsg"; }
-        static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
         inline uint32_t get_window() const { return _args->get_window(); }
         inline uint32_t get_mouse() const { return _args->get_mouse(); }
         inline int32_t get_scroll_amount_x() const { return _args->get_scroll_amount_x(); }

@@ -5,6 +5,8 @@
 #include "../Graphics/Point.h"
 #include "../AppMsg/AppMsg.h"
 #include "../AppMsg/AppMsgFactory.h"
+#include "../Input//Keyboard.h"
+#include "../Input/Mouse.h"
 #include "IMsgTranslator.h"
 
 namespace ZeroEngine {
@@ -21,19 +23,19 @@ namespace ZeroEngine {
         bool initialize();
         bool shutdown();
         virtual StringRepr to_string() const = 0;
-        virtual Time get_current_time() const = 0;
-        virtual void main_loop();
-        inline void set_update_callback(void (*callback)(Time)) { _update_callback = callback; }
-        inline void set_render_callback(void (*callback)(Time)) { _render_callback = callback; }
+        virtual Ticks get_current_time() const = 0;
+        virtual void run_main_loop();
+        inline void set_update_callback(void (*callback)(Ticks)) { _update_callback = callback; }
+        inline void set_render_callback(void (*callback)(Ticks)) { _render_callback = callback; }
         inline void set_app_msg_callback(bool (*callback)(const AppMsg* const)) { _app_msg_callback = callback; }
     protected:
         AFramework();
         void set_app_msg_translator(IMsgTranslator*);
         virtual void process_input() = 0;
         void dispatch_message();
-        inline virtual void frame_render_begin(Time delta_time) {}
-        virtual void frame_render_present(Time delta_time) = 0;
-        inline virtual void frame_render_end(Time delta_time) {}
+        inline virtual void frame_render_begin(Ticks delta_time) {}
+        virtual void frame_render_present(Ticks delta_time) = 0;
+        inline virtual void frame_render_end(Ticks delta_time) {}
         virtual bool on_init() = 0;
         virtual bool on_shutdown() = 0;
     private:
@@ -44,8 +46,8 @@ namespace ZeroEngine {
     //private:
     // TEMPORARY: I want these private I think
     protected:
-        void (*_render_callback)( Time time );
-        void (*_update_callback)(Time time);
+        void (*_render_callback)( Ticks time );
+        void (*_update_callback)(Ticks time);
         bool (*_app_msg_callback)(const AppMsg* const msg);
     };
 }

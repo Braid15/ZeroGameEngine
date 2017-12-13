@@ -6,7 +6,7 @@ namespace ZeroEngine {
 
     // @TODO: Unfinished
 
-    enum class KeyCode : unsigned char;
+    enum class Keys : unsigned char;
 
     enum class KeyState : int8_t {
         null = -1,
@@ -71,14 +71,14 @@ namespace ZeroEngine {
 
     class Key : public IZeroObject {
     private:
-        KeyCode _keycode;
+        Keys _keycode;
         // @@TODO: There should only be one KeyModStateArray and each Key object
         // will have a reference to it
         KeyModStateArray _keymod_states;
         KeyState _state;
     public:
         inline Key() {}
-        Key(KeyCode keycode, 
+        Key(Keys keycode, 
             KeyState state, 
             KeyModStateArray mods);
         inline ~Key() {}
@@ -88,48 +88,51 @@ namespace ZeroEngine {
         bool is_control_pressed() const;
         bool is_caps_lock_on() const;
         inline bool is_pressed() const { return _state == KeyState::pressed; }
-        inline KeyState get_key_state() const { return _state; }
+        inline KeyState key_state() const { return _state; }
+        inline bool equals(const Keys& keycode) const { return _keycode == keycode; }
+        inline const Keys keycode() const { return _keycode; }
         char get_key_char() const;
         // @TODO: Trying to convert char to StringRepr prints out nonsense
         inline StringRepr to_string() const override { return "Key: FIX ME!"; }
     };
 
-    enum class KeyCode : unsigned char {
+    enum class Keys : unsigned char {
         null = 0x00,
-        enter = 0x0D,
-        space = 0x20,
-        exclamation = 0x21,
-        double_quote = 0x22,
-        hash = 0x23,
-        dollar = 0x24,
-        percent = 0x25,
-        ampersand = 0x26,
-        single_quote = 0x27,
-        left_paren = 0x28,
-        right_paren = 0x29,
-        asterisk = 0x2A,
-        plus = 0x2B,
-        comma = 0x2C,
-        minus = 0x2D,
-        period = 0x2E,
-        forward_slash = 0x2F,
-        zero = 0x30,
-        one = 0x31,
-        two = 0x32,
-        three = 0x33,
-        four = 0x34,
-        five = 0x35,
-        six = 0x36,
-        seven = 0x37,
-        eight = 0x38,
-        nine = 0x39,
-        colon = 0x3A,
-        semicolon = 0x3B,
-        less_than = 0x3C,
-        equal = 0x3D,
-        greater_than = 0x3E,
-        question_mark = 0x3F,
-        at = 0x40,
+        begin = 0x01,
+        enter = 0x01,
+        space,
+        exclamation,
+        double_quote,
+        hash,
+        dollar,
+        percent,
+        ampersand,
+        single_quote,
+        left_paren,
+        right_paren,
+        asterisk,
+        plus,
+        comma,
+        minus,
+        period,
+        forward_slash,
+        zero,
+        one,
+        two,
+        three,
+        four,
+        five,
+        six,
+        seven,
+        eight,
+        nine,
+        colon,
+        semicolon,
+        less_than,
+        equal,
+        greater_than,
+        question_mark,
+        at,
 
         /*
         @ Capitals vs lowercase alphabetic chars only matter when getting the char
@@ -161,62 +164,61 @@ namespace ZeroEngine {
         Z = 0x5A,
         */
 
-        left_bracket = 0x5B,
-        back_slash = 0x5C,
-        right_bracket = 0x5D,
-        caret = 0x5E,
-
-        a = 0x61,
-        b = 0x62,
-        c = 0x63,
-        d = 0x64,
-        e = 0x65,
-        f = 0x66,
-        g = 0x67,
-        h = 0x68,
-        i = 0x69,
-        j = 0x6A,
-        k = 0x6B,
-        l = 0x6C,
-        m = 0x6D,
-        n = 0x6E,
-        o = 0x6F,
-        p = 0x70,
-        q = 0x71,
-        r = 0x72,
-        s = 0x73,
-        t = 0x74,
-        u = 0x75,
-        v = 0x76,
-        w = 0x77,
-        x = 0x78,
-        y = 0x79,
-        z = 0x7A,
-
-        left_brace = 0x7B,
-        pipe = 0x7C,
-        right_brace = 0x7D,
-        tilda = 0x7E,
-        escape = 0x7F,
-        up = 0x80,
-        right = 0x81,
-        down = 0x82,
-        left = 0x83,
-        backspace = 0x84,
+        left_bracket,
+        back_slash,
+        right_bracket,
+        caret,
+        a,
+        b,
+        c,
+        d,
+        e,
+        f,
+        g,
+        h,
+        i,
+        j,
+        k,
+        l,
+        m,
+        n,
+        o,
+        p,
+        q,
+        r,
+        s,
+        t,
+        u,
+        v,
+        w,
+        x,
+        y,
+        z,
+        left_brace,
+        pipe,
+        right_brace,
+        tilda,
+        escape,
+        up,
+        right,
+        down,
+        left,
+        backspace,
 
         // These keys also have corresponding KeyMod values
-        left_shift = 0x85,
-        right_shift = 0x86,
-        left_alt = 0x87,
-        right_alt = 0x88,
-        left_control = 0x89,
-        right_control = 0x8A,
-        caps_lock = 0x8B,
+        left_shift,
+        right_shift,
+        left_alt,
+        right_alt,
+        left_control,
+        right_control,
+        caps_lock,
 
-        tab = 0x8C,
-        del = 0x8D,
-        underscore = 0x8E,
-        page_down = 0x8F,
-        page_up = 0x90,
+        tab,
+        del,
+        underscore,
+        page_down,
+        page_up,
+        end
     };
 }

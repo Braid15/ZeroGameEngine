@@ -2,7 +2,7 @@
 
 namespace ZeroEngine {
 
-    static KeyCode sdl_keysym_to_keycode_conversion(SDL_Keysym);
+    static Keys sdl_keysym_to_keycode_conversion(SDL_Keysym);
 
     const AppMsg* const SdlMsgTranslator::get_translated_message() {
         uint32_t time = _sdl_event.common.timestamp;
@@ -31,7 +31,6 @@ namespace ZeroEngine {
             case SDL_SYSWMEVENT:
                 return _factory->create_message(AppMsg::system, zero_new SystemMsgArgs(time));
 
-            // @TODO: FInish implementing KeydownMsg and KeyupMsg
             case SDL_KEYDOWN:
             case SDL_KEYUP:
             {
@@ -53,11 +52,14 @@ namespace ZeroEngine {
 
                 KeyboardMsgArgs* args = zero_new KeyboardMsgArgs(time, window, key, repeat);
 
+                return _factory->create_message(AppMsg::keyboard, args);
+                /*
                 if (_sdl_event.type == SDL_KEYDOWN) {
                     return _factory->create_message(AppMsg::keydown, args);
                 } else {
                     return _factory->create_message(AppMsg::keyup, args);
                 }
+                */
             }
             case SDL_TEXTEDITING:
                 return _factory->create_message(AppMsg::text_edit, zero_new TextEditMsgArgs(time));
@@ -131,11 +133,14 @@ namespace ZeroEngine {
                 MouseButtonMsgArgs* args = 
                     zero_new MouseButtonMsgArgs(time, window, which, state, clicks, button, x, y);
 
+                return _factory->create_message(AppMsg::mouse_button, args);
+                /*
                 if (_sdl_event.type == SDL_MOUSEBUTTONDOWN) {
                     return _factory->create_message(AppMsg::mouse_button_down, args);
                 } else {
                     return _factory->create_message(AppMsg::mouse_button_up, args);
                 }
+                */
             }
 
             // @TODO: Doesn't handle scrolling along x axis
@@ -227,176 +232,176 @@ namespace ZeroEngine {
         _sdl_event = event;
     }
 
-    KeyCode sdl_keysym_to_keycode_conversion(SDL_Keysym keysym) {
+    Keys sdl_keysym_to_keycode_conversion(SDL_Keysym keysym) {
         switch (keysym.sym) {
             case SDLK_0:
-                return KeyCode::zero;
+                return Keys::zero;
             case SDLK_1:
-                return KeyCode::one;
+                return Keys::one;
             case SDLK_2:
-                return KeyCode::two;
+                return Keys::two;
             case SDLK_3:
-                return KeyCode::three;
+                return Keys::three;
             case SDLK_4:
-                return KeyCode::four;
+                return Keys::four;
             case SDLK_5:
-                return KeyCode::five;
+                return Keys::five;
             case SDLK_6:
-                return KeyCode::six;
+                return Keys::six;
             case SDLK_7:
-                return KeyCode::seven;
+                return Keys::seven;
             case SDLK_8:
-                return KeyCode::eight;
+                return Keys::eight;
             case SDLK_9:
-                return KeyCode::nine;
+                return Keys::nine;
             case SDLK_a:
-                return KeyCode::a;
+                return Keys::a;
             case SDLK_b:
-                return KeyCode::b;
+                return Keys::b;
             case SDLK_c:
-                return KeyCode::c;
+                return Keys::c;
             case SDLK_d:
-                return KeyCode::d;
+                return Keys::d;
             case SDLK_e:
-                return KeyCode::e;
+                return Keys::e;
             case SDLK_f:
-                return KeyCode::f;
+                return Keys::f;
             case SDLK_g:
-                return KeyCode::g;
+                return Keys::g;
             case SDLK_h:
-                return KeyCode::h;
+                return Keys::h;
             case SDLK_i:
-                return KeyCode::i;
+                return Keys::i;
             case SDLK_j:
-                return KeyCode::j;
+                return Keys::j;
             case SDLK_k:
-                return KeyCode::k;
+                return Keys::k;
             case SDLK_l:
-                return KeyCode::l;
+                return Keys::l;
             case SDLK_m:
-                return KeyCode::m;
+                return Keys::m;
             case SDLK_n:
-                return KeyCode::n;
+                return Keys::n;
             case SDLK_o:
-                return KeyCode::o;
+                return Keys::o;
             case SDLK_p:
-                return KeyCode::p;
+                return Keys::p;
             case SDLK_q:
-                return KeyCode::q;
+                return Keys::q;
             case SDLK_r:
-                return KeyCode::r;
+                return Keys::r;
             case SDLK_s:
-                return KeyCode::s;
+                return Keys::s;
             case SDLK_t:
-                return KeyCode::t;
+                return Keys::t;
             case SDLK_u:
-                return KeyCode::u;
+                return Keys::u;
             case SDLK_v:
-                return KeyCode::v;
+                return Keys::v;
             case SDLK_w:
-                return KeyCode::w;
+                return Keys::w;
             case SDLK_x:
-                return KeyCode::x;
+                return Keys::x;
             case SDLK_y:
-                return KeyCode::y;
+                return Keys::y;
             case SDLK_z:
-                return KeyCode::z;
+                return Keys::z;
             case SDLK_UP:
-                return KeyCode::up;
+                return Keys::up;
             case SDLK_RIGHT:
-                return KeyCode::right;
+                return Keys::right;
             case SDLK_DOWN:
-                return KeyCode::down;
+                return Keys::down;
             case SDLK_LEFT:
-                return KeyCode::left;
+                return Keys::left;
             case SDLK_ESCAPE:
-                return KeyCode::escape;
+                return Keys::escape;
             case SDLK_BACKSPACE:
-                return KeyCode::backspace;
+                return Keys::backspace;
             case SDLK_RETURN:
-                return KeyCode::enter;
+                return Keys::enter;
             case SDLK_LCTRL:
-                return KeyCode::left_control;
+                return Keys::left_control;
             case SDLK_RCTRL:
-                return KeyCode::right_control;
+                return Keys::right_control;
             case SDLK_LALT:
-                return KeyCode::left_alt;
+                return Keys::left_alt;
             case SDLK_RALT:
-                return KeyCode::right_alt;
+                return Keys::right_alt;
             case SDLK_LSHIFT:
-                return KeyCode::left_shift;
+                return Keys::left_shift;
             case SDLK_RSHIFT:
-                return KeyCode::right_shift;
+                return Keys::right_shift;
             case SDLK_TAB:
-                return KeyCode::tab;
+                return Keys::tab;
             case SDLK_DELETE:
-                return KeyCode::del;
+                return Keys::del;
             case SDLK_SPACE:
-                return KeyCode::space;
+                return Keys::space;
             case SDLK_AMPERSAND:
-                return KeyCode::ampersand;
+                return Keys::ampersand;
             case SDLK_ASTERISK:
-                return KeyCode::asterisk;
+                return Keys::asterisk;
             case SDLK_AT:
-                return KeyCode::at;
+                return Keys::at;
             case SDLK_CARET:
-                return KeyCode::caret;
+                return Keys::caret;
             case SDLK_COLON:
-                return KeyCode::colon;
+                return Keys::colon;
             case SDLK_DOLLAR:
-                return KeyCode::dollar;
+                return Keys::dollar;
             case SDLK_EXCLAIM:
-                return KeyCode::exclamation;
+                return Keys::exclamation;
             case SDLK_GREATER:
-                return KeyCode::greater_than;
+                return Keys::greater_than;
             case SDLK_HASH:
-                return KeyCode::hash;
+                return Keys::hash;
             case SDLK_LEFTPAREN:
-                return KeyCode::left_paren;
+                return Keys::left_paren;
             case SDLK_RIGHTPAREN:
-                return KeyCode::right_paren;
+                return Keys::right_paren;
             case SDLK_LESS:
-                return KeyCode::less_than;
+                return Keys::less_than;
             case SDLK_PERCENT:
-                return KeyCode::percent;
+                return Keys::percent;
             case SDLK_PLUS:
-                return KeyCode::plus;
+                return Keys::plus;
             case SDLK_QUESTION:
-                return KeyCode::question_mark;
+                return Keys::question_mark;
             case SDLK_QUOTEDBL:
-                return KeyCode::double_quote;
+                return Keys::double_quote;
             case SDLK_UNDERSCORE:
-                return KeyCode::underscore;
+                return Keys::underscore;
             case SDLK_SLASH:
-                return KeyCode::forward_slash;
+                return Keys::forward_slash;
             case SDLK_BACKSLASH:
-                return KeyCode::back_slash;
+                return Keys::back_slash;
             case SDLK_SEMICOLON:
-                return KeyCode::semicolon;
+                return Keys::semicolon;
             case SDLK_RIGHTBRACKET:
-                return KeyCode::right_bracket;
+                return Keys::right_bracket;
             case SDLK_PERIOD:
-                return KeyCode::period;
+                return Keys::period;
             case SDLK_MINUS:
-                return KeyCode::minus;
+                return Keys::minus;
             case SDLK_LEFTBRACKET:
-                return KeyCode::left_bracket;
+                return Keys::left_bracket;
             case SDLK_EQUALS:
-                return KeyCode::equal;
+                return Keys::equal;
             case SDLK_COMMA:
-                return KeyCode::comma;
+                return Keys::comma;
             case SDLK_QUOTE:
-                return KeyCode::single_quote;
+                return Keys::single_quote;
             case SDLK_BACKQUOTE:
-                return KeyCode::tilda;
+                return Keys::tilda;
             case SDLK_PAGEDOWN:
-                return KeyCode::page_down;
+                return Keys::page_down;
             case SDLK_PAGEUP:
-                return KeyCode::page_up;
+                return Keys::page_up;
             case SDLK_CAPSLOCK:
-                return KeyCode::caps_lock;
+                return Keys::caps_lock;
             default:
-                return KeyCode::null;
+                return Keys::null;
         }
     }
 }
