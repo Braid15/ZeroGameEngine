@@ -233,6 +233,8 @@
     <ClInclude Include="src\IZeroObject.h" />
     <ClInclude Include="src\Physics\IPhysics.h" />
     <ClInclude Include="src\Physics\Physics.h" />
+    <ClInclude Include="src\Process\Process.h" />
+    <ClInclude Include="src\Process\ProcessManager.h" />
     <ClInclude Include="src\Time.h" />
     <ClInclude Include="src\Utils\MemoryPool.h" />
     <ClInclude Include="src\ZeroEngine.h" />
@@ -267,6 +269,8 @@
     <ClCompile Include="src\Input\Mouse.cpp" />
     <ClCompile Include="src\Logger\BaseLogger.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Process\Process.cpp" />
+    <ClCompile Include="src\Process\ProcessManager.cpp" />
     <ClCompile Include="src\Utils\MemoryPool.cpp" />
     <ClCompile Include="src\ZeroEngineEvents.cpp" />
     <ClCompile Include="test\TestApp.cpp" />

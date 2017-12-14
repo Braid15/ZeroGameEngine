@@ -52,6 +52,9 @@
     <Filter Include="Source\Physics">
       <UniqueIdentifier>{0800bfdd-410a-476b-ad09-f4237c7ba8ea}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Process">
+      <UniqueIdentifier>{87dbbe3d-6885-49c8-a470-fce3b11298eb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ZeroEngine.h">
@@ -210,6 +213,12 @@
     <ClInclude Include="src\GameView\GameViewInclude.h">
       <Filter>Source\GameView</Filter>
     </ClInclude>
+    <ClInclude Include="src\Process\ProcessManager.h">
+      <Filter>Source\Process</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Process\Process.h">
+      <Filter>Source\Process</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Logger\BaseLogger.cpp">
@@ -298,6 +307,12 @@
     </ClCompile>
     <ClCompile Include="src\GameView\IGameView.cpp">
       <Filter>Source\GameView</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Process\Process.cpp">
+      <Filter>Source\Process</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Process\ProcessManager.cpp">
+      <Filter>Source\Process</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
