@@ -27,7 +27,7 @@ namespace ZeroEngine {
         virtual const GameViewId& get_id() const = 0;
         virtual const GameViewType& get_type() const = 0;
         virtual void attach(GameViewId view_id, EntityId entity_id) = 0;
-        virtual bool msg_proc(const AppMsg* const app_msg) = 0;
+        virtual bool msg_proc(AppMsg::ptr ) = 0;
         virtual ~IGameView() {}
         virtual StringRepr to_string() const = 0;
     };

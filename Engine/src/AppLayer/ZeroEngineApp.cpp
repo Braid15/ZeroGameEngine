@@ -18,7 +18,7 @@ namespace ZeroEngine {
         }
     }
 
-    bool ZeroEngineApp::app_msg_proc(const AppMsg* const msg) {
+    bool ZeroEngineApp::app_msg_proc(AppMsg::ptr msg) {
         assert(ZeroEngineApp::instance() != nullptr);
         bool result = false;
 

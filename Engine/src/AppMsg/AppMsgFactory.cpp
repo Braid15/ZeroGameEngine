@@ -49,11 +49,11 @@ namespace ZeroEngine {
         _creation_map->insert(std::make_pair(AppMsgType::unhandled, UnhandledMsg::create));
         _creation_map->insert(std::make_pair(AppMsgType::window, WindowMsg::create));
         _creation_map->insert(std::make_pair(AppMsgType::system, SystemMsg::create));
-        _creation_map->insert(std::make_pair(AppMsgType::keydown, KeyDownMsg::create));
-        _creation_map->insert(std::make_pair(AppMsgType::keyup, KeyUpMsg::create));
+        _creation_map->insert(std::make_pair(AppMsgType::keydown, KeydownMsg::create));
+        _creation_map->insert(std::make_pair(AppMsgType::keyup, KeyupMsg::create));
         _creation_map->insert(std::make_pair(AppMsgType::text_edit, TextEditMsg::create));
         _creation_map->insert(std::make_pair(AppMsgType::text_input, TextInputMsg::create));
-        _creation_map->insert(std::make_pair(AppMsgType::keymap_changed, KeyMapChangedMsg::create));
+        _creation_map->insert(std::make_pair(AppMsgType::keymap_changed, KeymapChangedMsg::create));
         _creation_map->insert(std::make_pair(AppMsgType::mouse_motion, MouseMotionMsg::create)); 
         _creation_map->insert(std::make_pair(AppMsgType::mouse_button_down, MouseButtonDownMsg::create));
         _creation_map->insert(std::make_pair(AppMsgType::mouse_button_up, MouseButtonUpMsg::create));

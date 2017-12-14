@@ -91,7 +91,7 @@ namespace ZeroEngine {
         _entity_id = entity_id;
     }
 
-    bool HumanView::msg_proc(const AppMsg* const app_msg) {
+    bool HumanView::msg_proc(AppMsg::ptr app_msg) {
         bool handled = false;
 
         // It is important to iterate through the screen elements in reverse order

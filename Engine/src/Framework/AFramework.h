@@ -27,7 +27,7 @@ namespace ZeroEngine {
         virtual void run_main_loop();
         inline void set_update_callback(void (*callback)(Tick)) { _update_callback = callback; }
         inline void set_render_callback(void (*callback)(Tick)) { _render_callback = callback; }
-        inline void set_app_msg_callback(bool (*callback)(const AppMsg* const)) { _app_msg_callback = callback; }
+        inline void set_app_msg_callback(bool (*callback)(AppMsg::ptr)) { _app_msg_callback = callback; }
     protected:
         AFramework();
         void set_app_msg_translator(IMsgTranslator*);
@@ -48,7 +48,7 @@ namespace ZeroEngine {
     protected:
         void (*_render_callback)( Tick time );
         void (*_update_callback)(Tick time);
-        bool (*_app_msg_callback)(const AppMsg* const msg);
+        bool (*_app_msg_callback)(AppMsg::ptr msg);
     };
 }
 
