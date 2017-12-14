@@ -9,69 +9,51 @@
 #include "../Input/Mouse.h"
 #include "GameOptions.h"
 #include "../Events/Events.h"
+#include "../GameLogic/GameLogicInclude.h"
+#include "../GameView/GameViewInclude.h"
 
 namespace ZeroEngine {
 
 
     class ZeroEngineApp : public IZeroObject {
+    private:
         bool _is_running;
         std::string _save_game_directory;
         static ZeroEngineApp* _app;
-
-    /* abstract interface */
+        BaseGameLogic* _game_logic;
     public:
         virtual const std::string get_game_title() = 0;
         virtual const std::string get_game_app_directory() = 0;
-        virtual bool load_game() = 0;
 
-    protected:
-        inline virtual void register_game_events() {};
-
-    public:
+        ZeroEngineApp();
         // @@TODO: THis might cause problems. How will derived class override?
         static bool app_msg_proc(const AppMsg* const msg);
         static void update(Tick time);
         static void render(Tick time);
 
+        virtual bool load_game();
+        inline BaseGameLogic* get_game_logic() const { return _game_logic; }
+
         // TODO: 10/4/17 - using this instead of global pointer for now.
         // we will see how it works
         static ZeroEngineApp* const instance();
         static void set_app(ZeroEngineApp* app);
-
-    public:
+        virtual StringRepr to_string() const override { return "ZeroEngineApp"; }
         virtual ~ZeroEngineApp();
-
-    /* methods */
-    public:
         bool initialize();
         void shutdown();
-        inline virtual bool on_msg_proc(const AppMsg* const msg) { return true; }
-        inline virtual void on_update(Tick time) {}
-        inline virtual void on_render(Tick time) {}
-
-
-    /* getters/setters */
-    public:
+        inline bool is_running() const { return _is_running; }
         Point<long> get_screen_size() const;
-        bool is_running() const;
-        
     protected:
+        virtual BaseGameLogic* create_game_and_view() = 0;
+
+        inline virtual void register_game_events() {};
         GameOptions _game_options;
         ZeroEngineApp( GameOptions& );
-
-    /* Protected Methods */
-    protected:
         void set_is_running( bool running );
         void set_save_game_directory( std::string dir );
-
     private:
-        inline ZeroEngineApp() {}
         void register_engine_events();
-
-
-    /* IZeroObject */
-    public:
-        virtual StringRepr to_string() const override { return "ZeroEngineApp"; }
     };
 
 }

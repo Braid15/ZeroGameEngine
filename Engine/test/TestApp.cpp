@@ -4,12 +4,12 @@
 
 namespace ZeroEngineAppTest {
 
-
-    bool MockZeroEngineApp::on_msg_proc(const AppMsg* const msg) {
-        return true;
-    }
-
-    void MockZeroEngineApp::on_update(Tick time) {
+    BaseGameLogic* MockZeroEngineApp::create_game_and_view() {
+        BaseGameLogic* logic = zero_new TestGameLogic();
+        logic->initialize();
+        IGameViewPtr view(zero_new TestGameView(IRenderer::ptr(zero_new NullRenderer())));
+        logic->add_game_view(view);
+        return logic;
     }
 }
 

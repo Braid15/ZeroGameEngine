@@ -47,7 +47,8 @@ namespace ZeroEngine {
         virtual void remove_game_view(IGameViewPtr view) override;
         virtual WeakEntityPtr get_entity(const EntityId& entity_id) override;
         virtual EntityPtr create_entity() override;
-        inline IPhysicsPtr get_physics() const override { return _physics; }
+        inline GameViewList get_game_views() { return _game_views; }
+        inline IPhysicsPtr get_physics() const { return _physics; }
     protected:
         inline int get_human_players_attached() const { return _human_players_attached; }
         inline int get_ai_players_attached() const { return _ai_players_attached; }

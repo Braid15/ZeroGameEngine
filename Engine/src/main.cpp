@@ -25,6 +25,7 @@ int main( int argc, char* args[] ) {
     framework->create_window(app->get_game_title(), app->get_screen_size() );
     framework->create_renderer();
 
+    ZeroEngineApp::instance()->load_game();
 
     framework->set_app_msg_callback(ZeroEngineApp::app_msg_proc);
     framework->set_update_callback(ZeroEngineApp::update);

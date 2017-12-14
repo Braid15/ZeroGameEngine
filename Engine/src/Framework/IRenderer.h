@@ -17,4 +17,17 @@ namespace ZeroEngine {
 
         typedef std::shared_ptr<IRenderer> ptr;
     };
+
+    class NullRenderer : public IRenderer {
+    public:
+        inline virtual void set_background_color(unsigned int g,
+                                                 unsigned int b,
+                                                 unsigned int r,
+                                                 unsigned int a
+        ) override {}
+
+        inline virtual bool pre_render() override { return true; }
+        inline virtual void post_render() override {}
+        inline StringRepr to_string() const { return "NullRenderer"; }
+    };
 }
