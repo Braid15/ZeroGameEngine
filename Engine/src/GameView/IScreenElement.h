@@ -24,8 +24,15 @@ namespace ZeroEngine {
         virtual bool const operator >=(const IScreenElement& other) { return get_z_order() >= other.get_z_order(); }
         virtual bool const operator ==(const IScreenElement& other) { return get_z_order() == other.get_z_order(); }
         virtual StringRepr to_string() const = 0;
+
+        typedef std::shared_ptr<IScreenElement> ptr;
+
+        struct sort_by_z_order_predicate {
+            bool operator()(const IScreenElement::ptr& lhs, const IScreenElement::ptr& rhs) const {
+                return *lhs < *rhs;
+            }
+        };
     };
 
-    typedef std::list<std::shared_ptr<IScreenElement>> ScreenElementList;
-    typedef std::shared_ptr<IScreenElement> IScreenElementPtr;
+    typedef std::list<IScreenElement::ptr> ScreenElementList;
 }

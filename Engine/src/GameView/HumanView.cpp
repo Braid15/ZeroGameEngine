@@ -5,7 +5,7 @@ namespace ZeroEngine {
     // @@TEMP
     const unsigned int REFRESH_RATE(1000 / 60);
 
-    HumanView::HumanView(IRendererPtr renderer) {
+    HumanView::HumanView(IRenderer::ptr renderer) {
         _renderer = renderer;
         _view_id = INVALID_GAME_VIEW_ID;
         _view_type = GameViewType::human;
@@ -33,7 +33,8 @@ namespace ZeroEngine {
         if (!(_current_tick == _last_draw)) {
             if (_is_full_speed || ((_current_tick - _last_draw) > REFRESH_RATE)) {
                 if (_renderer->pre_render()) {
-                    _screen_elements.sort();
+
+                    _screen_elements.sort(IScreenElement::sort_by_z_order_predicate());
 
                     for (auto iter = _screen_elements.begin(); iter != _screen_elements.end(); ++iter) {
                         if ((*iter)->is_visible()) {
@@ -109,11 +110,11 @@ namespace ZeroEngine {
         return handled;
     }
 
-    void HumanView::add_screen_element(IScreenElementPtr screen_element) {
+    void HumanView::add_screen_element(IScreenElement::ptr screen_element) {
         _screen_elements.push_back(screen_element);
     }
 
-    void HumanView::remove_screen_element(IScreenElementPtr screen_element) {
+    void HumanView::remove_screen_element(IScreenElement::ptr screen_element) {
         _screen_elements.remove(screen_element);
     }
 

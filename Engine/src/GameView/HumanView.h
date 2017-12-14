@@ -21,11 +21,11 @@ namespace ZeroEngine {
         Tick _current_tick;
         Tick _last_draw;
         bool _is_full_speed;
-        IRendererPtr _renderer;
+        IRenderer::ptr _renderer;
         ScreenElementList _screen_elements;
         bool _is_paused;
     public:
-        HumanView(IRendererPtr);
+        HumanView(IRenderer::ptr);
         virtual ~HumanView();
         virtual bool on_restore() override;
         virtual bool on_lost_device() override;
@@ -37,8 +37,8 @@ namespace ZeroEngine {
         inline const GameViewType& get_type() const override { return _view_type; }
         virtual StringRepr to_string() const override { return "HumanView"; }
 
-        virtual void add_screen_element(IScreenElementPtr);
-        virtual void remove_screen_element(IScreenElementPtr);
+        virtual void add_screen_element(IScreenElement::ptr);
+        virtual void remove_screen_element(IScreenElement::ptr);
         inline virtual void initialize_audio() {}
         inline void toggle_pause() { _is_paused = !_is_paused; }
         inline virtual void render_text() {}
@@ -49,7 +49,7 @@ namespace ZeroEngine {
         inline bool is_full_speed() const { return _is_full_speed; }
         inline Tick get_current_tick() const { return _current_tick; }
         inline Tick get_last_draw_time() const { return _last_draw; }
-        inline IRendererPtr get_renderer() const { return _renderer; }
+        inline IRenderer::ptr get_renderer() const { return _renderer; }
         inline const ScreenElementList& get_screen_elements() const { return _screen_elements; }
         inline virtual bool on_load_game() { return true; }
         inline virtual void on_register_event_delegates() {}
