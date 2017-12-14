@@ -8,6 +8,7 @@
 #include "../Events/Events.h"
 #include "../ZeroEngineEvents.h"
 #include "../Physics/Physics.h"
+#include "../Process/ProcessManager.h"
 
 namespace ZeroEngine {
 
@@ -17,6 +18,7 @@ namespace ZeroEngine {
         IPhysicsPtr _physics;
         Tick _lifetime;
         IEntityManager* _entity_manager;
+        ProcessManager* _process_manager;
         BaseGameState _current_state;
         GameViewList _game_views;
         bool _render_diagnostics;

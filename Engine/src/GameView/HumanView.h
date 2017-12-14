@@ -7,6 +7,7 @@
 #include "../Input/Input.h"
 #include "../Framework/Framework.h"
 #include "../Entity/Entity.h"
+#include "../Process/ProcessManager.h"
 
 namespace ZeroEngine {
 
@@ -16,6 +17,7 @@ namespace ZeroEngine {
         // Audio
         GameViewId _view_id;
         GameViewType _view_type;
+        ProcessManager* _process_manager;
         EntityId _entity_id;
         // process manager
         Tick _current_tick;

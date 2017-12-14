@@ -13,6 +13,7 @@ namespace ZeroEngine {
 
     enum class BaseGameState {
         invalid,
+        running,
     };
 
     class IGameLogic : public IZeroObject {

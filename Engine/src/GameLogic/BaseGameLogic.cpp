@@ -6,6 +6,7 @@ namespace ZeroEngine {
         _physics = IPhysicsPtr(zero_new NullPhysics());
         _lifetime = 0;
         _entity_manager = zero_new NullEntityManager();
+        _process_manager = zero_new ProcessManager();
         _current_state = BaseGameState::invalid;
         _render_diagnostics = false;
         _is_proxy = false;
@@ -19,7 +20,7 @@ namespace ZeroEngine {
             _game_views.pop_front();
         }
         zero_delete(_entity_manager);
-        _current_state = BaseGameState::invalid;
+        zero_delete(_process_manager);
     }
 
     bool BaseGameLogic::initialize() {
@@ -65,11 +66,18 @@ namespace ZeroEngine {
     void BaseGameLogic::on_update(Tick delta_time) {
         _lifetime += delta_time;
 
-        // @TODO: Handle different BaseGameStates
+        switch (_current_state) {
+            case BaseGameState::running:
+            {
+                _process_manager->update_processes(delta_time);
 
-        if (_physics && !_is_proxy) {
-            _physics->on_update(delta_time);
-            _physics->sync_visible_scene();
+                if (_physics && !_is_proxy) {
+                    _physics->on_update(delta_time);
+                    _physics->sync_visible_scene();
+                }
+
+                break;
+            }
         }
 
         for (GameViewList::iterator iter = _game_views.begin(); iter != _game_views.end(); ++iter) {

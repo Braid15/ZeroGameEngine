@@ -13,6 +13,7 @@ namespace ZeroEngine {
         _last_draw = 0;
         _is_full_speed = true;
         _is_paused = false;
+        _process_manager = zero_new ProcessManager();
 
         // @TODO: Rather this stuff be in an init method
         initialize_audio();
@@ -24,6 +25,7 @@ namespace ZeroEngine {
         while (!_screen_elements.empty()) {
             _screen_elements.pop_front();
         }
+        zero_delete(_process_manager);
     }
 
     bool HumanView::on_render(Tick delta_time) {
@@ -75,7 +77,7 @@ namespace ZeroEngine {
 
     void HumanView::on_update(Tick delta_time) {
 
-        // update process manager
+        _process_manager->update_processes(delta_time);
 
         // update console
 
