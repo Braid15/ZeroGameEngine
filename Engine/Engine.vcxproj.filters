@@ -219,6 +219,9 @@
     <ClInclude Include="src\Process\Process.h">
       <Filter>Source\Process</Filter>
     </ClInclude>
+    <ClInclude Include="src\ZeroEngineProcesses.h">
+      <Filter>Source</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Logger\BaseLogger.cpp">
@@ -313,6 +316,9 @@
     </ClCompile>
     <ClCompile Include="src\Process\ProcessManager.cpp">
       <Filter>Source\Process</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ZeroEngineProcesses.cpp">
+      <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
