@@ -8,3 +8,4 @@
 #include "Events/Events.h"
 #include "Entity\Entity.h"
 #include "Entity\EntityFactory.h"
+#include "ZeroEngineEvents.h"

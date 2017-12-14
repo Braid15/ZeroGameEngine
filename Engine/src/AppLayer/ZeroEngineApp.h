@@ -25,7 +25,7 @@ namespace ZeroEngine {
         virtual bool load_game() = 0;
 
     protected:
-        virtual void register_game_events() = 0;
+        inline virtual void register_game_events() {};
         virtual void quit_event_delegate(IEventDataPtr event_data);
 
     public:
