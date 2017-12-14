@@ -21,13 +21,13 @@ namespace ZeroEngine {
         return ZeroEngineApp::instance()->on_msg_proc(msg);
     }
 
-    void ZeroEngineApp::update(Ticks time) {
+    void ZeroEngineApp::update(Tick time) {
         assert(ZeroEngineApp::instance() != nullptr);
         ZeroEventManager::update();
         ZeroEngineApp::instance()->on_update(time);
     }
 
-    void ZeroEngineApp::render(Ticks time) {
+    void ZeroEngineApp::render(Tick time) {
         assert(ZeroEngineApp::instance() != nullptr);
         ZeroEngineApp::instance()->on_render(time);
     }

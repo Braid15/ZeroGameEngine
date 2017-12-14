@@ -49,7 +49,7 @@ namespace ZeroEngine {
         _components.clear();
     }
 
-    void Entity::update(Ticks delta_time) {
+    void Entity::update(Tick delta_time) {
         for (EntityComponentMap::iterator it = _components.begin(); it != _components.end(); ++it) {
             it->second->update(delta_time);
         }

@@ -27,7 +27,7 @@ namespace ZeroEngine {
         bool initialize();
         void post_initialize();
         void destroy();
-        void update(Ticks delta_time);
+        void update(Tick delta_time);
         inline const EntityId& get_id() const { return _id; }
         inline const std::string& get_name() const { return _name; }
         inline void set_name(const char* name) { _name = name; }

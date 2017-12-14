@@ -30,8 +30,8 @@ namespace ZeroEngine {
     public:
         // @@TODO: THis might cause problems. How will derived class override?
         static bool app_msg_proc(const AppMsg* const msg);
-        static void update(Ticks time);
-        static void render(Ticks time);
+        static void update(Tick time);
+        static void render(Tick time);
 
         // TODO: 10/4/17 - using this instead of global pointer for now.
         // we will see how it works
@@ -46,8 +46,8 @@ namespace ZeroEngine {
         bool initialize();
         void shutdown();
         inline virtual bool on_msg_proc(const AppMsg* const msg) { return true; }
-        inline virtual void on_update(Ticks time) {}
-        inline virtual void on_render(Ticks time) {}
+        inline virtual void on_update(Tick time) {}
+        inline virtual void on_render(Tick time) {}
 
 
     /* getters/setters */

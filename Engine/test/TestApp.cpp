@@ -9,7 +9,7 @@ namespace ZeroEngineAppTest {
         return true;
     }
 
-    void MockZeroEngineApp::on_update(Ticks time) {
+    void MockZeroEngineApp::on_update(Tick time) {
     }
 }
 

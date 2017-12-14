@@ -15,7 +15,7 @@ namespace ZeroEngine {
     class BaseGameLogic : public IGameLogic {
     private:
         IPhysicsPtr _physics;
-        Ticks _lifetime;
+        Tick _lifetime;
         IEntityManager* _entity_manager;
         BaseGameState _current_state;
         GameViewList _game_views;
@@ -35,7 +35,7 @@ namespace ZeroEngine {
         bool load_game(const char* level_resource) override;
         bool load_game(const std::string level_resource) override;
         virtual void set_proxy() override;
-        virtual void on_update(Ticks delta_time) override;
+        virtual void on_update(Tick delta_time) override;
         // virtual void change_state(IGameState state) override;
         virtual void change_state(BaseGameState state) override;
         virtual void move_entity(const EntityId& entity_id, const float x, const float y) override;
@@ -57,7 +57,7 @@ namespace ZeroEngine {
         inline bool is_rendering_diagnostics() const { return _render_diagnostics; }
         inline void set_render_diagnostics(bool render) { _render_diagnostics = render; }
         inline void toggle_render_diagnostics() { _render_diagnostics = !_render_diagnostics; }
-        inline Ticks get_lifetime() const { return _lifetime; }
+        inline Tick get_lifetime() const { return _lifetime; }
 
         inline virtual bool on_load_game() { return true; }
         inline virtual void on_register_event_delegates() {}

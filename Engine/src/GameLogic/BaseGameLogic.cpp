@@ -62,7 +62,7 @@ namespace ZeroEngine {
         // @TODO: Finish
     }
 
-    void BaseGameLogic::on_update(Ticks delta_time) {
+    void BaseGameLogic::on_update(Tick delta_time) {
         _lifetime += delta_time;
 
         // @TODO: Handle different BaseGameStates
@@ -145,8 +145,6 @@ namespace ZeroEngine {
     //
 
     void BaseGameLogic::load_game_views() {
-        // @TODO: Implement HumanView
-        /*
         for (GameViewList::iterator iter = _game_views.begin(); iter != _game_views.end(); ++iter) {
             IGameViewPtr view = *iter;
             if (view->get_type() == GameViewType::human) {
@@ -154,7 +152,6 @@ namespace ZeroEngine {
                 human_view->load_game();
             }
         }
-        */
     }
 
     void BaseGameLogic::register_event_delegates() {

@@ -27,7 +27,7 @@ namespace ZeroEngine {
         virtual StringRepr to_string() const = 0;
         virtual bool initialize() = 0;
         virtual void post_initialize() = 0;
-        inline virtual void update(Ticks delta_time) {}
+        inline virtual void update(Tick delta_time) {}
 
         // @@TODO: IMPLEMENT
         // static const EntityComponentId get_id_from_name(const char* name);

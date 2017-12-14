@@ -100,8 +100,8 @@ namespace ZeroEngine {
     }
 
     bool BaseEventManager::update(uint32_t max_milliseconds) {
-        Ticks current_time = ZeroFramework::get_ticks();
-        Ticks max_time = (max_milliseconds == MAX_MILLISECONDS) ? MAX_MILLISECONDS
+        Tick current_time = ZeroFramework::get_ticks();
+        Tick max_time = (max_milliseconds == MAX_MILLISECONDS) ? MAX_MILLISECONDS
             : current_time + max_milliseconds;
 
         int queue_to_process = _active_queue;

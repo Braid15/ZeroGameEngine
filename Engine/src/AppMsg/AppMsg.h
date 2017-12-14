@@ -60,7 +60,7 @@ namespace ZeroEngine {
     public:
         virtual const AppMsgType get_type() const = 0;
         virtual StringRepr to_string() const = 0;
-        inline Ticks get_time_stamp() const { return _args->get_creation_time(); }
+        inline Tick get_time_stamp() const { return _args->get_creation_time(); }
         virtual inline void set_args(AppMsgAccessKey&, AppMsgArgs* args) { _args = args; }
         static void destroy(AppMsgAccessKey& key, AppMsg* msg) { delete msg; }
         static void init_memory_pool(AppMsgAccessKey&);
