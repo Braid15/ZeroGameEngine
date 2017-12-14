@@ -40,7 +40,7 @@ namespace ZeroEngine {
 
                     for (auto iter = _screen_elements.begin(); iter != _screen_elements.end(); ++iter) {
                         if ((*iter)->is_visible()) {
-                            (*iter)->on_render(delta_time);
+                            (*iter)->render(delta_time);
                         }
                     }
 
@@ -61,7 +61,7 @@ namespace ZeroEngine {
         // @TODO: ret does nothing
         bool success = true;
         for (auto iter = _screen_elements.begin(); iter != _screen_elements.end(); ++iter) {
-            (*iter)->on_restore();
+            (*iter)->restore();
         }
         return success;
     }
@@ -70,7 +70,7 @@ namespace ZeroEngine {
         // @TODO: ret does nothing
         bool success = true;
         for (auto iter = _screen_elements.begin(); iter != _screen_elements.end(); ++iter) {
-            (*iter)->on_lost_device();
+            (*iter)->lost_device();
         }
         return success;
     }
@@ -82,7 +82,7 @@ namespace ZeroEngine {
         // update console
 
         for (auto iter = _screen_elements.begin(); iter != _screen_elements.end(); ++iter) {
-            (*iter)->on_update(delta_time);
+            (*iter)->update(delta_time);
         }
     }
 

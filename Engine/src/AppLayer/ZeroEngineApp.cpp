@@ -43,7 +43,7 @@ namespace ZeroEngine {
         assert(ZeroEngineApp::instance() != nullptr);
         if (ZeroEngineApp::instance()->get_game_logic() != nullptr) {
             ZeroEventManager::update(20);
-            ZeroEngineApp::instance()->get_game_logic()->on_update(time);
+            ZeroEngineApp::instance()->get_game_logic()->update(time);
         } else {
             std::cout << "Game logic is null! ZeroEngineApp::update()\n";
         }

@@ -8,10 +8,10 @@ namespace ZeroEngine {
 
     class IScreenElement : public IZeroObject {
     public:
-        virtual bool on_restore() = 0;
-        virtual bool on_lost_device() = 0;
-        virtual bool on_render(Tick delta_time) = 0;
-        virtual void on_update(Tick delta_time) = 0;
+        virtual bool restore() = 0;
+        virtual bool lost_device() = 0;
+        virtual bool render(Tick delta_time) = 0;
+        virtual void update(Tick delta_time) = 0;
         virtual int get_z_order() const = 0;
         virtual void set_z_order(int const z_order) = 0;
         virtual bool is_visible() const = 0;

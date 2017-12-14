@@ -22,7 +22,7 @@ namespace ZeroEngine {
         virtual bool load_game(const char* level_resource) = 0;
         virtual bool load_game(const std::string level_resource) = 0;
         virtual void set_proxy() = 0;
-        virtual void on_update(Tick delta_time) = 0;
+        virtual void update(Tick delta_time) = 0;
         //virtual void change_state(IGameState) = 0;
         virtual void change_state(BaseGameState) = 0;
         virtual void move_entity(const EntityId& entity_id, const float x, const float y) = 0;

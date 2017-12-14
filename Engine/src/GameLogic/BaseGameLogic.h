@@ -37,7 +37,7 @@ namespace ZeroEngine {
         bool load_game(const char* level_resource) override;
         bool load_game(const std::string level_resource) override;
         virtual void set_proxy() override;
-        virtual void on_update(Tick delta_time) override;
+        virtual void update(Tick delta_time) override;
         // virtual void change_state(IGameState state) override;
         virtual void change_state(BaseGameState state) override;
         virtual void move_entity(const EntityId& entity_id, const float x, const float y) override;

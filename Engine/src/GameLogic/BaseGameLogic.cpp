@@ -63,7 +63,7 @@ namespace ZeroEngine {
         // @TODO: Finish
     }
 
-    void BaseGameLogic::on_update(Tick delta_time) {
+    void BaseGameLogic::update(Tick delta_time) {
         _lifetime += delta_time;
 
         switch (_current_state) {
