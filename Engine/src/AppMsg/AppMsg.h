@@ -24,7 +24,49 @@
 
 namespace ZeroEngine {
 
-    typedef uint8_t AppMsgType;
+    enum class AppMsgType {
+         null,
+         quit,
+         unhandled,
+         window,
+         system,
+         keydown,
+         keyup,
+         keyboard,
+         text_edit,
+         text_input,
+         keymap_changed,
+         mouse_motion,
+         mouse_button_down,
+         mouse_button_up,
+         mouse_button,
+         mouse_wheel,
+         joy_axis_motion,
+         joy_ball_motion,
+         joy_hat_motion,
+         joy_button_down,
+         joy_button_up,
+         joy_device_added,
+         joy_device_removed,
+         controller_axis_motion,
+         controller_button_down,
+         controller_button_up,
+         controller_device_added,
+         controller_device_removed,
+         controller_device_remapped,
+         finger_down,
+         finger_up,
+         finger_motion,
+         clipboard,
+         drop_file,
+         drop_text,
+         drop_begin,
+         drop_complete,
+         audio_device_added,
+         audio_device_removed,
+         render_targets_reset,
+         render_device_reset,
+    };
 
     //
     // AppMsgAccessKey
@@ -66,47 +108,7 @@ namespace ZeroEngine {
         static void init_memory_pool(AppMsgAccessKey&);
         static void destroy_memory_pool(AppMsgAccessKey&);
 
-        static const AppMsgType null;
-        static const AppMsgType quit;
-        static const AppMsgType unhandled;
-        static const AppMsgType window;
-        static const AppMsgType system;
-        static const AppMsgType keydown;
-        static const AppMsgType keyup;
-        static const AppMsgType keyboard;
-        static const AppMsgType text_edit;
-        static const AppMsgType text_input;
-        static const AppMsgType keymap_changed;
-        static const AppMsgType mouse_motion;
-        static const AppMsgType mouse_button_down;
-        static const AppMsgType mouse_button_up;
-        static const AppMsgType mouse_button;
-        static const AppMsgType mouse_wheel;
-        static const AppMsgType joy_axis_motion;
-        static const AppMsgType joy_ball_motion;
-        static const AppMsgType joy_hat_motion;
-        static const AppMsgType joy_button_down;
-        static const AppMsgType joy_button_up;
-        static const AppMsgType joy_device_added;
-        static const AppMsgType joy_device_removed;
-        static const AppMsgType controller_axis_motion;
-        static const AppMsgType controller_button_down;
-        static const AppMsgType controller_button_up;
-        static const AppMsgType controller_device_added;
-        static const AppMsgType controller_device_removed;
-        static const AppMsgType controller_device_remapped;
-        static const AppMsgType finger_down;
-        static const AppMsgType finger_up;
-        static const AppMsgType finger_motion;
-        static const AppMsgType clipboard;
-        static const AppMsgType drop_file;
-        static const AppMsgType drop_text;
-        static const AppMsgType drop_begin;
-        static const AppMsgType drop_complete;
-        static const AppMsgType audio_device_added;
-        static const AppMsgType audio_device_removed;
-        static const AppMsgType render_targets_reset;
-        static const AppMsgType render_device_reset;
+
 
     protected:
         AppMsg(AppMsgArgs*);
@@ -125,7 +127,7 @@ namespace ZeroEngine {
     class NullMsg final : public AppMsg {
     public:
         inline StringRepr to_string() const override { return "NullMsg"; }
-        inline const AppMsgType get_type() const override { return AppMsg::null; }
+        inline const AppMsgType get_type() const override { return AppMsgType::null; }
         static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
     protected:
         inline ~NullMsg() {}
@@ -139,7 +141,7 @@ namespace ZeroEngine {
 
     class QuitMsg final : public AppMsg {
     public:
-        inline const AppMsgType get_type() const override { return AppMsg::quit; }
+        inline const AppMsgType get_type() const override { return AppMsgType::quit; }
         inline StringRepr to_string() const override { return "QuitMsg"; }
         static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
     protected:
@@ -154,7 +156,7 @@ namespace ZeroEngine {
 
     class UnhandledMsg final : public AppMsg {
     public:
-        inline const AppMsgType get_type() const override { return AppMsg::unhandled; }
+        inline const AppMsgType get_type() const override { return AppMsgType::unhandled; }
         inline StringRepr to_string() const override { return "UnhandledMsg"; }
         static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
     protected:
@@ -171,7 +173,7 @@ namespace ZeroEngine {
     private:
         WindowMsgArgs* _args;
     public:
-        inline const AppMsgType get_type() const override { return AppMsg::window; }
+        inline const AppMsgType get_type() const override { return AppMsgType::window; }
         inline StringRepr to_string() const override { return "WindowMsg"; }
         static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
     protected:
@@ -188,7 +190,7 @@ namespace ZeroEngine {
     private:
         SystemMsgArgs* _args;
     public:
-        inline const AppMsgType get_type() const override { return AppMsg::system; }
+        inline const AppMsgType get_type() const override { return AppMsgType::system; }
         inline StringRepr to_string() const override { return "SystemMsg"; }
         static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
     protected:
@@ -208,7 +210,7 @@ namespace ZeroEngine {
         static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
         // @TODO: Each class should have a cast method
         static const KeyboardMsg* const cast(const AppMsg* const);
-        inline const AppMsgType get_type() const override { return AppMsg::keyboard; }
+        inline const AppMsgType get_type() const override { return AppMsgType::keyboard; }
         inline StringRepr to_string() const override { return "KeyboardMsg"; }
         inline bool is_key(const Keys& keys) const { return key().equals(keys); }
         inline bool is_repeat() const { return _args->is_repeat(); }
@@ -235,7 +237,7 @@ namespace ZeroEngine {
     private:
         KeyboardMsgArgs* _args;
     public:
-        inline const AppMsgType get_type() const override { return AppMsg::keydown; }
+        inline const AppMsgType get_type() const override { return AppMsgType::keydown; }
         inline StringRepr to_string() const override { return "KeyDownMsg"; }
         static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
         inline bool is_repeat() const { return _args->is_repeat(); }
@@ -256,7 +258,7 @@ namespace ZeroEngine {
     private:
         KeyboardMsgArgs* _args;
     public:
-        inline const AppMsgType get_type() const override { return AppMsg::keyup; }
+        inline const AppMsgType get_type() const override { return AppMsgType::keyup; }
         inline StringRepr to_string() const override { return "KeyUpMsg"; }
         static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
         inline bool is_repeat() const { return _args->is_repeat(); }
@@ -277,7 +279,7 @@ namespace ZeroEngine {
     private:
         TextEditMsgArgs* _args;
     public:
-        inline const AppMsgType get_type() const override { return AppMsg::text_edit; }
+        inline const AppMsgType get_type() const override { return AppMsgType::text_edit; }
         inline StringRepr to_string() const override { return "TextEditMsg"; }
         static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
     protected:
@@ -294,7 +296,7 @@ namespace ZeroEngine {
     private:
         TextInputMsgArgs* _args;
     public:
-        inline const AppMsgType get_type() const override { return AppMsg::text_input; }
+        inline const AppMsgType get_type() const override { return AppMsgType::text_input; }
         inline StringRepr to_string() const override { return "TextInputMsg"; }
         static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
     protected:
@@ -311,7 +313,7 @@ namespace ZeroEngine {
     private:
         KeyMapChangedMsgArgs* _args;
     public:
-        inline const AppMsgType get_type() const override { return AppMsg::keymap_changed; }
+        inline const AppMsgType get_type() const override { return AppMsgType::keymap_changed; }
         inline StringRepr to_string() const override { return "KeyMapChangedMsg"; }
         static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
     protected:
@@ -332,7 +334,7 @@ namespace ZeroEngine {
         static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
         static const MouseButtonMsg* const cast(const AppMsg* const);
 
-        inline const AppMsgType get_type() const override { return AppMsg::mouse_button; }
+        inline const AppMsgType get_type() const override { return AppMsgType::mouse_button; }
         inline StringRepr to_string() const override { return "MouseButtonMsg"; }
         inline uint8_t get_num_clicks() const { return _args->get_num_clicks(); }
         inline int32_t get_x_pos() const { return _args->get_x_pos(); }
@@ -356,7 +358,7 @@ namespace ZeroEngine {
     private:
         MouseButtonMsgArgs* _args;
     public:
-        inline const AppMsgType get_type() const override { return AppMsg::mouse_button_down; }
+        inline const AppMsgType get_type() const override { return AppMsgType::mouse_button_down; }
         inline StringRepr to_string() const override { return "MouseButtonDownMsg"; }
         static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
         inline uint8_t get_num_clicks() const { return _args->get_num_clicks(); }
@@ -379,7 +381,7 @@ namespace ZeroEngine {
     private:
         MouseButtonMsgArgs* _args;
     public:
-        inline const AppMsgType get_type() const override { return AppMsg::mouse_button_up; }
+        inline const AppMsgType get_type() const override { return AppMsgType::mouse_button_up; }
         inline StringRepr to_string() const override { return "MouseButtonUpMsg"; }
         static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
         inline uint8_t get_num_clicks() const { return _args->get_num_clicks(); }
@@ -404,7 +406,7 @@ namespace ZeroEngine {
     public:
         static const MouseMotionMsg* const cast(const AppMsg* const);
         static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
-        inline const AppMsgType get_type() const override { return AppMsg::mouse_motion; }
+        inline const AppMsgType get_type() const override { return AppMsgType::mouse_motion; }
         inline StringRepr to_string() const override { return "MouseMotionMsg"; }
         inline uint32_t get_window() const { return _args->get_window(); }
         inline uint32_t get_mouse_id() const { return _args->get_mouse_id(); }
@@ -432,7 +434,7 @@ namespace ZeroEngine {
     public:
         static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
         static const MouseWheelMsg* const cast(const AppMsg* const);
-        inline const AppMsgType get_type() const { return AppMsg::mouse_wheel; }
+        inline const AppMsgType get_type() const { return AppMsgType::mouse_wheel; }
         inline StringRepr to_string() const { return "MouseWheenMsg"; }
         inline uint32_t get_window() const { return _args->get_window(); }
         inline uint32_t get_mouse() const { return _args->get_mouse(); }
@@ -453,7 +455,7 @@ namespace ZeroEngine {
     private:
         JoyAxisMotionMsgArgs* _args;
     public:
-        inline const AppMsgType get_type() const override { return AppMsg::joy_axis_motion; }
+        inline const AppMsgType get_type() const override { return AppMsgType::joy_axis_motion; }
         inline StringRepr to_string() const override { return "JoyAxisMotionMsg"; }
         static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
     protected:
@@ -470,7 +472,7 @@ namespace ZeroEngine {
     private:
         JoyBallMotionMsgArgs* _args;
     public:
-        inline const AppMsgType get_type() const override { return AppMsg::joy_ball_motion; }
+        inline const AppMsgType get_type() const override { return AppMsgType::joy_ball_motion; }
         inline StringRepr to_string() const override { return "JoyBallMotionMsg"; }
         static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
     protected:
@@ -487,7 +489,7 @@ namespace ZeroEngine {
     private:
         JoyHatMotionMsgArgs* _args;
     public:
-        inline const AppMsgType get_type() const override { return AppMsg::joy_hat_motion; }
+        inline const AppMsgType get_type() const override { return AppMsgType::joy_hat_motion; }
         inline StringRepr to_string() const override { return "JoyHatMotionMsg"; }
         static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
     protected:
@@ -504,7 +506,7 @@ namespace ZeroEngine {
     private:
         JoyButtonMsgArgs* _args;
     public:
-        inline const AppMsgType get_type() const override { return AppMsg::joy_button_down; }
+        inline const AppMsgType get_type() const override { return AppMsgType::joy_button_down; }
         inline StringRepr to_string() const override { return "JoyButtonDownMsg"; }
         static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
     protected:
@@ -521,7 +523,7 @@ namespace ZeroEngine {
     private:
         JoyButtonMsgArgs* _args;
     public:
-        inline const AppMsgType get_type() const override { return AppMsg::joy_button_up; }
+        inline const AppMsgType get_type() const override { return AppMsgType::joy_button_up; }
         inline StringRepr to_string() const override { return "JoyButtonUpMsg"; }
         static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
     protected:
@@ -538,7 +540,7 @@ namespace ZeroEngine {
     private:
         JoyDeviceAddedMsgArgs* _args;
     public:
-        inline const AppMsgType get_type() const override { return AppMsg::joy_device_added; }
+        inline const AppMsgType get_type() const override { return AppMsgType::joy_device_added; }
         inline StringRepr to_string() const override { return "JoyDeviceAddedMsg"; }
         static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
     protected:
@@ -555,7 +557,7 @@ namespace ZeroEngine {
     private:
         JoyDeviceRemovedMsgArgs* _args;
     public:
-        inline const AppMsgType get_type() const override { return AppMsg::joy_device_removed; }
+        inline const AppMsgType get_type() const override { return AppMsgType::joy_device_removed; }
         inline StringRepr to_string() const override { return "JoyDeviceRemovedMsg"; }
         static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
     protected:
@@ -572,7 +574,7 @@ namespace ZeroEngine {
     private:
         ControllerAxisMotionMsgArgs* _args;
     public:
-        inline const AppMsgType get_type() const override { return AppMsg::controller_axis_motion; }
+        inline const AppMsgType get_type() const override { return AppMsgType::controller_axis_motion; }
         inline StringRepr to_string() const override { return "ControllerAxisMotionMsg"; }
         static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
     protected:
@@ -590,7 +592,7 @@ namespace ZeroEngine {
     private:
         ControllerButtonMsgArgs* _args;
     public:
-        inline const AppMsgType get_type() const override { return AppMsg::controller_button_up; }
+        inline const AppMsgType get_type() const override { return AppMsgType::controller_button_up; }
         inline StringRepr to_string() const override { return "ControllerAxisButtonMsg"; }
         static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
     protected:
@@ -607,7 +609,7 @@ namespace ZeroEngine {
     private:
         ControllerButtonMsgArgs* _args;
     public:
-        inline const AppMsgType get_type() const override { return AppMsg::controller_button_up; }
+        inline const AppMsgType get_type() const override { return AppMsgType::controller_button_up; }
         inline StringRepr to_string() const override { return "ControllerAxisButtonUpMsg"; }
         static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
     protected:
@@ -624,7 +626,7 @@ namespace ZeroEngine {
     private:
         ControllerDeviceAddedMsgArgs* _args;
     public:
-        inline const AppMsgType get_type() const override { return AppMsg::controller_device_added; }
+        inline const AppMsgType get_type() const override { return AppMsgType::controller_device_added; }
         inline StringRepr to_string() const override { return "ControllerDeviceAddedMsg"; }
         static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
     protected:
@@ -641,7 +643,7 @@ namespace ZeroEngine {
     private:
         ControllerDeviceRemovedMsgArgs* _args;
     public:
-        inline const AppMsgType get_type() const override { return AppMsg::controller_device_removed; }
+        inline const AppMsgType get_type() const override { return AppMsgType::controller_device_removed; }
         inline StringRepr to_string() const override { return "ControllerDeviceRemovedMsg"; }
         static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
     protected:
@@ -658,7 +660,7 @@ namespace ZeroEngine {
     private:
         ControllerDeviceRemappedMsgArgs* _args;
     public:
-        inline const AppMsgType get_type() const override { return AppMsg::controller_device_removed; }
+        inline const AppMsgType get_type() const override { return AppMsgType::controller_device_removed; }
         inline StringRepr to_string() const override { return "ControllerDeviceRemappedMsg"; }
         static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
     protected:
@@ -675,7 +677,7 @@ namespace ZeroEngine {
     private:
         FingerDownMsgArgs* _args;
     public:
-        inline const AppMsgType get_type() const override { return AppMsg::finger_down; }
+        inline const AppMsgType get_type() const override { return AppMsgType::finger_down; }
         inline StringRepr to_string() const override { return "FingerDownMsg"; }
         static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
     protected:
@@ -692,7 +694,7 @@ namespace ZeroEngine {
     private:
         FingerUpMsgArgs* _args;
     public:
-        inline const AppMsgType get_type() const override { return AppMsg::finger_up; }
+        inline const AppMsgType get_type() const override { return AppMsgType::finger_up; }
         inline StringRepr to_string() const override { return "FingerUpMsg"; }
         static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
     protected:
@@ -709,7 +711,7 @@ namespace ZeroEngine {
     private:
         FingerMotionMsgArgs* _args;
     public:
-        inline const AppMsgType get_type() const override { return AppMsg::finger_motion; }
+        inline const AppMsgType get_type() const override { return AppMsgType::finger_motion; }
         inline StringRepr to_string() const override { return "FingerMotionMsg"; }
         static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
     protected:
@@ -726,7 +728,7 @@ namespace ZeroEngine {
     private:
         ClipboardMsgArgs* _args;
     public:
-        inline const AppMsgType get_type() const override { return AppMsg::clipboard; }
+        inline const AppMsgType get_type() const override { return AppMsgType::clipboard; }
         inline StringRepr to_string() const override { return "ClipboardMsg"; }
         static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
     protected:
@@ -743,7 +745,7 @@ namespace ZeroEngine {
     private:
         DropFileMsgArgs* _args;
     public:
-        inline const AppMsgType get_type() const override { return AppMsg::drop_file; }
+        inline const AppMsgType get_type() const override { return AppMsgType::drop_file; }
         inline StringRepr to_string() const override { return "DropFileMsg"; }
         static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
     protected:
@@ -760,7 +762,7 @@ namespace ZeroEngine {
     private:
         DropTextMsgArgs* _args;
     public:
-        inline const AppMsgType get_type() const override { return AppMsg::drop_text; }
+        inline const AppMsgType get_type() const override { return AppMsgType::drop_text; }
         inline StringRepr to_string() const override { return "DropTextMsg"; }
         static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
     protected:
@@ -777,7 +779,7 @@ namespace ZeroEngine {
     private:
         DropBeginMsgArgs* _args;
     public:
-        inline const AppMsgType get_type() const override { return AppMsg::drop_begin; }
+        inline const AppMsgType get_type() const override { return AppMsgType::drop_begin; }
         inline StringRepr to_string() const override { return "DropBeginMsg"; }
         static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
     protected:
@@ -794,7 +796,7 @@ namespace ZeroEngine {
     private:
         DropCompleteMsgArgs* _args;
     public:
-        inline const AppMsgType get_type() const override { return AppMsg::drop_complete; }
+        inline const AppMsgType get_type() const override { return AppMsgType::drop_complete; }
         inline StringRepr to_string() const override { return "DropCompleteMsg"; }
         static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
     protected:
@@ -811,7 +813,7 @@ namespace ZeroEngine {
     private:
         AudioDeviceAddedMsgArgs* _args;
     public:
-        inline const AppMsgType get_type() const override { return AppMsg::audio_device_added; }
+        inline const AppMsgType get_type() const override { return AppMsgType::audio_device_added; }
         inline StringRepr to_string() const override { return "AudioDeviceAddedMsg"; }
         static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
     protected:
@@ -828,7 +830,7 @@ namespace ZeroEngine {
     private:
         AudioDeviceRemovedMsgArgs* _args;
     public:
-        inline const AppMsgType get_type() const override { return AppMsg::audio_device_removed; }
+        inline const AppMsgType get_type() const override { return AppMsgType::audio_device_removed; }
         inline StringRepr to_string() const override { return "AudioDeviceRemovedMsg"; }
         static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
     protected:
@@ -845,7 +847,7 @@ namespace ZeroEngine {
     private:
         RenderTargetsResetMsgArgs* _args;
     public:
-        inline const AppMsgType get_type() const override { return AppMsg::render_targets_reset; }
+        inline const AppMsgType get_type() const override { return AppMsgType::render_targets_reset; }
         inline StringRepr to_string() const override { return "RenderTargetsResetMsg"; }
         static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
     protected:
@@ -862,7 +864,7 @@ namespace ZeroEngine {
     private:
         RenderDeviceResetMsgArgs* _args;
     public:
-        inline const AppMsgType get_type() const override { return AppMsg::render_device_reset; }
+        inline const AppMsgType get_type() const override { return AppMsgType::render_device_reset; }
         inline StringRepr to_string() const override { return "RenderDeviceResetMsg"; }
         static AppMsg* create(AppMsgAccessKey&, AppMsgArgs*);
     protected:
@@ -870,10 +872,4 @@ namespace ZeroEngine {
     private:
         RenderDeviceResetMsg(AppMsgArgs*);
     };
-
-
-
-
-
-
 }

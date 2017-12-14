@@ -7,48 +7,6 @@ namespace ZeroEngine {
     int AppMsg::_allocations = 0;
     #endif
 
-    const AppMsgType AppMsg::null = 0x01;
-    const AppMsgType AppMsg::quit = 0x02;
-    const AppMsgType AppMsg::unhandled = 0x03;
-    const AppMsgType AppMsg::window = 0x04;
-    const AppMsgType AppMsg::system = 0x05;
-    const AppMsgType AppMsg::keydown = 0x06;
-    const AppMsgType AppMsg::keyup = 0x07;
-    const AppMsgType AppMsg::text_edit = 0x08;
-    const AppMsgType AppMsg::text_input = 0x09;
-    const AppMsgType AppMsg::keymap_changed = 0x0A;
-    const AppMsgType AppMsg::mouse_motion = 0x0B;
-    const AppMsgType AppMsg::mouse_button_down = 0x0C;
-    const AppMsgType AppMsg::mouse_button_up = 0x0D;
-    const AppMsgType AppMsg::mouse_wheel = 0x0E;
-    const AppMsgType AppMsg::joy_axis_motion = 0x0F;
-    const AppMsgType AppMsg::joy_ball_motion = 0x10;
-    const AppMsgType AppMsg::joy_hat_motion = 0x11;
-    const AppMsgType AppMsg::joy_button_down = 0x12;
-    const AppMsgType AppMsg::joy_button_up = 0x13;
-    const AppMsgType AppMsg::joy_device_added = 0x14;
-    const AppMsgType AppMsg::joy_device_removed = 0x15;
-    const AppMsgType AppMsg::controller_axis_motion = 0x16;
-    const AppMsgType AppMsg::controller_button_down = 0x17;
-    const AppMsgType AppMsg::controller_button_up = 0x18;
-    const AppMsgType AppMsg::controller_device_added = 0x19;
-    const AppMsgType AppMsg::controller_device_removed = 0x1A;
-    const AppMsgType AppMsg::controller_device_remapped = 0x1B;
-    const AppMsgType AppMsg::finger_down = 0x1C;
-    const AppMsgType AppMsg::finger_up = 0x1D;
-    const AppMsgType AppMsg::finger_motion = 0x1E;
-    const AppMsgType AppMsg::clipboard = 0x1F;
-    const AppMsgType AppMsg::drop_file = 0x20;
-    const AppMsgType AppMsg::drop_text = 0x21;
-    const AppMsgType AppMsg::drop_begin = 0x22;
-    const AppMsgType AppMsg::drop_complete = 0x23;
-    const AppMsgType AppMsg::audio_device_added = 0x24;
-    const AppMsgType AppMsg::audio_device_removed = 0x25;
-    const AppMsgType AppMsg::render_targets_reset = 0x26;
-    const AppMsgType AppMsg::render_device_reset = 0x27;
-    const AppMsgType AppMsg::keyboard = 0x28;
-    const AppMsgType AppMsg::mouse_button = 0x29;
-
     AppMsg::AppMsg(AppMsgArgs* args) {
         _args = args;
         #ifdef _DEBUG
@@ -175,7 +133,7 @@ namespace ZeroEngine {
     }
 
     const KeyboardMsg* const KeyboardMsg::cast(const AppMsg* const msg) {
-        assert(msg->get_type() == AppMsg::keyboard);
+        assert(msg->get_type() == AppMsgType::keyboard);
         const KeyboardMsg* const ret = dynamic_cast<const KeyboardMsg* const>(msg);
         return ret;
     }
@@ -279,7 +237,7 @@ namespace ZeroEngine {
     }
 
     const MouseButtonMsg* const MouseButtonMsg::cast(const AppMsg* const msg) {
-        assert(msg->get_type() == AppMsg::mouse_button);
+        assert(msg->get_type() == AppMsgType::mouse_button);
         const MouseButtonMsg* const ret = dynamic_cast<const MouseButtonMsg* const>(msg);
         return ret;
     }
@@ -293,7 +251,7 @@ namespace ZeroEngine {
     }
 
     const MouseWheelMsg* const MouseWheelMsg::cast(const AppMsg* const msg) {
-        assert(msg->get_type() == AppMsg::mouse_wheel);
+        assert(msg->get_type() == AppMsgType::mouse_wheel);
         const MouseWheelMsg* const ret = dynamic_cast<const MouseWheelMsg* const>(msg);
         return ret;
     }
@@ -315,7 +273,7 @@ namespace ZeroEngine {
     }
 
     const MouseMotionMsg* const MouseMotionMsg::cast(const AppMsg* const msg) {
-        assert(msg->get_type() == AppMsg::mouse_motion);
+        assert(msg->get_type() == AppMsgType::mouse_motion);
         const MouseMotionMsg* const ret = dynamic_cast<const MouseMotionMsg* const>(msg);
         return ret;
     }

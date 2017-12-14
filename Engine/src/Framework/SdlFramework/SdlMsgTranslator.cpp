@@ -8,28 +8,28 @@ namespace ZeroEngine {
         uint32_t time = _sdl_event.common.timestamp;
         switch (_sdl_event.type) {
             case SDL_QUIT:
-                return _factory->create_message(AppMsg::quit, zero_new EmptyMsgArgs(time));
+                return _factory->create_message(AppMsgType::quit, zero_new EmptyMsgArgs(time));
             case SDL_APP_TERMINATING:
-                return _factory->create_message(AppMsg::unhandled, zero_new EmptyMsgArgs(time));
+                return _factory->create_message(AppMsgType::unhandled, zero_new EmptyMsgArgs(time));
             case SDL_APP_LOWMEMORY:
-                return _factory->create_message(AppMsg::unhandled, zero_new EmptyMsgArgs(time));
+                return _factory->create_message(AppMsgType::unhandled, zero_new EmptyMsgArgs(time));
             case SDL_APP_WILLENTERBACKGROUND:
-                return _factory->create_message(AppMsg::unhandled, zero_new EmptyMsgArgs(time));
+                return _factory->create_message(AppMsgType::unhandled, zero_new EmptyMsgArgs(time));
             case SDL_APP_DIDENTERBACKGROUND:
-                return _factory->create_message(AppMsg::unhandled, zero_new EmptyMsgArgs(time));
+                return _factory->create_message(AppMsgType::unhandled, zero_new EmptyMsgArgs(time));
             case SDL_APP_WILLENTERFOREGROUND:
-                return _factory->create_message(AppMsg::unhandled, zero_new EmptyMsgArgs(time));
+                return _factory->create_message(AppMsgType::unhandled, zero_new EmptyMsgArgs(time));
             case SDL_APP_DIDENTERFOREGROUND:
-                return _factory->create_message(AppMsg::unhandled, zero_new EmptyMsgArgs(time));
+                return _factory->create_message(AppMsgType::unhandled, zero_new EmptyMsgArgs(time));
             case SDL_WINDOWEVENT:
 
                 //_sdl_event.window.event;
                 //_sdl_event.window.data1;
                 //_sdl_event.window.data2;
 
-                return _factory->create_message(AppMsg::window, zero_new WindowMsgArgs(time));
+                return _factory->create_message(AppMsgType::window, zero_new WindowMsgArgs(time));
             case SDL_SYSWMEVENT:
-                return _factory->create_message(AppMsg::system, zero_new SystemMsgArgs(time));
+                return _factory->create_message(AppMsgType::system, zero_new SystemMsgArgs(time));
 
             case SDL_KEYDOWN:
             case SDL_KEYUP:
@@ -52,7 +52,7 @@ namespace ZeroEngine {
 
                 KeyboardMsgArgs* args = zero_new KeyboardMsgArgs(time, window, key, repeat);
 
-                return _factory->create_message(AppMsg::keyboard, args);
+                return _factory->create_message(AppMsgType::keyboard, args);
                 /*
                 if (_sdl_event.type == SDL_KEYDOWN) {
                     return _factory->create_message(AppMsg::keydown, args);
@@ -62,11 +62,11 @@ namespace ZeroEngine {
                 */
             }
             case SDL_TEXTEDITING:
-                return _factory->create_message(AppMsg::text_edit, zero_new TextEditMsgArgs(time));
+                return _factory->create_message(AppMsgType::text_edit, zero_new TextEditMsgArgs(time));
             case SDL_TEXTINPUT:
-                return _factory->create_message(AppMsg::text_input, zero_new TextInputMsgArgs(time));
+                return _factory->create_message(AppMsgType::text_input, zero_new TextInputMsgArgs(time));
             case SDL_KEYMAPCHANGED:
-                return _factory->create_message(AppMsg::keymap_changed, zero_new KeyMapChangedMsgArgs(time));
+                return _factory->create_message(AppMsgType::keymap_changed, zero_new KeyMapChangedMsgArgs(time));
             case SDL_MOUSEMOTION:
             {
 
@@ -102,7 +102,7 @@ namespace ZeroEngine {
                 MouseMotionMsgArgs* args = 
                     zero_new MouseMotionMsgArgs(time, window, mouse, button_states, x_pos, y_pos, x_rel, y_rel);
 
-                return _factory->create_message(AppMsg::mouse_motion, args);
+                return _factory->create_message(AppMsgType::mouse_motion, args);
             }
 
             case SDL_MOUSEBUTTONDOWN:
@@ -133,7 +133,7 @@ namespace ZeroEngine {
                 MouseButtonMsgArgs* args = 
                     zero_new MouseButtonMsgArgs(time, window, which, state, clicks, button, x, y);
 
-                return _factory->create_message(AppMsg::mouse_button, args);
+                return _factory->create_message(AppMsgType::mouse_button, args);
                 /*
                 if (_sdl_event.type == SDL_MOUSEBUTTONDOWN) {
                     return _factory->create_message(AppMsg::mouse_button_down, args);
@@ -161,70 +161,70 @@ namespace ZeroEngine {
 
                 MouseWheelMsgArgs* args = zero_new MouseWheelMsgArgs(time, window, mouse, x, y, direction);
 
-                return _factory->create_message(AppMsg::mouse_wheel, args);
+                return _factory->create_message(AppMsgType::mouse_wheel, args);
             }
 
             case SDL_JOYAXISMOTION:
-                return _factory->create_message(AppMsg::joy_axis_motion, zero_new JoyAxisMotionMsgArgs(time));
+                return _factory->create_message(AppMsgType::joy_axis_motion, zero_new JoyAxisMotionMsgArgs(time));
             case SDL_JOYBALLMOTION:
-                return _factory->create_message(AppMsg::joy_ball_motion, zero_new JoyBallMotionMsgArgs(time));
+                return _factory->create_message(AppMsgType::joy_ball_motion, zero_new JoyBallMotionMsgArgs(time));
             case SDL_JOYHATMOTION:
-                return _factory->create_message(AppMsg::joy_hat_motion, zero_new JoyHatMotionMsgArgs(time));
+                return _factory->create_message(AppMsgType::joy_hat_motion, zero_new JoyHatMotionMsgArgs(time));
             case SDL_JOYBUTTONDOWN:
-                return _factory->create_message(AppMsg::joy_button_down, zero_new JoyButtonMsgArgs(time));
+                return _factory->create_message(AppMsgType::joy_button_down, zero_new JoyButtonMsgArgs(time));
             case SDL_JOYBUTTONUP:
-                return _factory->create_message(AppMsg::joy_button_up, zero_new JoyButtonMsgArgs(time));
+                return _factory->create_message(AppMsgType::joy_button_up, zero_new JoyButtonMsgArgs(time));
             case SDL_JOYDEVICEADDED:
-                return _factory->create_message(AppMsg::joy_device_added, zero_new JoyDeviceAddedMsgArgs(time));
+                return _factory->create_message(AppMsgType::joy_device_added, zero_new JoyDeviceAddedMsgArgs(time));
             case SDL_JOYDEVICEREMOVED:
-                return _factory->create_message(AppMsg::joy_device_removed, zero_new JoyDeviceRemovedMsgArgs(time));
+                return _factory->create_message(AppMsgType::joy_device_removed, zero_new JoyDeviceRemovedMsgArgs(time));
             case SDL_CONTROLLERAXISMOTION:
-                return _factory->create_message(AppMsg::controller_axis_motion, zero_new ControllerAxisMotionMsgArgs(time));
+                return _factory->create_message(AppMsgType::controller_axis_motion, zero_new ControllerAxisMotionMsgArgs(time));
             case SDL_CONTROLLERBUTTONDOWN:
-                return _factory->create_message(AppMsg::controller_button_down, zero_new ControllerButtonMsgArgs(time));
+                return _factory->create_message(AppMsgType::controller_button_down, zero_new ControllerButtonMsgArgs(time));
             case SDL_CONTROLLERBUTTONUP:
-                return _factory->create_message(AppMsg::controller_button_up, zero_new ControllerButtonMsgArgs(time));
+                return _factory->create_message(AppMsgType::controller_button_up, zero_new ControllerButtonMsgArgs(time));
             case SDL_CONTROLLERDEVICEADDED:
-                return _factory->create_message(AppMsg::controller_device_added, zero_new ControllerDeviceAddedMsgArgs(time));
+                return _factory->create_message(AppMsgType::controller_device_added, zero_new ControllerDeviceAddedMsgArgs(time));
             case SDL_CONTROLLERDEVICEREMOVED:
-                return _factory->create_message(AppMsg::controller_device_removed, zero_new ControllerDeviceRemovedMsgArgs(time));
+                return _factory->create_message(AppMsgType::controller_device_removed, zero_new ControllerDeviceRemovedMsgArgs(time));
             case SDL_CONTROLLERDEVICEREMAPPED:
-                return _factory->create_message(AppMsg::controller_device_remapped, zero_new ControllerDeviceRemappedMsgArgs(time));
+                return _factory->create_message(AppMsgType::controller_device_remapped, zero_new ControllerDeviceRemappedMsgArgs(time));
             case SDL_FINGERUP:
-                return _factory->create_message(AppMsg::finger_up, zero_new FingerUpMsgArgs(time));
+                return _factory->create_message(AppMsgType::finger_up, zero_new FingerUpMsgArgs(time));
             case SDL_FINGERDOWN:
-                return _factory->create_message(AppMsg::finger_down, zero_new FingerDownMsgArgs(time));
+                return _factory->create_message(AppMsgType::finger_down, zero_new FingerDownMsgArgs(time));
             case SDL_FINGERMOTION:
-                return _factory->create_message(AppMsg::finger_motion, zero_new FingerMotionMsgArgs(time));
+                return _factory->create_message(AppMsgType::finger_motion, zero_new FingerMotionMsgArgs(time));
             case SDL_DOLLARGESTURE:
-                return _factory->create_message(AppMsg::unhandled, zero_new EmptyMsgArgs(time));
+                return _factory->create_message(AppMsgType::unhandled, zero_new EmptyMsgArgs(time));
             case SDL_DOLLARRECORD:
-                return _factory->create_message(AppMsg::unhandled, zero_new EmptyMsgArgs(time));
+                return _factory->create_message(AppMsgType::unhandled, zero_new EmptyMsgArgs(time));
             case SDL_MULTIGESTURE:
-                return _factory->create_message(AppMsg::unhandled, zero_new EmptyMsgArgs(time));
+                return _factory->create_message(AppMsgType::unhandled, zero_new EmptyMsgArgs(time));
             case SDL_CLIPBOARDUPDATE:
-                return _factory->create_message(AppMsg::clipboard, zero_new ClipboardMsgArgs(time));
+                return _factory->create_message(AppMsgType::clipboard, zero_new ClipboardMsgArgs(time));
             case SDL_DROPFILE:
-                return _factory->create_message(AppMsg::drop_file, zero_new DropFileMsgArgs(time));
+                return _factory->create_message(AppMsgType::drop_file, zero_new DropFileMsgArgs(time));
             case SDL_DROPTEXT:
-                return _factory->create_message(AppMsg::drop_text, zero_new DropTextMsgArgs(time));
+                return _factory->create_message(AppMsgType::drop_text, zero_new DropTextMsgArgs(time));
             case SDL_DROPBEGIN:
-                return _factory->create_message(AppMsg::drop_begin, zero_new DropBeginMsgArgs(time));
+                return _factory->create_message(AppMsgType::drop_begin, zero_new DropBeginMsgArgs(time));
             case SDL_DROPCOMPLETE:
-                return _factory->create_message(AppMsg::drop_complete, zero_new DropCompleteMsgArgs(time));
+                return _factory->create_message(AppMsgType::drop_complete, zero_new DropCompleteMsgArgs(time));
             case SDL_AUDIODEVICEADDED:
-                return _factory->create_message(AppMsg::audio_device_added, zero_new AudioDeviceAddedMsgArgs(time));
+                return _factory->create_message(AppMsgType::audio_device_added, zero_new AudioDeviceAddedMsgArgs(time));
             case SDL_AUDIODEVICEREMOVED:
-                return _factory->create_message(AppMsg::audio_device_removed, zero_new AudioDeviceRemovedMsgArgs(time));
+                return _factory->create_message(AppMsgType::audio_device_removed, zero_new AudioDeviceRemovedMsgArgs(time));
             case SDL_RENDER_TARGETS_RESET:
-                return _factory->create_message(AppMsg::render_targets_reset, zero_new RenderTargetsResetMsgArgs(time));
+                return _factory->create_message(AppMsgType::render_targets_reset, zero_new RenderTargetsResetMsgArgs(time));
             case SDL_RENDER_DEVICE_RESET:
-                return _factory->create_message(AppMsg::render_device_reset, zero_new RenderDeviceResetMsgArgs(time));
+                return _factory->create_message(AppMsgType::render_device_reset, zero_new RenderDeviceResetMsgArgs(time));
             case SDL_USEREVENT:
-                return _factory->create_message(AppMsg::unhandled, zero_new EmptyMsgArgs(time));
+                return _factory->create_message(AppMsgType::unhandled, zero_new EmptyMsgArgs(time));
             default:
                 // This should never be reached, but just in case
-                return _factory->create_message(AppMsg::null, zero_new EmptyMsgArgs(time));
+                return _factory->create_message(AppMsgType::null, zero_new EmptyMsgArgs(time));
         }
     }
 

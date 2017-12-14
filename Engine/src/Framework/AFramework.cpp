@@ -41,20 +41,20 @@ namespace ZeroEngine {
     void AFramework::dispatch_message() {
         const AppMsg* const msg = _msg_translator->get_translated_message();
         // @@TEMP: _is_running should be switched via EventMaanager registered function
-        _is_running = msg->get_type() != AppMsg::quit;
+        _is_running = msg->get_type() != AppMsgType::quit;
 
         // @TODO: I don'd know if I want these here or not, but regardless,
         // I want a better way to update these without public methods
-        if (msg->get_type() == AppMsg::keyboard) {
+        if (msg->get_type() == AppMsgType::keyboard) {
             Keyboard::set(KeyboardMsg::cast(msg));
         }
-        if (msg->get_type() == AppMsg::mouse_motion) {
+        if (msg->get_type() == AppMsgType::mouse_motion) {
             Mouse::set(MouseMotionMsg::cast(msg));
         }
-        if (msg->get_type() == AppMsg::mouse_button) {
+        if (msg->get_type() == AppMsgType::mouse_button) {
             Mouse::set(MouseButtonMsg::cast(msg));
         }
-        if (msg->get_type() == AppMsg::mouse_wheel) {
+        if (msg->get_type() == AppMsgType::mouse_wheel) {
             Mouse::set(MouseWheelMsg::cast(msg));
         }
 
