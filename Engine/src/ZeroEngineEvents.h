@@ -82,6 +82,9 @@ namespace ZeroEngine {
         inline const EntityId& get_entity_id() const { return _entity_id; }
         static EntityCreatedEvent::ptr create(const EntityId& id);
         static EntityCreatedEvent::ptr cast(IEventDataPtr);
+    private:
+        EntityCreatedEvent();
+        EntityCreatedEvent(const EntityCreatedEvent&);
     };
 
 
@@ -93,16 +96,23 @@ namespace ZeroEngine {
     private:
         // @TODO: This needs to be changed to somehting more less specific
         const Point<float> _new_location;
+        const EntityId _entity_id;
     public:
         typedef std::shared_ptr<MoveEntityEvent> ptr;
         static const EventType type;
     public:
-        inline MoveEntityEvent(const Point<float> new_location) : _new_location(new_location) {}
+        inline MoveEntityEvent(const EntityId id, const Point<float> new_location) : 
+            _entity_id(id), _new_location(new_location) {}
         IEventDataPtr copy() const override;
         inline const EventType& get_event_type() const override { return type; }
         inline StringRepr to_string() const override { return "MoveEntityEvent"; }
-        static MoveEntityEvent::ptr create(const Point<float> new_location);
+        static MoveEntityEvent::ptr create(const EntityId id, const Point<float> new_location);
         static MoveEntityEvent::ptr cast(IEventDataPtr);
+        inline const EntityId& get_entity_id() const { return _entity_id; }
+        inline const Point<float> get_new_location() const { return _new_location; }
+    private:
+        MoveEntityEvent();
+        MoveEntityEvent(const MoveEntityEvent&);
     };
 
 }

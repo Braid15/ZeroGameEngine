@@ -8,7 +8,7 @@
 namespace ZeroEngine {
 
     typedef uint32_t GameViewId;
-    extern const GameViewId INVALID_GAME_VIEW_ID = 0;
+    extern const GameViewId INVALID_GAME_VIEW_ID;
 
     enum class GameViewType {
         human,

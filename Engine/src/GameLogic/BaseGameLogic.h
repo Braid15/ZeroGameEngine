@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../ZeroEngineStd.h"
-#include "../GameView/GameView.h"
+#include "../GameView/GameViewInclude.h"
 #include "IGameLogic.h"
 #include "../Entity/Entity.h"
 #include "../Entity/BaseEntityManager.h"
@@ -58,6 +58,7 @@ namespace ZeroEngine {
         inline void set_render_diagnostics(bool render) { _render_diagnostics = render; }
         inline void toggle_render_diagnostics() { _render_diagnostics = !_render_diagnostics; }
         inline Ticks get_lifetime() const { return _lifetime; }
+
         inline virtual bool on_load_game() { return true; }
         inline virtual void on_register_event_delegates() {}
         inline virtual void on_unregister_event_delegates() {}

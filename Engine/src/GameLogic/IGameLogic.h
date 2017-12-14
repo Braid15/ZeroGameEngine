@@ -4,7 +4,7 @@
 #include "../Time.h"
 #include "../Graphics/Graphics.h"
 #include "../Entity/Entity.h"
-#include "../GameView/GameView.h"
+#include "../GameView/GameViewInclude.h"
 #include "../Physics/Physics.h"
 
 namespace ZeroEngine {

@@ -85,11 +85,11 @@ namespace ZeroEngine {
     const EventType MoveEntityEvent::type = 0x8b2e7298;
 
     IEventDataPtr MoveEntityEvent::copy() const {
-        return IEventDataPtr(zero_new MoveEntityEvent(_new_location));
+        return IEventDataPtr(zero_new MoveEntityEvent(_entity_id, _new_location));
     }
 
-    MoveEntityEvent::ptr MoveEntityEvent::create(const Point<float> new_location) {
-        return MoveEntityEvent::ptr(zero_new MoveEntityEvent(new_location));
+    MoveEntityEvent::ptr MoveEntityEvent::create(const EntityId id, const Point<float> new_location) {
+        return MoveEntityEvent::ptr(zero_new MoveEntityEvent(id, new_location));
     }
 
     MoveEntityEvent::ptr MoveEntityEvent::cast(IEventDataPtr data_ptr) {

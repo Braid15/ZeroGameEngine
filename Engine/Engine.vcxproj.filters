@@ -186,9 +186,6 @@
     <ClInclude Include="src\GameLogic\BaseGameLogic.h">
       <Filter>Source\GameLogic</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameView\GameView.h">
-      <Filter>Source\GameView</Filter>
-    </ClInclude>
     <ClInclude Include="src\Physics\IPhysics.h">
       <Filter>Source\Physics</Filter>
     </ClInclude>
@@ -206,6 +203,12 @@
     </ClInclude>
     <ClInclude Include="src\ZeroEngineEvents.h">
       <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLogic\GameLogicInclude.h">
+      <Filter>Source\GameLogic</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameView\GameViewInclude.h">
+      <Filter>Source\GameView</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -292,6 +295,9 @@
     </ClCompile>
     <ClCompile Include="src\ZeroEngineEvents.cpp">
       <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameView\IGameView.cpp">
+      <Filter>Source\GameView</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

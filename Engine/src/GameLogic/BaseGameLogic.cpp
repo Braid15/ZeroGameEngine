@@ -85,16 +85,16 @@ namespace ZeroEngine {
     }
 
     void BaseGameLogic::move_entity(const EntityId& entity_id, const float x, const float y) {
+        std::cout << "BaseGameLogic::move_entity\n";
 
     }
 
     void BaseGameLogic::move_entity(const EntityId& entity_id, const Point<float>&location) {
-
+        std::cout << "BaseGameLogic::move_entity\n";
     }
 
     void BaseGameLogic::destroy_entity(const EntityId& entity_id) {
-        // @TODO: Trigger destroy entity event
-
+        ZeroEventManager::trigger_event(EntityDestroyedEvent::create(entity_id));
         _entity_manager->destroy_entity(entity_id);
     }
 
@@ -122,15 +122,21 @@ namespace ZeroEngine {
     //
 
     void BaseGameLogic::move_entity_event_delegate(IEventDataPtr event_data) {
-
+        MoveEntityEvent::ptr data = MoveEntityEvent::cast(event_data);
+        move_entity(data->get_entity_id(), data->get_new_location());
     }
 
     void BaseGameLogic::request_new_entity_event_delegate(IEventDataPtr event_data) {
-
+        if (!_is_proxy) {
+            RequestCreateEntityEvent::ptr data = RequestCreateEntityEvent::cast(event_data);
+            EntityPtr entity = _entity_manager->create_entity();
+            ZeroEventManager::queue_event(EntityCreatedEvent::create(entity->get_id()));
+        }
     }
 
     void BaseGameLogic::request_destroy_entity_event_delegate(IEventDataPtr event_data) {
-
+        RequestDestroyEntityEvent::ptr data = RequestDestroyEntityEvent::cast(event_data);
+        destroy_entity(data->get_entity_id());
     }
 
 
