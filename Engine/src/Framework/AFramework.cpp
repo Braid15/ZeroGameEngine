@@ -27,10 +27,11 @@ namespace ZeroEngine {
 
             // @@TODO: passing delta_time as function arg might not work
             // in this implementation
-            while (lag >= update_limit) {
-                lag -= update_limit;
-                _update_callback(delta_time);
-            }
+            // while (lag >= update_limit) {
+            //     lag -= update_limit;
+            //     _update_callback(delta_time);
+            // }
+            _update_callback(delta_time);
 
             frame_render_begin(delta_time);
             frame_render_present(delta_time);

@@ -7,7 +7,7 @@ namespace ZeroEngine {
     //
 
     void TimedProcess::on_update(Tick delta_time) {
-        _current += delta_time;
+        _current += static_cast<uint32_t>(delta_time);
         if (_current >= _timeout) {
             succeed();
         }

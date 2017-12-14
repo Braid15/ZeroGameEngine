@@ -3,7 +3,7 @@
 namespace ZeroEngine {
 
     Process::Process() {
-        _state = ProcessState::null;
+        _state = ProcessState::uninitialized;
         _child = nullptr;
     }
 

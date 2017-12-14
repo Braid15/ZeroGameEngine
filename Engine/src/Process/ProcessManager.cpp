@@ -53,6 +53,12 @@ namespace ZeroEngine {
                         ++fail_count;
                         break;
                     }
+
+                    case ProcessState::null:
+                    {
+                        std::cout << current_process->to_string() << " is set to null state\n";
+                        break;
+                    }
                 }
 
                 _process_list.erase(cur_iter);

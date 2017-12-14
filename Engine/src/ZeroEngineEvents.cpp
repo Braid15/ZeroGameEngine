@@ -97,5 +97,23 @@ namespace ZeroEngine {
         return std::static_pointer_cast<MoveEntityEvent>(data_ptr);
     }
 
+    //
+    // AttachProcessEvent
+    //
+
+    const EventType AttachProcessEvent::type = 0xa241c4db;
+
+    IEventDataPtr AttachProcessEvent::copy() const {
+        return IEventDataPtr(zero_new AttachProcessEvent(_process));
+    }
+
+    AttachProcessEvent::ptr AttachProcessEvent::create(Process::ptr process) {
+        return AttachProcessEvent::ptr(zero_new AttachProcessEvent(process));
+    }
+
+    AttachProcessEvent::ptr AttachProcessEvent::cast(IEventDataPtr data_ptr) {
+        assert(data_ptr->is_type(type));
+        return std::static_pointer_cast<AttachProcessEvent>(data_ptr);
+    }
 }
 

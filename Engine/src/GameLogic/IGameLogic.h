@@ -16,6 +16,17 @@ namespace ZeroEngine {
         running,
     };
 
+    inline std::ostream& operator<<(std::ostream& os, BaseGameState state) {
+        if (state == BaseGameState::invalid) {
+            os << "BaseGameState::invalid";
+        } else if (state == BaseGameState::running) {
+            os << "BaseGameState::running";
+        } else {
+            os.setstate(std::ios_base::failbit);
+        }
+        return os;
+    }
+
     class IGameLogic : public IZeroObject {
     public:
         virtual bool load_game() = 0;

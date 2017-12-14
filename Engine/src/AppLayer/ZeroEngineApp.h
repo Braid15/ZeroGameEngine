@@ -26,7 +26,6 @@ namespace ZeroEngine {
         virtual const std::string get_game_app_directory() = 0;
 
         ZeroEngineApp();
-        // @@TODO: THis might cause problems. How will derived class override?
         static bool app_msg_proc(AppMsg::ptr msg);
         static void update(Tick time);
         static void render(Tick time);

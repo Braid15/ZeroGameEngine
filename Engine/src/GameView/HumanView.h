@@ -56,6 +56,7 @@ namespace ZeroEngine {
         inline virtual bool on_load_game() { return true; }
         inline virtual void on_register_event_delegates() {}
         inline virtual void on_unregister_event_delegates() {}
+        inline virtual bool on_msg_proc(AppMsg::ptr msg, bool handled) { return false; }
     private:
         HumanView();
         HumanView(const HumanView&);

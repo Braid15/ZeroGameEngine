@@ -45,7 +45,11 @@ namespace ZeroEngine {
 
     bool BaseGameLogic::load_game() {
         load_game_views();
-        return on_load_game();
+        if (on_load_game()) {
+            change_state(BaseGameState::running);
+            return true;
+        }
+        return false;
     }
 
     bool BaseGameLogic::load_game(const char* level_resource) {
@@ -66,7 +70,9 @@ namespace ZeroEngine {
     void BaseGameLogic::update(Tick delta_time) {
         _lifetime += delta_time;
 
+        // state is set to running in load_game()
         switch (_current_state) {
+
             case BaseGameState::running:
             {
                 _process_manager->update_processes(delta_time);
@@ -145,6 +151,11 @@ namespace ZeroEngine {
     void BaseGameLogic::request_destroy_entity_event_delegate(IEventDataPtr event_data) {
         RequestDestroyEntityEvent::ptr data = RequestDestroyEntityEvent::cast(event_data);
         destroy_entity(data->get_entity_id());
+    }
+
+    void BaseGameLogic::attach_process_event_delegate(IEventDataPtr event_data) {
+        AttachProcessEvent::ptr data = AttachProcessEvent::cast(event_data);
+        _process_manager->attach_process(data->get_process());
     }
 
 

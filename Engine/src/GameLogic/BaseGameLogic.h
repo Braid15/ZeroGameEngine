@@ -50,6 +50,7 @@ namespace ZeroEngine {
         inline GameViewList get_game_views() { return _game_views; }
         inline IPhysicsPtr get_physics() const { return _physics; }
     protected:
+        inline const ProcessManager& get_process_manager() const { return *_process_manager; }
         inline int get_human_players_attached() const { return _human_players_attached; }
         inline int get_ai_players_attached() const { return _ai_players_attached; }
         inline int get_human_games_loaded() const { return _human_games_loaded; }
@@ -71,6 +72,7 @@ namespace ZeroEngine {
         void move_entity_event_delegate(IEventDataPtr event_data);
         void request_new_entity_event_delegate(IEventDataPtr event_data);
         void request_destroy_entity_event_delegate(IEventDataPtr event_data);
+        void attach_process_event_delegate(IEventDataPtr event_data);
     private:
         void load_game_views();
         void register_event_delegates();

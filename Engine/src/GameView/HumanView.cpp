@@ -91,13 +91,13 @@ namespace ZeroEngine {
         _entity_id = entity_id;
     }
 
-    bool HumanView::msg_proc(AppMsg::ptr app_msg) {
+    bool HumanView::msg_proc(AppMsg::ptr msg) {
         bool handled = false;
 
         // It is important to iterate through the screen elements in reverse order
         for (ScreenElementList::reverse_iterator iter = _screen_elements.rbegin(); iter != _screen_elements.rend(); ++iter) {
             if ((*iter)->is_visible()) {
-                if ((*iter)->on_msg_proc(app_msg)) {
+                if ((*iter)->on_msg_proc(msg)) {
                     handled = true;
                     break;
                 }
@@ -108,6 +108,8 @@ namespace ZeroEngine {
 
             // @TODO: Send input to input handler
         }
+
+        handled = (on_msg_proc(msg, handled) == true) ? true : handled;
 
         return handled;
     }

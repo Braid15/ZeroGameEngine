@@ -4,6 +4,7 @@
 #include "Events/Events.h"
 #include "Entity\Entity.h"
 #include "Graphics\Graphics.h"
+#include "Process\Process.h"
 
 namespace ZeroEngine {
 
@@ -113,6 +114,30 @@ namespace ZeroEngine {
     private:
         MoveEntityEvent();
         MoveEntityEvent(const MoveEntityEvent&);
+    };
+
+    //
+    // AttachProcessEvent
+    //
+
+    // Used for sending a process to be attached to the game logic from the game view
+    class AttachProcessEvent : public BaseEventData {
+    private:
+        Process::ptr _process;
+    public:
+        typedef std::shared_ptr<AttachProcessEvent> ptr;
+        static const EventType type;
+    public:
+        inline explicit AttachProcessEvent(Process::ptr process) : _process(process) {}
+        IEventDataPtr copy() const override;
+        inline const EventType& get_event_type() const override { return type; }
+        inline StringRepr to_string() const override { return "AttachProcessEvent"; }
+        static AttachProcessEvent::ptr create(Process::ptr process);
+        static AttachProcessEvent::ptr cast(IEventDataPtr);
+        inline Process::ptr get_process() const { return _process; }
+    private:
+        inline AttachProcessEvent() {}
+        inline AttachProcessEvent(const AttachProcessEvent&) {}
     };
 
 }

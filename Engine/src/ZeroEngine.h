@@ -9,5 +9,6 @@
 #include "Entity\Entity.h"
 #include "Entity\EntityFactory.h"
 #include "ZeroEngineEvents.h"
+#include "ZeroEngineProcesses.h"
 #include "GameLogic\GameLogicInclude.h"
 #include "GameView\GameViewInclude.h"
