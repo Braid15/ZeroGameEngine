@@ -26,7 +26,6 @@ namespace ZeroEngine {
 
     protected:
         inline virtual void register_game_events() {};
-        virtual void quit_event_delegate(IEventDataPtr event_data);
 
     public:
         // @@TODO: THis might cause problems. How will derived class override?

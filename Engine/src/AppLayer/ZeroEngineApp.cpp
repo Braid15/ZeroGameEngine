@@ -18,9 +18,6 @@ namespace ZeroEngine {
 
     bool ZeroEngineApp::app_msg_proc(const AppMsg* const msg) {
         assert(ZeroEngineApp::instance() != nullptr);
-        if (msg->get_type() == AppMsg::quit) {
-            ZeroEventManager::queue_event(QuitEventData::create());
-        }
         return ZeroEngineApp::instance()->on_msg_proc(msg);
     }
 
@@ -36,8 +33,6 @@ namespace ZeroEngine {
     }
 
     ZeroEngineApp::~ZeroEngineApp() {
-        EventListenerDelegate delegate = fastdelegate::MakeDelegate(this, &ZeroEngineApp::quit_event_delegate);
-        ZeroEventManager::unregister_listener(delegate, QuitEventData::type);
     }
 
     bool ZeroEngineApp::is_running() const {
@@ -75,15 +70,8 @@ namespace ZeroEngine {
         _save_game_directory = dir;
     }
 
-    void ZeroEngineApp::quit_event_delegate(IEventDataPtr event_data) {
-        std::shared_ptr<QuitEventData> quit_event = QuitEventData::cast(event_data);
-        std::cout << "ZeroEngineApp::quit_event_delegate() - " << std::to_string(quit_event->get_timestamp()) << "\n";
-    }
-
     /* private methods */
 
     void ZeroEngineApp::register_engine_events() {
-        EventListenerDelegate delegate = fastdelegate::MakeDelegate(this, &ZeroEngineApp::quit_event_delegate);
-        ZeroEventManager::register_listener(delegate, QuitEventData::type);
     }
 }

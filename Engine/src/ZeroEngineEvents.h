@@ -104,4 +104,5 @@ namespace ZeroEngine {
         static MoveEntityEvent::ptr create(const Point<float> new_location);
         static MoveEntityEvent::ptr cast(IEventDataPtr);
     };
+
 }
