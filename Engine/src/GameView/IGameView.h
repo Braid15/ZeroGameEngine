@@ -20,14 +20,14 @@ namespace ZeroEngine {
 
     class IGameView : public IZeroObject {
     public:
-        virtual bool on_restore() = 0;
-        virtual bool on_lost_device() = 0;
-        virtual bool on_render(Tick delta_time) = 0;
-        virtual void on_update(Tick delta_time) = 0;
+        virtual bool restore() = 0;
+        virtual bool lost_device() = 0;
+        virtual bool render(Tick delta_time) = 0;
+        virtual void update(Tick delta_time) = 0;
         virtual const GameViewId& get_id() const = 0;
         virtual const GameViewType& get_type() const = 0;
-        virtual void on_attach(GameViewId view_id, EntityId entity_id) = 0;
-        virtual bool on_msg_proc(const AppMsg* const app_msg) = 0;
+        virtual void attach(GameViewId view_id, EntityId entity_id) = 0;
+        virtual bool msg_proc(const AppMsg* const app_msg) = 0;
         virtual ~IGameView() {}
         virtual StringRepr to_string() const = 0;
     };

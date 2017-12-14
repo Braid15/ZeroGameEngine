@@ -29,12 +29,12 @@ namespace ZeroEngine {
     public:
         HumanView(IRenderer::ptr);
         virtual ~HumanView();
-        virtual bool on_restore() override;
-        virtual bool on_lost_device() override;
-        virtual bool on_render(Tick delta_time) override;
-        virtual void on_update(Tick delta_time) override;
-        virtual void on_attach(GameViewId view_id, EntityId entity_id) override;
-        virtual bool on_msg_proc(const AppMsg* const app_msg) override;
+        virtual bool restore() override;
+        virtual bool lost_device() override;
+        virtual bool render(Tick delta_time) override;
+        virtual void update(Tick delta_time) override;
+        virtual void attach(GameViewId view_id, EntityId entity_id) override;
+        virtual bool msg_proc(const AppMsg* const app_msg) override;
         inline const GameViewId& get_id() const override { return _view_id; }
         inline const GameViewType& get_type() const override { return _view_type; }
         virtual StringRepr to_string() const override { return "HumanView"; }

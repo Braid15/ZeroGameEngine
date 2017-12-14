@@ -27,7 +27,7 @@ namespace ZeroEngine {
 
             GameViewList list = game->get_game_views();
             for (GameViewList::reverse_iterator iter = list.rbegin(); iter != list.rend(); ++iter) {
-                if ((*iter)->on_msg_proc(msg)) {
+                if ((*iter)->msg_proc(msg)) {
                     result = true;
                     break;
                 }
@@ -56,7 +56,7 @@ namespace ZeroEngine {
             BaseGameLogic* logic = ZeroEngineApp::instance()->get_game_logic();
             GameViewList list = logic->get_game_views();
             for (GameViewList::iterator iter = list.begin(); iter != list.end(); ++iter) {
-                (*iter)->on_render(time);
+                (*iter)->render(time);
             }
 
             logic->render_diagnostics();

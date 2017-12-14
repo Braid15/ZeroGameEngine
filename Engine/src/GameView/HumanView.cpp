@@ -28,7 +28,7 @@ namespace ZeroEngine {
         zero_delete(_process_manager);
     }
 
-    bool HumanView::on_render(Tick delta_time) {
+    bool HumanView::render(Tick delta_time) {
         bool success = false;
         _current_tick = ZeroFramework::get_ticks();
 
@@ -57,7 +57,7 @@ namespace ZeroEngine {
         return success;
     }
 
-    bool HumanView::on_restore() {
+    bool HumanView::restore() {
         // @TODO: ret does nothing
         bool success = true;
         for (auto iter = _screen_elements.begin(); iter != _screen_elements.end(); ++iter) {
@@ -66,7 +66,7 @@ namespace ZeroEngine {
         return success;
     }
 
-    bool HumanView::on_lost_device() {
+    bool HumanView::lost_device() {
         // @TODO: ret does nothing
         bool success = true;
         for (auto iter = _screen_elements.begin(); iter != _screen_elements.end(); ++iter) {
@@ -75,7 +75,7 @@ namespace ZeroEngine {
         return success;
     }
 
-    void HumanView::on_update(Tick delta_time) {
+    void HumanView::update(Tick delta_time) {
 
         _process_manager->update_processes(delta_time);
 
@@ -86,12 +86,12 @@ namespace ZeroEngine {
         }
     }
 
-    void HumanView::on_attach(GameViewId view_id, EntityId entity_id) {
+    void HumanView::attach(GameViewId view_id, EntityId entity_id) {
         _view_id = view_id;
         _entity_id = entity_id;
     }
 
-    bool HumanView::on_msg_proc(const AppMsg* const app_msg) {
+    bool HumanView::msg_proc(const AppMsg* const app_msg) {
         bool handled = false;
 
         // It is important to iterate through the screen elements in reverse order

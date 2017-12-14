@@ -81,7 +81,7 @@ namespace ZeroEngine {
         }
 
         for (GameViewList::iterator iter = _game_views.begin(); iter != _game_views.end(); ++iter) {
-            (*iter)->on_update(delta_time);
+            (*iter)->update(delta_time);
         }
 
         _entity_manager->update_entities(delta_time);
@@ -109,8 +109,8 @@ namespace ZeroEngine {
     void BaseGameLogic::add_game_view(IGameViewPtr view, EntityId entity_id) {
         int view_id = static_cast<int>(_game_views.size());
         _game_views.push_back(view);
-        view->on_attach(view_id, entity_id);
-        view->on_restore();
+        view->attach(view_id, entity_id);
+        view->restore();
     }
 
     void BaseGameLogic::remove_game_view(IGameViewPtr view) {
