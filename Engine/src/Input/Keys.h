@@ -6,7 +6,7 @@ namespace ZeroEngine {
 
     // @TODO: Unfinished
 
-    enum class Keys : unsigned char;
+    enum class Key : unsigned char;
 
     enum class KeyState : int8_t {
         null = -1,
@@ -69,34 +69,7 @@ namespace ZeroEngine {
 
     typedef std::array<KeyState, static_cast<int>(KeyMod::end)> KeyModStateArray;
 
-    class Key : public IZeroObject {
-    private:
-        Keys _keycode;
-        // @@TODO: There should only be one KeyModStateArray and each Key object
-        // will have a reference to it
-        KeyModStateArray _keymod_states;
-        KeyState _state;
-    public:
-        inline Key() {}
-        Key(Keys keycode, 
-            KeyState state, 
-            KeyModStateArray mods);
-        inline ~Key() {}
-        bool is_keymod_pressed(const KeyMod& mod) const;
-        bool is_shift_pressed() const;
-        bool is_alt_pressed() const;
-        bool is_control_pressed() const;
-        bool is_caps_lock_on() const;
-        inline bool is_pressed() const { return _state == KeyState::pressed; }
-        inline KeyState key_state() const { return _state; }
-        inline bool equals(const Keys& keycode) const { return _keycode == keycode; }
-        inline const Keys keycode() const { return _keycode; }
-        char get_key_char() const;
-        // @TODO: Trying to convert char to StringRepr prints out nonsense
-        inline StringRepr to_string() const override { return "Key: FIX ME!"; }
-    };
-
-    enum class Keys : unsigned char {
+    enum class Key : unsigned char {
         null = 0x00,
         begin = 0x01,
         enter = 0x01,

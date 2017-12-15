@@ -115,9 +115,9 @@ namespace ZeroEngine {
                 // @NOTE: Sending key press instead of key down for now.
                 // Key press does not trigger if it is being held, but just when it is pressed.
                 if (keyboard_msg->is_key_press()) {
-                    handled = _keyboard_handler->on_key_down(keyboard_msg->key().keycode());
+                    handled = _keyboard_handler->on_key_down(keyboard_msg->get_key());
                 } else if (keyboard_msg->is_key_up()) {
-                    handled = _keyboard_handler->on_key_up(keyboard_msg->key().keycode());
+                    handled = _keyboard_handler->on_key_up(keyboard_msg->get_key());
                 }
             } else if (msg->is_type(MouseButtonMsg::type)) {
                 MouseButtonMsg::ptr mouse_button = MouseButtonMsg::cast(msg);

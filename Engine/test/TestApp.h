@@ -50,12 +50,12 @@ namespace ZeroEngineAppTest {
         inline TestMovementController() {}
         inline ~TestMovementController() {}
 
-        inline bool on_key_down(const Keys& key) override {
+        inline bool on_key_down(const Key& key) override {
             std::cout << "on_key_down()\n";
             return false;
         }
 
-        inline bool on_key_up(const Keys& key) override {
+        inline bool on_key_up(const Key& key) override {
             std::cout << "on_key_up()\n";
             return false;
         }

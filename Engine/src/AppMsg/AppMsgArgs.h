@@ -101,12 +101,18 @@ namespace ZeroEngine {
     class KeyboardMsgArgs final : public AppMsgArgs {
     private:
         bool _is_repeat;
+        KeyState _key_state;
+        KeyModStateArray _keymod_states;
         Key _key;
         uint32_t _window;
     public:
-        KeyboardMsgArgs(Tick time_stamp, uint32_t window, Key& key, bool repeat);
+        KeyboardMsgArgs(Tick time_stamp, uint32_t window, Key& key, bool repeat, KeyState state,
+                        KeyModStateArray mods);
         inline ~KeyboardMsgArgs() {}
         inline bool is_repeat() const { return _is_repeat; }
+        inline bool is_pressed() const { return _key_state == KeyState::pressed; }
+        inline const KeyState& get_key_state() const { return _key_state; }
+        inline const KeyModStateArray& get_keymod_states() const { return _keymod_states; }
         inline Key get_key() const { return _key; }
         inline uint32_t get_window() const { return _window; }
         inline StringRepr to_string() const override { return "KeyboardMsgArgs"; }
