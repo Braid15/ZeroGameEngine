@@ -194,4 +194,454 @@ namespace ZeroEngine {
         page_up,
         end
     };
+
+    inline std::ostream& operator<<(std::ostream& os, Key key) {
+        switch (key) {
+            case Key::null:
+            {
+                os << "Key::null";
+                break;
+            }
+            case Key::enter:
+            {
+                os << "Key::enter";
+                break;
+            }
+            case Key::space:
+            {
+                os << "Key::space";
+                break;
+            }
+            case Key::exclamation:
+            {
+                os << "Key::exclamation";
+                break;
+            }
+            case Key::double_quote:
+            {
+                os << "Key::double_quote";
+                break;
+            }
+            case Key::hash:
+            {
+                os << "Key::hash";
+                break;
+            }
+            case Key::dollar:
+            {
+                os << "Key::dollar";
+                break;
+            }
+            case Key::percent:
+            {
+                os << "Key::percent";
+                break;
+            }
+            case Key::ampersand:
+            {
+                os << "Key::ampersand";
+                break;
+            }
+            case Key::single_quote:
+            {
+                os << "Key::single_quote";
+                break;
+            }
+            case Key::left_paren:
+            {
+                os << "Key::left_paren";
+                break;
+            }
+            case Key::right_paren:
+            {
+                os << "Key::right_paren";
+                break;
+            }
+            case Key::asterisk:
+            {
+                os << "Key::asterisk";
+                break;
+            }
+            case Key::plus:
+            {
+                os << "Key::plus";
+                break;
+            }
+            case Key::comma:
+            {
+                os << "Key::comma";
+                break;
+            }
+            case Key::minus:
+            {
+                os << "Key::minus";
+                break;
+            }
+            case Key::period:
+            {
+                os << "Key::period";
+                break;
+            }
+            case Key::forward_slash:
+            {
+                os << "Key::forward_slash";
+                break;
+            }
+            case Key::zero:
+            {
+                os << "Key::zero";
+                break;
+            }
+            case Key::one:
+            {
+                os << "Key::one";
+                break;
+            }
+            case Key::two:
+            {
+                os << "Key::two";
+                break;
+            }
+            case Key::three:
+            {
+                os << "Key::three";
+                break;
+            }
+            case Key::four:
+            {
+                os << "Key::four";
+                break;
+            }
+            case Key::five:
+            {
+                os << "Key::five";
+                break;
+            }
+            case Key::six:
+            {
+                os << "Key::six";
+                break;
+            }
+            case Key::seven:
+            {
+                os << "Key::seven";
+                break;
+            }
+            case Key::eight:
+            {
+                os << "Key::eight";
+                break;
+            }
+            case Key::nine:
+            {
+                os << "Key::nine";
+                break;
+            }
+            case Key::colon:
+            {
+                os << "Key::colon";
+                break;
+            }
+            case Key::semicolon:
+            {
+                os << "Key::semicolon";
+                break;
+            }
+            case Key::less_than:
+            {
+                os << "Key::less_than";
+                break;
+            }
+            case Key::equal:
+            {
+                os << "Key::equal";
+                break;
+            }
+            case Key::greater_than:
+            {
+                os << "Key::greater_than";
+                break;
+            }
+            case Key::question_mark:
+            {
+                os << "Key::question_mark";
+                break;
+            }
+            case Key::at:
+            {
+                os << "Key::at";
+                break;
+            }
+            case Key::left_bracket:
+            {
+                os << "Key::left_bracket";
+                break;
+            }
+            case Key::back_slash:
+            {
+                os << "Key::back_slash";
+                break;
+            }
+            case Key::right_bracket:
+            {
+                os << "Key::right_bracket";
+                break;
+            }
+            case Key::caret:
+            {
+                os << "Key::caret";
+                break;
+            }
+            case Key::a:
+            {
+                os << "Key::a";
+                break;
+            }
+            case Key::b:
+            {
+                os << "Key::b";
+                break;
+            }
+            case Key::c:
+            {
+                os << "Key::c";
+                break;
+            }
+            case Key::d:
+            {
+                os << "Key::d";
+                break;
+            }
+            case Key::e:
+            {
+                os << "Key::e";
+                break;
+            }
+            case Key::f:
+            {
+                os << "Key::f";
+                break;
+            }
+            case Key::g:
+            {
+                os << "Key::g";
+                break;
+            }
+            case Key::h:
+            {
+                os << "Key::h";
+                break;
+            }
+            case Key::i:
+            {
+                os << "Key::i";
+                break;
+            }
+            case Key::j:
+            {
+                os << "Key::j";
+                break;
+            }
+            case Key::k:
+            {
+                os << "Key::k";
+                break;
+            }
+            case Key::l:
+            {
+                os << "Key::l";
+                break;
+            }
+            case Key::m:
+            {
+                os << "Key::m";
+                break;
+            }
+            case Key::n:
+            {
+                os << "Key::n";
+                break;
+            }
+            case Key::o:
+            {
+                os << "Key::o";
+                break;
+            }
+            case Key::p:
+            {
+                os << "Key::p";
+                break;
+            }
+            case Key::q:
+            {
+                os << "Key::q";
+                break;
+            }
+            case Key::r:
+            {
+                os << "Key::r";
+                break;
+            }
+            case Key::s:
+            {
+                os << "Key::s";
+                break;
+            }
+            case Key::t:
+            {
+                os << "Key::t";
+                break;
+            }
+            case Key::u:
+            {
+                os << "Key::u";
+                break;
+            }
+            case Key::v:
+            {
+                os << "Key::v";
+                break;
+            }
+            case Key::w:
+            {
+                os << "Key::w";
+                break;
+            }
+            case Key::x:
+            {
+                os << "Key::x";
+                break;
+            }
+            case Key::y:
+            {
+                os << "Key::y";
+                break;
+            }
+            case Key::z:
+            {
+                os << "Key::z";
+                break;
+            }
+            case Key::left_brace:
+            {
+                os << "Key::left_brace";
+                break;
+            }
+            case Key::pipe:
+            {
+                os << "Key::pipe";
+                break;
+            }
+            case Key::right_brace:
+            {
+                os << "Key::right_brace";
+                break;
+            }
+            case Key::tilda:
+            {
+                os << "Key::tilda";
+                break;
+            }
+            case Key::escape:
+            {
+                os << "Key::escape";
+                break;
+            }
+            case Key::up:
+            {
+                os << "Key::up";
+                break;
+            }
+            case Key::right:
+            {
+                os << "Key::right";
+                break;
+            }
+            case Key::down:
+            {
+                os << "Key::down";
+                break;
+            }
+            case Key::left:
+            {
+                os << "Key::left";
+                break;
+            }
+            case Key::backspace:
+            {
+                os << "Key::backspace";
+                break;
+            }
+            case Key::left_shift:
+            {
+                os << "Key::left_shift";
+                break;
+            }
+            case Key::right_shift:
+            {
+                os << "Key::right_shift";
+                break;
+            }
+            case Key::left_alt:
+            {
+                os << "Key::left_alt";
+                break;
+            }
+            case Key::right_alt:
+            {
+                os << "Key::right_alt";
+                break;
+            }
+            case Key::left_control:
+            {
+                os << "Key::left_control";
+                break;
+            }
+            case Key::right_control:
+            {
+                os << "Key::right_control";
+                break;
+            }
+            case Key::caps_lock:
+            {
+                os << "Key::caps_lock";
+                break;
+            }
+            case Key::tab:
+            {
+                os << "Key::tab";
+                break;
+            }
+            case Key::del:
+            {
+                os << "Key::del";
+                break;
+            }
+            case Key::underscore:
+            {
+                os << "Key::underscore";
+                break;
+            }
+            case Key::page_down:
+            {
+                os << "Key::page_down";
+                break;
+            }
+            case Key::page_up:
+            {
+                os << "Key::page_up";
+                break;
+            }
+            case Key::end:
+            {
+                os << "Key::end";
+                break;
+            }
+            default:
+            {
+                os.setstate(std::ios_base::failbit);
+            }
+        }
+        return os;
+    }
 }

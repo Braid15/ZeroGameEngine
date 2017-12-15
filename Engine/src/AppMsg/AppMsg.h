@@ -13,14 +13,11 @@
 
 
 
-// @@TODO: AppMsg needs to take on the responsibliy of deleting instances
-// insteade of AppMsgFactory and AppMsg needs to make it so only AppMsgFactory can
-// create instances.
-// @@TODO: Copyctors for AppMs
+// @@TODO: Copyctors for AppMsg classes
 
-// @@TODO: Need some kind of referencing system since I won't be using share_ptr
-// @@TODO: Who destroys MsgArgs*? AppMsg class or AppMsgArgs* creator? 
 
+// @TODO: I would like to get rid of AppMsgArgs classes because it addes some unneeded complexity,
+//        but as of right now, AppMsg creation depends on it.
 
 namespace ZeroEngine {
 
