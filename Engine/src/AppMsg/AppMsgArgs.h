@@ -178,8 +178,6 @@ namespace ZeroEngine {
     inline std::ostream& operator<<(std::ostream& os, MouseButton button) {
         if (button == MouseButton::null) {
             os << "MouseButton::null";
-        } else if (button == MouseButton::begin) {
-            os << "MouseButton::begin";
         } else if (button == MouseButton::left) {
             os << "MouseButton::left";
         } else if (button == MouseButton::middle) {

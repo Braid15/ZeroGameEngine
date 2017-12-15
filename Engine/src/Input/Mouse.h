@@ -8,21 +8,24 @@
 
 namespace ZeroEngine {
     
-    class IMouseHandler : public IZeroObject {
-        virtual bool on_mouse_move(const int x, const int y, const int radius) = 0;
-        virtual bool on_mouse_move(const float x, const float y, const int radius) = 0;
-        virtual bool on_mouse_move(const Point<float>& pos, const int radius) = 0;
-        virtual bool on_mouse_move(const Point<int>& pos, const int radius) = 0;
-        virtual bool on_button_down(const int x, const int y, const int radius, const MouseButton& button) = 0;
-        virtual bool on_button_down(const float x, const float y, const int radius, const MouseButton& button) = 0;
-        virtual bool on_button_down(const Point<float>& pos, const int radius, const MouseButton& button) = 0;
-        virtual bool on_button_down(const Point<int>& pos, const int radius, const MouseButton& button) = 0;
-        virtual bool on_button_up(const int x, const int y, const int radius, const MouseButton& button) = 0;
-        virtual bool on_button_up(const float x, const float y, const int radius, const MouseButton& button) = 0;
-        virtual bool on_button_up(const Point<float>& pos, const int radius, const MouseButton& button) = 0;
-        virtual bool on_button_up(const Point<int>& pos, const int radius, const MouseButton& button) = 0;
-        virtual StringRepr to_string() const = 0;
+    class IMouseHandler {
+    public:
+        virtual bool on_mouse_move(const Point<int32_t> pos, const int radius) = 0;
+        virtual bool on_button_down(const Point<int32_t> pos, const int radius, const MouseButton& button) = 0;
+        virtual bool on_button_up(const Point<int32_t> pos, const int radius, const MouseButton& button) = 0;
         virtual ~IMouseHandler() {}
+    };
+
+    class NullMouseHandler : public IZeroObject, public IMouseHandler {
+    public:
+        inline NullMouseHandler() {}
+        inline ~NullMouseHandler() {}
+        inline bool on_mouse_move(const Point<int32_t> pos, const int radius) override { return false; }
+        inline bool on_button_down(const Point<int32_t> pos, const int radius, const MouseButton& button)
+            override { return false; }
+        inline bool on_button_up(const Point<int32_t> pos, const int radius, const MouseButton& button)
+            override { return false; }
+        inline StringRepr to_string() const override { return "NullMouseHandler"; }
     };
 
 

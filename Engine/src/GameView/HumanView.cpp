@@ -14,6 +14,8 @@ namespace ZeroEngine {
         _is_full_speed = true;
         _is_paused = false;
         _process_manager = zero_new ProcessManager();
+        _keyboard_handler = std::shared_ptr<IKeyboardHandler>(zero_new NullKeyboardHandler);
+        _mouse_handler = std::shared_ptr<IMouseHandler>(zero_new NullMouseHandler());
 
         // @TODO: Rather this stuff be in an init method
         initialize_audio();
@@ -105,10 +107,35 @@ namespace ZeroEngine {
         }
 
         if (!handled) {
+            assert(_keyboard_handler != nullptr);
+            assert(_mouse_handler != nullptr);
 
-            // @TODO: Send input to input handler
+            if (msg->is_type(KeyboardMsg::type)) {
+                KeyboardMsg::ptr keyboard_msg = KeyboardMsg::cast(msg);
+                // @NOTE: Sending key press instead of key down for now.
+                // Key press does not trigger if it is being held, but just when it is pressed.
+                if (keyboard_msg->is_key_press()) {
+                    handled = _keyboard_handler->on_key_down(keyboard_msg->key().keycode());
+                } else if (keyboard_msg->is_key_up()) {
+                    handled = _keyboard_handler->on_key_up(keyboard_msg->key().keycode());
+                }
+            } else if (msg->is_type(MouseButtonMsg::type)) {
+                MouseButtonMsg::ptr mouse_button = MouseButtonMsg::cast(msg);
+                if (mouse_button->is_button_down()) {
+                    handled = _mouse_handler->on_button_down(mouse_button->get_coordinates(), _mouse_radius,
+                                                             mouse_button->get_button());
+                } else if (mouse_button->is_button_up()) {
+                    handled = _mouse_handler->on_button_up(mouse_button->get_coordinates(), _mouse_radius,
+                                                           mouse_button->get_button());
+                }
+            } else if (msg->is_type(MouseMotionMsg::type)) {
+                MouseMotionMsg::ptr mouse_motion = MouseMotionMsg::cast(msg);
+                handled = _mouse_handler->on_mouse_move(mouse_motion->get_coordinates(), _mouse_radius);
+            }
         }
 
+        // on_msg_proc can be overriden by sub classes if they need another way
+        // to access the msg
         handled = (on_msg_proc(msg, handled) == true) ? true : handled;
 
         return handled;

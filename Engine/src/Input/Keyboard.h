@@ -6,12 +6,20 @@
 
 namespace ZeroEngine {
 
-    class IKeyboardHandler : public IZeroObject {
+    class IKeyboardHandler {
     public:
         virtual bool on_key_down(const Keys& key) = 0;
         virtual bool on_key_up(const Keys& key) = 0;
-        virtual StringRepr to_string() const = 0;
         virtual ~IKeyboardHandler() {}
+    };
+
+    class NullKeyboardHandler : public IZeroObject, public IKeyboardHandler {
+    public:
+        inline NullKeyboardHandler() {}
+        inline ~NullKeyboardHandler() {}
+        inline bool on_key_down(const Keys& key) override { return false; }
+        inline bool on_key_up(const Keys& key) override { return false; }
+        inline StringRepr to_string() const override { return "NullKeyboardHandler"; }
     };
 
 
