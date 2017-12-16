@@ -11,30 +11,30 @@
 #include "../../3rdParty/SDL/SDL_mixer.h"
 #include "../../3rdParty/SDL/SDL_ttf.h"
 #include "SdlMsgTranslator.h"
+#include "SdlRenderer.h"
 
 namespace ZeroEngine {
 
     class SdlMsgTranslator;
 
     class SdlFramework : public AFramework {
-        SDL_Window* _window;
-        SDL_Renderer* _renderer;
+        SDL_Window* _sdl_window;
         SDL_Event _event;
         SdlMsgTranslator* _msg_translator;
 
     public:
-        inline SdlFramework(): _window(nullptr), _renderer(nullptr), _msg_translator(nullptr) {}
+        inline SdlFramework() : _sdl_window(nullptr), _msg_translator(nullptr) {}
         inline ~SdlFramework() { zero_delete(_msg_translator); }
 
     public:
-        IRenderer* create_renderer();
-        IWindow* create_window(std::string title, Point<long> size);
-        bool on_init();
-        bool on_shutdown();
-        void process_input();
-        Tick get_current_time() const;
-        void frame_render_present(Tick delta_time);
-        inline StringRepr to_string() const { return "SdlFramework"; }
+        IRenderer::ptr create_renderer() override;
+        IWindow::ptr create_window(std::string title, Point<int32_t> size) override;
+        bool on_init() override;
+        bool on_shutdown() override;
+        void process_input() override;
+        Tick get_current_time() const override;
+        void frame_render_present(Tick delta_time) override;
+        inline StringRepr to_string() const override { return "SdlFramework"; }
     };
 }
 

@@ -42,7 +42,7 @@ namespace ZeroEngine {
         bool initialize();
         void shutdown();
         inline bool is_running() const { return _is_running; }
-        Point<long> get_screen_size() const;
+        Point<int32_t> get_screen_size() const;
     protected:
         virtual BaseGameLogic* create_game_and_view() = 0;
 

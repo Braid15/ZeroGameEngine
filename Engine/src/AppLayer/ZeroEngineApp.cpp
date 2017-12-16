@@ -67,7 +67,7 @@ namespace ZeroEngine {
         zero_delete(_game_logic);
     }
 
-    Point<long> ZeroEngineApp::get_screen_size() const {
+    Point<int32_t> ZeroEngineApp::get_screen_size() const {
         return _game_options.get_screen_size();
     }
 

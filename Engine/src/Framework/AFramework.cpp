@@ -5,10 +5,14 @@ namespace ZeroEngine {
     AFramework::AFramework() {
         _msg_translator = nullptr; 
         _is_running = false;
+        _window = nullptr;
+        _renderer = nullptr;
     }
 
     AFramework::~AFramework() {
         //zero_delete(_msg_translator);
+        _window = nullptr;
+        _renderer = nullptr;
     }
 
     // @@TODO: Experimenting with main_loop design
@@ -67,8 +71,16 @@ namespace ZeroEngine {
         return _is_running;
     }
 
+    bool AFramework::initialize_window_and_renderer(std::string title, Point<int32_t> size) {
+        _window = create_window(title, size);
+        _renderer = create_renderer();
+        return (_window != nullptr && _renderer != nullptr);
+    }
+
     bool AFramework::shutdown() {
         _is_running = false;
+        _renderer->shutdown();
+        _window->shutdown();
         return on_shutdown();
     }
 

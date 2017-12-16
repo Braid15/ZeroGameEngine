@@ -21,9 +21,7 @@ int main( int argc, char* args[] ) {
     app->initialize();
     ZeroEngineApp::set_app(app);
 
-
-    framework->create_window(app->get_game_title(), app->get_screen_size() );
-    framework->create_renderer();
+    framework->initialize_window_and_renderer(app->get_game_title(), app->get_screen_size());
 
     ZeroEngineApp::instance()->load_game();
 

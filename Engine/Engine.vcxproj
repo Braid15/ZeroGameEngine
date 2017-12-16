@@ -210,6 +210,7 @@
     <ClInclude Include="src\Framework\AFramework.h" />
     <ClInclude Include="src\Framework\IRenderer.h" />
     <ClInclude Include="src\Framework\IWindow.h" />
+    <ClInclude Include="src\Framework\SdlFramework\SdlRenderer.h" />
     <ClInclude Include="src\GameLogic\BaseGameLogic.h" />
     <ClInclude Include="src\GameLogic\GameLogicInclude.h" />
     <ClInclude Include="src\GameLogic\IGameLogic.h" />
@@ -217,6 +218,7 @@
     <ClInclude Include="src\GameView\GameViewInclude.h" />
     <ClInclude Include="src\GameView\IGameView.h" />
     <ClInclude Include="src\GameView\IScreenElement.h" />
+    <ClInclude Include="src\Graphics\Color.h" />
     <ClInclude Include="src\Graphics\Graphics.h" />
     <ClInclude Include="src\Graphics\Point.h" />
     <ClInclude Include="src\Graphics\Rect.h" />
@@ -260,9 +262,11 @@
     <ClCompile Include="src\Framework\Framework.cpp" />
     <ClCompile Include="src\Framework\SdlFramework\SdlFramework.cpp" />
     <ClCompile Include="src\Framework\SdlFramework\SdlMsgTranslator.cpp" />
+    <ClCompile Include="src\Framework\SdlFramework\SdlRenderer.cpp" />
     <ClCompile Include="src\GameLogic\BaseGameLogic.cpp" />
     <ClCompile Include="src\GameView\HumanView.cpp" />
     <ClCompile Include="src\GameView\IGameView.cpp" />
+    <ClCompile Include="src\Graphics\Color.cpp" />
     <ClCompile Include="src\Graphics\Point.cpp" />
     <ClCompile Include="src\Graphics\Rect.cpp" />
     <ClCompile Include="src\Input\Keyboard.cpp" />

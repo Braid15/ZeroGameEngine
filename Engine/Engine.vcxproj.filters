@@ -222,6 +222,12 @@
     <ClInclude Include="src\ZeroEngineProcesses.h">
       <Filter>Source</Filter>
     </ClInclude>
+    <ClInclude Include="src\Graphics\Color.h">
+      <Filter>Source\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\SdlFramework\SdlRenderer.h">
+      <Filter>Source\Framework\SdlFramework</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Logger\BaseLogger.cpp">
@@ -319,6 +325,12 @@
     </ClCompile>
     <ClCompile Include="src\ZeroEngineProcesses.cpp">
       <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Graphics\Color.cpp">
+      <Filter>Source\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\SdlFramework\SdlRenderer.cpp">
+      <Filter>Source\Framework\SdlFramework</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
