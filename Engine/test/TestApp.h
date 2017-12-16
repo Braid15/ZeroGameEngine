@@ -44,23 +44,6 @@ namespace ZeroEngineAppTest {
         }
     };
 
-
-    class LineScreenElement : public BaseScreenElement {
-    private:
-        Point<int32_t> _from;
-        Point<int32_t> _to;
-        Color _color;
-    public:
-        inline LineScreenElement(Point<int32_t> from, Point<int32_t> to, Color color) 
-            : _from(from), _to(to), _color(color) {}
-        inline StringRepr to_string() const { return "LineScreenElement"; }
-
-        inline bool render(Tick delta_time) override {
-            ZeroFramework::get_renderer()->draw_line(_from, _to, _color);
-            return true;
-        }
-    };
-
     class TestGameLogic : public BaseGameLogic {
     public:
         inline StringRepr to_string() const override { return "TestGameLogic"; }
@@ -100,7 +83,12 @@ namespace ZeroEngineAppTest {
         inline ~TestMovementController() {}
 
         inline bool on_key_down(const Key& key) override {
-            return false;
+            if (key == Key::enter) {
+                pen.set_color(Colors::blue());
+            } else if (key == Key::space) {
+                pen.set_color(Colors::green());
+            }
+            return true;
         }
 
         inline bool on_key_up(const Key& key) override {

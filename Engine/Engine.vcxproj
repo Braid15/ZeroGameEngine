@@ -242,6 +242,7 @@
     <ClInclude Include="src\ZeroEngine.h" />
     <ClInclude Include="src\ZeroEngineEvents.h" />
     <ClInclude Include="src\ZeroEngineProcesses.h" />
+    <ClInclude Include="src\ZeroEngineScreenElements.h" />
     <ClInclude Include="src\ZeroEngineStd.h" />
     <ClInclude Include="test\TestApp.h" />
   </ItemGroup>
@@ -267,6 +268,7 @@
     <ClCompile Include="src\GameLogic\BaseGameLogic.cpp" />
     <ClCompile Include="src\GameView\HumanView.cpp" />
     <ClCompile Include="src\GameView\IGameView.cpp" />
+    <ClCompile Include="src\GameView\IScreenElement.cpp" />
     <ClCompile Include="src\Graphics\Color.cpp" />
     <ClCompile Include="src\Graphics\Point.cpp" />
     <ClCompile Include="src\Graphics\Rect.cpp" />
@@ -280,6 +282,7 @@
     <ClCompile Include="src\Utils\MemoryPool.cpp" />
     <ClCompile Include="src\ZeroEngineEvents.cpp" />
     <ClCompile Include="src\ZeroEngineProcesses.cpp" />
+    <ClCompile Include="src\ZeroEngineScreenElements.cpp" />
     <ClCompile Include="test\TestApp.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

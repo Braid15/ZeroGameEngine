@@ -12,3 +12,4 @@
 #include "ZeroEngineProcesses.h"
 #include "GameLogic\GameLogicInclude.h"
 #include "GameView\GameViewInclude.h"
+#include "ZeroEngineScreenElements.h"
