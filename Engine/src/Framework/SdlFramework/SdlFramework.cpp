@@ -57,10 +57,6 @@ namespace ZeroEngine {
         }
     }
 
-    void SdlFramework::frame_render_present(Tick delta_time) {
-        _render_callback(delta_time);
-    }
-
     // @@TODO: May change this to protected get_current_framework_time() 
     // and have AFramework have a public get_current_time() so that I have
     // more control over the time
@@ -82,7 +78,7 @@ namespace ZeroEngine {
         return IWindow::ptr(zero_new NullWindow());
     }
 
-    IRenderer::ptr SdlFramework::create_renderer() {
-        return IRenderer::ptr(zero_new SdlRenderer(_sdl_window));
+    BaseRenderer::ptr SdlFramework::create_renderer() {
+        return BaseRenderer::ptr(zero_new SdlRenderer(_sdl_window));
     }
 }

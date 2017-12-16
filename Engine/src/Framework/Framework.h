@@ -20,6 +20,7 @@ namespace ZeroEngine {
     public:
         ~ZeroFramework() {}
         static Tick get_ticks();
+        static IRenderer::ptr get_renderer();
         static StringRepr to_string();
         static void set_framework(const AFramework*);
     private:

@@ -21,6 +21,7 @@ namespace ZeroEngine {
         ProcessManager* _process_manager;
         BaseGameState _current_state;
         GameViewList _game_views;
+        HumanView::ptr _human_view;
         bool _render_diagnostics;
         bool _is_proxy;
         int _human_players_attached;
@@ -51,6 +52,7 @@ namespace ZeroEngine {
         inline IPhysicsPtr get_physics() const { return _physics; }
     protected:
         inline const ProcessManager& get_process_manager() const { return *_process_manager; }
+        inline void attach_process(Process::ptr process) const { _process_manager->attach_process(process); }
         inline int get_human_players_attached() const { return _human_players_attached; }
         inline int get_ai_players_attached() const { return _ai_players_attached; }
         inline int get_human_games_loaded() const { return _human_games_loaded; }

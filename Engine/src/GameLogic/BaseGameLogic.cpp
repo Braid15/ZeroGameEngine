@@ -13,6 +13,7 @@ namespace ZeroEngine {
         _human_players_attached = 0;
         _ai_players_attached = 0;
         _human_games_loaded = 0;
+        _human_view = HumanView::ptr();
     }
 
     BaseGameLogic::~BaseGameLogic() {

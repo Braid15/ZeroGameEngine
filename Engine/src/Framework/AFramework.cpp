@@ -6,7 +6,7 @@ namespace ZeroEngine {
         _msg_translator = nullptr; 
         _is_running = false;
         _window = nullptr;
-        _renderer = nullptr;
+        _renderer = BaseRenderer::ptr(zero_new NullRenderer());
     }
 
     AFramework::~AFramework() {
@@ -37,9 +37,9 @@ namespace ZeroEngine {
             // }
             _update_callback(delta_time);
 
-            frame_render_begin(delta_time);
-            frame_render_present(delta_time);
-            frame_render_end(delta_time);
+            _render_callback(delta_time);
+
+            _renderer->render_present();
         }
     }
 

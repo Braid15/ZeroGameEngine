@@ -115,5 +115,24 @@ namespace ZeroEngine {
         assert(data_ptr->is_type(type));
         return std::static_pointer_cast<AttachProcessEvent>(data_ptr);
     }
+
+    //
+    // DrawLineEvent
+    //
+
+    const EventType DrawLineEvent::type = 0xd78aad3d;
+
+    IEventDataPtr DrawLineEvent::copy() const {
+        return IEventDataPtr(zero_new DrawLineEvent(_from, _to, _color));
+    }
+
+    DrawLineEvent::ptr DrawLineEvent::create(Point<int32_t> from, Point<int32_t> to, Color color) {
+        return DrawLineEvent::ptr(zero_new DrawLineEvent(from, to, color));
+    }
+
+    DrawLineEvent::ptr DrawLineEvent::cast(IEventDataPtr data_ptr) {
+        assert(data_ptr->is_type(type));
+        return std::static_pointer_cast<DrawLineEvent>(data_ptr);
+    }
 }
 

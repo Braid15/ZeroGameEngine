@@ -21,4 +21,9 @@ namespace ZeroEngine {
             std::cout << "Framework is alread set. ZeroFramework::set_framework\n";
         }
     }
+
+    IRenderer::ptr ZeroFramework::get_renderer() {
+        assert(_framework != nullptr);
+        return _framework->get_renderer();
+    }
 }

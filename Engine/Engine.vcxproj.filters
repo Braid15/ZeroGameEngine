@@ -332,5 +332,8 @@
     <ClCompile Include="src\Framework\SdlFramework\SdlRenderer.cpp">
       <Filter>Source\Framework\SdlFramework</Filter>
     </ClCompile>
+    <ClCompile Include="src\Framework\IRenderer.cpp">
+      <Filter>Source\Framework</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

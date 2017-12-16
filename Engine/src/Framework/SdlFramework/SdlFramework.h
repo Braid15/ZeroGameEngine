@@ -27,13 +27,12 @@ namespace ZeroEngine {
         inline ~SdlFramework() { zero_delete(_msg_translator); }
 
     public:
-        IRenderer::ptr create_renderer() override;
+        BaseRenderer::ptr create_renderer() override;
         IWindow::ptr create_window(std::string title, Point<int32_t> size) override;
         bool on_init() override;
         bool on_shutdown() override;
         void process_input() override;
         Tick get_current_time() const override;
-        void frame_render_present(Tick delta_time) override;
         inline StringRepr to_string() const override { return "SdlFramework"; }
     };
 }

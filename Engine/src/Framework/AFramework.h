@@ -27,24 +27,23 @@ namespace ZeroEngine {
         inline void set_update_callback(void (*callback)(Tick)) { _update_callback = callback; }
         inline void set_render_callback(void (*callback)(Tick)) { _render_callback = callback; }
         inline void set_app_msg_callback(bool (*callback)(AppMsg::ptr)) { _app_msg_callback = callback; }
+        // Important that this returns IRenderer and not BaseRenderer since BaseRenderer's public interface
+        // is only meant for AFramework
         inline IRenderer::ptr get_renderer() const { return _renderer; }
     protected:
         AFramework();
         void set_app_msg_translator(IMsgTranslator*);
         virtual void process_input() = 0;
         void dispatch_message();
-        inline virtual void frame_render_begin(Tick delta_time) { _renderer->pre_render(); }
-        virtual void frame_render_present(Tick delta_time) = 0;
-        inline virtual void frame_render_end(Tick delta_time) { _renderer->post_render(); }
         virtual bool on_init() = 0;
         virtual bool on_shutdown() = 0;
-        virtual IRenderer::ptr create_renderer() = 0;
+        virtual BaseRenderer::ptr create_renderer() = 0;
         virtual IWindow::ptr create_window(std::string title, Point<int32_t> size) = 0;
     private:
         bool _is_running;
         AppMsgFactory* _msg_factory;
         IMsgTranslator* _msg_translator;
-        IRenderer::ptr _renderer;
+        BaseRenderer::ptr _renderer;
         IWindow::ptr _window;
 
     //private:
@@ -55,4 +54,3 @@ namespace ZeroEngine {
         bool (*_app_msg_callback)(AppMsg::ptr msg);
     };
 }
-

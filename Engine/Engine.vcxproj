@@ -260,6 +260,7 @@
     <ClCompile Include="src\Events\Events.cpp" />
     <ClCompile Include="src\Framework\AFramework.cpp" />
     <ClCompile Include="src\Framework\Framework.cpp" />
+    <ClCompile Include="src\Framework\IRenderer.cpp" />
     <ClCompile Include="src\Framework\SdlFramework\SdlFramework.cpp" />
     <ClCompile Include="src\Framework\SdlFramework\SdlMsgTranslator.cpp" />
     <ClCompile Include="src\Framework\SdlFramework\SdlRenderer.cpp" />

@@ -11,70 +11,122 @@ namespace ZeroEngineAppTest {
     class TestGameLogic;
     class TestGameView;
 
-    class MockZeroEngineApp : public ZeroEngineApp {
-
+    class MockZeroEngineApp : public GameApp {
     public:
-        MockZeroEngineApp(GameOptions& options) : ZeroEngineApp(options) {}
+        MockZeroEngineApp(GameOptions& options) : GameApp(options) {}
         inline ~MockZeroEngineApp() {}
         const std::string get_game_title() override { return "Test App"; }
         const std::string get_game_app_directory() override { return "idk"; }
     protected:
         BaseGameLogic* create_game_and_view() override;
+    };
 
+
+
+    class Pen {
+    private:
+        Color _color;
+        bool _drawing;
+        Point<int32_t> _start;
+        Point<int32_t> _end;
+
+    public:
+        Pen() : _color(Colors::white()), _drawing(false) {}
+        void set_color(Color color) { _color = color; }
+
+        void draw_start(Point<int32_t> start) {
+            _start = start;
+        }
+
+        void draw_end(Point<int32_t> end) {
+            _end = end;
+            ZeroEventManager::queue_event(DrawLineEvent::create(_start, _end, _color));
+        }
+    };
+
+
+    class LineScreenElement : public BaseScreenElement {
+    private:
+        Point<int32_t> _from;
+        Point<int32_t> _to;
+        Color _color;
+    public:
+        inline LineScreenElement(Point<int32_t> from, Point<int32_t> to, Color color) 
+            : _from(from), _to(to), _color(color) {}
+        inline StringRepr to_string() const { return "LineScreenElement"; }
+
+        inline bool render(Tick delta_time) override {
+            ZeroFramework::get_renderer()->draw_line(_from, _to, _color);
+            return true;
+        }
     };
 
     class TestGameLogic : public BaseGameLogic {
     public:
         inline StringRepr to_string() const override { return "TestGameLogic"; }
     protected:
-        inline void on_register_event_delegates() override;
-        inline void on_unregister_event_delegates() override;
+        inline void TestGameLogic::on_register_event_delegates() {
+            ZeroEventManager::register_listener(
+                fastdelegate::MakeDelegate(this, &TestGameLogic::attach_process_event_delegate),
+                AttachProcessEvent::type);
 
+            ZeroEventManager::register_listener(
+                fastdelegate::MakeDelegate(this, &TestGameLogic::draw_line_event),
+                DrawLineEvent::type);
+        }
+
+        inline void TestGameLogic::on_unregister_event_delegates() {
+            ZeroEventManager::unregister_listener(
+                fastdelegate::MakeDelegate(this, &TestGameLogic::attach_process_event_delegate),
+                AttachProcessEvent::type);
+
+            ZeroEventManager::unregister_listener(
+                fastdelegate::MakeDelegate(this, &TestGameLogic::draw_line_event),
+                DrawLineEvent::type);
+        }
+
+        inline void draw_line_event(IEventDataPtr event_data) {
+            DrawLineEvent::ptr data = DrawLineEvent::cast(event_data);
+            GameApp::instance()->get_human_view()->add_screen_element(IScreenElement::ptr(zero_new LineScreenElement(
+                    data->get_from_point(), data->get_to_point(), data->get_color())));
+        }
     };
 
-    inline void TestGameLogic::on_register_event_delegates() {
-        ZeroEventManager::register_listener(
-            fastdelegate::MakeDelegate(this, &TestGameLogic::attach_process_event_delegate),
-            AttachProcessEvent::type);
-    }
-
-    inline void TestGameLogic::on_unregister_event_delegates() {
-        ZeroEventManager::unregister_listener(
-            fastdelegate::MakeDelegate(this, &TestGameLogic::attach_process_event_delegate),
-            AttachProcessEvent::type);
-    }
-
-
     class TestMovementController : public IMouseHandler, public IKeyboardHandler {
+    private:
+        Pen pen;
     public:
         inline TestMovementController() {}
         inline ~TestMovementController() {}
 
         inline bool on_key_down(const Key& key) override {
-            std::cout << "on_key_down() - " << key << "\n";
             return false;
         }
 
         inline bool on_key_up(const Key& key) override {
-            std::cout << "on_key_up() - " << key << "\n";
             return false;
         }
 
         inline bool on_mouse_move(const Point<int32_t> pos, const int radius) override {
-            std::cout << "on_mouse_move() - " << pos << "\n";
             return false;
         }
 
         inline bool on_button_down(const Point<int32_t> pos, const int radius, const MouseButton& button) override {
-            std::cout << "on_button_down() - " << pos << " " << button << "\n";
-            return false;
+            // In actuality there should be draw start and draw end events which will be handled by the game logic
+            if (button == MouseButton::left) {
+                pen.draw_start(pos);
+            }
+            return true;
         }
 
         inline bool on_button_up(const Point<int32_t> pos, const int radius, const MouseButton& button) override {
-            std::cout << "on_button_up() - " << pos << " " << button << "\n";
-            return false;
+            if (button == MouseButton::left) {
+                pen.draw_end(pos);
+            }
+            return true;
         }
     };
+
 
     class TestGameView : public HumanView {
         std::shared_ptr<TestMovementController> _controller;
@@ -82,29 +134,13 @@ namespace ZeroEngineAppTest {
         explicit TestGameView(IRenderer::ptr renderer) : HumanView(renderer) {}
         inline StringRepr to_string() const override { return "TestGameView"; }
     protected:
-
         inline bool on_load_game() override {
             _controller = std::shared_ptr<TestMovementController>(zero_new TestMovementController());
             set_keyboard_handler(_controller);
             set_mouse_handler(_controller);
             return true;
         }
-
-        inline bool on_msg_proc(AppMsg::ptr msg, bool handled) override {
-            /*
-            if (msg->is_type(KeyboardMsg::type)) {
-                KeyboardMsg::ptr key = KeyboardMsg::cast(msg);
-                if (key->is_key_press(Keys::enter)) {
-                    ZeroEventManager::queue_event(AttachProcessEvent::create(TimedProcess::ptr(zero_new TimedProcess(4000))));
-                    return true;
-                }
-            }
-            */
-            return false;
-        }
     };
-
-
 }
 
 #endif

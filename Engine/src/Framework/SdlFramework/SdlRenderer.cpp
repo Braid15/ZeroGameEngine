@@ -3,25 +3,11 @@
 namespace ZeroEngine {
 
     SdlRenderer::SdlRenderer(SDL_Window* window) {
-        _background_color = Colors::black();
+        set_background_color(Colors::black());
         _sdl_renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
         if (!_sdl_renderer) {
             std::cout << "SDL_Error: " << SDL_GetError() << "\n";
         }
-    }
-
-    void SdlRenderer::set_background_color(uint32_t red, uint32_t green, uint32_t blue, uint32_t alpha) {
-        _background_color.set_red(red);
-        _background_color.set_green(green);
-        _background_color.set_blue(blue);
-        _background_color.set_alpha(alpha);
-    }
-
-    void SdlRenderer::set_background_color(const Color& color) {
-        _background_color.set_red(color.get_red());
-        _background_color.set_green(color.get_green());
-        _background_color.set_blue(color.get_blue());
-        _background_color.set_alpha(color.get_alpha());
     }
 
     void SdlRenderer::shutdown() {
@@ -36,9 +22,9 @@ namespace ZeroEngine {
 
     bool SdlRenderer::pre_render() {
         bool success = true;
-        SDL_SetRenderDrawColor(_sdl_renderer, _background_color.get_red(),
-                               _background_color.get_green(), _background_color.get_blue(),
-                               _background_color.get_alpha());
+        SDL_SetRenderDrawColor(_sdl_renderer, get_background_color().get_red(),
+                               get_background_color().get_green(), get_background_color().get_blue(),
+                               get_background_color().get_alpha());
         SDL_RenderClear(_sdl_renderer);
         return success;
     }
@@ -46,12 +32,17 @@ namespace ZeroEngine {
     bool SdlRenderer::post_render() {
         bool success = true;
         // @TEMP
-        SDL_RenderPresent(_sdl_renderer);
         return success;
     }
 
-    void SdlRenderer::draw_line(const Point<float_t>& from, const Point<float_t>& to, const Color& color) {
+    void SdlRenderer::draw_line(const Point<int32_t>& from, const Point<int32_t>& to, const Color& color) {
+        SDL_SetRenderDrawColor(_sdl_renderer, color.get_red(), color.get_green(), color.get_blue(),
+                               color.get_alpha());
+        SDL_RenderDrawLine(_sdl_renderer, from.get_x(), from.get_y(), to.get_x(), to.get_y());
+    }
 
+    void SdlRenderer::render_present() {
+        SDL_RenderPresent(_sdl_renderer);
     }
 
 }

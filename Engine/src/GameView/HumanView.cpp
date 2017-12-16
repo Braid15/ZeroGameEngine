@@ -5,6 +5,8 @@ namespace ZeroEngine {
     // @@TEMP
     const unsigned int REFRESH_RATE(1000 / 60);
 
+    const uint32_t INVALID_PLAYER_NUMBER = 0;
+
     HumanView::HumanView(IRenderer::ptr renderer) {
         _renderer = renderer;
         _view_id = INVALID_GAME_VIEW_ID;
@@ -16,6 +18,7 @@ namespace ZeroEngine {
         _process_manager = zero_new ProcessManager();
         _keyboard_handler = std::shared_ptr<IKeyboardHandler>(zero_new NullKeyboardHandler);
         _mouse_handler = std::shared_ptr<IMouseHandler>(zero_new NullMouseHandler());
+        _player_number = INVALID_PLAYER_NUMBER;
 
         // @TODO: Rather this stuff be in an init method
         initialize_audio();

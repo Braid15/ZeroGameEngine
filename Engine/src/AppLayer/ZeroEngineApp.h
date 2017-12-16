@@ -14,31 +14,33 @@
 
 namespace ZeroEngine {
 
+    // @TODO: Rename this file to GameApp instead of ZeroEngineApp
 
-    class ZeroEngineApp : public IZeroObject {
+    class GameApp : public IZeroObject {
     private:
         bool _is_running;
         std::string _save_game_directory;
-        static ZeroEngineApp* _app;
+        static GameApp* _app;
         BaseGameLogic* _game_logic;
     public:
         virtual const std::string get_game_title() = 0;
         virtual const std::string get_game_app_directory() = 0;
 
-        ZeroEngineApp();
+        GameApp();
         static bool app_msg_proc(AppMsg::ptr msg);
         static void update(Tick time);
         static void render(Tick time);
 
         virtual bool load_game();
         inline BaseGameLogic* get_game_logic() const { return _game_logic; }
+        HumanView::ptr get_human_view(uint32_t player_number=INVALID_PLAYER_NUMBER);
 
         // TODO: 10/4/17 - using this instead of global pointer for now.
         // we will see how it works
-        static ZeroEngineApp* const instance();
-        static void set_app(ZeroEngineApp* app);
+        static GameApp* const instance();
+        static void set_app(GameApp* app);
         virtual StringRepr to_string() const override { return "ZeroEngineApp"; }
-        virtual ~ZeroEngineApp();
+        virtual ~GameApp();
         bool initialize();
         void shutdown();
         inline bool is_running() const { return _is_running; }
@@ -48,7 +50,7 @@ namespace ZeroEngine {
 
         inline virtual void register_game_events() {};
         GameOptions _game_options;
-        ZeroEngineApp( GameOptions& );
+        GameApp( GameOptions& );
         void set_is_running( bool running );
         void set_save_game_directory( std::string dir );
     private:
