@@ -2,8 +2,10 @@
 
 #include "../ZeroEngineStd.h"
 #include "EventData.h"
+#include "../AppLayer/Game.h"
 
 namespace ZeroEngine {
+
   class BaseEventData : public IEventData {
     private:
         const Tick _timestamp;
@@ -16,6 +18,6 @@ namespace ZeroEngine {
         inline virtual void serialize(IEventDataStream out) const override {}
         inline const Tick& get_timestamp() const override { return _timestamp; }
     protected:
-        inline explicit BaseEventData(const Tick timestamp=0/*GameApp::instance()->get_ticks()*/) : _timestamp(timestamp) {};
+        inline explicit BaseEventData(const Tick timestamp=Game::get_ticks()) : _timestamp(timestamp) {};
     };
 }

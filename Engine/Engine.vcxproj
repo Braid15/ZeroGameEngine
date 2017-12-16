@@ -247,6 +247,7 @@
     <ClInclude Include="src\ZeroEngineScreenElements.h" />
     <ClInclude Include="src\ZeroEngineStd.h" />
     <ClInclude Include="test\TestApp.h" />
+    <ClInclude Include="src\TEST.h" /> 
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\AppLayer\Game.cpp" />
