@@ -247,7 +247,6 @@
     <ClInclude Include="src\ZeroEngineScreenElements.h" />
     <ClInclude Include="src\ZeroEngineStd.h" />
     <ClInclude Include="test\TestApp.h" />
-    <ClInclude Include="src\TEST.h" /> 
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\AppLayer\Game.cpp" />
@@ -288,6 +287,9 @@
     <ClCompile Include="src\ZeroEngineProcesses.cpp" />
     <ClCompile Include="src\ZeroEngineScreenElements.cpp" />
     <ClCompile Include="test\TestApp.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\mh.py" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

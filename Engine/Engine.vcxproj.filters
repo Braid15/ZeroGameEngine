@@ -354,4 +354,7 @@
       <Filter>Source\Events</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="src\mh.py" />
+  </ItemGroup>
 </Project>
