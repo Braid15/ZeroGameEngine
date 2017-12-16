@@ -6,8 +6,6 @@
 
 namespace ZeroEngine {
 
-    const EntityId INVALID_ENTITY_ID = 0;
-
     class EntityFactory : public IZeroObject {
     private:
         EntityId _last_id;

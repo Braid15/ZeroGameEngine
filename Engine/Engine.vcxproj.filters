@@ -43,6 +43,18 @@
     <Filter Include="Source\Math">
       <UniqueIdentifier>{6d2f1a30-9b30-4ee1-853c-7c843289f1de}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\GameView">
+      <UniqueIdentifier>{96ae3056-8cbd-4666-a303-65e405c53893}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\GameLogic">
+      <UniqueIdentifier>{a796badd-c5f4-4b77-bc71-a5270669dabc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Physics">
+      <UniqueIdentifier>{0800bfdd-410a-476b-ad09-f4237c7ba8ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Process">
+      <UniqueIdentifier>{87dbbe3d-6885-49c8-a470-fce3b11298eb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ZeroEngine.h">
@@ -159,6 +171,63 @@
     <ClInclude Include="src\Input\Input.h">
       <Filter>Source\Input</Filter>
     </ClInclude>
+    <ClInclude Include="src\GameView\IGameView.h">
+      <Filter>Source\GameView</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameView\IScreenElement.h">
+      <Filter>Source\GameView</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLogic\IGameLogic.h">
+      <Filter>Source\GameLogic</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Input\Gamepad.h">
+      <Filter>Source\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Input\Joystick.h">
+      <Filter>Source\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLogic\BaseGameLogic.h">
+      <Filter>Source\GameLogic</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physics\IPhysics.h">
+      <Filter>Source\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physics\Physics.h">
+      <Filter>Source\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\IEntityManager.h">
+      <Filter>Source\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\BaseEntityManager.h">
+      <Filter>Source\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameView\HumanView.h">
+      <Filter>Source\GameView</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ZeroEngineEvents.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLogic\GameLogicInclude.h">
+      <Filter>Source\GameLogic</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameView\GameViewInclude.h">
+      <Filter>Source\GameView</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Process\ProcessManager.h">
+      <Filter>Source\Process</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Process\Process.h">
+      <Filter>Source\Process</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ZeroEngineProcesses.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\Color.h">
+      <Filter>Source\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\SdlFramework\SdlRenderer.h">
+      <Filter>Source\Framework\SdlFramework</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Logger\BaseLogger.cpp">
@@ -232,6 +301,39 @@
     </ClCompile>
     <ClCompile Include="src\Entity\EntityComponent.cpp">
       <Filter>Source\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLogic\BaseGameLogic.cpp">
+      <Filter>Source\GameLogic</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\BaseEntityManager.cpp">
+      <Filter>Source\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameView\HumanView.cpp">
+      <Filter>Source\GameView</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ZeroEngineEvents.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameView\IGameView.cpp">
+      <Filter>Source\GameView</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Process\Process.cpp">
+      <Filter>Source\Process</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Process\ProcessManager.cpp">
+      <Filter>Source\Process</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ZeroEngineProcesses.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Graphics\Color.cpp">
+      <Filter>Source\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\SdlFramework\SdlRenderer.cpp">
+      <Filter>Source\Framework\SdlFramework</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\IRenderer.cpp">
+      <Filter>Source\Framework</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

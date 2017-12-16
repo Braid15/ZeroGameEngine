@@ -10,25 +10,25 @@ int main( int argc, char* args[] ) {
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
     #endif
 
-    AFramework* framework = nullptr; 
-    framework = zero_new SdlFramework();
-    framework->initialize();
-    ZeroFramework::set_framework(framework);
 
     // @@TODO: Load gameoptions from file
     GameOptions options;
-    ZeroEngineApp* app = zero_new ZeroEngineAppTest::MockZeroEngineApp(options);
+    GameApp* app = zero_new ZeroEngineAppTest::MockZeroEngineApp(options);
+
+    AFramework* framework = nullptr; 
+    framework = zero_new SdlFramework();
+    framework->initialize();
+    framework->initialize_window_and_renderer(app->get_game_title(), app->get_screen_size());
+    ZeroFramework::set_framework(framework);
+
     app->initialize();
-    ZeroEngineApp::set_app(app);
+    GameApp::set_app(app);
 
+    GameApp::instance()->load_game();
 
-    framework->create_window(app->get_game_title(), app->get_screen_size() );
-    framework->create_renderer();
-
-
-    framework->set_app_msg_callback(ZeroEngineApp::app_msg_proc);
-    framework->set_update_callback(ZeroEngineApp::update);
-    framework->set_render_callback(ZeroEngineApp::render);
+    framework->set_app_msg_callback(GameApp::app_msg_proc);
+    framework->set_update_callback(GameApp::update);
+    framework->set_render_callback(GameApp::render);
     framework->run_main_loop();
 
     app->shutdown();

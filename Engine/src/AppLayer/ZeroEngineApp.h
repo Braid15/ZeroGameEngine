@@ -9,70 +9,52 @@
 #include "../Input/Mouse.h"
 #include "GameOptions.h"
 #include "../Events/Events.h"
+#include "../GameLogic/GameLogicInclude.h"
+#include "../GameView/GameViewInclude.h"
 
 namespace ZeroEngine {
 
+    // @TODO: Rename this file to GameApp instead of ZeroEngineApp
 
-    class ZeroEngineApp : public IZeroObject {
+    class GameApp : public IZeroObject {
+    private:
         bool _is_running;
         std::string _save_game_directory;
-        static ZeroEngineApp* _app;
-
-    /* abstract interface */
+        static GameApp* _app;
+        BaseGameLogic* _game_logic;
     public:
         virtual const std::string get_game_title() = 0;
         virtual const std::string get_game_app_directory() = 0;
-        virtual bool load_game() = 0;
 
-    protected:
-        virtual void register_game_events() = 0;
-        virtual void quit_event_delegate(IEventDataPtr event_data);
+        GameApp();
+        static bool app_msg_proc(AppMsg::ptr msg);
+        static void update(Tick time);
+        static void render(Tick time);
 
-    public:
-        // @@TODO: THis might cause problems. How will derived class override?
-        static bool app_msg_proc(const AppMsg* const msg);
-        static void update(Ticks time);
-        static void render(Ticks time);
+        virtual bool load_game();
+        inline BaseGameLogic* get_game_logic() const { return _game_logic; }
+        HumanView::ptr get_human_view(uint32_t player_number=INVALID_PLAYER_NUMBER);
 
         // TODO: 10/4/17 - using this instead of global pointer for now.
         // we will see how it works
-        static ZeroEngineApp* const instance();
-        static void set_app(ZeroEngineApp* app);
-
-    public:
-        virtual ~ZeroEngineApp();
-
-    /* methods */
-    public:
+        static GameApp* const instance();
+        static void set_app(GameApp* app);
+        virtual StringRepr to_string() const override { return "ZeroEngineApp"; }
+        virtual ~GameApp();
         bool initialize();
         void shutdown();
-        inline virtual bool on_msg_proc(const AppMsg* const msg) { return true; }
-        inline virtual void on_update(Ticks time) {}
-        inline virtual void on_render(Ticks time) {}
-
-
-    /* getters/setters */
-    public:
-        Point<long> get_screen_size() const;
-        bool is_running() const;
-        
+        inline bool is_running() const { return _is_running; }
+        Point<int32_t> get_screen_size() const;
     protected:
+        virtual BaseGameLogic* create_game_and_view() = 0;
+
+        inline virtual void register_game_events() {};
         GameOptions _game_options;
-        ZeroEngineApp( GameOptions& );
-
-    /* Protected Methods */
-    protected:
+        GameApp( GameOptions& );
         void set_is_running( bool running );
         void set_save_game_directory( std::string dir );
-
     private:
-        inline ZeroEngineApp() {}
         void register_engine_events();
-
-
-    /* IZeroObject */
-    public:
-        virtual StringRepr to_string() const override { return "ZeroEngineApp"; }
     };
 
 }

@@ -2,6 +2,9 @@
 
 namespace ZeroEngine {
 
+    const EntityId INVALID_ENTITY_ID = 0;
+
+
     Entity::Entity(EntityId id) {
         _id = id;
         _name = "Entity_" + std::to_string(_id); 
@@ -37,7 +40,7 @@ namespace ZeroEngine {
     }
 
     void Entity::post_initialize() {
-        for (ComponentMap::iterator it = _components.begin(); it != _components.end(); ++it) {
+        for (EntityComponentMap::iterator it = _components.begin(); it != _components.end(); ++it) {
             it->second->post_initialize();
         }
     }
@@ -46,14 +49,14 @@ namespace ZeroEngine {
         _components.clear();
     }
 
-    void Entity::update(double delta_time) {
-        for (ComponentMap::iterator it = _components.begin(); it != _components.end(); ++it) {
+    void Entity::update(Tick delta_time) {
+        for (EntityComponentMap::iterator it = _components.begin(); it != _components.end(); ++it) {
             it->second->update(delta_time);
         }
     }
 
-    void Entity::add_component(std::shared_ptr<EntityComponent> component) {
-        std::pair<ComponentMap::iterator, bool> success = _components.insert(std::make_pair(component->get_id(), component));
+    void Entity::add_component(EntityComponentPtr component) {
+        std::pair<EntityComponentMap::iterator, bool> success = _components.insert(std::make_pair(component->get_id(), component));
         std::cout << "Component added to " << to_string() << ": " << ((success.second == true) ? "true." : "false.");
     }
 }

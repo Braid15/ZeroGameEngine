@@ -2,34 +2,34 @@
 
 namespace ZeroEngine {
 
-    static Keys sdl_keysym_to_keycode_conversion(SDL_Keysym);
+    static Key sdl_keysym_to_keycode_conversion(SDL_Keysym);
 
     const AppMsg* const SdlMsgTranslator::get_translated_message() {
         uint32_t time = _sdl_event.common.timestamp;
         switch (_sdl_event.type) {
             case SDL_QUIT:
-                return _factory->create_message(AppMsg::quit, zero_new EmptyMsgArgs(time));
+                return _factory->create_message(AppMsgType::quit, zero_new EmptyMsgArgs(time));
             case SDL_APP_TERMINATING:
-                return _factory->create_message(AppMsg::unhandled, zero_new EmptyMsgArgs(time));
+                return _factory->create_message(AppMsgType::unhandled, zero_new EmptyMsgArgs(time));
             case SDL_APP_LOWMEMORY:
-                return _factory->create_message(AppMsg::unhandled, zero_new EmptyMsgArgs(time));
+                return _factory->create_message(AppMsgType::unhandled, zero_new EmptyMsgArgs(time));
             case SDL_APP_WILLENTERBACKGROUND:
-                return _factory->create_message(AppMsg::unhandled, zero_new EmptyMsgArgs(time));
+                return _factory->create_message(AppMsgType::unhandled, zero_new EmptyMsgArgs(time));
             case SDL_APP_DIDENTERBACKGROUND:
-                return _factory->create_message(AppMsg::unhandled, zero_new EmptyMsgArgs(time));
+                return _factory->create_message(AppMsgType::unhandled, zero_new EmptyMsgArgs(time));
             case SDL_APP_WILLENTERFOREGROUND:
-                return _factory->create_message(AppMsg::unhandled, zero_new EmptyMsgArgs(time));
+                return _factory->create_message(AppMsgType::unhandled, zero_new EmptyMsgArgs(time));
             case SDL_APP_DIDENTERFOREGROUND:
-                return _factory->create_message(AppMsg::unhandled, zero_new EmptyMsgArgs(time));
+                return _factory->create_message(AppMsgType::unhandled, zero_new EmptyMsgArgs(time));
             case SDL_WINDOWEVENT:
 
                 //_sdl_event.window.event;
                 //_sdl_event.window.data1;
                 //_sdl_event.window.data2;
 
-                return _factory->create_message(AppMsg::window, zero_new WindowMsgArgs(time));
+                return _factory->create_message(AppMsgType::window, zero_new WindowMsgArgs(time));
             case SDL_SYSWMEVENT:
-                return _factory->create_message(AppMsg::system, zero_new SystemMsgArgs(time));
+                return _factory->create_message(AppMsgType::system, zero_new SystemMsgArgs(time));
 
             case SDL_KEYDOWN:
             case SDL_KEYUP:
@@ -45,14 +45,14 @@ namespace ZeroEngine {
                 keymod_states[static_cast<int>(KeyMod::caps_lock)] = (mod_state == KMOD_CAPS) ? KeyState::pressed : KeyState::released;
 
                 KeyState state = _sdl_event.key.state == 1 ? KeyState::pressed : KeyState::released;
-                Key key(sdl_keysym_to_keycode_conversion(_sdl_event.key.keysym), state, keymod_states);
+                Key key = sdl_keysym_to_keycode_conversion(_sdl_event.key.keysym);
 
                 uint32_t window = _sdl_event.key.windowID;
                 bool repeat = _sdl_event.key.repeat == 1;
 
-                KeyboardMsgArgs* args = zero_new KeyboardMsgArgs(time, window, key, repeat);
+                KeyboardMsgArgs* args = zero_new KeyboardMsgArgs(time, window, key, repeat, state, keymod_states);
 
-                return _factory->create_message(AppMsg::keyboard, args);
+                return _factory->create_message(AppMsgType::keyboard, args);
                 /*
                 if (_sdl_event.type == SDL_KEYDOWN) {
                     return _factory->create_message(AppMsg::keydown, args);
@@ -62,11 +62,11 @@ namespace ZeroEngine {
                 */
             }
             case SDL_TEXTEDITING:
-                return _factory->create_message(AppMsg::text_edit, zero_new TextEditMsgArgs(time));
+                return _factory->create_message(AppMsgType::text_edit, zero_new TextEditMsgArgs(time));
             case SDL_TEXTINPUT:
-                return _factory->create_message(AppMsg::text_input, zero_new TextInputMsgArgs(time));
+                return _factory->create_message(AppMsgType::text_input, zero_new TextInputMsgArgs(time));
             case SDL_KEYMAPCHANGED:
-                return _factory->create_message(AppMsg::keymap_changed, zero_new KeyMapChangedMsgArgs(time));
+                return _factory->create_message(AppMsgType::keymap_changed, zero_new KeyMapChangedMsgArgs(time));
             case SDL_MOUSEMOTION:
             {
 
@@ -102,7 +102,7 @@ namespace ZeroEngine {
                 MouseMotionMsgArgs* args = 
                     zero_new MouseMotionMsgArgs(time, window, mouse, button_states, x_pos, y_pos, x_rel, y_rel);
 
-                return _factory->create_message(AppMsg::mouse_motion, args);
+                return _factory->create_message(AppMsgType::mouse_motion, args);
             }
 
             case SDL_MOUSEBUTTONDOWN:
@@ -133,7 +133,7 @@ namespace ZeroEngine {
                 MouseButtonMsgArgs* args = 
                     zero_new MouseButtonMsgArgs(time, window, which, state, clicks, button, x, y);
 
-                return _factory->create_message(AppMsg::mouse_button, args);
+                return _factory->create_message(AppMsgType::mouse_button, args);
                 /*
                 if (_sdl_event.type == SDL_MOUSEBUTTONDOWN) {
                     return _factory->create_message(AppMsg::mouse_button_down, args);
@@ -161,70 +161,70 @@ namespace ZeroEngine {
 
                 MouseWheelMsgArgs* args = zero_new MouseWheelMsgArgs(time, window, mouse, x, y, direction);
 
-                return _factory->create_message(AppMsg::mouse_wheel, args);
+                return _factory->create_message(AppMsgType::mouse_wheel, args);
             }
 
             case SDL_JOYAXISMOTION:
-                return _factory->create_message(AppMsg::joy_axis_motion, zero_new JoyAxisMotionMsgArgs(time));
+                return _factory->create_message(AppMsgType::joy_axis_motion, zero_new JoyAxisMotionMsgArgs(time));
             case SDL_JOYBALLMOTION:
-                return _factory->create_message(AppMsg::joy_ball_motion, zero_new JoyBallMotionMsgArgs(time));
+                return _factory->create_message(AppMsgType::joy_ball_motion, zero_new JoyBallMotionMsgArgs(time));
             case SDL_JOYHATMOTION:
-                return _factory->create_message(AppMsg::joy_hat_motion, zero_new JoyHatMotionMsgArgs(time));
+                return _factory->create_message(AppMsgType::joy_hat_motion, zero_new JoyHatMotionMsgArgs(time));
             case SDL_JOYBUTTONDOWN:
-                return _factory->create_message(AppMsg::joy_button_down, zero_new JoyButtonMsgArgs(time));
+                return _factory->create_message(AppMsgType::joy_button_down, zero_new JoyButtonMsgArgs(time));
             case SDL_JOYBUTTONUP:
-                return _factory->create_message(AppMsg::joy_button_up, zero_new JoyButtonMsgArgs(time));
+                return _factory->create_message(AppMsgType::joy_button_up, zero_new JoyButtonMsgArgs(time));
             case SDL_JOYDEVICEADDED:
-                return _factory->create_message(AppMsg::joy_device_added, zero_new JoyDeviceAddedMsgArgs(time));
+                return _factory->create_message(AppMsgType::joy_device_added, zero_new JoyDeviceAddedMsgArgs(time));
             case SDL_JOYDEVICEREMOVED:
-                return _factory->create_message(AppMsg::joy_device_removed, zero_new JoyDeviceRemovedMsgArgs(time));
+                return _factory->create_message(AppMsgType::joy_device_removed, zero_new JoyDeviceRemovedMsgArgs(time));
             case SDL_CONTROLLERAXISMOTION:
-                return _factory->create_message(AppMsg::controller_axis_motion, zero_new ControllerAxisMotionMsgArgs(time));
+                return _factory->create_message(AppMsgType::controller_axis_motion, zero_new ControllerAxisMotionMsgArgs(time));
             case SDL_CONTROLLERBUTTONDOWN:
-                return _factory->create_message(AppMsg::controller_button_down, zero_new ControllerButtonMsgArgs(time));
+                return _factory->create_message(AppMsgType::controller_button_down, zero_new ControllerButtonMsgArgs(time));
             case SDL_CONTROLLERBUTTONUP:
-                return _factory->create_message(AppMsg::controller_button_up, zero_new ControllerButtonMsgArgs(time));
+                return _factory->create_message(AppMsgType::controller_button_up, zero_new ControllerButtonMsgArgs(time));
             case SDL_CONTROLLERDEVICEADDED:
-                return _factory->create_message(AppMsg::controller_device_added, zero_new ControllerDeviceAddedMsgArgs(time));
+                return _factory->create_message(AppMsgType::controller_device_added, zero_new ControllerDeviceAddedMsgArgs(time));
             case SDL_CONTROLLERDEVICEREMOVED:
-                return _factory->create_message(AppMsg::controller_device_removed, zero_new ControllerDeviceRemovedMsgArgs(time));
+                return _factory->create_message(AppMsgType::controller_device_removed, zero_new ControllerDeviceRemovedMsgArgs(time));
             case SDL_CONTROLLERDEVICEREMAPPED:
-                return _factory->create_message(AppMsg::controller_device_remapped, zero_new ControllerDeviceRemappedMsgArgs(time));
+                return _factory->create_message(AppMsgType::controller_device_remapped, zero_new ControllerDeviceRemappedMsgArgs(time));
             case SDL_FINGERUP:
-                return _factory->create_message(AppMsg::finger_up, zero_new FingerUpMsgArgs(time));
+                return _factory->create_message(AppMsgType::finger_up, zero_new FingerUpMsgArgs(time));
             case SDL_FINGERDOWN:
-                return _factory->create_message(AppMsg::finger_down, zero_new FingerDownMsgArgs(time));
+                return _factory->create_message(AppMsgType::finger_down, zero_new FingerDownMsgArgs(time));
             case SDL_FINGERMOTION:
-                return _factory->create_message(AppMsg::finger_motion, zero_new FingerMotionMsgArgs(time));
+                return _factory->create_message(AppMsgType::finger_motion, zero_new FingerMotionMsgArgs(time));
             case SDL_DOLLARGESTURE:
-                return _factory->create_message(AppMsg::unhandled, zero_new EmptyMsgArgs(time));
+                return _factory->create_message(AppMsgType::unhandled, zero_new EmptyMsgArgs(time));
             case SDL_DOLLARRECORD:
-                return _factory->create_message(AppMsg::unhandled, zero_new EmptyMsgArgs(time));
+                return _factory->create_message(AppMsgType::unhandled, zero_new EmptyMsgArgs(time));
             case SDL_MULTIGESTURE:
-                return _factory->create_message(AppMsg::unhandled, zero_new EmptyMsgArgs(time));
+                return _factory->create_message(AppMsgType::unhandled, zero_new EmptyMsgArgs(time));
             case SDL_CLIPBOARDUPDATE:
-                return _factory->create_message(AppMsg::clipboard, zero_new ClipboardMsgArgs(time));
+                return _factory->create_message(AppMsgType::clipboard, zero_new ClipboardMsgArgs(time));
             case SDL_DROPFILE:
-                return _factory->create_message(AppMsg::drop_file, zero_new DropFileMsgArgs(time));
+                return _factory->create_message(AppMsgType::drop_file, zero_new DropFileMsgArgs(time));
             case SDL_DROPTEXT:
-                return _factory->create_message(AppMsg::drop_text, zero_new DropTextMsgArgs(time));
+                return _factory->create_message(AppMsgType::drop_text, zero_new DropTextMsgArgs(time));
             case SDL_DROPBEGIN:
-                return _factory->create_message(AppMsg::drop_begin, zero_new DropBeginMsgArgs(time));
+                return _factory->create_message(AppMsgType::drop_begin, zero_new DropBeginMsgArgs(time));
             case SDL_DROPCOMPLETE:
-                return _factory->create_message(AppMsg::drop_complete, zero_new DropCompleteMsgArgs(time));
+                return _factory->create_message(AppMsgType::drop_complete, zero_new DropCompleteMsgArgs(time));
             case SDL_AUDIODEVICEADDED:
-                return _factory->create_message(AppMsg::audio_device_added, zero_new AudioDeviceAddedMsgArgs(time));
+                return _factory->create_message(AppMsgType::audio_device_added, zero_new AudioDeviceAddedMsgArgs(time));
             case SDL_AUDIODEVICEREMOVED:
-                return _factory->create_message(AppMsg::audio_device_removed, zero_new AudioDeviceRemovedMsgArgs(time));
+                return _factory->create_message(AppMsgType::audio_device_removed, zero_new AudioDeviceRemovedMsgArgs(time));
             case SDL_RENDER_TARGETS_RESET:
-                return _factory->create_message(AppMsg::render_targets_reset, zero_new RenderTargetsResetMsgArgs(time));
+                return _factory->create_message(AppMsgType::render_targets_reset, zero_new RenderTargetsResetMsgArgs(time));
             case SDL_RENDER_DEVICE_RESET:
-                return _factory->create_message(AppMsg::render_device_reset, zero_new RenderDeviceResetMsgArgs(time));
+                return _factory->create_message(AppMsgType::render_device_reset, zero_new RenderDeviceResetMsgArgs(time));
             case SDL_USEREVENT:
-                return _factory->create_message(AppMsg::unhandled, zero_new EmptyMsgArgs(time));
+                return _factory->create_message(AppMsgType::unhandled, zero_new EmptyMsgArgs(time));
             default:
                 // This should never be reached, but just in case
-                return _factory->create_message(AppMsg::null, zero_new EmptyMsgArgs(time));
+                return _factory->create_message(AppMsgType::null, zero_new EmptyMsgArgs(time));
         }
     }
 
@@ -232,176 +232,176 @@ namespace ZeroEngine {
         _sdl_event = event;
     }
 
-    Keys sdl_keysym_to_keycode_conversion(SDL_Keysym keysym) {
+    Key sdl_keysym_to_keycode_conversion(SDL_Keysym keysym) {
         switch (keysym.sym) {
             case SDLK_0:
-                return Keys::zero;
+                return Key::zero;
             case SDLK_1:
-                return Keys::one;
+                return Key::one;
             case SDLK_2:
-                return Keys::two;
+                return Key::two;
             case SDLK_3:
-                return Keys::three;
+                return Key::three;
             case SDLK_4:
-                return Keys::four;
+                return Key::four;
             case SDLK_5:
-                return Keys::five;
+                return Key::five;
             case SDLK_6:
-                return Keys::six;
+                return Key::six;
             case SDLK_7:
-                return Keys::seven;
+                return Key::seven;
             case SDLK_8:
-                return Keys::eight;
+                return Key::eight;
             case SDLK_9:
-                return Keys::nine;
+                return Key::nine;
             case SDLK_a:
-                return Keys::a;
+                return Key::a;
             case SDLK_b:
-                return Keys::b;
+                return Key::b;
             case SDLK_c:
-                return Keys::c;
+                return Key::c;
             case SDLK_d:
-                return Keys::d;
+                return Key::d;
             case SDLK_e:
-                return Keys::e;
+                return Key::e;
             case SDLK_f:
-                return Keys::f;
+                return Key::f;
             case SDLK_g:
-                return Keys::g;
+                return Key::g;
             case SDLK_h:
-                return Keys::h;
+                return Key::h;
             case SDLK_i:
-                return Keys::i;
+                return Key::i;
             case SDLK_j:
-                return Keys::j;
+                return Key::j;
             case SDLK_k:
-                return Keys::k;
+                return Key::k;
             case SDLK_l:
-                return Keys::l;
+                return Key::l;
             case SDLK_m:
-                return Keys::m;
+                return Key::m;
             case SDLK_n:
-                return Keys::n;
+                return Key::n;
             case SDLK_o:
-                return Keys::o;
+                return Key::o;
             case SDLK_p:
-                return Keys::p;
+                return Key::p;
             case SDLK_q:
-                return Keys::q;
+                return Key::q;
             case SDLK_r:
-                return Keys::r;
+                return Key::r;
             case SDLK_s:
-                return Keys::s;
+                return Key::s;
             case SDLK_t:
-                return Keys::t;
+                return Key::t;
             case SDLK_u:
-                return Keys::u;
+                return Key::u;
             case SDLK_v:
-                return Keys::v;
+                return Key::v;
             case SDLK_w:
-                return Keys::w;
+                return Key::w;
             case SDLK_x:
-                return Keys::x;
+                return Key::x;
             case SDLK_y:
-                return Keys::y;
+                return Key::y;
             case SDLK_z:
-                return Keys::z;
+                return Key::z;
             case SDLK_UP:
-                return Keys::up;
+                return Key::up;
             case SDLK_RIGHT:
-                return Keys::right;
+                return Key::right;
             case SDLK_DOWN:
-                return Keys::down;
+                return Key::down;
             case SDLK_LEFT:
-                return Keys::left;
+                return Key::left;
             case SDLK_ESCAPE:
-                return Keys::escape;
+                return Key::escape;
             case SDLK_BACKSPACE:
-                return Keys::backspace;
+                return Key::backspace;
             case SDLK_RETURN:
-                return Keys::enter;
+                return Key::enter;
             case SDLK_LCTRL:
-                return Keys::left_control;
+                return Key::left_control;
             case SDLK_RCTRL:
-                return Keys::right_control;
+                return Key::right_control;
             case SDLK_LALT:
-                return Keys::left_alt;
+                return Key::left_alt;
             case SDLK_RALT:
-                return Keys::right_alt;
+                return Key::right_alt;
             case SDLK_LSHIFT:
-                return Keys::left_shift;
+                return Key::left_shift;
             case SDLK_RSHIFT:
-                return Keys::right_shift;
+                return Key::right_shift;
             case SDLK_TAB:
-                return Keys::tab;
+                return Key::tab;
             case SDLK_DELETE:
-                return Keys::del;
+                return Key::del;
             case SDLK_SPACE:
-                return Keys::space;
+                return Key::space;
             case SDLK_AMPERSAND:
-                return Keys::ampersand;
+                return Key::ampersand;
             case SDLK_ASTERISK:
-                return Keys::asterisk;
+                return Key::asterisk;
             case SDLK_AT:
-                return Keys::at;
+                return Key::at;
             case SDLK_CARET:
-                return Keys::caret;
+                return Key::caret;
             case SDLK_COLON:
-                return Keys::colon;
+                return Key::colon;
             case SDLK_DOLLAR:
-                return Keys::dollar;
+                return Key::dollar;
             case SDLK_EXCLAIM:
-                return Keys::exclamation;
+                return Key::exclamation;
             case SDLK_GREATER:
-                return Keys::greater_than;
+                return Key::greater_than;
             case SDLK_HASH:
-                return Keys::hash;
+                return Key::hash;
             case SDLK_LEFTPAREN:
-                return Keys::left_paren;
+                return Key::left_paren;
             case SDLK_RIGHTPAREN:
-                return Keys::right_paren;
+                return Key::right_paren;
             case SDLK_LESS:
-                return Keys::less_than;
+                return Key::less_than;
             case SDLK_PERCENT:
-                return Keys::percent;
+                return Key::percent;
             case SDLK_PLUS:
-                return Keys::plus;
+                return Key::plus;
             case SDLK_QUESTION:
-                return Keys::question_mark;
+                return Key::question_mark;
             case SDLK_QUOTEDBL:
-                return Keys::double_quote;
+                return Key::double_quote;
             case SDLK_UNDERSCORE:
-                return Keys::underscore;
+                return Key::underscore;
             case SDLK_SLASH:
-                return Keys::forward_slash;
+                return Key::forward_slash;
             case SDLK_BACKSLASH:
-                return Keys::back_slash;
+                return Key::back_slash;
             case SDLK_SEMICOLON:
-                return Keys::semicolon;
+                return Key::semicolon;
             case SDLK_RIGHTBRACKET:
-                return Keys::right_bracket;
+                return Key::right_bracket;
             case SDLK_PERIOD:
-                return Keys::period;
+                return Key::period;
             case SDLK_MINUS:
-                return Keys::minus;
+                return Key::minus;
             case SDLK_LEFTBRACKET:
-                return Keys::left_bracket;
+                return Key::left_bracket;
             case SDLK_EQUALS:
-                return Keys::equal;
+                return Key::equal;
             case SDLK_COMMA:
-                return Keys::comma;
+                return Key::comma;
             case SDLK_QUOTE:
-                return Keys::single_quote;
+                return Key::single_quote;
             case SDLK_BACKQUOTE:
-                return Keys::tilda;
+                return Key::tilda;
             case SDLK_PAGEDOWN:
-                return Keys::page_down;
+                return Key::page_down;
             case SDLK_PAGEUP:
-                return Keys::page_up;
+                return Key::page_up;
             case SDLK_CAPSLOCK:
-                return Keys::caps_lock;
+                return Key::caps_lock;
             default:
-                return Keys::null;
+                return Key::null;
         }
     }
 }

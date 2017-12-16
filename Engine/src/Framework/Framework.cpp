@@ -4,7 +4,7 @@ namespace ZeroEngine {
 
     const AFramework* ZeroFramework::_framework = nullptr;
 
-    Ticks ZeroFramework::get_ticks() {
+    Tick ZeroFramework::get_ticks() {
         assert(_framework != nullptr);
         return _framework->get_current_time();
     }
@@ -20,5 +20,10 @@ namespace ZeroEngine {
         } else {
             std::cout << "Framework is alread set. ZeroFramework::set_framework\n";
         }
+    }
+
+    IRenderer::ptr ZeroFramework::get_renderer() {
+        assert(_framework != nullptr);
+        return _framework->get_renderer();
     }
 }
