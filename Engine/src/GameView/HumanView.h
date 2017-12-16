@@ -5,7 +5,6 @@
 #include "IScreenElement.h"
 #include "../Framework/IRenderer.h"
 #include "../Input/Input.h"
-#include "../Framework/Framework.h"
 #include "../Entity/Entity.h"
 #include "../Process/ProcessManager.h"
 

@@ -1,6 +1,6 @@
 #include "ZeroEngineStd.h"
-#include "Utils/MemoryPool.h"
 #include "Framework/Framework.h"
+#include "Utils/MemoryPool.h"
 #include "Logger/Logger.h"
 #include "Graphics/Graphics.h"
 #include "AppLayer/AppLayer.h"
@@ -13,3 +13,4 @@
 #include "GameLogic\GameLogicInclude.h"
 #include "GameView\GameViewInclude.h"
 #include "ZeroEngineScreenElements.h"
+#include "AppLayer/Game.h"

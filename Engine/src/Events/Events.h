@@ -4,8 +4,5 @@
 #include "EventListener.h"
 #include "EventType.h"
 #include "EventManager.h"
-#include "../Entity/Entity.h"
+#include "BaseEventData.h"
 
-namespace ZeroEngine {
-
-}

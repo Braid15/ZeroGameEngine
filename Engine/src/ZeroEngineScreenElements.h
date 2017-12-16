@@ -1,7 +1,7 @@
 #pragma once 
 
 #include "ZeroEngineStd.h"
-#include "Framework/Framework.h"
+#include "AppLayer/Game.h"
 #include "GameView/IScreenElement.h"
 #include "Graphics/Graphics.h"
 
@@ -19,7 +19,7 @@ namespace ZeroEngine {
         inline StringRepr to_string() const { return "LineScreenElement"; }
 
         inline bool render(Tick delta_time) override {
-            ZeroFramework::get_renderer()->draw_line(_from, _to, _color);
+            Game::get_renderer()->draw_line(_from, _to, _color);
             return true;
         }
     };

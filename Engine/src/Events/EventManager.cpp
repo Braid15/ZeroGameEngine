@@ -100,7 +100,7 @@ namespace ZeroEngine {
     }
 
     bool BaseEventManager::update(uint32_t max_milliseconds) {
-        Tick current_time = ZeroFramework::get_ticks();
+        Tick current_time = Game::get_ticks();
         Tick max_time = (max_milliseconds == MAX_MILLISECONDS) ? MAX_MILLISECONDS
             : current_time + max_milliseconds;
 
@@ -125,7 +125,7 @@ namespace ZeroEngine {
                 }
             }
 
-            current_time = ZeroFramework::get_ticks();
+            current_time = Game::get_ticks();
             if (max_milliseconds != MAX_MILLISECONDS && current_time >= max_time) {
                 std::cout << "Aborting event processing. BaseEventManager::update\n";
                 break;

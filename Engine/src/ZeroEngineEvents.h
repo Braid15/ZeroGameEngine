@@ -5,6 +5,7 @@
 #include "Entity\Entity.h"
 #include "Graphics\Graphics.h"
 #include "Process\Process.h"
+#include "Events/BaseEventData.h"
 
 namespace ZeroEngine {
 

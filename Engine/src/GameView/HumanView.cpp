@@ -1,4 +1,5 @@
 #include "HumanView.h"
+#include "../AppLayer/Game.h"
 
 namespace ZeroEngine {
 
@@ -35,7 +36,7 @@ namespace ZeroEngine {
 
     bool HumanView::render(Tick delta_time) {
         bool success = false;
-        _current_tick = ZeroFramework::get_ticks();
+        _current_tick = Game::get_ticks();
 
         if (!(_current_tick == _last_draw)) {
             if (_is_full_speed || ((_current_tick - _last_draw) > REFRESH_RATE)) {
