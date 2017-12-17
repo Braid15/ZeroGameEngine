@@ -19,7 +19,8 @@ namespace ZeroEngine {
         static GameApp* _app_instance;
     public:
         static Tick get_ticks();
-        static IRenderer::ptr get_renderer();
+        static IRenderer::s_ptr get_renderer();
         static void set(GameApp* app);
+        static uint32_t get_entity_count();
     };
 }

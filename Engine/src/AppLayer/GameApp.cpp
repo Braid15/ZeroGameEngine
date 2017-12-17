@@ -5,7 +5,8 @@ namespace ZeroEngine {
 
     GameApp::GameApp() {
         _game_logic = nullptr;
-        _renderer = IRenderer::ptr(zero_new NullRenderer());
+        // @FIX: AFramework has a renderer also, so two renderers are being created
+        _renderer = IRenderer::s_ptr(zero_new NullRenderer());
         _framework = nullptr;
     }
 
@@ -74,7 +75,7 @@ namespace ZeroEngine {
     }
 
 
-    IRenderer::ptr GameApp::get_renderer() const {
+    IRenderer::s_ptr GameApp::get_renderer() const {
         assert(_renderer);
         return _renderer;
     }

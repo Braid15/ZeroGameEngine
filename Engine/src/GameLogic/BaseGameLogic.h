@@ -47,10 +47,12 @@ namespace ZeroEngine {
         virtual void destroy_entity(const EntityId& entity_id) override;
         virtual void add_game_view(IGameViewPtr view, EntityId entity_id=INVALID_ENTITY_ID) override;
         virtual void remove_game_view(IGameViewPtr view) override;
+
         virtual WeakEntityPtr get_entity(const EntityId& entity_id) override;
         virtual EntityPtr create_entity() override;
         inline GameViewList get_game_views() { return _game_views; }
         inline IPhysicsPtr get_physics() const { return _physics; }
+        inline uint32_t get_entity_count() const { return _entity_manager->get_entity_count(); }
     protected:
         inline const ProcessManager& get_process_manager() const { return *_process_manager; }
         inline void attach_process(Process::ptr process) const { _process_manager->attach_process(process); }
@@ -73,10 +75,8 @@ namespace ZeroEngine {
         inline virtual void on_register_event_delegates() {}
         inline virtual void on_unregister_event_delegates() {}
 
-        // These can be registered with subclasses. The only one which is registered by default is
-        // request_destroy_entity_event_delegate()
         void move_entity_event_delegate(IEventDataPtr event_data);
-        void request_new_entity_event_delegate(IEventDataPtr event_data);
+        void request_create_entity_event_delegate(IEventDataPtr event_data);
         void request_destroy_entity_event_delegate(IEventDataPtr event_data);
         void attach_process_event_delegate(IEventDataPtr event_data);
     private:

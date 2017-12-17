@@ -78,7 +78,7 @@ namespace ZeroEngine {
         return IWindow::ptr(zero_new NullWindow());
     }
 
-    BaseRenderer::ptr SdlFramework::create_renderer() {
-        return BaseRenderer::ptr(zero_new SdlRenderer(_sdl_window));
+    BaseRenderer::s_ptr SdlFramework::create_renderer() {
+        return BaseRenderer::s_ptr(zero_new SdlRenderer(_sdl_window));
     }
 }

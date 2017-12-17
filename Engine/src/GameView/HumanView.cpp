@@ -8,7 +8,7 @@ namespace ZeroEngine {
 
     const uint32_t INVALID_PLAYER_NUMBER = 0;
 
-    HumanView::HumanView(IRenderer::ptr renderer) {
+    HumanView::HumanView(IRenderer::s_ptr renderer) {
         _renderer = renderer;
         _view_id = INVALID_GAME_VIEW_ID;
         _view_type = GameViewType::human;
@@ -20,10 +20,7 @@ namespace ZeroEngine {
         _keyboard_handler = std::shared_ptr<IKeyboardHandler>(zero_new NullKeyboardHandler);
         _mouse_handler = std::shared_ptr<IMouseHandler>(zero_new NullMouseHandler());
         _player_number = INVALID_PLAYER_NUMBER;
-
-        // @TODO: Rather this stuff be in an init method
-        initialize_audio();
-        register_event_delegates();
+        _is_initialized = false;
     }
 
     HumanView::~HumanView() {
@@ -32,6 +29,14 @@ namespace ZeroEngine {
             _screen_elements.pop_front();
         }
         zero_delete(_process_manager);
+    }
+
+    void HumanView::initialize() {
+        if (!_is_initialized) {
+            initialize_audio();
+            register_event_delegates();
+            _is_initialized = true;
+        }
     }
 
     bool HumanView::render(Tick delta_time) {

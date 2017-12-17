@@ -144,13 +144,15 @@ namespace ZeroEngine {
         _entity_manager = manager;
     }
 
+    // NOT REGISTERED
     void BaseGameLogic::move_entity_event_delegate(IEventDataPtr event_data) {
         MoveEntityEvent::ptr data = MoveEntityEvent::cast(event_data);
         move_entity(data->get_entity_id(), data->get_new_location());
     }
 
-    void BaseGameLogic::request_new_entity_event_delegate(IEventDataPtr event_data) {
+    void BaseGameLogic::request_create_entity_event_delegate(IEventDataPtr event_data) {
         if (!_is_proxy) {
+            LOG_DEBUG("BaseGameLogic", "called");
             RequestCreateEntityEvent::ptr data = RequestCreateEntityEvent::cast(event_data);
             EntityPtr entity = create_entity();
             ZeroEventManager::queue_event(EntityCreatedEvent::create(entity->get_id()));
@@ -162,6 +164,7 @@ namespace ZeroEngine {
         destroy_entity(data->get_entity_id());
     }
 
+    // NOT REGISTERED
     void BaseGameLogic::attach_process_event_delegate(IEventDataPtr event_data) {
         AttachProcessEvent::ptr data = AttachProcessEvent::cast(event_data);
         _process_manager->attach_process(data->get_process());
@@ -186,6 +189,11 @@ namespace ZeroEngine {
         ZeroEventManager::register_listener(
             fastdelegate::MakeDelegate(this, &BaseGameLogic::request_destroy_entity_event_delegate),
             RequestDestroyEntityEvent::type);
+
+        ZeroEventManager::register_listener(
+            fastdelegate::MakeDelegate(this, &BaseGameLogic::request_create_entity_event_delegate),
+            RequestCreateEntityEvent::type);
+
         on_register_event_delegates();
     }
 
@@ -193,6 +201,11 @@ namespace ZeroEngine {
         ZeroEventManager::unregister_listener(
             fastdelegate::MakeDelegate(this, &BaseGameLogic::request_destroy_entity_event_delegate),
             RequestDestroyEntityEvent::type);
+
+        ZeroEventManager::unregister_listener(
+            fastdelegate::MakeDelegate(this, &BaseGameLogic::request_create_entity_event_delegate),
+            RequestCreateEntityEvent::type);
+
         on_unregister_event_delegates();
     }
 

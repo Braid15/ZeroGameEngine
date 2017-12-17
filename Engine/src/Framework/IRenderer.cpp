@@ -15,4 +15,19 @@ namespace ZeroEngine {
         _background_color.set_blue(color.get_blue());
         _background_color.set_alpha(color.get_alpha());
     }
+
+    void BaseRenderer::render_packets() {
+
+        // @TEMP: Optimize performance if needed. MIght need to use two
+        // lists so that there is a back-buffer where packets can be submitted
+        // whjile the other is being rendered
+        for (auto packet : _render_packets) {
+            packet->on_render(*this);
+        }
+        _render_packets.clear();
+    }
+
+    void BaseRenderer::submit_packet(IRenderPacket::s_ptr packet) {
+        _render_packets.push_back(packet);
+    }
 }

@@ -9,7 +9,7 @@ namespace ZeroEngine {
         return _app_instance->get_ticks();
     }
 
-    IRenderer::ptr Game::get_renderer() {
+    IRenderer::s_ptr Game::get_renderer() {
         return _app_instance->get_renderer();
     }
 
@@ -19,5 +19,9 @@ namespace ZeroEngine {
         } else {
             LOG_DEBUG("Game", "Attempting to set multiple app instances");
         }
+    }
+
+    uint32_t Game::get_entity_count() {
+        return _app_instance->get_game_logic()->get_entity_count();
     }
 }

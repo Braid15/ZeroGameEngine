@@ -6,7 +6,7 @@ namespace ZeroEngine {
         _msg_translator = nullptr; 
         _is_running = false;
         _window = nullptr;
-        _renderer = BaseRenderer::ptr(zero_new NullRenderer());
+        _renderer = BaseRenderer::s_ptr(zero_new NullRenderer());
     }
 
     AFramework::~AFramework() {

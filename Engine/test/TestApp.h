@@ -84,9 +84,9 @@ namespace ZeroEngineAppTest {
 
         inline bool on_key_down(const Key& key) override {
             if (key == Key::enter) {
-                pen.set_color(Colors::blue());
+                ZeroEventManager::queue_event(RequestCreateEntityEvent::create());
             } else if (key == Key::space) {
-                pen.set_color(Colors::green());
+                ZeroEventManager::queue_event(RequestDestroyEntityEvent::create(Game::get_entity_count()));
             }
             return true;
         }
@@ -117,9 +117,11 @@ namespace ZeroEngineAppTest {
 
 
     class TestGameView : public HumanView {
+    private:
+        friend class TestMovementController;
         std::shared_ptr<TestMovementController> _controller;
     public:
-        explicit TestGameView(IRenderer::ptr renderer) : HumanView(renderer) {}
+        explicit TestGameView(IRenderer::s_ptr renderer) : HumanView(renderer) {}
         inline StringRepr to_string() const override { return "TestGameView"; }
     protected:
         inline bool on_load_game() override {
@@ -127,6 +129,39 @@ namespace ZeroEngineAppTest {
             set_keyboard_handler(_controller);
             set_mouse_handler(_controller);
             return true;
+        }
+
+        inline void entity_created_event_delegate(IEventDataPtr event_data) {
+            EntityCreatedEvent::ptr data = EntityCreatedEvent::cast(event_data);
+            std::cout << "Entity created: " << data->get_entity_id() << "\n";
+            std::cout << "ENtity count: " << Game::get_entity_count() << "\n";
+        }
+
+        inline void entity_destroyed_event_delegate(IEventDataPtr event_data) {
+            EntityDestroyedEvent::ptr data = EntityDestroyedEvent::cast(event_data);
+            std::cout << "Entity destroyed: " << data->get_entity_id() << "\n";
+            std::cout << "ENtity count: " << Game::get_entity_count() << "\n";
+        }
+
+        inline void on_register_event_delegates() override {
+            LOG_DEBUG("TestGameView", "Called");
+            ZeroEventManager::register_listener(
+                fastdelegate::MakeDelegate(this, &TestGameView::entity_destroyed_event_delegate),
+                EntityDestroyedEvent::type);
+
+            ZeroEventManager::register_listener(
+                fastdelegate::MakeDelegate(this, &TestGameView::entity_created_event_delegate),
+                EntityCreatedEvent::type);
+        }
+
+        inline void on_unregister_event_delegates() override {
+            ZeroEventManager::unregister_listener(
+                fastdelegate::MakeDelegate(this, &TestGameView::entity_destroyed_event_delegate),
+                EntityDestroyedEvent::type);
+
+            ZeroEventManager::unregister_listener(
+                fastdelegate::MakeDelegate(this, &TestGameView::entity_created_event_delegate),
+                EntityCreatedEvent::type);
         }
     };
 }

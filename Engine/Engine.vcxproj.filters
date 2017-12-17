@@ -55,6 +55,9 @@
     <Filter Include="Source\Process">
       <UniqueIdentifier>{87dbbe3d-6885-49c8-a470-fce3b11298eb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Rendering">
+      <UniqueIdentifier>{46ed3024-a619-4d0a-8440-a70cce63fb22}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ZeroEngine.h">
@@ -237,6 +240,12 @@
     <ClInclude Include="src\Entity\EntityManager.h">
       <Filter>Source\Entity</Filter>
     </ClInclude>
+    <ClInclude Include="src\Rendering\IRenderPacket.h">
+      <Filter>Source\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Rendering\RenderPacketTypes.h">
+      <Filter>Source\Rendering</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Logger\BaseLogger.cpp">
@@ -352,6 +361,9 @@
     </ClCompile>
     <ClCompile Include="src\Entity\EntityManager.cpp">
       <Filter>Source\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Rendering\RenderPacketTypes.cpp">
+      <Filter>Source\Rendering</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

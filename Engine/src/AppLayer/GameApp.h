@@ -24,7 +24,7 @@ namespace ZeroEngine {
         bool _is_running;
         std::string _save_game_directory;
         BaseGameLogic* _game_logic;
-        IRenderer::ptr _renderer;
+        IRenderer::s_ptr _renderer;
         AFramework* _framework;
     public:
         GameApp();
@@ -42,8 +42,7 @@ namespace ZeroEngine {
         inline BaseGameLogic* get_game_logic() const { return _game_logic; }
         HumanView::ptr get_human_view(uint32_t player_number=INVALID_PLAYER_NUMBER);
 
-
-        IRenderer::ptr get_renderer() const;
+        IRenderer::s_ptr get_renderer() const;
         Tick get_ticks() const;
         inline void set_framework(AFramework* framework) { _framework = framework; }
 
