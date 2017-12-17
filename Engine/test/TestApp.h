@@ -23,26 +23,7 @@ namespace ZeroEngineAppTest {
 
 
 
-    class Pen {
-    private:
-        Color _color;
-        bool _drawing;
-        Point<int32_t> _start;
-        Point<int32_t> _end;
 
-    public:
-        Pen() : _color(Colors::white()), _drawing(false) {}
-        void set_color(Color color) { _color = color; }
-
-        void draw_start(Point<int32_t> start) {
-            _start = start;
-        }
-
-        void draw_end(Point<int32_t> end) {
-            _end = end;
-            ZeroEventManager::queue_event(DrawLineEvent::create(_start, _end, _color));
-        }
-    };
 
     class TestGameLogic : public BaseGameLogic {
     public:
@@ -75,6 +56,46 @@ namespace ZeroEngineAppTest {
         }
     };
 
+    class Pen {
+    private:
+        Color _color;
+        bool _drawing;
+        Point<int32_t> _start;
+        Point<int32_t> _end;
+
+        std::list<LineRenderPacket::s_ptr> _lines;
+
+    public:
+        Pen() : _color(Colors::white()), _drawing(false) {}
+        void set_color(Color color) { _color = color; }
+
+        void draw_start(Point<int32_t> start) {
+            _start = start;
+        }
+
+        void draw_end(Point<int32_t> end) {
+            _end = end;
+
+            // @TODO: I want this to provide a different interface than the IRenderer interface
+            // so that client code doesn't have access to methods such as initialize() or shutdown(), etc
+            LineRenderPacket::s_ptr line(zero_new LineRenderPacket(_start, _end, _color));
+            _lines.push_back(line);
+            Game::get_renderer()->submit_packet(line);
+            // ZeroEventManager::queue_event(DrawLineEvent::create(_start, _end, _color));
+        }
+
+        void remove_last_line() {
+            uint32_t size = static_cast<uint32_t>(_lines.size());
+            if (size > 0) {
+                LineRenderPacket::s_ptr line = _lines.back();
+                _lines.pop_back();
+                Game::get_renderer()->remove_packet(line);
+            }
+
+            LOG_DEBUG("Pen", std::to_string(size));
+        }
+    };
+
     class TestMovementController : public IMouseHandler, public IKeyboardHandler {
     private:
         Pen pen;
@@ -84,9 +105,11 @@ namespace ZeroEngineAppTest {
 
         inline bool on_key_down(const Key& key) override {
             if (key == Key::enter) {
-                ZeroEventManager::queue_event(RequestCreateEntityEvent::create());
+                // ZeroEventManager::queue_event(RequestCreateEntityEvent::create());
             } else if (key == Key::space) {
-                ZeroEventManager::queue_event(RequestDestroyEntityEvent::create(Game::get_entity_count()));
+                // ZeroEventManager::queue_event(RequestDestroyEntityEvent::create(Game::get_entity_count()));
+            } else if (key == Key::backspace) {
+                pen.remove_last_line();
             }
             return true;
         }

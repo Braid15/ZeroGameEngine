@@ -24,10 +24,27 @@ namespace ZeroEngine {
         for (auto packet : _render_packets) {
             packet->on_render(*this);
         }
-        _render_packets.clear();
+        // _render_packets.clear();
     }
 
     void BaseRenderer::submit_packet(IRenderPacket::s_ptr packet) {
         _render_packets.push_back(packet);
+    }
+
+    void BaseRenderer::remove_packet(IRenderPacket::s_ptr packet) {
+        RenderPacketList::iterator iter;
+        bool found = false;
+        for (iter = _render_packets.begin(); iter != _render_packets.end(); ++iter) {
+            if (*iter == packet) {
+                found = true;
+                break;
+            }
+        }
+
+        if (found) {
+            _render_packets.remove(packet);
+        } else {
+            LOG_DEBUG("BaseRenderer", "Packet not found for removal");
+        }
     }
 }

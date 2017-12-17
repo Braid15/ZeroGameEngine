@@ -24,7 +24,6 @@ namespace ZeroEngine {
         bool _is_running;
         std::string _save_game_directory;
         BaseGameLogic* _game_logic;
-        IRenderer::s_ptr _renderer;
         AFramework* _framework;
     public:
         GameApp();

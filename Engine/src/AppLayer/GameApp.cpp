@@ -5,8 +5,6 @@ namespace ZeroEngine {
 
     GameApp::GameApp() {
         _game_logic = nullptr;
-        // @FIX: AFramework has a renderer also, so two renderers are being created
-        _renderer = IRenderer::s_ptr(zero_new NullRenderer());
         _framework = nullptr;
     }
 
@@ -70,14 +68,18 @@ namespace ZeroEngine {
                 (*iter)->render(time);
             }
 
+            // @TODO: Don't know when this should happen, but I'll put it here for now
+            GameApp::instance()->get_renderer()->render_packets();
+
             logic->render_diagnostics();
         }
     }
 
 
+    // @TODO: Should return weak pointer??
     IRenderer::s_ptr GameApp::get_renderer() const {
-        assert(_renderer);
-        return _renderer;
+        assert(_framework);
+        return _framework->get_renderer();
     }
 
     Tick GameApp::get_ticks() const {
@@ -110,7 +112,6 @@ namespace ZeroEngine {
         assert(_framework != nullptr);
         if (_framework->initialize()) {
             if (_framework->initialize_window_and_renderer(get_game_title(), get_screen_size())) {
-                _renderer = _framework->get_renderer();
                 _framework->set_app_msg_callback(GameApp::app_msg_proc);
                 _framework->set_update_callback(GameApp::update);
                 _framework->set_render_callback(GameApp::render);

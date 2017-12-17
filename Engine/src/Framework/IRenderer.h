@@ -20,9 +20,11 @@ namespace ZeroEngine {
         virtual bool post_render() = 0;
         virtual void shutdown() = 0;
         virtual bool on_restore() = 0;
+        // @TODO: I want to factor out primitive drawing into a seperate interface
         virtual void draw_line(const Point<int32_t>& from, const Point<int32_t>& to, const Color& color) = 0;
         virtual void render_packets() = 0;
         virtual void submit_packet(IRenderPacket::s_ptr) = 0;
+        virtual void remove_packet(IRenderPacket::s_ptr) = 0;
         virtual StringRepr to_string() const = 0;
         inline virtual ~IRenderer() {}
         typedef std::shared_ptr<IRenderer> s_ptr;
@@ -33,7 +35,8 @@ namespace ZeroEngine {
     class BaseRenderer : public IRenderer {
     private:
         Color _background_color;
-        std::list<IRenderPacket::s_ptr> _render_packets;
+        typedef std::list<IRenderPacket::s_ptr> RenderPacketList;
+        RenderPacketList _render_packets;
     public:
         virtual ~BaseRenderer() {}
         virtual void set_background_color(uint32_t red, uint32_t green, uint32_t blue, uint32_t alpha) override;
@@ -46,6 +49,7 @@ namespace ZeroEngine {
         virtual void render_present() = 0;
         virtual void render_packets(); 
         virtual void submit_packet(IRenderPacket::s_ptr);
+        virtual void remove_packet(IRenderPacket::s_ptr);
         virtual StringRepr to_string() const = 0;
         typedef std::shared_ptr<BaseRenderer> s_ptr;
     protected:
@@ -62,6 +66,7 @@ namespace ZeroEngine {
         inline void render_present() override {}
         inline void render_packets() override {}
         inline void submit_packet(IRenderPacket::s_ptr) override {}
+        inline void remove_packet(IRenderPacket::s_ptr) override {}
         inline StringRepr to_string() const override { return "NullRenderer"; }
     };
 }
