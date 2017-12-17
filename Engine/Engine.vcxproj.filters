@@ -58,6 +58,9 @@
     <Filter Include="Source\Rendering">
       <UniqueIdentifier>{46ed3024-a619-4d0a-8440-a70cce63fb22}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Memory">
+      <UniqueIdentifier>{df94486d-6a2a-44b0-a2d2-02f80335a9e3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ZeroEngine.h">
@@ -248,6 +251,9 @@
     </ClInclude>
     <ClInclude Include="src\Logger\Logging.h">
       <Filter>Source\Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Memory\Memory.h">
+      <Filter>Source\Memory</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
