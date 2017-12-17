@@ -4,7 +4,8 @@
 #include "../GameView/GameViewInclude.h"
 #include "IGameLogic.h"
 #include "../Entity/Entity.h"
-#include "../Entity/BaseEntityManager.h"
+#include "../Entity/IEntityManager.h"
+#include "../Entity/EntityManager.h"
 #include "../Events/Events.h"
 #include "../ZeroEngineEvents.h"
 #include "../Physics/Physics.h"
@@ -64,6 +65,9 @@ namespace ZeroEngine {
         inline void set_render_diagnostics(bool render) { _render_diagnostics = render; }
         inline void toggle_render_diagnostics() { _render_diagnostics = !_render_diagnostics; }
         inline Tick get_lifetime() const { return _lifetime; }
+
+        void set_entity_manager(IEntityManager* manager);
+        inline const IEntityManager& get_entity_manager() const { return *_entity_manager; }
 
         inline virtual bool on_load_game() { return true; }
         inline virtual void on_register_event_delegates() {}

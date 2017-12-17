@@ -192,9 +192,6 @@
     <ClInclude Include="src\Entity\IEntityManager.h">
       <Filter>Source\Entity</Filter>
     </ClInclude>
-    <ClInclude Include="src\Entity\BaseEntityManager.h">
-      <Filter>Source\Entity</Filter>
-    </ClInclude>
     <ClInclude Include="src\GameView\HumanView.h">
       <Filter>Source\GameView</Filter>
     </ClInclude>
@@ -236,6 +233,9 @@
     </ClInclude>
     <ClInclude Include="src\Events\BaseEventData.h">
       <Filter>Source\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\EntityManager.h">
+      <Filter>Source\Entity</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -308,9 +308,6 @@
     <ClCompile Include="src\GameLogic\BaseGameLogic.cpp">
       <Filter>Source\GameLogic</Filter>
     </ClCompile>
-    <ClCompile Include="src\Entity\BaseEntityManager.cpp">
-      <Filter>Source\Entity</Filter>
-    </ClCompile>
     <ClCompile Include="src\GameView\HumanView.cpp">
       <Filter>Source\GameView</Filter>
     </ClCompile>
@@ -352,6 +349,9 @@
     </ClCompile>
     <ClCompile Include="src\Events\BaseEventData.cpp">
       <Filter>Source\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\EntityManager.cpp">
+      <Filter>Source\Entity</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

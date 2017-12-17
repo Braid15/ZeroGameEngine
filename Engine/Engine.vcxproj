@@ -187,6 +187,7 @@
     <Text Include="TODO.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Entity\EntityManager.h" />
     <ClInclude Include="src\AppLayer\AppLayer.h" />
     <ClInclude Include="src\AppLayer\Game.h" />
     <ClInclude Include="src\AppLayer\GameOptions.h" />
@@ -197,7 +198,6 @@
     <ClInclude Include="src\Entity\Entity.h" />
     <ClInclude Include="src\Entity\EntityComponent.h" />
     <ClInclude Include="src\Entity\EntityFactory.h" />
-    <ClInclude Include="src\Entity\BaseEntityManager.h" />
     <ClInclude Include="src\Entity\IEntityManager.h" />
     <ClInclude Include="src\Events\BaseEventData.h" />
     <ClInclude Include="src\Events\EventData.h" />
@@ -255,10 +255,10 @@
     <ClCompile Include="src\AppMsg\AppMsg.cpp" />
     <ClCompile Include="src\AppMsg\AppMsgArgs.cpp" />
     <ClCompile Include="src\AppMsg\AppMsgFactory.cpp" />
-    <ClCompile Include="src\Entity\BaseEntityManager.cpp" />
     <ClCompile Include="src\Entity\Entity.cpp" />
     <ClCompile Include="src\Entity\EntityComponent.cpp" />
     <ClCompile Include="src\Entity\EntityFactory.cpp" />
+    <ClCompile Include="src\Entity\EntityManager.cpp" />
     <ClCompile Include="src\Events\BaseEventData.cpp" />
     <ClCompile Include="src\Events\EventListener.cpp" />
     <ClCompile Include="src\Events\EventManager.cpp" />
