@@ -10,6 +10,8 @@ int main( int argc, char* args[] ) {
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
     #endif
 
+    Logger::intialize();
+    // Logger::disable_tag("DEBUG");
 
     // @@TODO: Load gameoptions from file
     GameOptions options;
@@ -25,6 +27,8 @@ int main( int argc, char* args[] ) {
 
     app->shutdown();
     zero_delete(app);
+
+    Logger::shutdown();
 
     #ifdef _DEBUG
     _CrtDumpMemoryLeaks();

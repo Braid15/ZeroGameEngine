@@ -59,9 +59,5 @@
 #include <strstream>
 
 #include "IZeroObject.h"
+#include "Logger/Logging.h"
 
-
-// @TEMP - Thrown together quickly.
-// Make msg std::string so that const char* or std::string can be passed
-#define LOG_DEBUG(agent, msg) \
-    printf("[%s::%s] %s\n", agent, __func__, std::string(msg).c_str()); 

@@ -10,6 +10,7 @@ namespace ZeroEngine {
     }
 
     IRenderer::s_ptr Game::get_renderer() {
+        LOG_TODO("Game", "Provide different interface for client code to interact with renderer");
         return _app_instance->get_renderer();
     }
 

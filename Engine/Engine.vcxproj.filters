@@ -246,6 +246,9 @@
     <ClInclude Include="src\Rendering\RenderPacketTypes.h">
       <Filter>Source\Rendering</Filter>
     </ClInclude>
+    <ClInclude Include="src\Logger\Logging.h">
+      <Filter>Source\Logger</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Logger\BaseLogger.cpp">
@@ -364,6 +367,9 @@
     </ClCompile>
     <ClCompile Include="src\Rendering\RenderPacketTypes.cpp">
       <Filter>Source\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Logger\Logging.cpp">
+      <Filter>Source\Logger</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
