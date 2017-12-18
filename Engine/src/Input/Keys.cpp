@@ -32,6 +32,7 @@ namespace ZeroEngine {
     }
 
     char Key_get_char(const Key& key) {
+        LOG_TODO("Key_get_char", "UNFINISHED!");
         char ret_char = 0x00;
         if (Key_is_alpha(key)) {
             ret_char = static_cast<char>(key);

@@ -646,7 +646,7 @@ namespace ZeroEngine {
             }
             case Key::end_enum:
             {
-                os << "Key::end";
+                os << "Key::end_enum";
                 break;
             }
             default:
