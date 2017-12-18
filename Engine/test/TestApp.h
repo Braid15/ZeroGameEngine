@@ -63,11 +63,32 @@ namespace ZeroEngineAppTest {
         Point<int32_t> _start;
         Point<int32_t> _end;
 
+        uint32_t _blue = 0x0000FFFF;
+        uint32_t _red = 0xFF0000FF;
+        uint32_t _green = 0x00FF00FF;
+
+        uint32_t _colors[3] = {_blue, _red, _green };
+
+        uint32_t _cur_index;
+
         std::list<LineRenderPacket::s_ptr> _lines;
 
     public:
-        Pen() : _color(Colors::white()), _drawing(false) {}
+        Pen() : _color(Colors::white()), _drawing(false), _cur_index(0) {}
+
         void set_color(Color color) { _color = color; }
+
+        void change_line_colors() {
+            _color.set(_colors[_cur_index++]);
+
+            if (_cur_index >= 3) {
+                _cur_index = 0;
+            }
+
+            for (auto line : _lines) {
+                line->set_color(_color);
+            }
+        }
 
         void draw_start(Point<int32_t> start) {
             _start = start;
@@ -108,6 +129,7 @@ namespace ZeroEngineAppTest {
                 // ZeroEventManager::queue_event(RequestCreateEntityEvent::create());
             } else if (key == Key::space) {
                 // ZeroEventManager::queue_event(RequestDestroyEntityEvent::create(Game::get_entity_count()));
+                pen.change_line_colors();
             } else if (key == Key::backspace) {
                 pen.remove_last_line();
             } else if (Key_is_numeric(key)) {

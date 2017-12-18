@@ -8,6 +8,10 @@
 
 namespace ZeroEngine {
 
+    // -------------
+    // IEventManager
+    // -------------
+
     const uint32_t MAX_MILLISECONDS = 0xffffffff;
 
     class IEventManager {
@@ -20,6 +24,12 @@ namespace ZeroEngine {
         virtual bool update(uint32_t max_milliseconds=MAX_MILLISECONDS) = 0;
         virtual const char* get_name() const = 0;
     };
+
+    // ----------------
+    // BaseEventManager
+    // ----------------
+
+    // @TODO: Move to seperate file
 
     const uint8_t EVENT_MANAGER_QUEUE_COUNT = 2;
 
@@ -47,11 +57,20 @@ namespace ZeroEngine {
         explicit BaseEventManager(const char* name);
     };
 
+    // ----------------
+    // ZeroEventManager
+    // ----------------
+
+    // Make singleton?
+
+    // @TODO: Move to seperate file
+
     class ZeroEventManager final : public BaseEventManager {
     private:
         inline ZeroEventManager() : BaseEventManager("ZeroEventManager") {};
         static BaseEventManager* _event_manager;
     public:
+        static void initialize();
         static bool register_listener(const EventListenerDelegate& delegate, const EventType& type);
         static bool unregister_listener(const EventListenerDelegate& delegate, const EventType& type);
         static bool trigger_event(const IEventDataPtr& event_data);

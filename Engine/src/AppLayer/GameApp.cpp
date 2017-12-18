@@ -6,6 +6,7 @@ namespace ZeroEngine {
     GameApp::GameApp() {
         _game_logic = nullptr;
         _framework = nullptr;
+        ZeroEventManager::initialize();
     }
 
     GameApp::~GameApp() {
@@ -143,7 +144,8 @@ namespace ZeroEngine {
         _framework->run_main_loop();
     }
 
-    GameApp::GameApp( GameOptions& options ) {
+    GameApp::GameApp(GameOptions& options) {
+        ZeroEventManager::initialize();
         _is_running = false;
         _save_game_directory = std::string();
         _game_options = options;

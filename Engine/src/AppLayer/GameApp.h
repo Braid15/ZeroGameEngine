@@ -25,6 +25,10 @@ namespace ZeroEngine {
         std::string _save_game_directory;
         BaseGameLogic* _game_logic;
         AFramework* _framework;
+
+    protected:
+        GameOptions _game_options;
+
     public:
         GameApp();
         virtual ~GameApp();
@@ -51,14 +55,15 @@ namespace ZeroEngine {
         inline bool is_running() const { return _is_running; }
         Point<int32_t> get_screen_size() const;
         virtual StringRepr to_string() const override { return "ZeroEngineApp"; }
-    protected:
-        virtual BaseGameLogic* create_game_and_view() = 0;
 
+    protected:
+        GameApp(GameOptions&);
+
+        virtual BaseGameLogic* create_game_and_view() = 0;
         inline virtual void register_game_events() {};
-        GameOptions _game_options;
-        GameApp( GameOptions& );
-        void set_is_running( bool running );
-        void set_save_game_directory( std::string dir );
+
+        void set_is_running(bool running);
+        void set_save_game_directory(std::string dir);
     private:
         void register_engine_events();
     };

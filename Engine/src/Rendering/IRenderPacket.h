@@ -28,9 +28,9 @@ namespace ZeroEngine {
         BaseRenderPacket(Color color) : _color(color) {}
         inline virtual ~BaseRenderPacket() {}
         virtual void on_render(IPrimitiveRenderer&) = 0;
+        inline const Color& get_color() const { return _color; }
+        inline void set_color(const Color& color) { _color = color; }
         virtual StringRepr to_string() const = 0;
         typedef std::tr1::shared_ptr<BaseRenderPacket> s_ptr;
-    protected:
-        const Color& get_color() const { return _color; }
     };
 }

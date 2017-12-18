@@ -24,6 +24,7 @@
 #include <memory.h>
 #include <io.h>
 #include <stdio.h>
+#include <inttypes.h>
 #include <iostream>
 #include <fstream>
 #include <string>

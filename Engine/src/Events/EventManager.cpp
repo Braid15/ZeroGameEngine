@@ -152,9 +152,15 @@ namespace ZeroEngine {
     // ZeroEventManager
     //
 
-    BaseEventManager* ZeroEventManager::_event_manager = zero_new ZeroEventManager();
+    BaseEventManager* ZeroEventManager::_event_manager = nullptr;
 
     ZeroEventManager::~ZeroEventManager() {
+    }
+
+    void ZeroEventManager::initialize() {
+        if (_event_manager == nullptr) { 
+            _event_manager = zero_new ZeroEventManager();
+        }
     }
 
     bool ZeroEventManager::register_listener(const EventListenerDelegate& delegate, const EventType& type) {
