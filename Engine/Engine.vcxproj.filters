@@ -255,6 +255,9 @@
     <ClInclude Include="src\Memory\Memory.h">
       <Filter>Source\Memory</Filter>
     </ClInclude>
+    <ClInclude Include="src\Rendering\IPrimitiveRenderer.h">
+      <Filter>Source\Rendering</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Logger\BaseLogger.cpp">

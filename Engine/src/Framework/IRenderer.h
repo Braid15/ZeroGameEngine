@@ -3,8 +3,10 @@
 #include "../ZeroEngineStd.h"
 #include "../Graphics/Graphics.h"
 #include "../Rendering/IRenderPacket.h"
+#include "../Rendering/IPrimitiveRenderer.h"
 
 // @TODO: Move this and cpp file to Rendering folder
+// @TODO: Make seperate file for BaseRenderer
 
 namespace ZeroEngine {
 
@@ -37,8 +39,13 @@ namespace ZeroEngine {
         Color _background_color;
         typedef std::list<IRenderPacket::s_ptr> RenderPacketList;
         RenderPacketList _render_packets;
+
+        // Use naked ptr since this will be the only class and
+        // sub-classes are the only ones with access to it.
+        IPrimitiveRenderer* _primitive_renderer;
     public:
-        virtual ~BaseRenderer() {}
+        inline BaseRenderer() : _primitive_renderer(nullptr) {}
+        virtual ~BaseRenderer() { zero_delete(_primitive_renderer); }
         virtual void set_background_color(uint32_t red, uint32_t green, uint32_t blue, uint32_t alpha) override;
         virtual void set_background_color(const Color& color) override;
         virtual bool pre_render() = 0;
@@ -53,6 +60,9 @@ namespace ZeroEngine {
         virtual StringRepr to_string() const = 0;
         typedef std::shared_ptr<BaseRenderer> s_ptr;
     protected:
+        void set_primitive_renderer(IPrimitiveRenderer*);
+        IPrimitiveRenderer* get_primitive_renderer() const;
+
         const Color& get_background_color() const { return _background_color; }
     };
 

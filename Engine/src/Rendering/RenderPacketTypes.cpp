@@ -16,7 +16,7 @@ namespace ZeroEngine {
         _end = other._end;
     }
 
-    void LineRenderPacket::on_render(IRenderer& renderer) {
+    void LineRenderPacket::on_render(IPrimitiveRenderer& renderer) {
         renderer.draw_line(_start, _end, get_color());
     }
 }

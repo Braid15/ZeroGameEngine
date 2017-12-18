@@ -2,6 +2,10 @@
 
 namespace ZeroEngine {
 
+    // ---------------------------
+    // BaseRenderer Public Members
+    // ---------------------------
+
     void BaseRenderer::set_background_color(uint32_t red, uint32_t green, uint32_t blue, uint32_t alpha) {
         _background_color.set_red(red);
         _background_color.set_green(green);
@@ -17,12 +21,12 @@ namespace ZeroEngine {
     }
 
     void BaseRenderer::render_packets() {
-
+        assert(_primitive_renderer);
         // @TEMP: Optimize performance if needed. MIght need to use two
         // lists so that there is a back-buffer where packets can be submitted
         // whjile the other is being rendered
         for (auto packet : _render_packets) {
-            packet->on_render(*this);
+            packet->on_render(*_primitive_renderer);
         }
         // _render_packets.clear();
     }
@@ -46,5 +50,22 @@ namespace ZeroEngine {
         } else {
             LOG_DEBUG("BaseRenderer", "Packet not found for removal");
         }
+    }
+
+    // -------------------------------
+    // BaseRenderer Protected Members
+    // -------------------------------
+
+    void BaseRenderer::set_primitive_renderer(IPrimitiveRenderer* renderer) {
+        assert(renderer);
+        if (_primitive_renderer) {
+            zero_delete(_primitive_renderer);
+        }
+        _primitive_renderer = renderer;
+    }
+
+    IPrimitiveRenderer* BaseRenderer::get_primitive_renderer() const {
+        assert(_primitive_renderer);
+        return _primitive_renderer;
     }
 }

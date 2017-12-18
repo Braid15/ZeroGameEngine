@@ -187,6 +187,7 @@
     <Text Include="TODO.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Rendering\IPrimitiveRenderer.h" />
     <ClInclude Include="src\Memory\Memory.h" />
     <ClInclude Include="src\Logger\Logging.h" />
     <ClInclude Include="src\Rendering\RenderPacketTypes.h" />
