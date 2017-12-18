@@ -61,6 +61,9 @@
     <Filter Include="Source\Memory">
       <UniqueIdentifier>{df94486d-6a2a-44b0-a2d2-02f80335a9e3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Launcher">
+      <UniqueIdentifier>{0968cf99-cd22-4d60-81fa-136015613480}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ZeroEngine.h">
@@ -272,6 +275,9 @@
     </ClInclude>
     <ClInclude Include="src\Math\Math.h">
       <Filter>Source\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Launcher\GameLauncher.h">
+      <Filter>Source\Launcher</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

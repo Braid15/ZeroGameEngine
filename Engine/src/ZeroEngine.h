@@ -19,3 +19,4 @@
 #include "AppLayer/Game.h"
 #include "Rendering/IRenderPacket.h"
 #include "Rendering/RenderPacketTypes.h"
+#include "Launcher/GameLauncher.h"

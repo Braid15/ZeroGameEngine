@@ -187,6 +187,7 @@
     <Text Include="TODO.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Launcher\GameLauncher.h" />
     <ClInclude Include="src\Math\Line.h" />
     <ClInclude Include="src\Math\Math.h" />
     <ClInclude Include="src\Math\Vector2.h" />

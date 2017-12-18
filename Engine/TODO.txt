@@ -1,3 +1,7 @@
-- Define types for for char, long, short etc that will change depending on framework or just use _t types
 
-- EmptyMsgArgs should be static so it doesn't need to be instantiated all of the time	
+
+* Define types for for char, long, short etc that will change depending on framework or just use _t types
+
+* Go through all classes and make sure they are packed efficiently
+
+* Either remove the need for AppMsgArgs, make them C-style structs are make them use MemoryPool.

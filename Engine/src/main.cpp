@@ -4,6 +4,8 @@
 
 using namespace ZeroEngine;
 
+static void run_game();
+
 int main( int argc, char* args[] ) {
 
     #ifdef _DEBUG
@@ -11,22 +13,22 @@ int main( int argc, char* args[] ) {
     #endif
 
 
-    // @@TODO: Load gameoptions from file
-    GameOptions options;
-    GameApp* app = zero_new ZeroEngineAppTest::MockZeroEngineApp(options);
-    Game::set(app);
-    app->set_framework(zero_new SdlFramework());
-    if (app->initialize()) {
-        app->load_game();
-        app->run();
-    } else {
-        LOG_DEBUG("main", "Error initializing app");
-    }
 
-    app->shutdown();
-    zero_delete(app);
+    // @TESTING
+    /*
+    uint32_t f = 0x00FF00;
+    uint8_t* msb = (uint8_t*)&f;
+    printf("f + 0x0: %p\n", msb);
+    printf("f + 0x4: %p\n", msb + 0x4);
+    printf("f + 0x8: %p\n", msb + 0x8);
+    */
 
-    Logger::shutdown();
+
+    run_game();
+
+
+
+
 
     #ifdef _DEBUG
     _CrtDumpMemoryLeaks();
@@ -35,4 +37,18 @@ int main( int argc, char* args[] ) {
     system("PAUSE");
 
     return 0;
+}
+
+void run_game() {
+    // @TODO: Load options from file.
+    GameOptions options;
+
+    // Launcher takes care of deleting these pointers
+    GameApp* game = zero_new ZeroEngineAppTest::MockZeroEngineApp(options);
+    AFramework* framework = zero_new SdlFramework();
+
+    GameLauncher* launcher = zero_new GameLauncher(game, framework);
+    launcher->launch();
+
+    zero_delete(launcher);
 }
