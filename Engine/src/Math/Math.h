@@ -9,6 +9,7 @@ namespace ZeroEngine {
 
     class Math {
     public:
+        /*
         template <typename T>
         static T clamp(const T orig_val, const T min, const T max);
 
@@ -29,6 +30,7 @@ namespace ZeroEngine {
 
         template <typename T>
         static T cubed_root(const T orig_val);
+        */
 
 
 
