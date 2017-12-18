@@ -34,6 +34,33 @@
     <Filter Include="Source\Input">
       <UniqueIdentifier>{ae6724ec-bd83-4d80-99d1-40905a60ab89}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Events">
+      <UniqueIdentifier>{d11c5042-a5ce-4274-a74c-5a658a70a39e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Entity">
+      <UniqueIdentifier>{23a7720a-7269-4e9c-bf17-388093fca7ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Math">
+      <UniqueIdentifier>{6d2f1a30-9b30-4ee1-853c-7c843289f1de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\GameView">
+      <UniqueIdentifier>{96ae3056-8cbd-4666-a303-65e405c53893}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\GameLogic">
+      <UniqueIdentifier>{a796badd-c5f4-4b77-bc71-a5270669dabc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Physics">
+      <UniqueIdentifier>{0800bfdd-410a-476b-ad09-f4237c7ba8ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Process">
+      <UniqueIdentifier>{87dbbe3d-6885-49c8-a470-fce3b11298eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Rendering">
+      <UniqueIdentifier>{46ed3024-a619-4d0a-8440-a70cce63fb22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Memory">
+      <UniqueIdentifier>{df94486d-6a2a-44b0-a2d2-02f80335a9e3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ZeroEngine.h">
@@ -67,12 +94,6 @@
       <Filter>Source\Framework</Filter>
     </ClInclude>
     <ClInclude Include="src\Framework\IWindow.h">
-      <Filter>Source\Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="src\AppLayer\ZeroEngineApp.h">
-      <Filter>Source\AppLayer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Framework\Framework.h">
       <Filter>Source\Framework</Filter>
     </ClInclude>
     <ClInclude Include="src\Framework\AFramework.h">
@@ -117,6 +138,126 @@
     <ClInclude Include="src\Input\Keys.h">
       <Filter>Source\Input</Filter>
     </ClInclude>
+    <ClInclude Include="src\Input\Keyboard.h">
+      <Filter>Source\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Input\Mouse.h">
+      <Filter>Source\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Events\EventManager.h">
+      <Filter>Source\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Events\EventListener.h">
+      <Filter>Source\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Events\EventData.h">
+      <Filter>Source\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Events\EventType.h">
+      <Filter>Source\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Events\Events.h">
+      <Filter>Source\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\Entity.h">
+      <Filter>Source\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\EntityComponent.h">
+      <Filter>Source\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\EntityFactory.h">
+      <Filter>Source\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Input\Input.h">
+      <Filter>Source\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameView\IGameView.h">
+      <Filter>Source\GameView</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameView\IScreenElement.h">
+      <Filter>Source\GameView</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLogic\IGameLogic.h">
+      <Filter>Source\GameLogic</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Input\Gamepad.h">
+      <Filter>Source\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Input\Joystick.h">
+      <Filter>Source\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLogic\BaseGameLogic.h">
+      <Filter>Source\GameLogic</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physics\IPhysics.h">
+      <Filter>Source\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physics\Physics.h">
+      <Filter>Source\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\IEntityManager.h">
+      <Filter>Source\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameView\HumanView.h">
+      <Filter>Source\GameView</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ZeroEngineEvents.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameLogic\GameLogicInclude.h">
+      <Filter>Source\GameLogic</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameView\GameViewInclude.h">
+      <Filter>Source\GameView</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Process\ProcessManager.h">
+      <Filter>Source\Process</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Process\Process.h">
+      <Filter>Source\Process</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ZeroEngineProcesses.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\Color.h">
+      <Filter>Source\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\SdlFramework\SdlRenderer.h">
+      <Filter>Source\Framework\SdlFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ZeroEngineScreenElements.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AppLayer\GameApp.h">
+      <Filter>Source\AppLayer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Framework.h">
+      <Filter>Source\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AppLayer\Game.h">
+      <Filter>Source\AppLayer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Events\BaseEventData.h">
+      <Filter>Source\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\EntityManager.h">
+      <Filter>Source\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Rendering\IRenderPacket.h">
+      <Filter>Source\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Rendering\RenderPacketTypes.h">
+      <Filter>Source\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Logger\Logging.h">
+      <Filter>Source\Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Memory\Memory.h">
+      <Filter>Source\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Rendering\IPrimitiveRenderer.h">
+      <Filter>Source\Rendering</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Logger\BaseLogger.cpp">
@@ -127,9 +268,6 @@
     </ClCompile>
     <ClCompile Include="src\Graphics\Point.cpp">
       <Filter>Source\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="src\AppLayer\ZeroEngineApp.cpp">
-      <Filter>Source\AppLayer</Filter>
     </ClCompile>
     <ClCompile Include="src\main.cpp">
       <Filter>Source</Filter>
@@ -161,5 +299,89 @@
     <ClCompile Include="src\Framework\SdlFramework\SdlMsgTranslator.cpp">
       <Filter>Source\Framework\SdlFramework</Filter>
     </ClCompile>
+    <ClCompile Include="src\Input\Keys.cpp">
+      <Filter>Source\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Input\Keyboard.cpp">
+      <Filter>Source\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Input\Mouse.cpp">
+      <Filter>Source\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Events\EventManager.cpp">
+      <Filter>Source\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Events\EventListener.cpp">
+      <Filter>Source\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Events\Events.cpp">
+      <Filter>Source\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\Entity.cpp">
+      <Filter>Source\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\EntityFactory.cpp">
+      <Filter>Source\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\EntityComponent.cpp">
+      <Filter>Source\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameLogic\BaseGameLogic.cpp">
+      <Filter>Source\GameLogic</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameView\HumanView.cpp">
+      <Filter>Source\GameView</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ZeroEngineEvents.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameView\IGameView.cpp">
+      <Filter>Source\GameView</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Process\Process.cpp">
+      <Filter>Source\Process</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Process\ProcessManager.cpp">
+      <Filter>Source\Process</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ZeroEngineProcesses.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Graphics\Color.cpp">
+      <Filter>Source\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\SdlFramework\SdlRenderer.cpp">
+      <Filter>Source\Framework\SdlFramework</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\IRenderer.cpp">
+      <Filter>Source\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ZeroEngineScreenElements.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameView\IScreenElement.cpp">
+      <Filter>Source\GameView</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AppLayer\GameApp.cpp">
+      <Filter>Source\AppLayer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AppLayer\Game.cpp">
+      <Filter>Source\AppLayer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Events\BaseEventData.cpp">
+      <Filter>Source\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\EntityManager.cpp">
+      <Filter>Source\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Rendering\RenderPacketTypes.cpp">
+      <Filter>Source\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Logger\Logging.cpp">
+      <Filter>Source\Logger</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\mh.py" />
   </ItemGroup>
 </Project>

@@ -1,4 +1,4 @@
 #pragma once
 
-#include "ZeroEngineApp.h"
+#include "GameApp.h"
 #include "GameOptions.h"

@@ -6,7 +6,7 @@ namespace ZeroEngine {
     // MouseMotionMsgArgs
     //
     
-    MouseMotionMsgArgs::MouseMotionMsgArgs(Time time_stamp, uint32_t window, uint32_t mouse, MouseButtonStateArray buttons,
+    MouseMotionMsgArgs::MouseMotionMsgArgs(Tick time_stamp, uint32_t window, uint32_t mouse, MouseButtonStateArray buttons,
                                            int32_t x_pos, int32_t y_pos, int32_t x_rel, int32_t y_rel) : AppMsgArgs(time_stamp) {
         _window = window;
         _mouse_id = mouse;
@@ -25,7 +25,7 @@ namespace ZeroEngine {
     // MouseButtonMsgArgs
     //
 
-    MouseButtonMsgArgs::MouseButtonMsgArgs(Time time_stamp, uint32_t window, uint32_t mouse_id,
+    MouseButtonMsgArgs::MouseButtonMsgArgs(Tick time_stamp, uint32_t window, uint32_t mouse_id,
                         ButtonState state, uint8_t num_clicks, MouseButton button, int32_t x_pos, int32_t y_pos) 
                         : AppMsgArgs(time_stamp) {
         _window = window;
@@ -40,7 +40,7 @@ namespace ZeroEngine {
     // MouseWheelMsgArgs
     //
 
-    MouseWheelMsgArgs::MouseWheelMsgArgs(Time time_stamp, uint32_t window, uint32_t mouse,
+    MouseWheelMsgArgs::MouseWheelMsgArgs(Tick time_stamp, uint32_t window, uint32_t mouse,
                                          int32_t x, int32_t y, MouseWheelDirection direction)
                                          : AppMsgArgs(time_stamp) {
         _window = window;
@@ -54,11 +54,13 @@ namespace ZeroEngine {
     // KeyboardMsgArgs
     //
 
-    KeyboardMsgArgs::KeyboardMsgArgs(Time time_stamp, uint32_t window, Key& key, bool repeat, KeyState state)
+    KeyboardMsgArgs::KeyboardMsgArgs(Tick time_stamp, uint32_t window, Key& key, bool repeat, 
+                                     KeyState state, KeyModStateArray mod_states)
                                      : AppMsgArgs(time_stamp) {
+        _key_state = state;
         _window = window;
         _key = key;
         _is_repeat = repeat;
-        _state = state;
+        _keymod_states = mod_states;
     }
 }

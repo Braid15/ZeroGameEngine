@@ -185,16 +185,6 @@ namespace ZeroEngine {
          return _x == 0.0 && _y == 0.0;
      }
 
-
-     /* ostream/istream */
-     // TODO - 10/2/2017 - Handle float point precision
-     template <class T>
-     inline std::ostream& operator<<( std::ostream& os, const Point<T>& point ) {
-         os << point.to_string() << " - x: " << point.get_x() << " y: " << point.get_y();
-         return os;
-     }
-
-
      template <>
      inline StringRepr Point<float>::to_string() const {
          return "Point<float>";

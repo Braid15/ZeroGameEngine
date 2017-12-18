@@ -37,10 +37,8 @@ namespace ZeroEngine {
     }
 
     bool SdlFramework::on_shutdown() {
-        SDL_DestroyRenderer(_renderer);
-        SDL_DestroyWindow(_window);
-        _renderer = nullptr;
-        _window = nullptr;
+        SDL_DestroyWindow(_sdl_window);
+        _sdl_window = nullptr;
         Mix_Quit();
         TTF_Quit();
         IMG_Quit();
@@ -59,48 +57,28 @@ namespace ZeroEngine {
         }
     }
 
-    void SdlFramework::frame_render_present(Time delta_time) {
-        SDL_SetRenderDrawColor(_renderer, 0, 0, 0, 255);
-        SDL_RenderClear(_renderer);
-        _render_callback(delta_time);
-        SDL_RenderPresent(_renderer);
-    }
-
     // @@TODO: May change this to protected get_current_framework_time() 
     // and have AFramework have a public get_current_time() so that I have
     // more control over the time
-    Time SdlFramework::get_current_time() const {
+    Tick SdlFramework::get_current_time() const {
         return SDL_GetTicks();
     }
 
-    IWindow* SdlFramework::create_window(std::string title, Point<long> size) {
-        IWindow* ret_window = nullptr;
-        _window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_UNDEFINED,
+    IWindow::ptr SdlFramework::create_window(std::string title, Point<int32_t> size) {
+        _sdl_window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_UNDEFINED,
                                    SDL_WINDOWPOS_UNDEFINED, size.get_x(), 
                                    size.get_y(), SDL_WINDOW_SHOWN | SDL_WINDOW_ALLOW_HIGHDPI
                                    | SDL_WINDOW_RESIZABLE
 
         );
 
-        if (!_window) {
+        if (!_sdl_window) {
             std::cout << "SDL_Error: " << SDL_GetError() << std::endl;
         }
-        return ret_window;
+        return IWindow::ptr(zero_new NullWindow());
     }
 
-    // @@TODO: Set vsync based off game options
-    IRenderer* SdlFramework::create_renderer() {
-        IRenderer* ret_renderer = nullptr;
-        if (_window) {
-            _renderer = SDL_CreateRenderer(_window, -1, SDL_RENDERER_ACCELERATED
-                                           | SDL_RENDERER_PRESENTVSYNC 
-            );
-            if (!_renderer) {
-                std::cout << "SDL_Error: " << SDL_GetError() << std::endl;
-            }
-        } else {
-            std::cout << "Cannot create renderer without a window." << std::endl;
-        }
-        return ret_renderer;
+    BaseRenderer::s_ptr SdlFramework::create_renderer() {
+        return BaseRenderer::s_ptr(zero_new SdlRenderer(_sdl_window));
     }
 }

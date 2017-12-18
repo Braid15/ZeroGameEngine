@@ -21,22 +21,22 @@ namespace ZeroEngine {
     public:
         T get_x() const; 
         T get_y() const;
-        void set_x( const T x );
-        void set_y( const T y );
-        void set( const T x, const T y );
+        void set_x(const T x);
+        void set_y(const T y);
+        void set(const T x, const T y);
 
     /* Operator interface */
     public:
-        Point<T>& operator=( const Point<T>& new_point );
-        Point<T>& operator=( const Point<T>* new_point );
-        Point<T>& operator+=( const Point<T>& new_point );
-        Point<T>& operator-=( const Point<T>& new_point );
-        Point<T>& operator+=( const Point<T>* new_point );
-        Point<T>& operator-=( const Point<T>* new_point );
-        Point<T> operator+( const Point<T>& point );
-        Point<T> operator-( const Point<T>& point );
-        bool operator==( const Point<T>& point ) const;
-        bool operator!=( const Point<T>& point ) const;
+        Point<T>& operator=(const Point<T>& new_point);
+        Point<T>& operator=(const Point<T>* new_point);
+        Point<T>& operator+=(const Point<T>& new_point);
+        Point<T>& operator-=(const Point<T>& new_point);
+        Point<T>& operator+=(const Point<T>* new_point);
+        Point<T>& operator-=(const Point<T>* new_point);
+        Point<T> operator+(const Point<T>& point);
+        Point<T> operator-( const Point<T>& point);
+        bool operator==(const Point<T>& point) const;
+        bool operator!=(const Point<T>& point) const;
 
     /* Method interface */
     public:
@@ -56,7 +56,10 @@ namespace ZeroEngine {
 
     /* ostream/istream */
     template <class T>
-    std::ostream& operator<<( std::ostream& os, const Point<T>& point );
+    std::ostream& operator<<(std::ostream& os, const Point<T>& point) {
+        os << point.to_string() << ": (" << point.get_x() << ", " << point.get_y() << ")";
+        return os;
+    }
 
         
     #ifdef _DEBUG

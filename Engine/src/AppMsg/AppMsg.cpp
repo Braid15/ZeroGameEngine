@@ -7,46 +7,6 @@ namespace ZeroEngine {
     int AppMsg::_allocations = 0;
     #endif
 
-    const AppMsgType AppMsg::null = 0x01;
-    const AppMsgType AppMsg::quit = 0x02;
-    const AppMsgType AppMsg::unhandled = 0x03;
-    const AppMsgType AppMsg::window = 0x04;
-    const AppMsgType AppMsg::system = 0x05;
-    const AppMsgType AppMsg::keydown = 0x06;
-    const AppMsgType AppMsg::keyup = 0x07;
-    const AppMsgType AppMsg::text_edit = 0x08;
-    const AppMsgType AppMsg::text_input = 0x09;
-    const AppMsgType AppMsg::keymap_changed = 0x0A;
-    const AppMsgType AppMsg::mouse_motion = 0x0B;
-    const AppMsgType AppMsg::mouse_button_down = 0x0C;
-    const AppMsgType AppMsg::mouse_button_up = 0x0D;
-    const AppMsgType AppMsg::mouse_wheel = 0x0E;
-    const AppMsgType AppMsg::joy_axis_motion = 0x0F;
-    const AppMsgType AppMsg::joy_ball_motion = 0x10;
-    const AppMsgType AppMsg::joy_hat_motion = 0x11;
-    const AppMsgType AppMsg::joy_button_down = 0x12;
-    const AppMsgType AppMsg::joy_button_up = 0x13;
-    const AppMsgType AppMsg::joy_device_added = 0x14;
-    const AppMsgType AppMsg::joy_device_removed = 0x15;
-    const AppMsgType AppMsg::controller_axis_motion = 0x16;
-    const AppMsgType AppMsg::controller_button_down = 0x17;
-    const AppMsgType AppMsg::controller_button_up = 0x18;
-    const AppMsgType AppMsg::controller_device_added = 0x19;
-    const AppMsgType AppMsg::controller_device_removed = 0x1A;
-    const AppMsgType AppMsg::controller_device_remapped = 0x1B;
-    const AppMsgType AppMsg::finger_down = 0x1C;
-    const AppMsgType AppMsg::finger_up = 0x1D;
-    const AppMsgType AppMsg::finger_motion = 0x1E;
-    const AppMsgType AppMsg::clipboard = 0x1F;
-    const AppMsgType AppMsg::drop_file = 0x20;
-    const AppMsgType AppMsg::drop_text = 0x21;
-    const AppMsgType AppMsg::drop_begin = 0x22;
-    const AppMsgType AppMsg::drop_complete = 0x23;
-    const AppMsgType AppMsg::audio_device_added = 0x24;
-    const AppMsgType AppMsg::audio_device_removed = 0x25;
-    const AppMsgType AppMsg::render_targets_reset = 0x26;
-    const AppMsgType AppMsg::render_device_reset = 0x27;
-
     AppMsg::AppMsg(AppMsgArgs* args) {
         _args = args;
         #ifdef _DEBUG
@@ -114,16 +74,30 @@ namespace ZeroEngine {
     // NullMsg
     //
 
+    const AppMsgType NullMsg::type = AppMsgType::null;
+
     AppMsg* NullMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
         return new NullMsg(args);
+    }
+
+    NullMsg::ptr NullMsg::cast(AppMsg::ptr msg) {
+        assert(msg->is_type(type));
+        return dynamic_cast<NullMsg::ptr>(msg);
     }
 
     //
     // QuitMsg
     //
 
+    const AppMsgType QuitMsg::type = AppMsgType::quit;
+
     AppMsg* QuitMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
         return new QuitMsg(args);
+    }
+
+    QuitMsg::ptr QuitMsg::cast(AppMsg::ptr msg) {
+        assert(msg->is_type(type));
+        return dynamic_cast<QuitMsg::ptr>(msg);
     }
 
 
@@ -131,29 +105,49 @@ namespace ZeroEngine {
     // UnhandledMsg
     //
 
+    const AppMsgType UnhandledMsg::type = AppMsgType::unhandled;
+
     AppMsg* UnhandledMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
         return new UnhandledMsg(args);
+    }
+
+    UnhandledMsg::ptr UnhandledMsg::cast(AppMsg::ptr msg) {
+        assert(msg->is_type(type));
+        return dynamic_cast<UnhandledMsg::ptr>(msg);
     }
 
     // 
     // WindowMsg
     //
 
+    const AppMsgType WindowMsg::type = AppMsgType::window;
+
     AppMsg* WindowMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
         return new WindowMsg(args);
+    }
+
+    WindowMsg::ptr WindowMsg::cast(AppMsg::ptr msg) {
+        assert(msg->is_type(type));
+        return dynamic_cast<WindowMsg::ptr>(msg);
     }
 
     WindowMsg::WindowMsg(AppMsgArgs* args) : AppMsg(args) {
         _args = dynamic_cast<WindowMsgArgs*>(args);
     }
 
-
     //
     // SystemMsg
     //
 
+    const AppMsgType SystemMsg::type = AppMsgType::system;
+
     AppMsg* SystemMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
         return new SystemMsg(args);
+    }
+
+    SystemMsg::ptr SystemMsg::cast(AppMsg::ptr msg) {
+        assert(msg->is_type(type));
+        return dynamic_cast<SystemMsg::ptr>(msg);
     }
 
     SystemMsg::SystemMsg(AppMsgArgs* args) : AppMsg(args) {
@@ -161,14 +155,40 @@ namespace ZeroEngine {
     }
 
     //
+    // KeyboardMsg
+    //
+
+    const AppMsgType KeyboardMsg::type = AppMsgType::keyboard;
+
+    AppMsg* KeyboardMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
+        return new KeyboardMsg(args);
+    }
+
+    KeyboardMsg::ptr KeyboardMsg::cast(AppMsg::ptr msg) {
+        assert(msg->is_type(type));
+        return dynamic_cast<KeyboardMsg::ptr>(msg);
+    }
+
+    KeyboardMsg::KeyboardMsg(AppMsgArgs* args) : AppMsg(args) {
+        _args = dynamic_cast<KeyboardMsgArgs*>(args);
+    }
+
+    //
     // KeyDownMsg
     //
 
-    AppMsg* KeyDownMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
-        return new KeyDownMsg(args);
+    const AppMsgType KeydownMsg::type = AppMsgType::keydown;
+
+    AppMsg* KeydownMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
+        return new KeydownMsg(args);
     }
 
-    KeyDownMsg::KeyDownMsg(AppMsgArgs* args) : AppMsg(args) {
+    KeydownMsg::ptr KeydownMsg::cast(AppMsg::ptr msg) {
+        assert(msg->is_type(type));
+        return dynamic_cast<KeydownMsg::ptr>(msg);
+    }
+
+    KeydownMsg::KeydownMsg(AppMsgArgs* args) : AppMsg(args) {
         _args = dynamic_cast<KeyboardMsgArgs*>(args);
     }
 
@@ -177,11 +197,18 @@ namespace ZeroEngine {
     // KeyUpMsg
     //
 
-    AppMsg* KeyUpMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
-        return new KeyUpMsg(args);
+    const AppMsgType KeyupMsg::type = AppMsgType::keyup;
+
+    AppMsg* KeyupMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
+        return new KeyupMsg(args);
     }
 
-    KeyUpMsg::KeyUpMsg(AppMsgArgs* args) : AppMsg(args) {
+    KeyupMsg::ptr KeyupMsg::cast(AppMsg::ptr msg) {
+        assert(msg->is_type(type));
+        return dynamic_cast<KeyupMsg::ptr>(msg);
+    }
+
+    KeyupMsg::KeyupMsg(AppMsgArgs* args) : AppMsg(args) {
         _args = dynamic_cast<KeyboardMsgArgs*>(args);
     }
 
@@ -190,8 +217,15 @@ namespace ZeroEngine {
     // TextEditMsg
     //
 
+    const AppMsgType TextEditMsg::type = AppMsgType::text_edit;
+
     AppMsg* TextEditMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
         return new TextEditMsg(args);
+    }
+
+    TextEditMsg::ptr TextEditMsg::cast(AppMsg::ptr msg) {
+        assert(msg->is_type(type));
+        return dynamic_cast<TextEditMsg::ptr>(msg);
     }
 
     TextEditMsg::TextEditMsg(AppMsgArgs* args) : AppMsg(args) {
@@ -202,8 +236,15 @@ namespace ZeroEngine {
     // TextInputMsg
     //
 
+    const AppMsgType TextInputMsg::type = AppMsgType::text_input;
+
     AppMsg* TextInputMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
         return new TextInputMsg(args);
+    }
+
+    TextInputMsg::ptr TextInputMsg::cast(AppMsg::ptr msg) {
+        assert(msg->is_type(type));
+        return dynamic_cast<TextInputMsg::ptr>(msg);
     }
 
     TextInputMsg::TextInputMsg(AppMsgArgs* args) : AppMsg(args) {
@@ -214,11 +255,18 @@ namespace ZeroEngine {
     // KeyMapChangedMsg
     //
 
-    AppMsg* KeyMapChangedMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
-        return new KeyMapChangedMsg(args);
+    const AppMsgType KeymapChangedMsg::type = AppMsgType::keymap_changed;
+
+    AppMsg* KeymapChangedMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
+        return new KeymapChangedMsg(args);
     }
 
-    KeyMapChangedMsg::KeyMapChangedMsg(AppMsgArgs* args) : AppMsg(args) {
+    KeymapChangedMsg::ptr KeymapChangedMsg::cast(AppMsg::ptr msg) {
+        assert(msg->is_type(type));
+        return dynamic_cast<KeymapChangedMsg::ptr>(msg);
+    }
+
+    KeymapChangedMsg::KeymapChangedMsg(AppMsgArgs* args) : AppMsg(args) {
         _args = dynamic_cast<KeyMapChangedMsgArgs*>(args);
     }
 
@@ -226,8 +274,15 @@ namespace ZeroEngine {
     // MouseButtonDownMsg
     //
 
+    const AppMsgType MouseButtonDownMsg::type = AppMsgType::mouse_button_down;
+
     AppMsg* MouseButtonDownMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
         return new MouseButtonDownMsg(args);
+    }
+
+    MouseButtonDownMsg::ptr MouseButtonDownMsg::cast(AppMsg::ptr msg) {
+        assert(msg->is_type(type));
+        return dynamic_cast<MouseButtonDownMsg::ptr>(msg);
     }
 
     MouseButtonDownMsg::MouseButtonDownMsg(AppMsgArgs* args) : AppMsg(args) {
@@ -238,8 +293,15 @@ namespace ZeroEngine {
     // MouseButtonUpMsg
     //
 
+    const AppMsgType MouseButtonUpMsg::type = AppMsgType::mouse_button_up;
+
     AppMsg* MouseButtonUpMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
         return new MouseButtonUpMsg(args);
+    }
+
+    MouseButtonUpMsg::ptr MouseButtonUpMsg::cast(AppMsg::ptr msg) {
+        assert(msg->is_type(type));
+        return dynamic_cast<MouseButtonUpMsg::ptr>(msg);
     }
 
     MouseButtonUpMsg::MouseButtonUpMsg(AppMsgArgs* args) : AppMsg(args) {
@@ -247,11 +309,37 @@ namespace ZeroEngine {
     }
 
     //
+    // MouseButtonMsg
+    //
+
+    const AppMsgType MouseButtonMsg::type = AppMsgType::mouse_button;
+
+    AppMsg* MouseButtonMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
+        return new MouseButtonMsg(args);
+    }
+
+    MouseButtonMsg::ptr MouseButtonMsg::cast(AppMsg::ptr msg) {
+        assert(msg->is_type(type));
+        return dynamic_cast<MouseButtonMsg::ptr>(msg);
+    }
+
+    MouseButtonMsg::MouseButtonMsg(AppMsgArgs* args) : AppMsg(args) {
+        _args = dynamic_cast<MouseButtonMsgArgs*>(args);
+    }
+
+    //
     // MouseWheelMsg
     //
 
+    const AppMsgType MouseWheelMsg::type = AppMsgType::mouse_wheel;
+
     AppMsg* MouseWheelMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
         return new MouseWheelMsg(args);
+    }
+
+    MouseWheelMsg::ptr MouseWheelMsg::cast(AppMsg::ptr msg) {
+        assert(msg->is_type(type));
+        return dynamic_cast<MouseWheelMsg::ptr>(msg);
     }
 
     MouseWheelMsg::MouseWheelMsg(AppMsgArgs* args) : AppMsg(args) {
@@ -262,8 +350,15 @@ namespace ZeroEngine {
     // MouseMotionMsg
     //
 
+    const AppMsgType MouseMotionMsg::type = AppMsgType::mouse_motion;
+
     AppMsg* MouseMotionMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
         return new MouseMotionMsg(args);
+    }
+
+    MouseMotionMsg::ptr MouseMotionMsg::cast(AppMsg::ptr msg) {
+        assert(msg->is_type(type));
+        return dynamic_cast<MouseMotionMsg::ptr>(msg);
     }
 
     MouseMotionMsg::MouseMotionMsg(AppMsgArgs* args) : AppMsg(args) {
@@ -274,8 +369,15 @@ namespace ZeroEngine {
     // JoyAxisMotionMsg
     //
 
+    const AppMsgType JoyAxisMotionMsg::type = AppMsgType::joy_axis_motion;
+
     AppMsg* JoyAxisMotionMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
         return new JoyAxisMotionMsg(args);
+    }
+
+    JoyAxisMotionMsg::ptr JoyAxisMotionMsg::cast(AppMsg::ptr msg) {
+        assert(msg->is_type(type));
+        return dynamic_cast<JoyAxisMotionMsg::ptr>(msg);
     }
 
     JoyAxisMotionMsg::JoyAxisMotionMsg(AppMsgArgs* args) : AppMsg(args) {
@@ -286,8 +388,15 @@ namespace ZeroEngine {
     // JoyBallMotionMsg
     //
 
+    const AppMsgType JoyBallMotionMsg::type = AppMsgType::joy_ball_motion;
+
     AppMsg* JoyBallMotionMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
         return new JoyBallMotionMsg(args);
+    }
+
+    JoyBallMotionMsg::ptr JoyBallMotionMsg::cast(AppMsg::ptr msg) {
+        assert(msg->is_type(type));
+        return dynamic_cast<JoyBallMotionMsg::ptr>(msg);
     }
 
     JoyBallMotionMsg::JoyBallMotionMsg(AppMsgArgs* args) : AppMsg(args) {
@@ -298,8 +407,15 @@ namespace ZeroEngine {
     // JoyHatMotionMsg
     //
 
+    const AppMsgType JoyHatMotionMsg::type = AppMsgType::joy_hat_motion;
+
     AppMsg* JoyHatMotionMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
         return new JoyHatMotionMsg(args);
+    }
+
+    JoyHatMotionMsg::ptr JoyHatMotionMsg::cast(AppMsg::ptr msg) {
+        assert(msg->is_type(type));
+        return dynamic_cast<JoyHatMotionMsg::ptr>(msg);
     }
 
     JoyHatMotionMsg::JoyHatMotionMsg(AppMsgArgs* args) : AppMsg(args) {
@@ -310,8 +426,15 @@ namespace ZeroEngine {
     // JoyButtonDownMsg
     //
 
+    const AppMsgType JoyButtonDownMsg::type = AppMsgType::joy_button_down;
+
     AppMsg* JoyButtonDownMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
         return new JoyButtonDownMsg(args);
+    }
+
+    JoyButtonDownMsg::ptr JoyButtonDownMsg::cast(AppMsg::ptr msg) {
+        assert(msg->is_type(type));
+        return dynamic_cast<JoyButtonDownMsg::ptr>(msg);
     }
 
     JoyButtonDownMsg::JoyButtonDownMsg(AppMsgArgs* args) : AppMsg(args) {
@@ -322,8 +445,15 @@ namespace ZeroEngine {
     // JoyButtonUpMsg
     //
 
+    const AppMsgType JoyButtonUpMsg::type = AppMsgType::joy_button_up;
+
     AppMsg* JoyButtonUpMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
         return new JoyButtonUpMsg(args);
+    }
+
+    JoyButtonUpMsg::ptr JoyButtonUpMsg::cast(AppMsg::ptr msg) {
+        assert(msg->is_type(type));
+        return dynamic_cast<JoyButtonUpMsg::ptr>(msg);
     }
 
     JoyButtonUpMsg::JoyButtonUpMsg(AppMsgArgs* args) : AppMsg(args) {
@@ -334,8 +464,15 @@ namespace ZeroEngine {
     // JoyDeviceAddedMsg
     //
 
+    const AppMsgType JoyDeviceAddedMsg::type = AppMsgType::joy_device_added;
+
     AppMsg* JoyDeviceAddedMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
         return new JoyDeviceAddedMsg(args);
+    }
+
+    JoyDeviceAddedMsg::ptr JoyDeviceAddedMsg::cast(AppMsg::ptr msg) {
+        assert(msg->is_type(type));
+        return dynamic_cast<JoyDeviceAddedMsg::ptr>(msg);
     }
 
     JoyDeviceAddedMsg::JoyDeviceAddedMsg(AppMsgArgs* args) : AppMsg(args) {
@@ -346,8 +483,15 @@ namespace ZeroEngine {
     // JoyDeviceRemovedMsg
     //
 
+    const AppMsgType JoyDeviceRemovedMsg::type = AppMsgType::joy_device_removed;
+
     AppMsg* JoyDeviceRemovedMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
         return new JoyDeviceRemovedMsg(args);
+    }
+
+    JoyDeviceRemovedMsg::ptr JoyDeviceRemovedMsg::cast(AppMsg::ptr msg) {
+        assert(msg->is_type(type));
+        return dynamic_cast<JoyDeviceRemovedMsg::ptr>(msg);
     }
 
     JoyDeviceRemovedMsg::JoyDeviceRemovedMsg(AppMsgArgs* args) : AppMsg(args) {
@@ -358,8 +502,15 @@ namespace ZeroEngine {
     // ControllerAxisMotionMsg
     //
 
+    const AppMsgType ControllerAxisMotionMsg::type = AppMsgType::controller_axis_motion;
+
     AppMsg* ControllerAxisMotionMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
         return new ControllerAxisMotionMsg(args);
+    }
+
+    ControllerAxisMotionMsg::ptr ControllerAxisMotionMsg::cast(AppMsg::ptr msg) {
+        assert(msg->is_type(type));
+        return dynamic_cast<ControllerAxisMotionMsg::ptr>(msg);
     }
 
     ControllerAxisMotionMsg::ControllerAxisMotionMsg(AppMsgArgs* args) : AppMsg(args) {
@@ -367,11 +518,18 @@ namespace ZeroEngine {
     }
 
     //
-    // ControllerAxisButtonDownMsg
+    // ControllerButtonDownMsg
     //
+
+    const AppMsgType ControllerButtonDownMsg::type = AppMsgType::controller_button_down;
 
     AppMsg* ControllerButtonDownMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
         return new ControllerButtonDownMsg(args);
+    }
+
+    ControllerButtonDownMsg::ptr ControllerButtonDownMsg::cast(AppMsg::ptr msg) {
+        assert(msg->is_type(type));
+        return dynamic_cast<ControllerButtonDownMsg::ptr>(msg);
     }
 
     ControllerButtonDownMsg::ControllerButtonDownMsg(AppMsgArgs* args) : AppMsg(args) {
@@ -379,11 +537,18 @@ namespace ZeroEngine {
     }
 
     //
-    // ControllerAxisButtonUpMsg
+    // ControllerButtonUpMsg
     //
+
+    const AppMsgType ControllerButtonUpMsg::type = AppMsgType::controller_button_up;
 
     AppMsg* ControllerButtonUpMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
         return new ControllerButtonUpMsg(args);
+    }
+
+    ControllerButtonUpMsg::ptr ControllerButtonUpMsg::cast(AppMsg::ptr msg) {
+        assert(msg->is_type(type));
+        return dynamic_cast<ControllerButtonUpMsg::ptr>(msg);
     }
 
     ControllerButtonUpMsg::ControllerButtonUpMsg(AppMsgArgs* args) : AppMsg(args) {
@@ -394,8 +559,15 @@ namespace ZeroEngine {
     // ControllerDeviceAddedMsg
     //
 
+    const AppMsgType ControllerDeviceAddedMsg::type = AppMsgType::controller_device_added;
+
     AppMsg* ControllerDeviceAddedMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
         return new ControllerDeviceAddedMsg(args);
+    }
+
+    ControllerDeviceAddedMsg::ptr ControllerDeviceAddedMsg::cast(AppMsg::ptr msg) {
+        assert(msg->is_type(type));
+        return dynamic_cast<ControllerDeviceAddedMsg::ptr>(msg);
     }
 
     ControllerDeviceAddedMsg::ControllerDeviceAddedMsg(AppMsgArgs* args) : AppMsg(args) {
@@ -406,8 +578,15 @@ namespace ZeroEngine {
     // ControllerDeviceRemovedMsg
     //
 
+    const AppMsgType ControllerDeviceRemovedMsg::type = AppMsgType::controller_device_removed;
+
     AppMsg* ControllerDeviceRemovedMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
         return new ControllerDeviceRemovedMsg(args);
+    }
+
+    ControllerDeviceRemovedMsg::ptr ControllerDeviceRemovedMsg::cast(AppMsg::ptr msg) {
+        assert(msg->is_type(type));
+        return dynamic_cast<ControllerDeviceRemovedMsg::ptr>(msg);
     }
 
     ControllerDeviceRemovedMsg::ControllerDeviceRemovedMsg(AppMsgArgs* args) : AppMsg(args) {
@@ -418,8 +597,15 @@ namespace ZeroEngine {
     // ControllerDeviceRemappedMsg
     //
 
+    const AppMsgType ControllerDeviceRemappedMsg::type = AppMsgType::controller_device_remapped;
+
     AppMsg* ControllerDeviceRemappedMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
         return new ControllerDeviceRemappedMsg(args);
+    }
+
+    ControllerDeviceRemappedMsg::ptr ControllerDeviceRemappedMsg::cast(AppMsg::ptr msg) {
+        assert(msg->is_type(type));
+        return dynamic_cast<ControllerDeviceRemappedMsg::ptr>(msg);
     }
 
     ControllerDeviceRemappedMsg::ControllerDeviceRemappedMsg(AppMsgArgs* args) : AppMsg(args) {
@@ -430,8 +616,15 @@ namespace ZeroEngine {
     // FingerDownMsg
     //
 
+    const AppMsgType FingerDownMsg::type = AppMsgType::finger_down;
+
     AppMsg* FingerDownMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
         return new FingerDownMsg(args);
+    }
+
+    FingerDownMsg::ptr FingerDownMsg::cast(AppMsg::ptr msg) {
+        assert(msg->is_type(type));
+        return dynamic_cast<FingerDownMsg::ptr>(msg);
     }
 
     FingerDownMsg::FingerDownMsg(AppMsgArgs* args) : AppMsg(args) {
@@ -442,8 +635,15 @@ namespace ZeroEngine {
     // FingerUpMsg
     //
 
+    const AppMsgType FingerUpMsg::type = AppMsgType::finger_up;
+
     AppMsg* FingerUpMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
         return new FingerUpMsg(args);
+    }
+
+    FingerUpMsg::ptr FingerUpMsg::cast(AppMsg::ptr msg) {
+        assert(msg->is_type(type));
+        return dynamic_cast<FingerUpMsg::ptr>(msg);
     }
 
     FingerUpMsg::FingerUpMsg(AppMsgArgs* args) : AppMsg(args) {
@@ -454,8 +654,15 @@ namespace ZeroEngine {
     // FingerMotionMsg
     //
 
+    const AppMsgType FingerMotionMsg::type = AppMsgType::finger_motion;
+
     AppMsg* FingerMotionMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
         return new FingerMotionMsg(args);
+    }
+
+    FingerMotionMsg::ptr FingerMotionMsg::cast(AppMsg::ptr msg) {
+        assert(msg->is_type(type));
+        return dynamic_cast<FingerMotionMsg::ptr>(msg);
     }
 
     FingerMotionMsg::FingerMotionMsg(AppMsgArgs* args) : AppMsg(args) {
@@ -466,8 +673,15 @@ namespace ZeroEngine {
     // ClipboardMsg
     //
 
+    const AppMsgType ClipboardMsg::type = AppMsgType::clipboard;
+
     AppMsg* ClipboardMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
         return new ClipboardMsg(args);
+    }
+
+    ClipboardMsg::ptr ClipboardMsg::cast(AppMsg::ptr msg) {
+        assert(msg->is_type(type));
+        return dynamic_cast<ClipboardMsg::ptr>(msg);
     }
 
     ClipboardMsg::ClipboardMsg(AppMsgArgs* args) : AppMsg(args) {
@@ -478,8 +692,15 @@ namespace ZeroEngine {
     // DropFileMsg
     //
         
+    const AppMsgType DropFileMsg::type = AppMsgType::drop_file;
+
     AppMsg* DropFileMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
         return new DropFileMsg(args);
+    }
+
+    DropFileMsg::ptr DropFileMsg::cast(AppMsg::ptr msg) {
+        assert(msg->is_type(type));
+        return dynamic_cast<DropFileMsg::ptr>(msg);
     }
 
     DropFileMsg::DropFileMsg(AppMsgArgs* args) : AppMsg(args) {
@@ -490,8 +711,15 @@ namespace ZeroEngine {
     // DropTextMsg
     //
 
+    const AppMsgType DropTextMsg::type = AppMsgType::drop_text;
+
     AppMsg* DropTextMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
         return new DropTextMsg(args);
+    }
+
+    DropTextMsg::ptr DropTextMsg::cast(AppMsg::ptr msg) {
+        assert(msg->is_type(type));
+        return dynamic_cast<DropTextMsg::ptr>(msg);
     }
 
     DropTextMsg::DropTextMsg(AppMsgArgs* args) : AppMsg(args) {
@@ -502,8 +730,15 @@ namespace ZeroEngine {
     // DropBeginMsg
     //
 
+    const AppMsgType DropBeginMsg::type = AppMsgType::drop_begin;
+
     AppMsg* DropBeginMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
         return new DropBeginMsg(args);
+    }
+
+    DropBeginMsg::ptr DropBeginMsg::cast(AppMsg::ptr msg) {
+        assert(msg->is_type(type));
+        return dynamic_cast<DropBeginMsg::ptr>(msg);
     }
 
     DropBeginMsg::DropBeginMsg(AppMsgArgs* args) : AppMsg(args) {
@@ -514,8 +749,15 @@ namespace ZeroEngine {
     // DropCompleteMsg
     //
 
+    const AppMsgType DropCompleteMsg::type = AppMsgType::drop_complete;
+
     AppMsg* DropCompleteMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
         return new DropCompleteMsg(args);
+    }
+
+    DropCompleteMsg::ptr DropCompleteMsg::cast(AppMsg::ptr msg) {
+        assert(msg->is_type(type));
+        return dynamic_cast<DropCompleteMsg::ptr>(msg);
     }
 
     DropCompleteMsg::DropCompleteMsg(AppMsgArgs* args) : AppMsg(args) {
@@ -526,8 +768,15 @@ namespace ZeroEngine {
     // AudioDeviceAddedMsg
     //
 
+    const AppMsgType AudioDeviceAddedMsg::type = AppMsgType::audio_device_added;
+
     AppMsg* AudioDeviceAddedMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
         return new AudioDeviceAddedMsg(args);
+    }
+
+    AudioDeviceAddedMsg::ptr AudioDeviceAddedMsg::cast(AppMsg::ptr msg) {
+        assert(msg->is_type(type));
+        return dynamic_cast<AudioDeviceAddedMsg::ptr>(msg);
     }
 
     AudioDeviceAddedMsg::AudioDeviceAddedMsg(AppMsgArgs* args) : AppMsg(args) {
@@ -538,8 +787,15 @@ namespace ZeroEngine {
     // AudioDeviceRemovedMsg
     //
 
+    const AppMsgType AudioDeviceRemovedMsg::type = AppMsgType::audio_device_removed;
+
     AppMsg* AudioDeviceRemovedMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
         return new AudioDeviceRemovedMsg(args);
+    }
+
+    AudioDeviceRemovedMsg::ptr AudioDeviceRemovedMsg::cast(AppMsg::ptr msg) {
+        assert(msg->is_type(type));
+        return dynamic_cast<AudioDeviceRemovedMsg::ptr>(msg);
     }
 
     AudioDeviceRemovedMsg::AudioDeviceRemovedMsg(AppMsgArgs* args) : AppMsg(args) {
@@ -550,8 +806,15 @@ namespace ZeroEngine {
     // RenderTargetsResetMsg
     //
 
+    const AppMsgType RenderTargetsResetMsg::type = AppMsgType::render_targets_reset;
+
     AppMsg* RenderTargetsResetMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
         return new RenderTargetsResetMsg(args);
+    }
+
+    RenderTargetsResetMsg::ptr RenderTargetsResetMsg::cast(AppMsg::ptr msg) {
+        assert(msg->is_type(type));
+        return dynamic_cast<RenderTargetsResetMsg::ptr>(msg);
     }
 
     RenderTargetsResetMsg::RenderTargetsResetMsg(AppMsgArgs* args) : AppMsg(args) {
@@ -562,8 +825,15 @@ namespace ZeroEngine {
     // RenderDeviceResetMsg
     //
 
+    const AppMsgType RenderDeviceResetMsg::type = AppMsgType::render_device_reset;
+
     AppMsg* RenderDeviceResetMsg::create(AppMsgAccessKey& key, AppMsgArgs* args) {
         return new RenderDeviceResetMsg(args);
+    }
+
+    RenderDeviceResetMsg::ptr RenderDeviceResetMsg::cast(AppMsg::ptr msg) {
+        assert(msg->is_type(type));
+        return dynamic_cast<RenderDeviceResetMsg::ptr>(msg);
     }
 
     RenderDeviceResetMsg::RenderDeviceResetMsg(AppMsgArgs* args) : AppMsg(args) {
