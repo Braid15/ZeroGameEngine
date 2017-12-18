@@ -110,6 +110,8 @@ namespace ZeroEngineAppTest {
                 // ZeroEventManager::queue_event(RequestDestroyEntityEvent::create(Game::get_entity_count()));
             } else if (key == Key::backspace) {
                 pen.remove_last_line();
+            } else if (Key_is_numeric(key)) {
+                std::cout << Key_get_numeric_value(key) << "\n";
             }
             return true;
         }

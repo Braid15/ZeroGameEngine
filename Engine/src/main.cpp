@@ -10,6 +10,7 @@ int main( int argc, char* args[] ) {
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
     #endif
 
+
     // @@TODO: Load gameoptions from file
     GameOptions options;
     GameApp* app = zero_new ZeroEngineAppTest::MockZeroEngineApp(options);
