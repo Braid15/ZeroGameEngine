@@ -2,11 +2,11 @@
 
 namespace ZeroEngine {
 
-    LineRenderPacket::LineRenderPacket(int32_t x1, int32_t y1, int32_t x2, int32_t y2, Color color) 
+    LineRenderPacket::LineRenderPacket(float_t x1, float_t y1, float_t x2, float_t y2, Color color) 
             : BaseRenderPacket(color) {
 
-        _start = Point<int32_t>(x1, y1);
-        _end = Point<int32_t>(x2, y2);
+        _start = Vector2(x1, y1);
+        _end = Vector2(x2, y2);
     }
 
     LineRenderPacket::LineRenderPacket(const LineRenderPacket& other) 
@@ -14,6 +14,13 @@ namespace ZeroEngine {
 
         _start = other._start;
         _end = other._end;
+    }
+
+    LineRenderPacket::LineRenderPacket(Point<int32_t> start, Point<int32_t> end, Color color)
+        : BaseRenderPacket(color) {
+
+        _start = Vector2(start.get_x(), start.get_y());
+        _end = Vector2(end.get_x(), end.get_y());
     }
 
     void LineRenderPacket::on_render(IPrimitiveRenderer& renderer) {

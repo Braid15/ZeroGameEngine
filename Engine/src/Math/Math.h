@@ -1,41 +1,39 @@
 #pragma once
 
+#include <float.h>
+#include <math.h>
+#include <cstdint>
+
 namespace ZeroEngine {
     
     // ---------------------------------------------
     // Provides static interface for math functions
     // ---------------------------------------------
 
+    // @TODO: Implement for other data types.
 
-    class Math {
-    public:
-        /*
-        template <typename T>
-        static T clamp(const T orig_val, const T min, const T max);
+    // @TODO: Compile errors with templates. Try and fix and implement
 
-        template <typename T>
-        static T power_of(const T orig_val, const int32_t power_of);
+    namespace Math {
 
-        template <typename T>
-        static T square(const T orig_val);
+        extern const float_t pi;
 
-        template <typename T>
-        static T cube(const T orig_val);
+        extern float_t clamp(const float_t& orig_val, const float_t& min, const float_t& max);
 
-        template <typename T>
-        static T root_of(const T orig_val, const int32_t root_of);
+        extern float_t power_of(const float_t& orig_val, const int32_t& exponent);
 
-        template <typename T>
-        static T square_root(const T orig_val);
+        extern float_t absolute_value(const float_t& orig_val);
 
-        template <typename T>
-        static T cubed_root(const T orig_val);
-        */
+        extern float_t square(const float_t& orig_val);
 
+        extern float_t cube(const float_t& orig_val);
 
+        // static T root(const T& orig_val, const int32_t& root_of);
 
-   private:
-        inline Math() {}
-        inline Math(const Math&) {}
-    };
+        extern float_t square_root(const float_t& orig_val);
+
+        #ifdef _DEBUG
+        extern void run_tests();
+        #endif
+    }
 }

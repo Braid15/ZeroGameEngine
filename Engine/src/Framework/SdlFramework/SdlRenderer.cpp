@@ -57,7 +57,8 @@ namespace ZeroEngine {
     // SdlPrimitiveRenderer Public Members
     // -----------------------------------
 
-    void SdlPrimitiveRenderer::draw_line(const Point<int32_t>& start, const Point<int32_t>& end, 
+
+    void SdlPrimitiveRenderer::draw_line(const Vector2& start, const Vector2& end, 
                                          const Color& color) {
         set_color(color);
         SDL_RenderDrawLine(&_renderer->get_sdl_renderer(), start.get_x(),
@@ -75,7 +76,7 @@ namespace ZeroEngine {
         LOG_UNIMPLEMENTED();
     }
 
-    void SdlPrimitiveRenderer::draw_circle(const Point<int32_t>& center, const int32_t& radius,
+    void SdlPrimitiveRenderer::draw_circle(const Point<int32_t>& center, const float_t& radius,
                                            const Color& color) {
         set_color(color);
         LOG_UNIMPLEMENTED();

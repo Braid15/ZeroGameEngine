@@ -292,6 +292,7 @@
     <ClCompile Include="src\Logger\BaseLogger.cpp" />
     <ClCompile Include="src\Logger\Logging.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Math\Line.cpp" />
     <ClCompile Include="src\Math\Math.cpp" />
     <ClCompile Include="src\Math\Vector2.cpp" />
     <ClCompile Include="src\Math\Vector3.cpp" />

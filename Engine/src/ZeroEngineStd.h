@@ -25,6 +25,7 @@
 #include <io.h>
 #include <stdio.h>
 #include <inttypes.h>
+#include <cstdint>
 #include <iostream>
 #include <fstream>
 #include <string>

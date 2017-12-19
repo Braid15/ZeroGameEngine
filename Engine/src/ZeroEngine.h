@@ -20,3 +20,4 @@
 #include "Rendering/IRenderPacket.h"
 #include "Rendering/RenderPacketTypes.h"
 #include "Launcher/GameLauncher.h"
+#include "Math/Math.h"

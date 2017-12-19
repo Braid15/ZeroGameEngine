@@ -413,6 +413,9 @@
     <ClCompile Include="src\Math\Math.cpp">
       <Filter>Source\Math</Filter>
     </ClCompile>
+    <ClCompile Include="src\Math\Line.cpp">
+      <Filter>Source\Math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\mh.py" />

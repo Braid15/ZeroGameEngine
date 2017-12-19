@@ -4,8 +4,13 @@
 #include "../IRenderer.h"
 #include "../../Rendering/IPrimitiveRenderer.h"
 #include "SdlFramework.h"
+#include "../../Math/Vector2.h"
 
 namespace ZeroEngine {
+
+    // -----------
+    // SdlRenderer
+    // -----------
 
     class SdlRenderer : public BaseRenderer {
     private:
@@ -30,6 +35,10 @@ namespace ZeroEngine {
         SDL_Renderer& get_sdl_renderer() const { return *_sdl_renderer; }
     };
 
+    // --------------------
+    // SdlPrimitiveRenderer
+    // --------------------
+
     class SdlPrimitiveRenderer final : public IPrimitiveRenderer {
     private:
         const SdlRenderer* _renderer;
@@ -37,11 +46,11 @@ namespace ZeroEngine {
         SdlPrimitiveRenderer(const SdlRenderer* renderer) : _renderer(renderer) {}
         // Should not delete SdlRenderer
         inline ~SdlPrimitiveRenderer() {}
-        void draw_line(const Point<int32_t>& start, const Point<int32_t>& end, const Color& color) override;
+        void draw_line(const Vector2& start, const Vector2& end, const Color& color) override;
         void draw_point(const Point<int32_t>& point, const Color& color) override;
         void draw_triangle(const Point<int32_t>& v1, const Point<int32_t>& v2,
                           const Point<int32_t>& v3, const Color& color) override;
-        void draw_circle(const Point<int32_t>& center, const int32_t& radius, const Color& color) override;
+        void draw_circle(const Point<int32_t>& center, const float_t& radius, const Color& color) override;
         void draw_rect(const Rect& rect, const Color& color) override;
         void draw_text(const std::string& text, const Rect& canvas, const Color& color) override;
     private:

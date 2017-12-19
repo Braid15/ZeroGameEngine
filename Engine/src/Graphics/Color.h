@@ -39,6 +39,7 @@ namespace ZeroEngine {
         bool operator!=(const Color& rhs);
         Color& operator=(const Color& rhs);
         Color& operator=(const Color* rhs);
+
         // @TODO: Other operators
 
     private:
