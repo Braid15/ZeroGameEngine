@@ -145,7 +145,7 @@ namespace ZeroEngine {
     }
 
     // @TODO: Factor out move_to_next_element since thse are the same thing
-    bool TinyXmlReaderImpl::read() {
+    bool TinyXmlReaderImpl::read_to_next_element() {
         if (!needed_init() && _current_node) {
             assert(_current_node->Type() == TiXmlNode::TINYXML_ELEMENT);
             if (_current_node->FirstChildElement()) {
@@ -177,6 +177,23 @@ namespace ZeroEngine {
         } else {
             LOG_DEBUG("TinyXmlReaderImpl", "Current node is not valid");
         }
+    }
+
+    const char* TinyXmlReaderImpl::get_attribute_name(const int32_t index) const {
+        if (_current_node) {
+            assert(_current_node->Type() == TiXmlNode::TINYXML_ELEMENT);
+            TiXmlElement* element = dynamic_cast<TiXmlElement*>(_current_node);
+            TiXmlAttribute* attribute = element->FirstAttribute();
+            int32_t count = 0;
+            while (attribute) {
+                if (count == index) {
+                    return attribute->Name();
+                }
+                attribute = attribute->Next();
+                count++;
+            }
+        }
+        return "";
     }
 
     bool TinyXmlReaderImpl::has_attributes() const {

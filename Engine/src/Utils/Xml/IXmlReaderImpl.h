@@ -3,7 +3,8 @@
 #include "../../ZeroEngineStd.h"
 
 namespace ZeroEngine {
-// --------------
+
+    // --------------
     // IXmlReaderImpl
     // --------------
 
@@ -24,7 +25,8 @@ namespace ZeroEngine {
         virtual bool is_element_empty() const = 0;
         virtual bool has_attributes() const = 0;
         virtual void move_to_root_element() = 0;
-        virtual bool read() = 0;
+        virtual bool read_to_next_element() = 0;
+        virtual const char* get_attribute_name(const int32_t index) const = 0;
 
         virtual StringRepr to_string() const = 0;
     };

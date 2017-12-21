@@ -644,7 +644,7 @@ void TiXmlDocument::StreamIn( std::istream * in, TIXML_STRING * tag )
 	// streaming. Read something presumed to be a tag (and hope), then
 	// identify it, and call the appropriate stream method on the tag.
 	//
-	// This "pre-streaming" will never read the closing ">" so the
+	// This "pre-streaming" will never read_to_next_element the closing ">" so the
 	// sub-tag can orient itself.
 
 	if ( !StreamTo( in, '<', tag ) ) 

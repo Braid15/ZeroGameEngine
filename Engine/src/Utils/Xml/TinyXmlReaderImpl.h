@@ -28,7 +28,8 @@ namespace ZeroEngine {
         bool is_element_empty() const override;
         bool has_attributes() const override;
         void move_to_root_element() override;
-        bool read() override;
+        bool read_to_next_element() override;
+        const char* get_attribute_name(const int32_t index) const override;
 
         inline StringRepr to_string() const override { return "TinyXmlReaderImpl"; }
     private:

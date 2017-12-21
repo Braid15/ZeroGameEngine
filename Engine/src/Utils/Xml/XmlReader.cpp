@@ -38,23 +38,23 @@ namespace ZeroEngine {
         return _implementation->load_xml_file(file_path);
     }
 
-    const char* XmlReader::get_current_element_name() const {
+    const char* XmlReader::get_element_name() const {
         return _implementation->get_name();
     }
 
-    bool XmlReader::current_element_has_attributes() const {
+    bool XmlReader::element_has_attributes() const {
         return _implementation->has_attributes();
     }
 
-    bool XmlReader::current_element_has_value() const {
+    bool XmlReader::element_has_value() const {
         return _implementation->has_value();
     }
 
-    const char* XmlReader::get_current_element_value() const {
+    const char* XmlReader::get_element_value() const {
         return _implementation->get_value();
     }
 
-    int32_t XmlReader::get_current_element_attribute_count() const {
+    int32_t XmlReader::get_element_attribute_count() const {
         return _implementation->get_attribute_count();
     }
 
@@ -66,11 +66,11 @@ namespace ZeroEngine {
         _implementation->move_to_first_element(name);
     }
 
-    const char* XmlReader::get_current_element_attribute_value(const char* name) const {
+    const char* XmlReader::get_element_attribute_value(const char* name) const {
         return _implementation->get_attribute_value(name);
     }
 
-    const char* XmlReader::get_current_element_attribute_value(int32_t index) const {
+    const char* XmlReader::get_element_attribute_value(int32_t index) const {
         return _implementation->get_attribute_value(index);
     }
 
@@ -90,8 +90,12 @@ namespace ZeroEngine {
         _implementation->move_to_root_element();
     }
 
-    bool XmlReader::read() const {
-        return _implementation->read();
+    bool XmlReader::read_to_next_element() const {
+        return _implementation->read_to_next_element();
+    }
+
+    const char* XmlReader::get_element_attribute_name(const int32_t index) const {
+        return _implementation->get_attribute_name(index);
     }
 
 #ifdef _DEBUG
@@ -128,15 +132,16 @@ namespace ZeroEngine {
         XmlReader reader("S:/projects/Game-Engines/ZeroGameEngine/Engine/test/test.xml");
         reader.load();
 
-        while (reader.read()) {
-            std::cout << "get_element_name: " << reader.get_current_element_name() << "\n";
-            std::cout << "has_attributes: " << reader.current_element_has_attributes() << "\n";
-            std::cout << "has_value: " << reader.current_element_has_value() << "\n";
-            std::cout << "value: " << reader.get_current_element_value() << "\n";
-            if (reader.current_element_has_attributes()) {
-                int count = reader.get_current_element_attribute_count();
+        while (reader.read_to_next_element()) {
+            std::cout << "get_element_name: " << reader.get_element_name() << "\n";
+            std::cout << "has_attributes: " << reader.element_has_attributes() << "\n";
+            std::cout << "has_value: " << reader.element_has_value() << "\n";
+            std::cout << "value: " << reader.get_element_value() << "\n";
+            if (reader.element_has_attributes()) {
+                int count = reader.get_element_attribute_count();
                 for (int i = 0; i < count; i++) {
-                    std::cout << "attribue_val(" << i << "): " << reader.get_current_element_attribute_value(i) << "\n";
+                    std::cout << "NAME: " << reader.get_element_attribute_name(i);
+                    std::cout << " VALUE: " << reader.get_element_attribute_value(i) << "\n";
                 }
             }
             std::cout << "\n";
