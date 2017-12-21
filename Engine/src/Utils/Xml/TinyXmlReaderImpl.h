@@ -18,22 +18,20 @@ namespace ZeroEngine {
         bool has_value() const override;
         const char* get_value() const override;
         int32_t get_attribute_count() const override;
-        void move_to_first_element() override;
-        void move_to_first_element(const char* name) override;
+        bool move_to_element(const char* name) override;
         const char* get_attribute_value(const char* name) const override;
         const char* get_attribute_value(const int32_t index) const override;
-        void move_to_next_element() override;
-        void move_to_next_sibling() override;
+        bool move_to_next_sibling() override;
         bool load_xml_file(const char* file_path) override;
-        bool is_element_empty() const override;
         bool has_attributes() const override;
         void move_to_root_element() override;
-        bool read_to_next_element() override;
+        bool move_to_next_element() override;
         const char* get_attribute_name(const int32_t index) const override;
+        bool move_to_parent_element();
 
         inline StringRepr to_string() const override { return "TinyXmlReaderImpl"; }
     private:
-        bool needed_init();
+        bool make_first_move();
         TinyXmlReaderImpl() : _current_node(nullptr), _has_moved(false) {}
         TinyXmlReaderImpl(const TinyXmlReaderImpl&) {}
     };

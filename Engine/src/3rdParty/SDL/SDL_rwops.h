@@ -71,7 +71,7 @@ typedef struct SDL_RWops
      *
      *  \return the number of objects read, or 0 at error or end of file.
      */
-    size_t (SDLCALL * read_to_next_element) (struct SDL_RWops * context, void *ptr,
+    size_t (SDLCALL * move_to_next_element) (struct SDL_RWops * context, void *ptr,
                              size_t size, size_t maxnum);
 
     /**
@@ -184,7 +184,7 @@ extern DECLSPEC void SDLCALL SDL_FreeRW(SDL_RWops * area);
 #define SDL_RWsize(ctx)         (ctx)->size(ctx)
 #define SDL_RWseek(ctx, offset, whence) (ctx)->seek(ctx, offset, whence)
 #define SDL_RWtell(ctx)         (ctx)->seek(ctx, 0, RW_SEEK_CUR)
-#define SDL_RWread(ctx, ptr, size, n)   (ctx)->read_to_next_element(ctx, ptr, size, n)
+#define SDL_RWread(ctx, ptr, size, n)   (ctx)->move_to_next_element(ctx, ptr, size, n)
 #define SDL_RWwrite(ctx, ptr, size, n)  (ctx)->write(ctx, ptr, size, n)
 #define SDL_RWclose(ctx)        (ctx)->close(ctx)
 /* @} *//* Read/write macros */

@@ -2,95 +2,90 @@
 
 namespace ZeroEngine {
 
+    // Convenience macro since I log this in every method.
+    // I don't want to assert whether _current_node is a valid pointer
+    // because some methods use it's invalid state to work.
+    #define LOG_INVALID_NODE() LOG_DEBUG("TinyXmlReaderImpl", "Node is invalid");
+
+
     TinyXmlReaderImpl::~TinyXmlReaderImpl() {
         _document.Clear();
     }
 
     const char* TinyXmlReaderImpl::get_name() const {
-        if (_current_node) {
-            assert(_current_node->Type() == TiXmlNode::TINYXML_ELEMENT);
-            return _current_node->Value();
-        } else {
-            LOG_DEBUG("TinyXmlReaderImpl", "Node is invalid");
-        }
-        return "";
+        if (!_current_node) return "";
+
+        assert(_current_node->Type() == TiXmlNode::TINYXML_ELEMENT);
+        return _current_node->Value();
     }
 
     bool TinyXmlReaderImpl::has_value() const {
-        if (_current_node) {
-            assert(_current_node->Type() == TiXmlNode::TINYXML_ELEMENT);
-            if (!_current_node->NoChildren()
-                && _current_node->FirstChild()->Type() == TiXmlNode::TINYXML_TEXT) {
-                return true;
-            }
-        } else {
-            LOG_DEBUG("TinyXmlReaderImpl", "Node is invalid");
-        }
-        return false;
+        if (!_current_node || _current_node->NoChildren()) return false;
+
+        assert(_current_node->Type() == TiXmlNode::TINYXML_ELEMENT);
+        return (_current_node->FirstChild()->Type() == TiXmlNode::TINYXML_TEXT);
     }
 
     const char* TinyXmlReaderImpl::get_value() const {
-        if (_current_node) {
-            assert(_current_node->Type() == TiXmlNode::TINYXML_ELEMENT);
-            if (!_current_node->NoChildren()
-                && _current_node->FirstChild()->Type() == TiXmlNode::TINYXML_TEXT) {
-                return _current_node->FirstChild()->Value();
-            }
-        } else {
-            LOG_DEBUG("TinyXmlReaderImpl", "Node is invalid");
-        }
-        return "";
+        // has_value() will do the proper validation checks
+        return (has_value()) ? _current_node->FirstChild()->Value() : "";
+    }
+
+    bool TinyXmlReaderImpl::move_to_parent_element() {
+        if (!_current_node || !_current_node->Parent()) return false;
+
+        assert(_current_node->Type() == TiXmlNode::TINYXML_ELEMENT);
+        _current_node = _current_node->Parent();
+        return true;
     }
 
     int32_t TinyXmlReaderImpl::get_attribute_count() const {
-        if (_current_node) {
-            assert(_current_node->Type() == TiXmlNode::TINYXML_ELEMENT);
-            TiXmlElement* element = dynamic_cast<TiXmlElement*>(_current_node);
-            TiXmlAttribute* attribute = element->FirstAttribute();
-            int32_t count = 0;
-            while (attribute) {
-                attribute = attribute->Next();
-                count++;
-            }
-            return count;
-        } else {
-            LOG_DEBUG("TinyXmlReaderImpl", "Node is invalid");
+        if (!_current_node) return 0;
+
+        assert(_current_node->Type() == TiXmlNode::TINYXML_ELEMENT);
+        TiXmlElement* element = dynamic_cast<TiXmlElement*>(_current_node);
+        TiXmlAttribute* attribute = element->FirstAttribute();
+        int32_t count = 0;
+        while (attribute) {
+            attribute = attribute->Next();
+            count++;
         }
-        return 0;
+        return count;
     }
 
-    void TinyXmlReaderImpl::move_to_first_element() {
-        if (_current_node) {
-            assert(_current_node->Type() == TiXmlNode::TINYXML_ELEMENT);
-            if (!_current_node->NoChildren()) {
-                if (_current_node->FirstChildElement()) {
-                    _current_node = _current_node->FirstChildElement();
-                } else {
-                    LOG_DEBUG("TinyXmlReaderImpl", "Error getting first child element");
-                }
-            } else {
-                LOG_DEBUG("TinyXmlReaderImpl", "Current element has no children");
-            }
-        } else {
-            LOG_DEBUG("TinyXmlReaderImpl", "Node is invalid");
-        }
-    }
+    // TEST
+    bool TinyXmlReaderImpl::move_to_element(const char* name) {
+        make_first_move();
+        if (!_current_node) return false;
 
-    void TinyXmlReaderImpl::move_to_first_element(const char* name) {
-        if (!needed_init() && _current_node) {
-            assert(_current_node->Type() == TiXmlNode::TINYXML_ELEMENT);
-            if (!_current_node->NoChildren()) {
-                if (_current_node->FirstChildElement(name)) {
-                    _current_node = _current_node->FirstChildElement(name);
-                } else {
-                    LOG_DEBUG("TinyXmlReaderImpl", "Error getting first child element");
+        assert(_current_node->Type() == TiXmlNode::TINYXML_ELEMENT);
+        if (strcmp(_current_node->Value(), name) == 0) return true;
+
+        TiXmlNode* current_element = _current_node;
+
+        // FirstChildElement(name) and NextSiblingElement(name)
+        // iterate through all the children and sibling elements
+        // of the respective node looking for the name.
+        // If they aren't found, move the current node to it's parent node
+        // and keep trying either until the element is found, or
+        // current_element is invalidated.
+        do {
+            if (!current_element->NoChildren()) {
+                if (current_element->FirstChildElement(name)) {
+                    _current_node = current_element->FirstChildElement(name);
+                }
+
+                if (current_element->NextSiblingElement(name)) {
+                    _current_node = _current_node->NextSiblingElement(name);
                 }
             } else {
-                LOG_DEBUG("TinXmlReaderImpl", "Current element has no children");
+                current_element = current_element->Parent();
             }
-        } else {
-            LOG_DEBUG("TinyXmlReaderImpl", "Current node is invalid");
-        }
+
+            std::cout << "current_element: " << current_element << "\n_current_node: " << _current_node << "\n\n";
+        } while (current_element || current_element != _current_node);
+
+        return current_element == _current_node;
     }
 
     const char* TinyXmlReaderImpl::get_attribute_value(const char* name) const {
@@ -99,9 +94,7 @@ namespace ZeroEngine {
             const TiXmlElement* element = dynamic_cast<TiXmlElement*>(_current_node);
             if (element->Attribute(name)) {
                 return element->Attribute(name);
-            }
-        } else {
-            LOG_DEBUG("TinyXmlReaderImpl", "Current node is not valid");
+            } 
         }
         return "";
     }
@@ -120,63 +113,43 @@ namespace ZeroEngine {
             if (attribute && current_index == index) {
                 return attribute->Value();
             }
-        } else {
-            LOG_DEBUG("TinyXmlReaderImpl", "Current node is not valid");
-        }
+        } 
         return "";
     }
 
-    void TinyXmlReaderImpl::move_to_next_element() {
-        if (!needed_init() && _current_node) {
-            assert(_current_node->Type() == TiXmlNode::TINYXML_ELEMENT);
-            std::cout << "current: " << _current_node->Value() << "\n";
-            std::cout << "parent: " << _current_node->Parent()->Value() << "\n";
-            if (_current_node->FirstChildElement()) {
-                _current_node = _current_node->FirstChildElement();
-            } else if (_current_node->NextSiblingElement()) {
-                _current_node = _current_node->NextSiblingElement();
-            } else {
-                _current_node = _current_node->Parent();
-                move_to_next_sibling();
-            }
-        } else {
-            LOG_DEBUG("TinyXmlReaderImpl", "Current node is not valid");
-        }
-    }
+    bool TinyXmlReaderImpl::move_to_next_element() {
+        if (make_first_move() && _current_node) return true;
+        if (!_current_node) return false;
 
-    // @TODO: Factor out move_to_next_element since thse are the same thing
-    bool TinyXmlReaderImpl::read_to_next_element() {
-        if (!needed_init() && _current_node) {
-            assert(_current_node->Type() == TiXmlNode::TINYXML_ELEMENT);
-            if (_current_node->FirstChildElement()) {
-                _current_node = _current_node->FirstChildElement();
-            } else if (_current_node->NextSiblingElement()) {
-                _current_node = _current_node->NextSiblingElement();
-            } else {
-                while (_current_node) {
-                    if (_current_node->NextSiblingElement()) {
-                        _current_node = _current_node->NextSiblingElement();
-                        break;
-                    } else {
-                        _current_node = _current_node->Parent();
-                    }
-                }
-            }
+        assert(_current_node->Type() == TiXmlNode::TINYXML_ELEMENT);
+        if (_current_node->FirstChildElement()) {
+            _current_node = _current_node->FirstChildElement();
+            return true;
+        } 
+        if (_current_node->NextSiblingElement()) {
+            _current_node = _current_node->NextSiblingElement();
+            return true;
         }
-        return (_current_node != nullptr);
-    }
 
-    void TinyXmlReaderImpl::move_to_next_sibling() {
-        if (!needed_init() && _current_node) {
-            assert(_current_node->Type() == TiXmlNode::TINYXML_ELEMENT);
+        while (_current_node) {
             if (_current_node->NextSiblingElement()) {
                 _current_node = _current_node->NextSiblingElement();
+                return true;
             } else {
-                LOG_DEBUG("TinyXmlReaderImpl", "current node has no more siblings");
+                _current_node = _current_node->Parent();
             }
-        } else {
-            LOG_DEBUG("TinyXmlReaderImpl", "Current node is not valid");
         }
+        // next element wasn't found
+        return false;
+    }
+
+    bool TinyXmlReaderImpl::move_to_next_sibling() {
+        if (make_first_move() && _current_node) return true;
+        if (!_current_node || !_current_node->NextSibling()) return false;
+
+        assert(_current_node->Type() == TiXmlNode::TINYXML_ELEMENT);
+        _current_node = _current_node->NextSiblingElement();
+        return true;
     }
 
     const char* TinyXmlReaderImpl::get_attribute_name(const int32_t index) const {
@@ -197,27 +170,11 @@ namespace ZeroEngine {
     }
 
     bool TinyXmlReaderImpl::has_attributes() const {
-        bool has_attributes = false;
-        if (_current_node) {
-            assert(_current_node->Type() == TiXmlNode::TINYXML_ELEMENT);
-            TiXmlElement* element = dynamic_cast<TiXmlElement*>(_current_node);
-            if (element->FirstAttribute()) {
-                has_attributes = true;
-            }
-        } else {
-            LOG_DEBUG("TinyXmlReaderImpl", "Current node is not valid");
-        }
-        return has_attributes;
-    }
+        if (!_current_node)  return false;
 
-    bool TinyXmlReaderImpl::is_element_empty() const {
-        if (_current_node) {
-            assert(_current_node->Type() == TiXmlNode::TINYXML_ELEMENT);
-            LOG_UNIMPLEMENTED();
-        } else {
-            LOG_DEBUG("TinyXmlReaderImpl", "Current node is not valid");
-        }
-        return false;
+        assert(_current_node->Type() == TiXmlNode::TINYXML_ELEMENT);
+        TiXmlElement* element = dynamic_cast<TiXmlElement*>(_current_node);
+        return (element->FirstAttribute() != nullptr);
     }
 
     void TinyXmlReaderImpl::move_to_root_element() {
@@ -225,21 +182,15 @@ namespace ZeroEngine {
         _has_moved = true;
     }
 
-    bool TinyXmlReaderImpl::needed_init() {
-        if (!_has_moved) {
-            _current_node = _document.FirstChildElement();
-            _has_moved = true;
-            return true; 
-        }
-        return false;
+    bool TinyXmlReaderImpl::make_first_move() {
+        if (_has_moved) return false;
+        _current_node = _document.FirstChildElement();
+        _has_moved = true;
+        return true; 
     }
 
     // @TODO: Need way for XmlReader to get error
     bool TinyXmlReaderImpl::load_xml_file(const char* file_path) {
-        bool success = _document.LoadFile(file_path);
-        if (!success) {
-            LOG_DEBUG("TinyXmlReaderImpl", _document.ErrorDesc());
-        }
-        return success;
+        return _document.LoadFile(file_path);
     }
 }

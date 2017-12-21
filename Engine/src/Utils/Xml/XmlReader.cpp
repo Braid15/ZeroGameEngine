@@ -6,7 +6,7 @@ namespace ZeroEngine {
 
     // @Note: So that implementation can be changed easily.
     // There is no reason why the implementation needs to change during runtime
-    // so we set it's implementation at compile time.
+    // so we set it at compile time.
     IXmlReaderImpl* XmlReader::get_implementation() {
         return zero_new TinyXmlReaderImpl();
     }
@@ -58,12 +58,8 @@ namespace ZeroEngine {
         return _implementation->get_attribute_count();
     }
 
-    void XmlReader::move_to_start_element() const {
-        _implementation->move_to_first_element();
-    }
-
-    void XmlReader::move_to_start_element(const char* name) const {
-        _implementation->move_to_first_element(name);
+    bool XmlReader::move_to_element(const char* name) const {
+        return _implementation->move_to_element(name);
     }
 
     const char* XmlReader::get_element_attribute_value(const char* name) const {
@@ -74,28 +70,24 @@ namespace ZeroEngine {
         return _implementation->get_attribute_value(index);
     }
 
-    void XmlReader::move_to_next_element() const {
-        _implementation->move_to_next_element();
-    }
-
-    void XmlReader::move_to_next_sibling() const {
-        _implementation->move_to_next_sibling();
-    }
-
-    bool XmlReader::is_current_element_empty() const {
-        return _implementation->is_element_empty();
+    bool XmlReader::move_to_next_sibling() const {
+        return _implementation->move_to_next_sibling();
     }
 
     void XmlReader::move_to_root_element() const {
         _implementation->move_to_root_element();
     }
 
-    bool XmlReader::read_to_next_element() const {
-        return _implementation->read_to_next_element();
+    bool XmlReader::move_to_next_element() const {
+        return _implementation->move_to_next_element();
     }
 
     const char* XmlReader::get_element_attribute_name(const int32_t index) const {
         return _implementation->get_attribute_name(index);
+    }
+
+    bool XmlReader::move_to_parent_element() const {
+        return _implementation->move_to_parent_element();
     }
 
 #ifdef _DEBUG
@@ -132,7 +124,7 @@ namespace ZeroEngine {
         XmlReader reader("S:/projects/Game-Engines/ZeroGameEngine/Engine/test/test.xml");
         reader.load();
 
-        while (reader.read_to_next_element()) {
+        while (reader.move_to_next_element()) {
             std::cout << "get_element_name: " << reader.get_element_name() << "\n";
             std::cout << "has_attributes: " << reader.element_has_attributes() << "\n";
             std::cout << "has_value: " << reader.element_has_value() << "\n";
