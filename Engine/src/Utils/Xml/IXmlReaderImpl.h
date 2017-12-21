@@ -21,6 +21,7 @@ namespace ZeroEngine {
         virtual bool move_to_next_sibling() = 0;
         virtual bool load_xml_file(const char* file_path) = 0;
         virtual bool has_attributes() const = 0;
+        virtual bool move_to_previous_element() = 0;
         virtual void move_to_root_element() = 0;
         virtual bool move_to_next_element() = 0;
         virtual const char* get_attribute_name(const int32_t index) const = 0;

@@ -37,6 +37,7 @@ namespace ZeroEngine {
         const char* get_element_attribute_value(int32_t index) const;
         const char* get_element_attribute_name(const int32_t index) const;
         bool move_to_next_element() const;
+        bool move_to_previous_element() const;
 
         void move_to_root_element() const;
         bool move_to_next_sibling() const;

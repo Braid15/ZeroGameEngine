@@ -33,6 +33,10 @@ namespace ZeroEngine {
         return false;
     }
 
+    bool XmlReader::move_to_previous_element() const {
+        return _implementation->move_to_previous_element();
+    }
+
     bool XmlReader::load(char* file_path) {
         _file_path = file_path;
         return _implementation->load_xml_file(file_path);
@@ -297,6 +301,26 @@ namespace ZeroEngine {
 
         assert(reader.move_to_element("TransformComponent"));
         assert(strcmp(reader.get_element_name(), "TransformComponent") == 0);
+
+        reader.move_to_root_element();
+        assert(strcmp(reader.get_element_name(), "Actor") == 0);
+
+        assert(reader.move_to_previous_element());
+        assert(strcmp(reader.get_element_name(), "TransformComponent") == 0);
+
+        assert(reader.move_to_previous_element());
+        assert(strcmp(reader.get_element_name(), "Actor") == 0);
+
+        assert(reader.move_to_element("BaseScriptComponent"));
+        assert(strcmp(reader.get_element_name(), "BaseScriptComponent") == 0);
+
+        assert(reader.move_to_previous_element());
+        assert(strcmp(reader.get_element_name(), "Actor") == 0);
+
+
+
+
+
 
         // Add:
         // move_to_previous_element

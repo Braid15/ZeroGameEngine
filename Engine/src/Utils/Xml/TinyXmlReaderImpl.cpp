@@ -8,6 +8,10 @@ namespace ZeroEngine {
     #define LOG_INVALID_NODE() LOG_DEBUG("TinyXmlReaderImpl", "Node is invalid");
 
 
+    // --------------
+    // Public Members
+    // --------------
+
     TinyXmlReaderImpl::~TinyXmlReaderImpl() {
         _document.Clear();
     }
@@ -35,7 +39,7 @@ namespace ZeroEngine {
     bool TinyXmlReaderImpl::move_to_parent_element() {
         if (!_current_node || !_current_node->Parent()) return false;
 
-        _current_node = _current_node->Parent();
+        set_current_node(_current_node->Parent());
         return true;
     }
 
@@ -59,20 +63,20 @@ namespace ZeroEngine {
         if (strcmp(_current_node->Value(), name) == 0) return true;
 
         if (_current_node->FirstChildElement(name)) {
-            _current_node = _current_node->FirstChildElement(name);
+            set_current_node(_current_node->FirstChildElement(name));
             return true;
         }
 
         // Check if parent is requested element
         if (strcmp(_current_node->Parent()->Value(), name) == 0) {
-            _current_node = _current_node->Parent();
+            set_current_node(_current_node->Parent());
             return true;
         }
 
         // Check parents child elements, which will be a sibling
         // to the current node. 
         if (_current_node->Parent()->FirstChildElement(name)) {
-            _current_node = _current_node->Parent()->FirstChildElement(name);
+            set_current_node(_current_node->Parent()->FirstChildElement(name));
             return true;
         }
 
@@ -114,20 +118,20 @@ namespace ZeroEngine {
 
         assert(_current_node->Type() == TiXmlNode::TINYXML_ELEMENT);
         if (_current_node->FirstChildElement()) {
-            _current_node = _current_node->FirstChildElement();
+            set_current_node(_current_node->FirstChildElement());
             return true;
         } 
         if (_current_node->NextSiblingElement()) {
-            _current_node = _current_node->NextSiblingElement();
+            set_current_node(_current_node->NextSiblingElement());
             return true;
         }
 
         while (_current_node) {
             if (_current_node->NextSiblingElement()) {
-                _current_node = _current_node->NextSiblingElement();
+                set_current_node(_current_node->NextSiblingElement());
                 return true;
             } else {
-                _current_node = _current_node->Parent();
+                set_current_node(_current_node->Parent());
             }
         }
         // next element wasn't found
@@ -138,7 +142,7 @@ namespace ZeroEngine {
         if (make_first_move() && _current_node) return true;
         if (!_current_node || !_current_node->NextSibling()) return false;
 
-        _current_node = _current_node->NextSiblingElement();
+        set_current_node(_current_node->NextSiblingElement());
         return true;
     }
 
@@ -168,19 +172,42 @@ namespace ZeroEngine {
     }
 
     void TinyXmlReaderImpl::move_to_root_element() {
-        _current_node = _document.FirstChildElement();
+        set_current_node(_document.FirstChildElement());
         _has_moved = true;
-    }
-
-    bool TinyXmlReaderImpl::make_first_move() {
-        if (_has_moved) return false;
-        _current_node = _document.FirstChildElement();
-        _has_moved = true;
-        return true; 
     }
 
     // @TODO: Need way for XmlReader to get error
     bool TinyXmlReaderImpl::load_xml_file(const char* file_path) {
         return _document.LoadFile(file_path);
     }
+
+    bool TinyXmlReaderImpl::move_to_previous_element() {
+        make_first_move();
+        if (!_current_node && !_previous_node) return false;
+        if (_current_node == _previous_node) return false;
+        TiXmlNode* temp = _current_node;
+        _current_node = _previous_node;
+        _previous_node = temp;
+        return true;
+    }
+
+    // ---------------
+    // Private Members
+    // ---------------
+
+    bool TinyXmlReaderImpl::make_first_move() {
+        if (_has_moved) return false;
+        _current_node = _document.FirstChildElement();
+        _previous_node = _current_node;
+        _has_moved = true;
+        return true; 
+    }
+
+    void TinyXmlReaderImpl::set_current_node(TiXmlNode* node) {
+        //assert(node);
+        _previous_node = _current_node;
+        _current_node = node;
+    }
+
+
 }
