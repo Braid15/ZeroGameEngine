@@ -4,7 +4,8 @@
 #include "../GameView/GameViewInclude.h"
 #include "IGameLogic.h"
 #include "../Entity/Entity.h"
-#include "../Entity/BaseEntityManager.h"
+#include "../Entity/IEntityManager.h"
+#include "../Entity/EntityManager.h"
 #include "../Events/Events.h"
 #include "../ZeroEngineEvents.h"
 #include "../Physics/Physics.h"
@@ -46,10 +47,12 @@ namespace ZeroEngine {
         virtual void destroy_entity(const EntityId& entity_id) override;
         virtual void add_game_view(IGameViewPtr view, EntityId entity_id=INVALID_ENTITY_ID) override;
         virtual void remove_game_view(IGameViewPtr view) override;
+
         virtual WeakEntityPtr get_entity(const EntityId& entity_id) override;
         virtual EntityPtr create_entity() override;
         inline GameViewList get_game_views() { return _game_views; }
         inline IPhysicsPtr get_physics() const { return _physics; }
+        inline uint32_t get_entity_count() const { return _entity_manager->get_entity_count(); }
     protected:
         inline const ProcessManager& get_process_manager() const { return *_process_manager; }
         inline void attach_process(Process::ptr process) const { _process_manager->attach_process(process); }
@@ -65,14 +68,15 @@ namespace ZeroEngine {
         inline void toggle_render_diagnostics() { _render_diagnostics = !_render_diagnostics; }
         inline Tick get_lifetime() const { return _lifetime; }
 
+        void set_entity_manager(IEntityManager* manager);
+        inline const IEntityManager& get_entity_manager() const { return *_entity_manager; }
+
         inline virtual bool on_load_game() { return true; }
         inline virtual void on_register_event_delegates() {}
         inline virtual void on_unregister_event_delegates() {}
 
-        // These can be registered with subclasses. The only one which is registered by default is
-        // request_destroy_entity_event_delegate()
         void move_entity_event_delegate(IEventDataPtr event_data);
-        void request_new_entity_event_delegate(IEventDataPtr event_data);
+        void request_create_entity_event_delegate(IEventDataPtr event_data);
         void request_destroy_entity_event_delegate(IEventDataPtr event_data);
         void attach_process_event_delegate(IEventDataPtr event_data);
     private:

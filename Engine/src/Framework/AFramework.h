@@ -29,7 +29,7 @@ namespace ZeroEngine {
         inline void set_app_msg_callback(bool (*callback)(AppMsg::ptr)) { _app_msg_callback = callback; }
         // Important that this returns IRenderer and not BaseRenderer since BaseRenderer's public interface
         // is only meant for AFramework
-        inline IRenderer::ptr get_renderer() const { return _renderer; }
+        inline IRenderer::s_ptr get_renderer() const { return _renderer; }
     protected:
         AFramework();
         void set_app_msg_translator(IMsgTranslator*);
@@ -37,13 +37,13 @@ namespace ZeroEngine {
         void dispatch_message();
         virtual bool on_init() = 0;
         virtual bool on_shutdown() = 0;
-        virtual BaseRenderer::ptr create_renderer() = 0;
+        virtual BaseRenderer::s_ptr create_renderer() = 0;
         virtual IWindow::ptr create_window(std::string title, Point<int32_t> size) = 0;
     private:
         bool _is_running;
         AppMsgFactory* _msg_factory;
         IMsgTranslator* _msg_translator;
-        BaseRenderer::ptr _renderer;
+        BaseRenderer::s_ptr _renderer;
         IWindow::ptr _window;
 
     //private:

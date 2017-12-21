@@ -1,9 +1,17 @@
-#include "ZeroEngineApp.h" 
+#include "GameApp.h" 
+#include "../Events/Events.h"
 
 namespace ZeroEngine {
 
     GameApp::GameApp() {
         _game_logic = nullptr;
+        _framework = nullptr;
+        ZeroEventManager::initialize();
+    }
+
+    GameApp::~GameApp() {
+        zero_delete(_game_logic);
+        zero_delete(_framework);
     }
 
     GameApp* GameApp::_app = nullptr;
@@ -12,9 +20,11 @@ namespace ZeroEngine {
         return GameApp::_app;
     }
 
-    void GameApp::set_app( GameApp* app ) {
-        if ( _app == nullptr ) {
+    void GameApp::set_instance(GameApp* app) {
+        if (_app == nullptr) {
             _app = app;
+        } else {
+            LOG_DEBUG("GameApp", "Attempting to set multiple GameApp instances");
         }
     }
 
@@ -59,12 +69,22 @@ namespace ZeroEngine {
                 (*iter)->render(time);
             }
 
+            // @TODO: Don't know when this should happen, but I'll put it here for now
+            GameApp::instance()->get_renderer()->render_packets();
+
             logic->render_diagnostics();
         }
     }
 
-    GameApp::~GameApp() {
-        zero_delete(_game_logic);
+
+    // @TODO: Should return weak pointer??
+    IRenderer::s_ptr GameApp::get_renderer() const {
+        assert(_framework);
+        return _framework->get_renderer();
+    }
+
+    Tick GameApp::get_ticks() const {
+        return _framework->get_current_time();
     }
 
     Point<int32_t> GameApp::get_screen_size() const {
@@ -89,11 +109,23 @@ namespace ZeroEngine {
     }
 
     bool GameApp::initialize() {
-        bool success = true;
-        register_engine_events();
-        register_game_events();
-        _game_logic = create_game_and_view();
-        set_is_running(true);
+        bool success = false;
+        assert(_framework != nullptr);
+        if (_framework->initialize()) {
+            if (_framework->initialize_window_and_renderer(get_game_title(), get_screen_size())) {
+                _framework->set_app_msg_callback(GameApp::app_msg_proc);
+                _framework->set_update_callback(GameApp::update);
+                _framework->set_render_callback(GameApp::render);
+
+                register_engine_events();
+                register_game_events();
+
+                _game_logic = create_game_and_view();
+                set_is_running(true);
+                GameApp::set_instance(this);
+                success = true;
+            }
+        }
         return success;
     }
 
@@ -103,10 +135,17 @@ namespace ZeroEngine {
 
     void GameApp::shutdown() {
         set_is_running(false);
+        _framework->shutdown();
+        ZeroEventManager::shutdown();
     }
 
+    void GameApp::run() {
+        assert(_framework != nullptr);
+        _framework->run_main_loop();
+    }
 
-    GameApp::GameApp( GameOptions& options ) {
+    GameApp::GameApp(GameOptions& options) {
+        ZeroEventManager::initialize();
         _is_running = false;
         _save_game_directory = std::string();
         _game_options = options;

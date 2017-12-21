@@ -55,6 +55,18 @@
     <Filter Include="Source\Process">
       <UniqueIdentifier>{87dbbe3d-6885-49c8-a470-fce3b11298eb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Rendering">
+      <UniqueIdentifier>{46ed3024-a619-4d0a-8440-a70cce63fb22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Memory">
+      <UniqueIdentifier>{df94486d-6a2a-44b0-a2d2-02f80335a9e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Launcher">
+      <UniqueIdentifier>{0968cf99-cd22-4d60-81fa-136015613480}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Utils\Xml">
+      <UniqueIdentifier>{aa2b11f1-f043-434e-bd24-108aa6668384}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ZeroEngine.h">
@@ -88,12 +100,6 @@
       <Filter>Source\Framework</Filter>
     </ClInclude>
     <ClInclude Include="src\Framework\IWindow.h">
-      <Filter>Source\Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="src\AppLayer\ZeroEngineApp.h">
-      <Filter>Source\AppLayer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Framework\Framework.h">
       <Filter>Source\Framework</Filter>
     </ClInclude>
     <ClInclude Include="src\Framework\AFramework.h">
@@ -198,9 +204,6 @@
     <ClInclude Include="src\Entity\IEntityManager.h">
       <Filter>Source\Entity</Filter>
     </ClInclude>
-    <ClInclude Include="src\Entity\BaseEntityManager.h">
-      <Filter>Source\Entity</Filter>
-    </ClInclude>
     <ClInclude Include="src\GameView\HumanView.h">
       <Filter>Source\GameView</Filter>
     </ClInclude>
@@ -228,6 +231,69 @@
     <ClInclude Include="src\Framework\SdlFramework\SdlRenderer.h">
       <Filter>Source\Framework\SdlFramework</Filter>
     </ClInclude>
+    <ClInclude Include="src\ZeroEngineScreenElements.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AppLayer\GameApp.h">
+      <Filter>Source\AppLayer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Framework.h">
+      <Filter>Source\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AppLayer\Game.h">
+      <Filter>Source\AppLayer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Events\BaseEventData.h">
+      <Filter>Source\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\EntityManager.h">
+      <Filter>Source\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Rendering\IRenderPacket.h">
+      <Filter>Source\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Rendering\RenderPacketTypes.h">
+      <Filter>Source\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Logger\Logging.h">
+      <Filter>Source\Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Memory\Memory.h">
+      <Filter>Source\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Rendering\IPrimitiveRenderer.h">
+      <Filter>Source\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Math\Line.h">
+      <Filter>Source\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Math\Vector2.h">
+      <Filter>Source\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Math\Vector3.h">
+      <Filter>Source\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Math\Vector4.h">
+      <Filter>Source\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Math\Math.h">
+      <Filter>Source\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Launcher\GameLauncher.h">
+      <Filter>Source\Launcher</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utils\Xml\IXmlWriterImpl.h">
+      <Filter>Source\Utils\Xml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utils\Xml\IXmlReaderImpl.h">
+      <Filter>Source\Utils\Xml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utils\Xml\TinyXmlReaderImpl.h">
+      <Filter>Source\Utils\Xml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utils\Xml\XmlReader.h">
+      <Filter>Source\Utils\Xml</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Logger\BaseLogger.cpp">
@@ -238,9 +304,6 @@
     </ClCompile>
     <ClCompile Include="src\Graphics\Point.cpp">
       <Filter>Source\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="src\AppLayer\ZeroEngineApp.cpp">
-      <Filter>Source\AppLayer</Filter>
     </ClCompile>
     <ClCompile Include="src\main.cpp">
       <Filter>Source</Filter>
@@ -287,9 +350,6 @@
     <ClCompile Include="src\Events\EventListener.cpp">
       <Filter>Source\Events</Filter>
     </ClCompile>
-    <ClCompile Include="src\Framework\Framework.cpp">
-      <Filter>Source\Framework</Filter>
-    </ClCompile>
     <ClCompile Include="src\Events\Events.cpp">
       <Filter>Source\Events</Filter>
     </ClCompile>
@@ -304,9 +364,6 @@
     </ClCompile>
     <ClCompile Include="src\GameLogic\BaseGameLogic.cpp">
       <Filter>Source\GameLogic</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Entity\BaseEntityManager.cpp">
-      <Filter>Source\Entity</Filter>
     </ClCompile>
     <ClCompile Include="src\GameView\HumanView.cpp">
       <Filter>Source\GameView</Filter>
@@ -335,5 +392,53 @@
     <ClCompile Include="src\Framework\IRenderer.cpp">
       <Filter>Source\Framework</Filter>
     </ClCompile>
+    <ClCompile Include="src\ZeroEngineScreenElements.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameView\IScreenElement.cpp">
+      <Filter>Source\GameView</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AppLayer\GameApp.cpp">
+      <Filter>Source\AppLayer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AppLayer\Game.cpp">
+      <Filter>Source\AppLayer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Events\BaseEventData.cpp">
+      <Filter>Source\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\EntityManager.cpp">
+      <Filter>Source\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Rendering\RenderPacketTypes.cpp">
+      <Filter>Source\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Logger\Logging.cpp">
+      <Filter>Source\Logger</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Math\Vector2.cpp">
+      <Filter>Source\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Math\Vector3.cpp">
+      <Filter>Source\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Math\Vector4.cpp">
+      <Filter>Source\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Math\Math.cpp">
+      <Filter>Source\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Math\Line.cpp">
+      <Filter>Source\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Utils\Xml\TinyXmlReaderImpl.cpp">
+      <Filter>Source\Utils\Xml</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Utils\Xml\XmlReader.cpp">
+      <Filter>Source\Utils\Xml</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\mh.py" />
   </ItemGroup>
 </Project>

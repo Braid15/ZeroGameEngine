@@ -5,7 +5,7 @@ namespace ZeroEngine {
     BaseGameLogic::BaseGameLogic() {
         _physics = IPhysicsPtr(zero_new NullPhysics());
         _lifetime = 0;
-        _entity_manager = zero_new NullEntityManager();
+        _entity_manager = zero_new EntityManager();
         _process_manager = zero_new ProcessManager();
         _current_state = BaseGameState::invalid;
         _render_diagnostics = false;
@@ -65,6 +65,7 @@ namespace ZeroEngine {
 
     void BaseGameLogic::set_proxy() {
         _is_proxy = true;
+        LOG_DEBUG("BaseGameLogic", "NotImplemented");
         // @TODO: Finish
     }
 
@@ -109,6 +110,8 @@ namespace ZeroEngine {
     }
 
     void BaseGameLogic::destroy_entity(const EntityId& entity_id) {
+        // This needs to be a syncronous trigger event and it needs to happen
+        // before the entity is actually destroyed.
         ZeroEventManager::trigger_event(EntityDestroyedEvent::create(entity_id));
         _entity_manager->destroy_entity(entity_id);
     }
@@ -132,19 +135,26 @@ namespace ZeroEngine {
         return _entity_manager->create_entity();
     }
 
-    //
-    // Protected members
-    //
+    void BaseGameLogic::set_entity_manager(IEntityManager* manager) {
+        if (_entity_manager) {
+            _entity_manager->shutdown();
+            zero_delete(_entity_manager);
+            // @TODO: Need a way to transfer entities
+        }
+        _entity_manager = manager;
+    }
 
+    // NOT REGISTERED
     void BaseGameLogic::move_entity_event_delegate(IEventDataPtr event_data) {
         MoveEntityEvent::ptr data = MoveEntityEvent::cast(event_data);
         move_entity(data->get_entity_id(), data->get_new_location());
     }
 
-    void BaseGameLogic::request_new_entity_event_delegate(IEventDataPtr event_data) {
+    void BaseGameLogic::request_create_entity_event_delegate(IEventDataPtr event_data) {
         if (!_is_proxy) {
+            LOG_DEBUG("BaseGameLogic", "called");
             RequestCreateEntityEvent::ptr data = RequestCreateEntityEvent::cast(event_data);
-            EntityPtr entity = _entity_manager->create_entity();
+            EntityPtr entity = create_entity();
             ZeroEventManager::queue_event(EntityCreatedEvent::create(entity->get_id()));
         }
     }
@@ -154,6 +164,7 @@ namespace ZeroEngine {
         destroy_entity(data->get_entity_id());
     }
 
+    // NOT REGISTERED
     void BaseGameLogic::attach_process_event_delegate(IEventDataPtr event_data) {
         AttachProcessEvent::ptr data = AttachProcessEvent::cast(event_data);
         _process_manager->attach_process(data->get_process());
@@ -178,6 +189,11 @@ namespace ZeroEngine {
         ZeroEventManager::register_listener(
             fastdelegate::MakeDelegate(this, &BaseGameLogic::request_destroy_entity_event_delegate),
             RequestDestroyEntityEvent::type);
+
+        ZeroEventManager::register_listener(
+            fastdelegate::MakeDelegate(this, &BaseGameLogic::request_create_entity_event_delegate),
+            RequestCreateEntityEvent::type);
+
         on_register_event_delegates();
     }
 
@@ -185,6 +201,11 @@ namespace ZeroEngine {
         ZeroEventManager::unregister_listener(
             fastdelegate::MakeDelegate(this, &BaseGameLogic::request_destroy_entity_event_delegate),
             RequestDestroyEntityEvent::type);
+
+        ZeroEventManager::unregister_listener(
+            fastdelegate::MakeDelegate(this, &BaseGameLogic::request_create_entity_event_delegate),
+            RequestCreateEntityEvent::type);
+
         on_unregister_event_delegates();
     }
 

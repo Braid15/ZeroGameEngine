@@ -1,4 +1,5 @@
 #include "HumanView.h"
+#include "../AppLayer/Game.h"
 
 namespace ZeroEngine {
 
@@ -7,7 +8,7 @@ namespace ZeroEngine {
 
     const uint32_t INVALID_PLAYER_NUMBER = 0;
 
-    HumanView::HumanView(IRenderer::ptr renderer) {
+    HumanView::HumanView(IRenderer::s_ptr renderer) {
         _renderer = renderer;
         _view_id = INVALID_GAME_VIEW_ID;
         _view_type = GameViewType::human;
@@ -19,10 +20,7 @@ namespace ZeroEngine {
         _keyboard_handler = std::shared_ptr<IKeyboardHandler>(zero_new NullKeyboardHandler);
         _mouse_handler = std::shared_ptr<IMouseHandler>(zero_new NullMouseHandler());
         _player_number = INVALID_PLAYER_NUMBER;
-
-        // @TODO: Rather this stuff be in an init method
-        initialize_audio();
-        register_event_delegates();
+        _is_initialized = false;
     }
 
     HumanView::~HumanView() {
@@ -33,9 +31,17 @@ namespace ZeroEngine {
         zero_delete(_process_manager);
     }
 
+    void HumanView::initialize() {
+        if (!_is_initialized) {
+            initialize_audio();
+            register_event_delegates();
+            _is_initialized = true;
+        }
+    }
+
     bool HumanView::render(Tick delta_time) {
         bool success = false;
-        _current_tick = ZeroFramework::get_ticks();
+        _current_tick = Game::get_ticks();
 
         if (!(_current_tick == _last_draw)) {
             if (_is_full_speed || ((_current_tick - _last_draw) > REFRESH_RATE)) {

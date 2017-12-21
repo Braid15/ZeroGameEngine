@@ -27,7 +27,7 @@ namespace ZeroEngine {
         inline ~SdlFramework() { zero_delete(_msg_translator); }
 
     public:
-        BaseRenderer::ptr create_renderer() override;
+        BaseRenderer::s_ptr create_renderer() override;
         IWindow::ptr create_window(std::string title, Point<int32_t> size) override;
         bool on_init() override;
         bool on_shutdown() override;

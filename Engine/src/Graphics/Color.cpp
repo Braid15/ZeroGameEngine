@@ -2,8 +2,13 @@
 
 namespace ZeroEngine {
 
-    static const uint32_t COLOR_VAL_MAX = 255;
-    static const uint32_t COLOR_VAL_MIN = 0;
+    const uint32_t Color::_color_val_max = 255;
+    const uint32_t Color::_color_val_min = 0;
+
+    Color::Color(const uint32_t& hex_color) {
+        LOG_TODO("Color", "THIS ASSUMES LITTLE-ENDIAN");
+        convert_from_hex(hex_color);
+    }
 
     Color::Color(const Color* other) {
         _red = other->get_red();
@@ -19,37 +24,41 @@ namespace ZeroEngine {
         _alpha = other.get_alpha();
     }
 
-    Color::Color(const uint32_t r, const uint32_t g, const uint32_t b, const uint32_t a) {
+    Color::Color(const uint32_t& r, const uint32_t& g, const uint32_t& b, const uint32_t& a) {
         set_red(r);
         set_green(g);
         set_blue(b);
         set_alpha(a);
     }
 
-    inline void Color::set_color_value(uint32_t* color, const uint32_t value) {
-        if (COLOR_VAL_MIN <= value && value <= COLOR_VAL_MAX) {
-            *color = value;
-        } else if (value < COLOR_VAL_MIN) {
-            *color = COLOR_VAL_MIN;
-        } else if (value > COLOR_VAL_MAX) {
-            *color = COLOR_VAL_MAX;
-        }
+    bool Color::operator==(const Color& rhs) {
+        return _red == rhs.get_red() 
+            && _green == rhs.get_green()
+            && _blue == rhs.get_blue()
+            && _alpha == rhs.get_alpha();
     }
 
-    inline void Color::set_red(const uint32_t value) {
-        set_color_value(&_red, value);
+    bool Color::operator!=(const Color& rhs) {
+        return _red != rhs.get_red()
+            || _green != rhs.get_green()
+            || _blue != rhs.get_blue()
+            || _alpha != rhs.get_alpha();
     }
 
-    inline void Color::set_green(const uint32_t value) {
-        set_color_value(&_green, value);
+    Color& Color::operator=(const Color& rhs) {
+        _red = rhs.get_red();
+        _green = rhs.get_green();
+        _blue = rhs.get_blue();
+        _alpha = rhs.get_alpha();
+        return *this;
     }
 
-    inline void Color::set_blue(const uint32_t value) {
-        set_color_value(&_blue, value);
-    }
-
-    inline void Color::set_alpha(const uint32_t value) {
-        set_color_value(&_alpha, value);
+    Color& Color::operator=(const Color* rhs) {
+        _red = rhs->get_red();
+        _green = rhs->get_green();
+        _blue = rhs->get_blue();
+        _alpha = rhs->get_alpha();
+        return *this;
     }
 
     //

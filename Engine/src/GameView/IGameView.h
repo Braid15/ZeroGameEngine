@@ -22,6 +22,7 @@ namespace ZeroEngine {
     public:
         virtual bool restore() = 0;
         virtual bool lost_device() = 0;
+        virtual void initialize() = 0;
         virtual bool render(Tick delta_time) = 0;
         virtual void update(Tick delta_time) = 0;
         virtual const GameViewId& get_id() const = 0;

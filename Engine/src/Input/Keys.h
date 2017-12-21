@@ -69,6 +69,7 @@ namespace ZeroEngine {
 
     typedef std::array<KeyState, static_cast<int>(KeyMod::end)> KeyModStateArray;
 
+    // @TODO: Make this completely equal to ascii values
     enum class Key : unsigned char {
         null = 0x00,
         begin = 0x01,
@@ -89,7 +90,7 @@ namespace ZeroEngine {
         minus,
         period,
         forward_slash,
-        zero,
+        zero = 0x30,
         one,
         two,
         three,
@@ -137,11 +138,11 @@ namespace ZeroEngine {
         Z = 0x5A,
         */
 
-        left_bracket,
+        left_bracket = 0x5B,
         back_slash,
         right_bracket,
         caret,
-        a,
+        a = 0x61,
         b,
         c,
         d,
@@ -192,8 +193,19 @@ namespace ZeroEngine {
         underscore,
         page_down,
         page_up,
-        end
+        end_enum
     };
+
+    extern bool Key_is(const Key& key1, const Key& key2);
+    extern bool Key_is_numeric(const Key& key);
+
+    extern const uint32_t INVALID_NUMERIC_KEY;
+    extern uint32_t Key_get_numeric_value(const Key& key);
+
+    extern bool Key_is_alpha(const Key& key);
+    extern bool Key_is_alpha_numeric(const Key& key);
+    extern char Key_get_char(const Key& key);
+
 
     inline std::ostream& operator<<(std::ostream& os, Key key) {
         switch (key) {
@@ -632,9 +644,9 @@ namespace ZeroEngine {
                 os << "Key::page_up";
                 break;
             }
-            case Key::end:
+            case Key::end_enum:
             {
-                os << "Key::end";
+                os << "Key::end_enum";
                 break;
             }
             default:

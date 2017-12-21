@@ -5,6 +5,7 @@
 #include "Entity\Entity.h"
 #include "Graphics\Graphics.h"
 #include "Process\Process.h"
+#include "Events/BaseEventData.h"
 
 namespace ZeroEngine {
 
@@ -147,6 +148,8 @@ namespace ZeroEngine {
     // @TEMP:
     // I don't really want to have to make an event just to draw a line
     // Used to draw primitive points.
+
+    // @TODO: Change to CreateScreenElementEvent
     class DrawLineEvent : public BaseEventData {
     private:
         Point<int32_t> _from;
