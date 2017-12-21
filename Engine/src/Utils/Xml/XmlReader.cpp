@@ -90,6 +90,61 @@ namespace ZeroEngine {
         _implementation->move_to_root_element();
     }
 
+    bool XmlReader::read() const {
+        return _implementation->read();
+    }
 
+#ifdef _DEBUG
+    // -----------------
+    // Xml File contents
+    // -----------------
+    // <Actor type = "Sphere" resource = "actors\sphere.xml">
+
+    //     <TransformComponent>
+    //     <Position x = "0" y = "5" z = "0" / >
+    //     < / TransformComponent>
+
+    //     <PhysicsComponent>
+    //     <Shape>Sphere< / Shape>
+    //     <Density>pine< / Density>
+    //     <PhysicsMaterial>Bouncy< / PhysicsMaterial>
+    //     <RigidBodyTransform>
+    //     <Scale x = "0.25" y = "0.25" z = "0.25" / >
+    //     < / RigidBodyTransform>
+    //     < / PhysicsComponent>
+
+    //     <SphereRenderComponent>
+    //     <Color r = "0" g = "1.0" b = "1.0" a = "1.0" / >
+    //     <Sphere radius = "0.25" segments = "25" / >
+    //     < / SphereRenderComponent>
+
+    //     <BaseScriptComponent>
+    //     <ScriptObject constructor = "AddSphere" destructor = "RemoveSphere" / >
+    //     <ScriptData actorType = "Sphere" / >
+    //     < / BaseScriptComponent>
+
+    // < / Actor>
+    void TinyXmlReaderImpl_UNIT_TEST() {
+        XmlReader reader("S:/projects/Game-Engines/ZeroGameEngine/Engine/test/test.xml");
+        reader.load();
+
+        while (reader.read()) {
+            std::cout << "get_element_name: " << reader.get_current_element_name() << "\n";
+            std::cout << "has_attributes: " << reader.current_element_has_attributes() << "\n";
+            std::cout << "has_value: " << reader.current_element_has_value() << "\n";
+            std::cout << "value: " << reader.get_current_element_value() << "\n";
+            if (reader.current_element_has_attributes()) {
+                int count = reader.get_current_element_attribute_count();
+                for (int i = 0; i < count; i++) {
+                    std::cout << "attribue_val(" << i << "): " << reader.get_current_element_attribute_value(i) << "\n";
+                }
+            }
+            std::cout << "\n";
+        }
+
+    }
+
+
+    #endif
 
 }

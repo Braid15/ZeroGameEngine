@@ -30,10 +30,15 @@ namespace ZeroEngine {
         void move_to_next_sibling() const;
         bool is_current_element_empty() const;
         void move_to_root_element() const;
+        bool read() const;
 
         inline virtual StringRepr to_string() const override { return "XmlReader"; }
     private:
         static IXmlReaderImpl* get_implementation();
         XmlReader(const XmlReader&) {}
     };
+
+    #ifdef _DEBUG
+    extern void TinyXmlReaderImpl_UNIT_TEST();
+    #endif
 }

@@ -24,6 +24,7 @@ namespace ZeroEngine {
         virtual bool is_element_empty() const = 0;
         virtual bool has_attributes() const = 0;
         virtual void move_to_root_element() = 0;
+        virtual bool read() = 0;
 
         virtual StringRepr to_string() const = 0;
     };

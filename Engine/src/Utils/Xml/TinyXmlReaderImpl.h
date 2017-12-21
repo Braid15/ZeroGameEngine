@@ -11,6 +11,7 @@ namespace ZeroEngine {
         friend class XmlReader;
         TiXmlDocument _document;
         TiXmlNode* _current_node;
+        bool _has_moved;
     public:
         ~TinyXmlReaderImpl();
         const char* get_name() const override;
@@ -27,10 +28,12 @@ namespace ZeroEngine {
         bool is_element_empty() const override;
         bool has_attributes() const override;
         void move_to_root_element() override;
+        bool read() override;
 
         inline StringRepr to_string() const override { return "TinyXmlReaderImpl"; }
     private:
-        TinyXmlReaderImpl() : _current_node(nullptr) {}
+        bool needed_init();
+        TinyXmlReaderImpl() : _current_node(nullptr), _has_moved(false) {}
         TinyXmlReaderImpl(const TinyXmlReaderImpl&) {}
     };
 }

@@ -19,8 +19,10 @@ namespace ZeroEngine {
     bool TinyXmlReaderImpl::has_value() const {
         if (_current_node) {
             assert(_current_node->Type() == TiXmlNode::TINYXML_ELEMENT);
-            LOG_UNIMPLEMENTED();
-            return true;
+            if (!_current_node->NoChildren()
+                && _current_node->FirstChild()->Type() == TiXmlNode::TINYXML_TEXT) {
+                return true;
+            }
         } else {
             LOG_DEBUG("TinyXmlReaderImpl", "Node is invalid");
         }
@@ -30,7 +32,10 @@ namespace ZeroEngine {
     const char* TinyXmlReaderImpl::get_value() const {
         if (_current_node) {
             assert(_current_node->Type() == TiXmlNode::TINYXML_ELEMENT);
-            return _current_node->Value();
+            if (!_current_node->NoChildren()
+                && _current_node->FirstChild()->Type() == TiXmlNode::TINYXML_TEXT) {
+                return _current_node->FirstChild()->Value();
+            }
         } else {
             LOG_DEBUG("TinyXmlReaderImpl", "Node is invalid");
         }
@@ -72,7 +77,7 @@ namespace ZeroEngine {
     }
 
     void TinyXmlReaderImpl::move_to_first_element(const char* name) {
-        if (_current_node) {
+        if (!needed_init() && _current_node) {
             assert(_current_node->Type() == TiXmlNode::TINYXML_ELEMENT);
             if (!_current_node->NoChildren()) {
                 if (_current_node->FirstChildElement(name)) {
@@ -122,24 +127,54 @@ namespace ZeroEngine {
     }
 
     void TinyXmlReaderImpl::move_to_next_element() {
-        if (_current_node) {
+        if (!needed_init() && _current_node) {
             assert(_current_node->Type() == TiXmlNode::TINYXML_ELEMENT);
+            std::cout << "current: " << _current_node->Value() << "\n";
+            std::cout << "parent: " << _current_node->Parent()->Value() << "\n";
             if (_current_node->FirstChildElement()) {
                 _current_node = _current_node->FirstChildElement();
             } else if (_current_node->NextSiblingElement()) {
                 _current_node = _current_node->NextSiblingElement();
             } else {
-                LOG_DEBUG("TinyXmlReaderImpl", "Unable to move to next node");
+                _current_node = _current_node->Parent();
+                move_to_next_sibling();
             }
         } else {
             LOG_DEBUG("TinyXmlReaderImpl", "Current node is not valid");
         }
     }
 
-    void TinyXmlReaderImpl::move_to_next_sibling() {
-        if (_current_node) {
+    bool TinyXmlReaderImpl::read() {
+        if (!needed_init() && _current_node) {
             assert(_current_node->Type() == TiXmlNode::TINYXML_ELEMENT);
-            _current_node = _current_node->NextSiblingElement();
+            if (_current_node->FirstChildElement()) {
+                _current_node = _current_node->FirstChildElement();
+            } else if (_current_node->NextSiblingElement()) {
+                _current_node = _current_node->NextSiblingElement();
+            } else {
+                while (_current_node && _current_node != _document.FirstChildElement()) {
+                    _current_node = _current_node->Parent();
+                    if (_current_node->NextSiblingElement()) {
+                        _current_node = _current_node->NextSiblingElement();
+                        break;
+                    }
+                }
+                if (_current_node == _document.FirstChildElement()) {
+                    _current_node = nullptr;
+                }
+            }
+        }
+        return (_current_node != nullptr);
+    }
+
+    void TinyXmlReaderImpl::move_to_next_sibling() {
+        if (!needed_init() && _current_node) {
+            assert(_current_node->Type() == TiXmlNode::TINYXML_ELEMENT);
+            if (_current_node->NextSiblingElement()) {
+                _current_node = _current_node->NextSiblingElement();
+            } else {
+                LOG_DEBUG("TinyXmlReaderImpl", "current node has no more siblings");
+            }
         } else {
             LOG_DEBUG("TinyXmlReaderImpl", "Current node is not valid");
         }
@@ -171,21 +206,24 @@ namespace ZeroEngine {
 
     void TinyXmlReaderImpl::move_to_root_element() {
         _current_node = _document.FirstChildElement();
+        _has_moved = true;
+    }
+
+    bool TinyXmlReaderImpl::needed_init() {
+        if (!_has_moved) {
+            _current_node = _document.FirstChildElement();
+            _has_moved = true;
+            return true; 
+        }
+        return false;
     }
 
     // @TODO: Need way for XmlReader to get error
     bool TinyXmlReaderImpl::load_xml_file(const char* file_path) {
         bool success = _document.LoadFile(file_path);
-        if (success) {
-            // I assert that current node is always in element in all of this classes methods.
-            // I keep _current_node as type TiXmlNode instead of TiXmlElement so that I can 
-            // change things in the future more easily if need be.
-            _current_node = _document.FirstChildElement();
-        } else {
+        if (!success) {
             LOG_DEBUG("TinyXmlReaderImpl", _document.ErrorDesc());
         }
         return success;
     }
-
-
 }
