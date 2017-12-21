@@ -10,6 +10,7 @@ namespace ZeroEngine {
     private:
         friend class XmlReader;
         TiXmlDocument _document;
+        bool _has_loaded;
     public:
         const char* get_name() const override;
         bool has_value() const override;
@@ -26,7 +27,7 @@ namespace ZeroEngine {
 
         inline StringRepr to_string() const override { return "TinyXmlReaderImpl"; }
     private:
-        TinyXmlReaderImpl() {}
+        TinyXmlReaderImpl() { _has_loaded = false; }
         TinyXmlReaderImpl(const TinyXmlReaderImpl&) {}
     };
 }

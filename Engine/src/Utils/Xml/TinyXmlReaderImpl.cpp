@@ -43,7 +43,8 @@ namespace ZeroEngine {
     }
 
     bool TinyXmlReaderImpl::load_xml_file(const char* file_path) {
-        return false;
+        _has_loaded = _document.LoadFile(file_path);
+        return _has_loaded;
     }
 
     bool TinyXmlReaderImpl::is_element_empty() const {
