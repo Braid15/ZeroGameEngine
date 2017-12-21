@@ -27,22 +27,27 @@ namespace ZeroEngine {
         ~XmlReader();
         bool load();
         bool load(char* file_path);
+
         const char* get_element_name() const;
-        bool element_has_attributes() const;
+        int32_t get_element_attribute_count() const;
         bool element_has_value() const;
         const char* get_element_value() const;
-        // get_value_as
-        int32_t get_element_attribute_count() const;
-        bool move_to_element(const char* name) const;
+        bool element_has_attributes() const;
         const char* get_element_attribute_value(const char* name) const;
         const char* get_element_attribute_value(int32_t index) const;
-        // get_attribute_value_as
-        bool move_to_next_sibling() const;
-        void move_to_root_element() const;
-        bool move_to_parent_element() const;
-        bool move_to_next_element() const;
         const char* get_element_attribute_name(const int32_t index) const;
+        bool move_to_next_element() const;
 
+        void move_to_root_element() const;
+        bool move_to_next_sibling() const;
+
+        // This will search the current elements children, it's siblings and up to it's parent
+        // for the element. It will not check it's siblings children or it's childrens childrens.
+        bool move_to_element(const char* name) const;
+        bool move_to_parent_element() const;
+
+        // get_attribute_value_as
+        // get_value_as
         inline virtual StringRepr to_string() const override { return "XmlReader"; }
     private:
         static IXmlReaderImpl* get_implementation();

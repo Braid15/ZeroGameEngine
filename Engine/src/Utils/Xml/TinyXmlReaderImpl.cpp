@@ -23,6 +23,7 @@ namespace ZeroEngine {
         if (!_current_node || _current_node->NoChildren()) return false;
 
         assert(_current_node->Type() == TiXmlNode::TINYXML_ELEMENT);
+        LOG_TODO("TinyXmlReaderImpl", "Fix to iterate through all children to check for value");
         return (_current_node->FirstChild()->Type() == TiXmlNode::TINYXML_TEXT);
     }
 
@@ -34,7 +35,6 @@ namespace ZeroEngine {
     bool TinyXmlReaderImpl::move_to_parent_element() {
         if (!_current_node || !_current_node->Parent()) return false;
 
-        assert(_current_node->Type() == TiXmlNode::TINYXML_ELEMENT);
         _current_node = _current_node->Parent();
         return true;
     }
@@ -53,39 +53,30 @@ namespace ZeroEngine {
         return count;
     }
 
-    // TEST
     bool TinyXmlReaderImpl::move_to_element(const char* name) {
         make_first_move();
         if (!_current_node) return false;
-
-        assert(_current_node->Type() == TiXmlNode::TINYXML_ELEMENT);
         if (strcmp(_current_node->Value(), name) == 0) return true;
 
-        TiXmlNode* current_element = _current_node;
+        if (_current_node->FirstChildElement(name)) {
+            _current_node = _current_node->FirstChildElement(name);
+            return true;
+        }
 
-        // FirstChildElement(name) and NextSiblingElement(name)
-        // iterate through all the children and sibling elements
-        // of the respective node looking for the name.
-        // If they aren't found, move the current node to it's parent node
-        // and keep trying either until the element is found, or
-        // current_element is invalidated.
-        do {
-            if (!current_element->NoChildren()) {
-                if (current_element->FirstChildElement(name)) {
-                    _current_node = current_element->FirstChildElement(name);
-                }
+        // Check if parent is requested element
+        if (strcmp(_current_node->Parent()->Value(), name) == 0) {
+            _current_node = _current_node->Parent();
+            return true;
+        }
 
-                if (current_element->NextSiblingElement(name)) {
-                    _current_node = _current_node->NextSiblingElement(name);
-                }
-            } else {
-                current_element = current_element->Parent();
-            }
+        // Check parents child elements, which will be a sibling
+        // to the current node. 
+        if (_current_node->Parent()->FirstChildElement(name)) {
+            _current_node = _current_node->Parent()->FirstChildElement(name);
+            return true;
+        }
 
-            std::cout << "current_element: " << current_element << "\n_current_node: " << _current_node << "\n\n";
-        } while (current_element || current_element != _current_node);
-
-        return current_element == _current_node;
+        return false;
     }
 
     const char* TinyXmlReaderImpl::get_attribute_value(const char* name) const {
@@ -147,7 +138,6 @@ namespace ZeroEngine {
         if (make_first_move() && _current_node) return true;
         if (!_current_node || !_current_node->NextSibling()) return false;
 
-        assert(_current_node->Type() == TiXmlNode::TINYXML_ELEMENT);
         _current_node = _current_node->NextSiblingElement();
         return true;
     }
