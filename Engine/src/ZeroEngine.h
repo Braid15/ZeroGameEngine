@@ -21,3 +21,4 @@
 #include "Rendering/RenderPacketTypes.h"
 #include "Launcher/GameLauncher.h"
 #include "Math/Math.h"
+#include "Utils/Xml/XmlReader.h"

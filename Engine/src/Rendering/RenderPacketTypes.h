@@ -25,7 +25,7 @@ namespace ZeroEngine {
 
         void on_render(IPrimitiveRenderer&) override;
         inline StringRepr to_string() const override { return "LineRenderPacket"; }
-        typedef std::tr1::shared_ptr<LineRenderPacket> s_ptr;
+        typedef std::shared_ptr<LineRenderPacket> s_ptr;
     };
 
 }

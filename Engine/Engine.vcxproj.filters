@@ -64,6 +64,9 @@
     <Filter Include="Source\Launcher">
       <UniqueIdentifier>{0968cf99-cd22-4d60-81fa-136015613480}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Utils\Xml">
+      <UniqueIdentifier>{aa2b11f1-f043-434e-bd24-108aa6668384}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ZeroEngine.h">
@@ -279,6 +282,18 @@
     <ClInclude Include="src\Launcher\GameLauncher.h">
       <Filter>Source\Launcher</Filter>
     </ClInclude>
+    <ClInclude Include="src\Utils\Xml\IXmlWriterImpl.h">
+      <Filter>Source\Utils\Xml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utils\Xml\IXmlReaderImpl.h">
+      <Filter>Source\Utils\Xml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utils\Xml\TinyXmlReaderImpl.h">
+      <Filter>Source\Utils\Xml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utils\Xml\XmlReader.h">
+      <Filter>Source\Utils\Xml</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Logger\BaseLogger.cpp">
@@ -415,6 +430,12 @@
     </ClCompile>
     <ClCompile Include="src\Math\Line.cpp">
       <Filter>Source\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Utils\Xml\TinyXmlReaderImpl.cpp">
+      <Filter>Source\Utils\Xml</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Utils\Xml\XmlReader.cpp">
+      <Filter>Source\Utils\Xml</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

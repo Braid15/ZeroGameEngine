@@ -18,7 +18,7 @@ namespace ZeroEngine {
         virtual void on_render(IPrimitiveRenderer&) = 0;
         virtual StringRepr to_string() const = 0;
         inline virtual ~IRenderPacket() {}
-        typedef std::tr1::shared_ptr<IRenderPacket> s_ptr;
+        typedef std::shared_ptr<IRenderPacket> s_ptr;
     };
 
     class BaseRenderPacket : public IRenderPacket {
@@ -31,6 +31,6 @@ namespace ZeroEngine {
         inline const Color& get_color() const { return _color; }
         inline void set_color(const Color& color) { _color = color; }
         virtual StringRepr to_string() const = 0;
-        typedef std::tr1::shared_ptr<BaseRenderPacket> s_ptr;
+        typedef std::shared_ptr<BaseRenderPacket> s_ptr;
     };
 }

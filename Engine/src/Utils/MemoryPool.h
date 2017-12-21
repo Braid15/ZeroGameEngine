@@ -2,6 +2,8 @@
 
 #include "../ZeroEngineStd.h"
 
+// @TODO: Move to Memory folder
+
 // 
 // This class is taken from GCC v4
 // 

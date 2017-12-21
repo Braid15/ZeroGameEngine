@@ -1,7 +1,17 @@
-
-
-* Define types for for char, long, short etc that will change depending on framework or just use _t types
+* Rename to Zen
 
 * Go through all classes and make sure they are packed efficiently
 
 * Either remove the need for AppMsgArgs, make them C-style structs are make them use MemoryPool.
+
+* Make custom atomic data types.
+
+* Custom container types.
+
+* Custom memory allocators.
+
+* Custom string class and StringId (hashed string)
+
+* Change events to use StringId instead of GUID
+
+* Os Path class

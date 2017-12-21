@@ -129,7 +129,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;tinyxml.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <Profile>true</Profile>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
@@ -252,6 +252,10 @@
     <ClInclude Include="src\Process\ProcessManager.h" />
     <ClInclude Include="src\Time.h" />
     <ClInclude Include="src\Utils\MemoryPool.h" />
+    <ClInclude Include="src\Utils\Xml\IXmlReaderImpl.h" />
+    <ClInclude Include="src\Utils\Xml\IXmlWriterImpl.h" />
+    <ClInclude Include="src\Utils\Xml\TinyXmlReaderImpl.h" />
+    <ClInclude Include="src\Utils\Xml\XmlReader.h" />
     <ClInclude Include="src\ZeroEngine.h" />
     <ClInclude Include="src\ZeroEngineEvents.h" />
     <ClInclude Include="src\ZeroEngineProcesses.h" />
@@ -301,6 +305,8 @@
     <ClCompile Include="src\Process\ProcessManager.cpp" />
     <ClCompile Include="src\Rendering\RenderPacketTypes.cpp" />
     <ClCompile Include="src\Utils\MemoryPool.cpp" />
+    <ClCompile Include="src\Utils\Xml\TinyXmlReaderImpl.cpp" />
+    <ClCompile Include="src\Utils\Xml\XmlReader.cpp" />
     <ClCompile Include="src\ZeroEngineEvents.cpp" />
     <ClCompile Include="src\ZeroEngineProcesses.cpp" />
     <ClCompile Include="src\ZeroEngineScreenElements.cpp" />

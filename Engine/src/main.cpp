@@ -6,13 +6,34 @@ using namespace ZeroEngine;
 
 static void run_game();
 
+void xml_test() {
+
+    /*
+    TiXmlDocument doc("S:/projects/Game-Engines/ZeroGameEngine/Engine/test/test.xml");
+    doc.LoadFile();
+    TiXmlElement* root = doc.FirstChildElement();
+    const char* type = root->Attribute("type");
+    const char* resource = root->Attribute("resource");
+
+    TiXmlElement* node = root->FirstChildElement();
+    std::cout << node->Value() << "\n";
+    node = node->FirstChildElement();
+    std::cout << node->Value() << "\n";
+    */
+
+    XmlReader reader;
+
+
+}
+
 int main( int argc, char* args[] ) {
 
     #ifdef _DEBUG
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
     #endif
 
-    run_game();
+    xml_test();
+    // run_game();
 
     #ifdef _DEBUG
     _CrtDumpMemoryLeaks();

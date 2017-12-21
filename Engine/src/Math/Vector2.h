@@ -20,8 +20,8 @@ namespace ZeroEngine {
         inline Vector2(const Vector2& other) : _x(other.get_x()), _y(other.get_y()) {}
         inline ~Vector2() {}
 
-        typedef std::tr1::shared_ptr<Vector2> s_ptr;
-        typedef std::tr1::weak_ptr<Vector2> w_ptr;
+        typedef std::shared_ptr<Vector2> s_ptr;
+        typedef std::weak_ptr<Vector2> w_ptr;
 
         static const Vector2 zero;
 
