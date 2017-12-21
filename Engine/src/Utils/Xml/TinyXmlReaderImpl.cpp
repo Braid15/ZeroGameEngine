@@ -144,6 +144,7 @@ namespace ZeroEngine {
         }
     }
 
+    // @TODO: Factor out move_to_next_element since thse are the same thing
     bool TinyXmlReaderImpl::read() {
         if (!needed_init() && _current_node) {
             assert(_current_node->Type() == TiXmlNode::TINYXML_ELEMENT);
@@ -152,15 +153,13 @@ namespace ZeroEngine {
             } else if (_current_node->NextSiblingElement()) {
                 _current_node = _current_node->NextSiblingElement();
             } else {
-                while (_current_node && _current_node != _document.FirstChildElement()) {
-                    _current_node = _current_node->Parent();
+                while (_current_node) {
                     if (_current_node->NextSiblingElement()) {
                         _current_node = _current_node->NextSiblingElement();
                         break;
+                    } else {
+                        _current_node = _current_node->Parent();
                     }
-                }
-                if (_current_node == _document.FirstChildElement()) {
-                    _current_node = nullptr;
                 }
             }
         }
