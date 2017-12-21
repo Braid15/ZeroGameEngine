@@ -298,7 +298,6 @@ namespace ZeroEngine {
         assert(reader.move_to_element("TransformComponent"));
         assert(strcmp(reader.get_element_name(), "TransformComponent") == 0);
 
-
         // Add:
         // move_to_previous_element
     }
