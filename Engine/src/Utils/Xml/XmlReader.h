@@ -29,6 +29,7 @@ namespace ZeroEngine {
         void move_to_next_element() const;
         void move_to_next_sibling() const;
         bool is_current_element_empty() const;
+        void move_to_root_element() const;
 
         inline virtual StringRepr to_string() const override { return "XmlReader"; }
     private:

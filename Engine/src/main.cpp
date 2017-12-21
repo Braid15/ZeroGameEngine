@@ -21,7 +21,9 @@ void xml_test() {
     std::cout << node->Value() << "\n";
     */
 
-    XmlReader reader;
+    XmlReader reader("S:/projects/Game-Engines/ZeroGameEngine/Engine/test/test.xml");
+    reader.load();
+    Logger::shutdown();
 
 
 }

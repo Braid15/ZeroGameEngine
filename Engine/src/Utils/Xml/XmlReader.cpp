@@ -43,7 +43,7 @@ namespace ZeroEngine {
     }
 
     bool XmlReader::current_element_has_attributes() const {
-        return _implementation->get_attribute_count() > 0;
+        return _implementation->has_attributes();
     }
 
     bool XmlReader::current_element_has_value() const {
@@ -59,11 +59,11 @@ namespace ZeroEngine {
     }
 
     void XmlReader::move_to_start_element() const {
-        _implementation->move_to_start_element();
+        _implementation->move_to_first_element();
     }
 
     void XmlReader::move_to_start_element(const char* name) const {
-        _implementation->move_to_start_element(name);
+        _implementation->move_to_first_element(name);
     }
 
     const char* XmlReader::get_current_element_attribute_value(const char* name) const {
@@ -84,6 +84,10 @@ namespace ZeroEngine {
 
     bool XmlReader::is_current_element_empty() const {
         return _implementation->is_element_empty();
+    }
+
+    void XmlReader::move_to_root_element() const {
+        _implementation->move_to_root_element();
     }
 
 
