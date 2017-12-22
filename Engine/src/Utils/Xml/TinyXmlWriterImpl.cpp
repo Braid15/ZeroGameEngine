@@ -75,17 +75,16 @@ namespace ZeroEngine {
         return false;
     }
 
-    const char* TinyXmlWriterImpl::get_xml_string() const {
+    std::string TinyXmlWriterImpl::get_xml_string() const {
         TiXmlPrinter printer;
         _document.Accept(&printer);
-        const char* xml_string = printer.CStr();
-        const char* ret = (char*)zero_malloc(sizeof(sizeof(xml_string)));
-        return ret;
+        return printer.CStr();
     }
 
     // ---------------------------------
     // TinyXmlWriterImpl Private Members
     // ---------------------------------
+
 
     bool TinyXmlWriterImpl::is_open_node_valid_type(const TiXmlNode::NodeType& type) {
         return (_open_node && _open_node->Type() == type);

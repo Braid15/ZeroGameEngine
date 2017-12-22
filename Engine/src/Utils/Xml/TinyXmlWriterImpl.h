@@ -29,7 +29,7 @@ namespace ZeroEngine {
         void write_start_element(const char* name) override;
         void write_end_element() override;
         bool save_file(const char* file_path) override;
-        const char* get_xml_string() const override;
+        std::string get_xml_string() const override;
 
         inline StringRepr to_string() const { return "TinyXmlWriterImpl"; }
     private:
