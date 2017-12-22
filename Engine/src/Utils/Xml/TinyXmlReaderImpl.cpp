@@ -2,12 +2,6 @@
 
 namespace ZeroEngine {
 
-    // Convenience macro since I log this in every method.
-    // I don't want to assert whether _current_node is a valid pointer
-    // because some methods use it's invalid state to work.
-    #define LOG_INVALID_NODE() LOG_DEBUG("TinyXmlReaderImpl", "Node is invalid");
-
-
     // --------------
     // Public Members
     // --------------
@@ -27,7 +21,6 @@ namespace ZeroEngine {
         if (!_current_node || _current_node->NoChildren()) return false;
 
         assert(_current_node->Type() == TiXmlNode::TINYXML_ELEMENT);
-        LOG_TODO("TinyXmlReaderImpl", "Fix to iterate through all children to check for value");
         return (_current_node->FirstChild()->Type() == TiXmlNode::TINYXML_TEXT);
     }
 
@@ -208,6 +201,4 @@ namespace ZeroEngine {
         _previous_node = _current_node;
         _current_node = node;
     }
-
-
 }

@@ -29,7 +29,7 @@ namespace ZeroEngine {
         bool move_to_next_element() override;
         bool move_to_previous_element() override;
         const char* get_attribute_name(const int32_t index) const override;
-        bool move_to_parent_element();
+        bool move_to_parent_element() override;
 
         inline StringRepr to_string() const override { return "TinyXmlReaderImpl"; }
     private:

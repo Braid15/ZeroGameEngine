@@ -189,8 +189,8 @@ namespace ZeroEngine {
             } else if (strcmp(element, "Scale") == 0) {
                 assert(reader.element_has_attributes() == true);
                 assert(reader.get_element_attribute_count() == 3);
-                assert(reader.element_has_value() == false);
-                assert(reader.get_element_value() == "");
+                assert(reader.element_has_value() == true);
+                assert(strcmp(reader.get_element_value(), "SCALE_TEXT") == 0);
                 assert(strcmp(reader.get_element_attribute_value("x"), "0.25") == 0);
                 assert(strcmp(reader.get_element_attribute_value("y"), "0.25") == 0);
                 assert(strcmp(reader.get_element_attribute_value("z"), "0.25") == 0);
