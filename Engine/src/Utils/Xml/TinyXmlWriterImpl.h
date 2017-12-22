@@ -14,6 +14,10 @@ namespace ZeroEngine {
     private:
         friend class XmlWriter;
         TiXmlDocument _document;
+        // This is used to keep track of what node is being added
+        // to the Xml doc. It should not be passed to TiXmlDocument incase
+        // it dereferences the pointer. This class will handle it's creation and deletion.
+        TiXmlNode* _open_node;
     public:
         ~TinyXmlWriterImpl();
         void write_attribute_string(const char* name, const char* value) override;
@@ -29,7 +33,8 @@ namespace ZeroEngine {
 
         inline StringRepr to_string() const { return "TinyXmlWriterImpl"; }
     private:
-        TinyXmlWriterImpl();
+        TinyXmlWriterImpl() : _open_node(nullptr) {}
         TinyXmlWriterImpl(const TinyXmlWriterImpl&) {}
+        bool is_open_node_valid_type(const TiXmlNode::NodeType& type);
     };
 }

@@ -22,3 +22,4 @@
 #include "Launcher/GameLauncher.h"
 #include "Math/Math.h"
 #include "Utils/Xml/XmlReader.h"
+#include "Utils/Xml/XmlWriter.h"

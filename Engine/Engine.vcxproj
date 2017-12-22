@@ -255,7 +255,9 @@
     <ClInclude Include="src\Utils\Xml\IXmlReaderImpl.h" />
     <ClInclude Include="src\Utils\Xml\IXmlWriterImpl.h" />
     <ClInclude Include="src\Utils\Xml\TinyXmlReaderImpl.h" />
+    <ClInclude Include="src\Utils\Xml\TinyXmlWriterImpl.h" />
     <ClInclude Include="src\Utils\Xml\XmlReader.h" />
+    <ClInclude Include="src\Utils\Xml\XmlWriter.h" />
     <ClInclude Include="src\ZeroEngine.h" />
     <ClInclude Include="src\ZeroEngineEvents.h" />
     <ClInclude Include="src\ZeroEngineProcesses.h" />
@@ -306,7 +308,9 @@
     <ClCompile Include="src\Rendering\RenderPacketTypes.cpp" />
     <ClCompile Include="src\Utils\MemoryPool.cpp" />
     <ClCompile Include="src\Utils\Xml\TinyXmlReaderImpl.cpp" />
+    <ClCompile Include="src\Utils\Xml\TinyXmlWriterImpl.cpp" />
     <ClCompile Include="src\Utils\Xml\XmlReader.cpp" />
+    <ClCompile Include="src\Utils\Xml\XmlWriter.cpp" />
     <ClCompile Include="src\ZeroEngineEvents.cpp" />
     <ClCompile Include="src\ZeroEngineProcesses.cpp" />
     <ClCompile Include="src\ZeroEngineScreenElements.cpp" />

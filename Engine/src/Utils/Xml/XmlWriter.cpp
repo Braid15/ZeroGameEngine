@@ -1,5 +1,6 @@
 #include "XmlWriter.h"
 #include "../../Logger/Logging.h"
+#include "TinyXmlWriterImpl.h"
 
 namespace ZeroEngine {
 
@@ -63,7 +64,7 @@ namespace ZeroEngine {
         return _implementation->save_file(_file_path);
     }
 
-    const char* get_xml_string() const {
+    const char* XmlWriter::get_xml_string() const {
         return _implementation->get_xml_string();
     }
 
@@ -72,9 +73,14 @@ namespace ZeroEngine {
     // -------------------------
 
     IXmlWriterImpl* XmlWriter::get_implementation() {
-        LOG_TODO("IXmlWriterImpl", "RETURNS NULL");
-        return nullptr;
-        // return zero_new TinyXmlWriterImpl();
-
+        return zero_new TinyXmlWriterImpl();
     }
+
+    #ifdef _DEBUG
+    void XmlWriter_TinyXmlImpl_UNIT_TEST() {
+       XmlWriter writer;
+       writer.write_element_string("TestElement", "TestValue");
+       std::cout << writer.get_xml_string() << "\n";
+    }
+    #endif
 }

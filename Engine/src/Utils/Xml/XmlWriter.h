@@ -31,4 +31,8 @@ namespace ZeroEngine {
         static IXmlWriterImpl* get_implementation();
         XmlWriter(const XmlWriter&) {}
     };
+
+    #ifdef _DEBUG
+    extern void XmlWriter_TinyXmlImpl_UNIT_TEST();
+    #endif
 }
