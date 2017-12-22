@@ -78,7 +78,9 @@ namespace ZeroEngine {
     const char* TinyXmlWriterImpl::get_xml_string() const {
         TiXmlPrinter printer;
         _document.Accept(&printer);
-        return printer.CStr();
+        const char* xml_string = printer.CStr();
+        const char* ret = (char*)zero_malloc(sizeof(sizeof(xml_string)));
+        return ret;
     }
 
     // ---------------------------------
