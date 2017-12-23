@@ -83,9 +83,11 @@ namespace ZeroEngine {
     #ifdef _DEBUG
     void XmlWriter_TinyXmlImpl_UNIT_TEST() {
        XmlWriter writer;
+       writer.write_comment("Comment One");
        writer.write_start_element("RootElement");
        writer.write_start_element("ElementTwo");
        writer.write_start_element("ElementThree");
+       writer.write_comment("Comment Two");
        writer.write_start_element("ElementFour");
        writer.write_attribute_string("Attribute", "Value");
        writer.write_string("ElementFourVal");
@@ -94,9 +96,11 @@ namespace ZeroEngine {
        writer.write_end_element();
        writer.write_end_element();
 
+       /*
        const char* file;
        file = "S:\\projects\\game-engines\\zerogameengine\\test.xml";
        writer.save_file(file);
+       */
     }
     #endif
 }

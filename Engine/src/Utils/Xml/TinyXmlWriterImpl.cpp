@@ -12,8 +12,8 @@ namespace ZeroEngine {
     // ---------------------------------
     
     TinyXmlWriterImpl::~TinyXmlWriterImpl() {
-        // This would only happen if get_xml_string
-        // or save_file was not called.
+        // _element_chain should be empty by this point,
+        // but just to be sure.
         while (!_element_chain.empty()) {
             TiXmlElement* element = _element_chain.back();
             _element_chain.pop_back();
@@ -47,9 +47,12 @@ namespace ZeroEngine {
     }
 
     void TinyXmlWriterImpl::write_comment(const char* comment) {
-        // Add to element chain??
         TiXmlComment* comment_node = zero_new TiXmlComment(comment);
-        _document.LinkEndChild(comment_node);
+        if (!_element_chain.empty()) {
+            _element_chain.back()->LinkEndChild(comment_node);
+        } else {
+            _document.LinkEndChild(comment_node);
+        }
     }
 
     void TinyXmlWriterImpl::write_element_string(const char* name, const char* value) {
