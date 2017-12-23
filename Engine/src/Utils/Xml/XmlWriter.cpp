@@ -64,6 +64,10 @@ namespace ZeroEngine {
         return _implementation->save_file(_file_path);
     }
 
+    bool XmlWriter::save_file(const char* file_path) const {
+        return _implementation->save_file(file_path);
+    }
+
     std::string XmlWriter::get_xml_string() const {
         return _implementation->get_xml_string();
     }
@@ -90,7 +94,9 @@ namespace ZeroEngine {
        writer.write_end_element();
        writer.write_end_element();
 
-       std::cout << writer.get_xml_string() << "\n";
+       const char* file;
+       file = "S:\\projects\\game-engines\\zerogameengine\\test.xml";
+       writer.save_file(file);
     }
     #endif
 }

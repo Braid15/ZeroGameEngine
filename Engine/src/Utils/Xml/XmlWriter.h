@@ -24,6 +24,7 @@ namespace ZeroEngine {
         void write_start_element(const char* name) const;
         void write_end_element() const;
         bool save_file() const;
+        bool save_file(const char* file_path) const;
         std::string get_xml_string() const;
 
         StringRepr to_string() const override { return "XmlWriter"; }

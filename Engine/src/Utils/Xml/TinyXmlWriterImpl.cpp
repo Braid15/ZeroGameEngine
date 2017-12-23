@@ -78,9 +78,8 @@ namespace ZeroEngine {
     }
 
     bool TinyXmlWriterImpl::save_file(const char* file_path) {
-        assert(file_path);
-        LOG_UNIMPLEMENTED();
-        return false;
+        if (!file_path) return false;
+        return _document.SaveFile(file_path);
     }
 
     std::string TinyXmlWriterImpl::get_xml_string() const {
