@@ -9,7 +9,7 @@
     <Density>pine</Density>
     <PhysicsMaterial>Bouncy</PhysicsMaterial>
     <RigidBodyTransform>
-      <Scale x="0.25" y="0.25" z="0.25" />
+      <Scale x="0.25" y="0.25" z="0.25">SCALE_TEXT</Scale>
     </RigidBodyTransform>
   </PhysicsComponent>
 

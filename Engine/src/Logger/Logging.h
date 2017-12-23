@@ -44,14 +44,36 @@ namespace ZeroEngine {
     };
 
 
-#define LOG_DEBUG(agent, msg) \
-    Logger::log_debug(std::string(agent), std::string(msg), std::string(__func__));
+// @TODO: Make it an option to specifiy how many times the msg should be printed
+#define LOG_DEBUG(agent, msg)                                                               \
+    {                                                                                       \
+        static bool limit_reached = false;                                                  \
+        static uint32_t count = 0;                                                          \
+        if (!limit_reached && count++ == 0) {                                               \
+            limit_reached = true;                                                           \
+            Logger::log_debug(std::string(agent), std::string(msg), std::string(__func__)); \
+        }                                                                                   \
+    }
 
-#define LOG_TODO(agent, msg) \
-    Logger::log_todo(std::string(agent), std::string(msg), std::string(__func__), __LINE__);
+
+#define LOG_TODO(agent, msg)                                                                         \
+    {                                                                                                \
+        static bool limit_reached = false;                                                           \
+        static uint32_t count = 0;                                                                   \
+        if (!limit_reached && count++ == 0) {                                                        \
+            limit_reached = true;                                                                    \
+            Logger::log_todo(std::string(agent), std::string(msg), std::string(__func__), __LINE__); \
+        }                                                                                            \
+    }
 
 
-#define LOG_UNIMPLEMENTED() \
-    Logger::log_unimplemented(std::string(__FILE__), std::string(__func__), __LINE__);
-
+#define LOG_UNIMPLEMENTED()                                                                    \
+    {                                                                                          \
+        static bool limit_reached = false;                                                     \
+        static uint32_t count = 0;                                                             \
+        if (!limit_reached && count++ == 0) {                                                  \
+            limit_reached = true;                                                              \
+            Logger::log_unimplemented(std::string(__FILE__), std::string(__func__), __LINE__); \
+        }                                                                                      \
+    }
 }

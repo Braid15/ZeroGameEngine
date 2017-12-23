@@ -294,6 +294,12 @@
     <ClInclude Include="src\Utils\Xml\XmlReader.h">
       <Filter>Source\Utils\Xml</Filter>
     </ClInclude>
+    <ClInclude Include="src\Utils\Xml\TinyXmlWriterImpl.h">
+      <Filter>Source\Utils\Xml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utils\Xml\XmlWriter.h">
+      <Filter>Source\Utils\Xml</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Logger\BaseLogger.cpp">
@@ -435,6 +441,12 @@
       <Filter>Source\Utils\Xml</Filter>
     </ClCompile>
     <ClCompile Include="src\Utils\Xml\XmlReader.cpp">
+      <Filter>Source\Utils\Xml</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Utils\Xml\TinyXmlWriterImpl.cpp">
+      <Filter>Source\Utils\Xml</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Utils\Xml\XmlWriter.cpp">
       <Filter>Source\Utils\Xml</Filter>
     </ClCompile>
   </ItemGroup>
