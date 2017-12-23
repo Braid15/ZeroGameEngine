@@ -1,5 +1,9 @@
+#pragma comment(lib, "tinyxml.lib")
+
 #include "TinyXmlWriterImpl.h"
 #include "../../Logger/Logging.h"
+
+// @TODO: Methods should return bool 
 
 namespace ZeroEngine {
 
@@ -8,48 +12,42 @@ namespace ZeroEngine {
     // ---------------------------------
     
     TinyXmlWriterImpl::~TinyXmlWriterImpl() {
+        // This would only happen if get_xml_string
+        // or save_file was not called.
+        while (!_element_chain.empty()) {
+            TiXmlElement* element = _element_chain.back();
+            _element_chain.pop_back();
+            zero_delete(element);
+        }
     }
 
     void TinyXmlWriterImpl::write_attribute_string(const char* name, const char* value) {
-        if (!is_open_node_valid_type(TiXmlNode::TINYXML_ELEMENT)) return;
-        TiXmlElement* element = dynamic_cast<TiXmlElement*>(_open_node);
-        element->SetAttribute(name, value);
-        _open_node = element;
+        if (_element_chain.empty()) return;
+        _element_chain.back()->SetAttribute(name, value);
     }
 
     void TinyXmlWriterImpl::write_start_attribute(const char* name) {
-        LOG_UNIMPLEMENTED();
+        if (_element_chain.empty()) return;
+        _element_chain.back()->SetAttribute(name, "");
+        _writing_attribute = true;
     }
 
     void TinyXmlWriterImpl::write_end_attribute() {
-        LOG_UNIMPLEMENTED();
+        _writing_attribute = false;
     }
 
     void TinyXmlWriterImpl::write_string(const char* str) {
-        if (!_open_node) return;
-        int32_t type = _open_node->Type();
-        if (type != TiXmlNode::TINYXML_ELEMENT && type != TiXmlNode::TINYXML_TEXT) return;
-
-        switch (_open_node->Type()) {
-            case TiXmlNode::TINYXML_ELEMENT:
-            {
-                LOG_TODO("TinyXmlWriterImpl", "Not clear on implementatino details yet");
-                break;
-            }
-            case TiXmlNode::TINYXML_TEXT:
-            {
-                LOG_TODO("TinyXmlWriterImpl", "Not clear on implementatino details yet");
-                break;
-            }
-            default:
-            {
-                LOG_DEBUG("TinyXmlWriterImpl", "Error. Unexpected type");
-                break;
-            }
+        if (_element_chain.empty()) return;
+        if (_writing_attribute) {
+            _element_chain.back()->LastAttribute()->SetValue(str);
+        } else {
+            TiXmlText* text = zero_new TiXmlText(str);
+            _element_chain.back()->LinkEndChild(text);
         }
     }
 
     void TinyXmlWriterImpl::write_comment(const char* comment) {
+        // Add to element chain??
         TiXmlComment* comment_node = zero_new TiXmlComment(comment);
         _document.LinkEndChild(comment_node);
     }
@@ -62,11 +60,21 @@ namespace ZeroEngine {
     }
 
     void TinyXmlWriterImpl::write_start_element(const char* name) {
-        
+        TiXmlElement* element = zero_new TiXmlElement(name);
+        if (!_element_chain.empty()) {
+            _element_chain.back()->LinkEndChild(element);
+        }
+        _element_chain.push_back(element);
+        _current_element++;
     }
 
     void TinyXmlWriterImpl::write_end_element() {
-
+        _current_element = (_current_element > 0) ? _current_element - 1 : 0;
+        if (_current_element == 0) {
+            TiXmlElement* root = _element_chain.front();
+            _document.LinkEndChild(root);
+            _element_chain.clear();
+        }
     }
 
     bool TinyXmlWriterImpl::save_file(const char* file_path) {
@@ -84,10 +92,4 @@ namespace ZeroEngine {
     // ---------------------------------
     // TinyXmlWriterImpl Private Members
     // ---------------------------------
-
-
-    bool TinyXmlWriterImpl::is_open_node_valid_type(const TiXmlNode::NodeType& type) {
-        return (_open_node && _open_node->Type() == type);
-    }
-
 }

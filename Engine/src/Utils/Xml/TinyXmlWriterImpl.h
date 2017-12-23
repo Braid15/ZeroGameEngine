@@ -4,6 +4,8 @@
 #include "IXmlWriterImpl.h"
 #include "../../3rdParty/TinyXML/tinyxml.h"
 
+#include <stack>
+
 namespace ZeroEngine {
 
     // -----------------
@@ -13,11 +15,10 @@ namespace ZeroEngine {
     class TinyXmlWriterImpl final : public IXmlWriterImpl {
     private:
         friend class XmlWriter;
+        std::list<TiXmlElement*> _element_chain;
         TiXmlDocument _document;
-        // This is used to keep track of what node is being added
-        // to the Xml doc. It should not be passed to TiXmlDocument incase
-        // it dereferences the pointer. This class will handle it's creation and deletion.
-        TiXmlNode* _open_node;
+        uint32_t _current_element;
+        bool _writing_attribute;
     public:
         ~TinyXmlWriterImpl();
         void write_attribute_string(const char* name, const char* value) override;
@@ -33,8 +34,8 @@ namespace ZeroEngine {
 
         inline StringRepr to_string() const { return "TinyXmlWriterImpl"; }
     private:
-        TinyXmlWriterImpl() : _open_node(nullptr) {}
+        TinyXmlWriterImpl() : _writing_attribute(false), 
+            _current_element(0) {}
         TinyXmlWriterImpl(const TinyXmlWriterImpl&) {}
-        bool is_open_node_valid_type(const TiXmlNode::NodeType& type);
     };
 }

@@ -79,7 +79,17 @@ namespace ZeroEngine {
     #ifdef _DEBUG
     void XmlWriter_TinyXmlImpl_UNIT_TEST() {
        XmlWriter writer;
-       writer.write_element_string("TestElement", "TestValue");
+       writer.write_start_element("RootElement");
+       writer.write_start_element("ElementTwo");
+       writer.write_start_element("ElementThree");
+       writer.write_start_element("ElementFour");
+       writer.write_attribute_string("Attribute", "Value");
+       writer.write_string("ElementFourVal");
+       writer.write_end_element();
+       writer.write_end_element();
+       writer.write_end_element();
+       writer.write_end_element();
+
        std::cout << writer.get_xml_string() << "\n";
     }
     #endif

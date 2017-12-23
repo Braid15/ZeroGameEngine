@@ -1,3 +1,5 @@
+#pragma comment(lib, "tinyxml.lib")
+
 #include "TinyXmlReaderImpl.h"
 
 namespace ZeroEngine {
