@@ -20,10 +20,17 @@ namespace ZeroEngine {
 
     void TransformComponent2D::on_write_xml(const XmlWriter& writer) {
         writer.write_start_element(name);
+
         writer.write_start_element("Position");
         writer.write_attribute_string("x", std::to_string(_position.get_x()).c_str());
         writer.write_attribute_string("y", std::to_string(_position.get_y()).c_str());
         writer.write_end_element();
+
+        writer.write_start_element("Velocity");
+        writer.write_attribute_string("x", std::to_string(_velocity.get_x()).c_str());
+        writer.write_attribute_string("y", std::to_string(_velocity.get_y()).c_str());
+        writer.write_end_element();
+
         writer.write_end_element();
     }
 }

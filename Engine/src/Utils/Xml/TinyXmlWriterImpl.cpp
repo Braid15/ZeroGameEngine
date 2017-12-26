@@ -80,6 +80,8 @@ namespace ZeroEngine {
             TiXmlElement* root = _element_chain.front();
             _document.LinkEndChild(root);
             _element_chain.clear();
+        } else {
+            _element_chain.pop_back();
         }
     }
 

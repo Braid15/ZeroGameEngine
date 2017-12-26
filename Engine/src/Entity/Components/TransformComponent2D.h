@@ -25,8 +25,9 @@ namespace ZeroEngine {
 
         inline const Vector2& get_position() const { return _position; }
         inline void set_position(const Vector2 pos) { _position = pos; }
-        
-        // @TODO: getters/setters velocity
+
+        inline const Vector2& get_velocity() const { return _velocity; }
+        inline void set_velocity(const Vector2 vel) { _velocity = vel; }
     private:
         void on_write_xml(const XmlWriter& writer) override;
     };
