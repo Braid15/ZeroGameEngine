@@ -67,6 +67,9 @@
     <Filter Include="Source\Utils\Xml">
       <UniqueIdentifier>{aa2b11f1-f043-434e-bd24-108aa6668384}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Entity\Component">
+      <UniqueIdentifier>{0184c207-b441-4571-ab9f-46096998dd8f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ZeroEngine.h">
@@ -309,6 +312,9 @@
     <ClInclude Include="src\Framework\SdlFramework\SdlTexture.h">
       <Filter>Source\Framework\SdlFramework</Filter>
     </ClInclude>
+    <ClInclude Include="src\Entity\Components\TransformComponent2D.h">
+      <Filter>Source\Entity\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Logger\BaseLogger.cpp">
@@ -463,6 +469,9 @@
     </ClCompile>
     <ClCompile Include="src\GameView\Sprite.cpp">
       <Filter>Source\GameView</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\Components\TransformComponent2D.cpp">
+      <Filter>Source\Entity\Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

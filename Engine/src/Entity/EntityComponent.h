@@ -8,6 +8,7 @@ namespace ZeroEngine {
     typedef uint32_t EntityComponentId;
     extern const EntityComponentId INVALID_ENTITY_COMPONENT_ID;
 
+    class XmlWriter;
     class EntityFactory;
     class Entity;
     class EntityComponent;
@@ -20,10 +21,12 @@ namespace ZeroEngine {
     class EntityComponent : public IZeroObject {
     private:
         friend class EntityFactory;
+        friend class Entity;
         EntityPtr _owner;
     public:
         virtual ~EntityComponent() {}
         virtual const EntityComponentId& get_id() const = 0; 
+        virtual const char* get_name() const = 0;
         virtual StringRepr to_string() const = 0;
         virtual bool initialize() = 0;
         virtual void post_initialize() = 0;
@@ -36,5 +39,6 @@ namespace ZeroEngine {
         inline WeakEntityPtr get_owner() const { return WeakEntityPtr(_owner); }
     private:
         inline void set_owner(EntityPtr owner) { _owner = owner; }
+        virtual void on_write_xml(const XmlWriter& writer) = 0;
     };
 }

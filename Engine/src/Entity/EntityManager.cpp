@@ -32,6 +32,12 @@ namespace ZeroEngine {
         return entity;
     }
 
+    EntityPtr EntityManager::create_entity(const char* resource_path) {
+        EntityPtr entity = _factory->create_entity(resource_path);
+        _storage->store_entity(entity);
+        return entity;
+    }
+
     void EntityManager::destroy_entity(const EntityId& id) {
         _storage->destroy_entity(id);
     }
@@ -64,7 +70,10 @@ namespace ZeroEngine {
     void EntityManager::StlMapEntityStorage::destroy_entity(const EntityId& id) {
         EntityMap::iterator iter = _entities.find(id);
         if (iter != _entities.end()) {
+            iter->second->destroy();
             _entities.erase(iter);
+        } else {
+            LOG_DEBUG("EntityManager", "Unable to delete entity")
         }
     }
 

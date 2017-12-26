@@ -197,6 +197,7 @@
     <Text Include="TODO.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Entity\Components\TransformComponent2D.h" />
     <ClInclude Include="src\Framework\ITexture.h" />
     <ClInclude Include="src\Framework\SdlFramework\SdlTexture.h" />
     <ClInclude Include="src\GameView\Sprite.h" />
@@ -285,6 +286,7 @@
     <ClCompile Include="src\AppMsg\AppMsg.cpp" />
     <ClCompile Include="src\AppMsg\AppMsgArgs.cpp" />
     <ClCompile Include="src\AppMsg\AppMsgFactory.cpp" />
+    <ClCompile Include="src\Entity\Components\TransformComponent2D.cpp" />
     <ClCompile Include="src\Entity\Entity.cpp" />
     <ClCompile Include="src\Entity\EntityComponent.cpp" />
     <ClCompile Include="src\Entity\EntityFactory.cpp" />

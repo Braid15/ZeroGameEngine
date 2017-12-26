@@ -17,6 +17,8 @@ namespace ZeroEngine {
         friend class EntityFactory;
         EntityId _id;
         std::string _name;
+        std::string _type;
+        std::string _resource_path;
         EntityComponentMap _components;
     public:
         explicit Entity(EntityId id);
@@ -33,6 +35,7 @@ namespace ZeroEngine {
         inline void set_name(const char* name) { _name = name; }
         inline void set_name(std::string name) { _name = name; }
         inline const EntityComponentMap* get_components() const { return &_components; }
+        std::string create_xml_string();
 
         template <class ComponentType>
         inline std::weak_ptr<ComponentType> get_component(const EntityComponentId id) {
