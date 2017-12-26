@@ -300,6 +300,15 @@
     <ClInclude Include="src\Utils\Xml\XmlWriter.h">
       <Filter>Source\Utils\Xml</Filter>
     </ClInclude>
+    <ClInclude Include="src\GameView\Sprite.h">
+      <Filter>Source\GameView</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\ITexture.h">
+      <Filter>Source\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\SdlFramework\SdlTexture.h">
+      <Filter>Source\Framework\SdlFramework</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Logger\BaseLogger.cpp">
@@ -448,6 +457,12 @@
     </ClCompile>
     <ClCompile Include="src\Utils\Xml\XmlWriter.cpp">
       <Filter>Source\Utils\Xml</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\SdlFramework\SdlTexture.cpp">
+      <Filter>Source\Framework\SdlFramework</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameView\Sprite.cpp">
+      <Filter>Source\GameView</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -34,7 +34,6 @@ namespace ZeroEngine {
         inline void set_name(std::string name) { _name = name; }
         inline const EntityComponentMap* get_components() const { return &_components; }
 
-
         template <class ComponentType>
         inline std::weak_ptr<ComponentType> get_component(const EntityComponentId id) {
             EntityComponentMap::iterator iter = _components.find(id);

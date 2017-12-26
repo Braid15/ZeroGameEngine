@@ -1,4 +1,5 @@
 #include "SdlRenderer.h"
+#include "SdlTexture.h"
 
 namespace ZeroEngine {
 
@@ -41,6 +42,10 @@ namespace ZeroEngine {
         bool success = true;
         // @TEMP
         return success;
+    }
+
+    ITexture* SdlRenderer::create_texture(const char* file_path) {
+        return zero_new SdlTexture(_sdl_renderer, file_path);
     }
 
     void SdlRenderer::draw_line(const Point<int32_t>& from, const Point<int32_t>& to, const Color& color) {

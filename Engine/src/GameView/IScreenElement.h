@@ -46,6 +46,8 @@ namespace ZeroEngine {
         bool _is_visible;
         ScreenElementId _id;
     public:
+        virtual StringRepr to_string() const = 0;
+
         BaseScreenElement();
         inline virtual ~BaseScreenElement() {}
         inline virtual bool restore() override { return true; }
@@ -58,7 +60,6 @@ namespace ZeroEngine {
         inline bool is_visible() const override { return _is_visible; }
         inline void set_visible(bool visible) override { _is_visible = visible; }
         inline ScreenElementId get_id() const override { return _id; }
-        virtual StringRepr to_string() const = 0;
         typedef std::shared_ptr<BaseScreenElement> ptr;
     };
 }

@@ -10,6 +10,8 @@
 
 namespace ZeroEngine {
 
+    class ITexture;
+
     class IRenderer : public IZeroObject {
     public:
         virtual void set_background_color(uint32_t red,
@@ -28,6 +30,8 @@ namespace ZeroEngine {
         virtual void submit_packet(IRenderPacket::s_ptr) = 0;
         virtual void remove_packet(IRenderPacket::s_ptr) = 0;
         virtual StringRepr to_string() const = 0;
+        // @TODO: Seperate interface??
+        virtual ITexture* create_texture(const char* file_path) = 0;
         inline virtual ~IRenderer() {}
         typedef std::shared_ptr<IRenderer> s_ptr;
     };
@@ -55,6 +59,7 @@ namespace ZeroEngine {
         virtual void draw_line(const Point<int32_t>& from, const Point<int32_t>& to, const Color& color) = 0;
         virtual void render_present() = 0;
         virtual void render_packets(); 
+        virtual ITexture* create_texture(const char* file_path) = 0;
         virtual void submit_packet(IRenderPacket::s_ptr);
         virtual void remove_packet(IRenderPacket::s_ptr);
         virtual StringRepr to_string() const = 0;
@@ -77,6 +82,7 @@ namespace ZeroEngine {
         inline void render_packets() override {}
         inline void submit_packet(IRenderPacket::s_ptr) override {}
         inline void remove_packet(IRenderPacket::s_ptr) override {}
+        inline ITexture* create_texture(const char* file_path) override { return nullptr; }
         inline StringRepr to_string() const override { return "NullRenderer"; }
     };
 }

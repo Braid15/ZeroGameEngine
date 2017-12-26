@@ -197,6 +197,9 @@
     <Text Include="TODO.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Framework\ITexture.h" />
+    <ClInclude Include="src\Framework\SdlFramework\SdlTexture.h" />
+    <ClInclude Include="src\GameView\Sprite.h" />
     <ClInclude Include="src\Launcher\GameLauncher.h" />
     <ClInclude Include="src\Math\Line.h" />
     <ClInclude Include="src\Math\Math.h" />
@@ -295,10 +298,12 @@
     <ClCompile Include="src\Framework\SdlFramework\SdlFramework.cpp" />
     <ClCompile Include="src\Framework\SdlFramework\SdlMsgTranslator.cpp" />
     <ClCompile Include="src\Framework\SdlFramework\SdlRenderer.cpp" />
+    <ClCompile Include="src\Framework\SdlFramework\SdlTexture.cpp" />
     <ClCompile Include="src\GameLogic\BaseGameLogic.cpp" />
     <ClCompile Include="src\GameView\HumanView.cpp" />
     <ClCompile Include="src\GameView\IGameView.cpp" />
     <ClCompile Include="src\GameView\IScreenElement.cpp" />
+    <ClCompile Include="src\GameView\Sprite.cpp" />
     <ClCompile Include="src\Graphics\Color.cpp" />
     <ClCompile Include="src\Graphics\Point.cpp" />
     <ClCompile Include="src\Graphics\Rect.cpp" />

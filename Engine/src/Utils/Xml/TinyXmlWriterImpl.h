@@ -15,8 +15,8 @@ namespace ZeroEngine {
     class TinyXmlWriterImpl final : public IXmlWriterImpl {
     private:
         friend class XmlWriter;
-        std::list<TiXmlElement*> _element_chain;
         TiXmlDocument _document;
+        std::list<TiXmlElement*> _element_chain;
         uint32_t _current_element;
         bool _writing_attribute;
     public:

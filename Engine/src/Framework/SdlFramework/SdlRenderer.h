@@ -15,6 +15,7 @@ namespace ZeroEngine {
     class SdlRenderer : public BaseRenderer {
     private:
         friend class SdlPrimitiveRenderer;
+        friend class SdlTextureImpl;
         SDL_Renderer* _sdl_renderer;
     public:
         // @TEMP: SHould be created with SdlWindow
@@ -26,6 +27,7 @@ namespace ZeroEngine {
         bool post_render() override;
         void render_present() override;
         void draw_line(const Point<int32_t>& from, const Point<int32_t>& to, const Color& color) override;
+        ITexture* create_texture(const char* file_path) override;
         inline StringRepr to_string() const { return "SdlRenderer"; }
     private:
         inline SdlRenderer() { _sdl_renderer = nullptr; }
