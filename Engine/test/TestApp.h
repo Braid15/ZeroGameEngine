@@ -126,7 +126,7 @@ namespace ZeroEngineAppTest {
 
         inline bool on_key_down(const Key& key) override {
             if (key == Key::enter) {
-                // ZeroEventManager::queue_event(RequestCreateEntityEvent::create());
+                ZeroEventManager::queue_event(RequestCreateEntityEvent::create());
             } else if (key == Key::space) {
                 // ZeroEventManager::queue_event(RequestDestroyEntityEvent::create(Game::get_entity_count()));
                 pen.change_line_colors();
@@ -182,6 +182,12 @@ namespace ZeroEngineAppTest {
             EntityCreatedEvent::ptr data = EntityCreatedEvent::cast(event_data);
             std::cout << "Entity created: " << data->get_entity_id() << "\n";
             std::cout << "ENtity count: " << Game::get_entity_count() << "\n";
+
+            char* path = "S:\\projects\\game-engines\\zerogameengine\\engine\\assets\\test.bmp";
+
+            Sprite* s = zero_new Sprite(path);
+            s->load();
+            add_screen_element(IScreenElement::ptr(s));
         }
 
         inline void entity_destroyed_event_delegate(IEventDataPtr event_data) {

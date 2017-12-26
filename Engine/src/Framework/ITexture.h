@@ -27,6 +27,8 @@ namespace ZeroEngine {
         int32_t _x;
         int32_t _y;
     public:
+        BaseTexture() : _height(0), _width(0), _x(0), _y(0) {}
+        virtual ~BaseTexture() {}
         virtual bool load() = 0;
         virtual void on_render() = 0;
         virtual StringRepr to_string() const = 0;
@@ -39,6 +41,5 @@ namespace ZeroEngine {
         virtual inline void set_y(const int32_t y) override { _y = y; }
         virtual inline void set_width(const uint32_t width) override { _width = width; }
         virtual inline void set_height(const uint32_t height) override { _height = height; }
-        virtual ~BaseTexture() {}
     };
 }

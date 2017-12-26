@@ -15,6 +15,8 @@
 #include "ZeroEngineProcesses.h"
 #include "GameLogic\GameLogicInclude.h"
 #include "GameView\GameViewInclude.h"
+#include "GameView/Sprite.h"
+#include "Framework/ITexture.h"
 #include "ZeroEngineScreenElements.h"
 #include "AppLayer/Game.h"
 #include "Rendering/IRenderPacket.h"

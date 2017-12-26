@@ -22,7 +22,8 @@ namespace ZeroEngine {
 
         assert(Game::get_renderer());
         _texture = Game::get_renderer()->create_texture(_file_path);
-        return (_texture != nullptr);
+
+        return (_texture != nullptr && _texture->load());
     }
 
     bool Sprite::load(char* file_path) {
@@ -32,7 +33,7 @@ namespace ZeroEngine {
         _file_path = file_path;
         assert(Game::get_renderer());
         _texture = Game::get_renderer()->create_texture(_file_path);
-        return (_texture != nullptr);
+        return (_texture != nullptr && _texture->load());
     }
 
     bool Sprite::render(Tick delta_time) {

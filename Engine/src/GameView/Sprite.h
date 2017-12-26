@@ -32,5 +32,7 @@ namespace ZeroEngine {
 
         inline uint32_t get_height() const { return _texture->get_height(); }
         inline void set_height(const uint32_t h) { _texture->set_height(h); }
+
+        inline StringRepr to_string() const { return "Sprite"; }
     };
 }
