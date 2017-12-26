@@ -1,17 +1,17 @@
 #include "SdlTexture.h"
 #include "../../Logger/Logging.h"
-#include "../../3rdParty/SDL/SDL_image.h"
 
 namespace ZeroEngine {
 
-    SdlTexture::SdlTexture(SDL_Renderer* renderer, const char* file_path) {
+    SdlTexture::SdlTexture(SDL_Renderer* renderer, SDL_Window* window, const char* file_path) {
         _renderer = renderer;
         _texture = nullptr;
         _file_path = file_path;
+        _window = window;
     }
 
     SdlTexture::~SdlTexture() {
-        // Do not destroy _renderer!!
+        // Do not destroy _renderer or _window!!
         if (_texture) {
             SDL_DestroyTexture(_texture);
         }

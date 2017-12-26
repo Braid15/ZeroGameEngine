@@ -4,6 +4,7 @@
 namespace ZeroEngine {
 
     SdlRenderer::SdlRenderer(SDL_Window* window) {
+        _sdl_window = window;
         set_background_color(Colors::black());
         _sdl_renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
         if (!_sdl_renderer) {
@@ -13,6 +14,7 @@ namespace ZeroEngine {
     }
 
     SdlRenderer::~SdlRenderer() {
+        // Do not destroy _sdl_window!!
         if (_sdl_renderer) {
             SDL_DestroyRenderer(_sdl_renderer);
             _sdl_renderer = nullptr;
@@ -45,7 +47,7 @@ namespace ZeroEngine {
     }
 
     ITexture* SdlRenderer::create_texture(const char* file_path) {
-        return zero_new SdlTexture(_sdl_renderer, file_path);
+        return zero_new SdlTexture(_sdl_renderer, _sdl_window, file_path);
     }
 
     void SdlRenderer::draw_line(const Point<int32_t>& from, const Point<int32_t>& to, const Color& color) {

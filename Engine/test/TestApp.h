@@ -183,7 +183,7 @@ namespace ZeroEngineAppTest {
             std::cout << "Entity created: " << data->get_entity_id() << "\n";
             std::cout << "ENtity count: " << Game::get_entity_count() << "\n";
 
-            char* path = "S:\\projects\\game-engines\\zerogameengine\\engine\\assets\\test.bmp";
+            char* path = "S:\\projects\\game-engines\\zerogameengine\\engine\\assets\\test.png";
 
             Sprite* s = zero_new Sprite(path);
             s->load();
