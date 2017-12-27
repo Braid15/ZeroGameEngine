@@ -18,7 +18,6 @@ namespace ZeroEngine {
         inline Vector2() : _x(0.0), _y(0.0) {}
         inline Vector2(float_t x, float_t y) : _x(x), _y(y) {}
         inline Vector2(const Vector2& other) : _x(other.get_x()), _y(other.get_y()) {}
-        inline ~Vector2() {}
 
         typedef std::shared_ptr<Vector2> s_ptr;
         typedef std::weak_ptr<Vector2> w_ptr;

@@ -9,7 +9,7 @@ namespace ZeroEngine {
     const EventType RequestDestroyEntityEvent::type = 0x6cf99d0;
 
     IEventDataPtr RequestDestroyEntityEvent::copy() const {
-        return IEventDataPtr(zero_new RequestDestroyEntityEvent(_entity_id));
+        return IEventDataPtr(zero_new RequestDestroyEntityEvent(_controlled_entity_id));
     }
 
     RequestDestroyEntityEvent::ptr RequestDestroyEntityEvent::create(const EntityId& id) {
@@ -28,7 +28,7 @@ namespace ZeroEngine {
     const EventType EntityDestroyedEvent::type = 0x616cced;
 
     IEventDataPtr EntityDestroyedEvent::copy() const {
-        return IEventDataPtr(zero_new EntityDestroyedEvent(_entity_id));
+        return IEventDataPtr(zero_new EntityDestroyedEvent(_controlled_entity_id));
     }
 
     EntityDestroyedEvent::ptr EntityDestroyedEvent::create(const EntityId& id) {
@@ -70,7 +70,7 @@ namespace ZeroEngine {
     const EventType EntityCreatedEvent::type = 0xa7d61b3c;
 
     IEventDataPtr EntityCreatedEvent::copy() const {
-        return IEventDataPtr(zero_new EntityCreatedEvent(_entity_id));
+        return IEventDataPtr(zero_new EntityCreatedEvent(_controlled_entity_id));
     }
 
     EntityCreatedEvent::ptr EntityCreatedEvent::create(const EntityId& id) {
@@ -88,11 +88,45 @@ namespace ZeroEngine {
 
     const EventType MoveEntityEvent::type = 0x8b2e7298;
 
-    IEventDataPtr MoveEntityEvent::copy() const {
-        return IEventDataPtr(zero_new MoveEntityEvent(_entity_id, _new_location));
+    MoveEntityEvent::MoveEntityEvent(const EntityId id, const Vector2 new_position) {
+        _controlled_entity_id = id;
+        _position_type = VEC2;
+        _position.vec2 = new_position;
     }
 
-    MoveEntityEvent::ptr MoveEntityEvent::create(const EntityId id, const Point<float> new_location) {
+    MoveEntityEvent::MoveEntityEvent(const EntityId id, const Vector3 new_position) {
+         _controlled_entity_id = id;
+        _position_type = VEC3;
+        _position.vec3 = new_position;       
+    }
+
+    MoveEntityEvent::MoveEntityEvent(const EntityId id, const Vector4 new_position) {
+        _controlled_entity_id = id;
+        _position_type = VEC4;
+        _position.vec4 = new_position;
+    }
+
+    IEventDataPtr MoveEntityEvent::copy() const {
+        switch (_position_type) {
+            case VEC2:
+                return IEventDataPtr(zero_new MoveEntityEvent(_controlled_entity_id, _position.vec2));
+            case VEC3:
+                return IEventDataPtr(zero_new MoveEntityEvent(_controlled_entity_id, _position.vec3));
+            case VEC4:
+                return IEventDataPtr(zero_new MoveEntityEvent(_controlled_entity_id, _position.vec4));
+        }
+        return IEventDataPtr();
+    }
+
+    MoveEntityEvent::ptr MoveEntityEvent::create(const EntityId id, const Vector2 new_location) {
+        return MoveEntityEvent::ptr(zero_new MoveEntityEvent(id, new_location));
+    }
+
+    MoveEntityEvent::ptr MoveEntityEvent::create(const EntityId id, const Vector3 new_location) {
+        return MoveEntityEvent::ptr(zero_new MoveEntityEvent(id, new_location));
+    }
+
+    MoveEntityEvent::ptr MoveEntityEvent::create(const EntityId id, const Vector4 new_location) {
         return MoveEntityEvent::ptr(zero_new MoveEntityEvent(id, new_location));
     }
 

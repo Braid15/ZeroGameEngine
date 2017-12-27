@@ -17,6 +17,7 @@ namespace ZeroEngine {
         _current_tick = 0;
         _last_draw = 0;
         _is_full_speed = true;
+        _controlled_entity_id = INVALID_ENTITY_ID;
         _is_paused = false;
         _process_manager = zero_new ProcessManager();
         _keyboard_handler = std::shared_ptr<IKeyboardHandler>(zero_new NullKeyboardHandler);
@@ -101,7 +102,7 @@ namespace ZeroEngine {
 
     void HumanView::attach(GameViewId view_id, EntityId entity_id) {
         _view_id = view_id;
-        _entity_id = entity_id;
+        _controlled_entity_id = entity_id;
     }
 
     bool HumanView::msg_proc(AppMsg::ptr msg) {

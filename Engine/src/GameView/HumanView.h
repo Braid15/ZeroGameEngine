@@ -21,7 +21,7 @@ namespace ZeroEngine {
         GameViewId _view_id;
         GameViewType _view_type;
         ProcessManager* _process_manager;
-        EntityId _entity_id;
+        EntityId _controlled_entity_id;
         std::shared_ptr<IKeyboardHandler> _keyboard_handler;
         std::shared_ptr<IMouseHandler> _mouse_handler;
 
@@ -58,6 +58,8 @@ namespace ZeroEngine {
         inline bool load_game() { return on_load_game(); }
         inline uint32_t get_player_number() const { return _player_number; }
         inline void set_player_number(uint32_t number) { _player_number = number; }
+        inline void set_controlled_entity_id(const EntityId id) { _controlled_entity_id = id; }
+        inline const EntityId& get_controlled_entity_id() const { return _controlled_entity_id; }
         typedef std::shared_ptr<HumanView> ptr;
     protected:
         inline void set_mouse_handler(std::shared_ptr<IMouseHandler> handler);

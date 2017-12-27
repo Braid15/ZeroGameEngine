@@ -18,7 +18,7 @@ namespace ZeroEngine {
         friend class EntityFactory;
         EntityId _id;
         std::string _name;
-        std::string _type;
+        std::string _position_type;
         std::string _resource_path;
         EntityComponentMap _components;
     public:
@@ -67,7 +67,7 @@ namespace ZeroEngine {
     private:
         // should only be called by EntityFactory
         void add_component(EntityComponentPtr);
-        inline void set_type(const char* type) { _type = std::string(type); }
+        inline void set_type(const char* type) { _position_type = std::string(type); }
         inline void set_resource_path(const char* path) { _resource_path = std::string(path); }
     };
 }

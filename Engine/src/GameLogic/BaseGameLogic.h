@@ -10,6 +10,9 @@
 #include "../ZeroEngineEvents.h"
 #include "../Physics/Physics.h"
 #include "../Process/ProcessManager.h"
+#include "../Math/Vector2.h"
+#include "../Math/Vector3.h"
+#include "../Math/Vector4.h"
 
 namespace ZeroEngine {
 
@@ -42,8 +45,11 @@ namespace ZeroEngine {
         virtual void update(Tick delta_time) override;
         // virtual void change_state(IGameState state) override;
         virtual void change_state(BaseGameState state) override;
-        virtual void move_entity(const EntityId& entity_id, const float x, const float y) override;
-        virtual void move_entity(const EntityId& entity_id, const Point<float>& location) override;
+
+        virtual void move_entity(const EntityId& entity_id, const Vector2& pos) override;
+        virtual void move_entity(const EntityId& entity_id, const Vector3& pos) override;
+        virtual void move_entity(const EntityId& entity_id, const Vector4& pos) override;
+
         virtual void destroy_entity(const EntityId& entity_id) override;
         virtual void add_game_view(IGameViewPtr view, EntityId entity_id=INVALID_ENTITY_ID) override;
         virtual void remove_game_view(IGameViewPtr view) override;
@@ -81,6 +87,7 @@ namespace ZeroEngine {
         void request_destroy_entity_event_delegate(IEventDataPtr event_data);
         void attach_process_event_delegate(IEventDataPtr event_data);
     private:
+        void destroy_all_entities();
         void load_game_views();
         void register_event_delegates();
         void unregister_event_delegates();

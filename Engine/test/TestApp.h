@@ -122,8 +122,22 @@ namespace ZeroEngineAppTest {
         friend class TestGameView;
         Pen pen;
         std::vector<EntityId> _entity_id_list;
+        Vector2 _left;
+        Vector2 _right;
+        Vector2 _up;
+        Vector2 _down;
+
+        bool _go_up;
+        bool _go_down;
+        bool _go_right;
+        bool _go_left;
+
+
+
     public:
-        inline TestMovementController() {}
+        inline TestMovementController() 
+            : _left(-10.f, 0.f), _right(10.f, 0.f), _down(0.f, 10.f), _up(0.f, -10.f)
+             , _go_up(false), _go_down(false), _go_right(false), _go_left(false) {}
         inline ~TestMovementController() {}
 
         inline bool on_key_down(const Key& key) override {
@@ -140,12 +154,29 @@ namespace ZeroEngineAppTest {
                 pen.remove_last_line();
             } else if (Key_is_numeric(key)) {
                 std::cout << Key_get_numeric_value(key) << "\n";
+            } else if (key == Key::w) {
+                _go_up = true;
+            } else if (key == Key::s) {
+                _go_down = true;
+            } else if (key == Key::a) {
+                _go_left = true;
+            } else if (key == Key::d) {
+                _go_right = true;
             }
             return true;
         }
 
         inline bool on_key_up(const Key& key) override {
-            return false;
+            if (key == Key::w) {
+                _go_up = false;
+            } else if (key == Key::s) {
+                _go_down = false;
+            } else if (key == Key::a) {
+                _go_left = false;
+            } else if (key == Key::d) {
+                _go_right = false;
+            }
+            return true;
         }
 
         inline bool on_mouse_move(const Point<int32_t> pos, const int radius) override {
@@ -165,6 +196,22 @@ namespace ZeroEngineAppTest {
                 pen.draw_end(pos);
             }
             return true;
+        }
+
+        inline void update(Tick delta_time) {
+            if (_go_up || _go_down || _go_left || _go_right && !_entity_id_list.empty()) {
+                auto entity = Game::get_entity(_entity_id_list.back()).lock();
+                auto transform = entity->get_component<TransformComponent2D>(TransformComponent2D::id).lock();
+
+                Vector2 direction;
+
+                if (_go_up) direction += _up;
+                if (_go_down) direction += _down;
+                if (_go_left) direction += _left;
+                if (_go_right) direction += _right;
+
+                ZeroEventManager::queue_event(MoveEntityEvent::create(entity->get_id(), transform->get_position() + direction));
+            }
         }
     };
 
@@ -217,6 +264,11 @@ namespace ZeroEngineAppTest {
             ZeroEventManager::unregister_listener(
                 fastdelegate::MakeDelegate(this, &TestGameView::entity_created_event_delegate),
                 EntityCreatedEvent::type);
+        }
+
+        inline void update(Tick delta_time) override {
+            HumanView::update(delta_time);
+            _controller->update(delta_time);
         }
     };
 }
