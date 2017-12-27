@@ -9,6 +9,7 @@
 #include "AppLayer/AppLayer.h"
 #include "Input/Input.h"
 #include "Events/Events.h"
+#include "Events/EventListener.h"
 #include "Entity\Entity.h"
 #include "Entity\EntityFactory.h"
 #include "ZeroEngineEvents.h"
