@@ -48,14 +48,17 @@ namespace ZeroEngine {
         _storage->destroy_entity(id);
     }
 
+    void EntityManager::get_all_entity_id(std::list<EntityId>* list) {
+        _storage->get_all_entity_id(list);
+    }
+
     WeakEntityPtr EntityManager::get_entity(const EntityId& id) {
         return _storage->retrieve_entity(id);
     }
 
-
-    //
+    // ----------------------------------
     // EntityManager::StlMapEntityStorage
-    //
+    // ----------------------------------
 
     EntityManager::StlMapEntityStorage::~StlMapEntityStorage() {
         _entities.clear();
@@ -83,8 +86,14 @@ namespace ZeroEngine {
         }
     }
 
+    void EntityManager::StlMapEntityStorage::get_all_entity_id(std::list<EntityId>* list) {
+        for (EntityMap::iterator iter = _entities.begin(); iter != _entities.end(); iter++) {
+            list->push_back(iter->first);
+        }
+    }
+
     void EntityManager::StlMapEntityStorage::filter_entities(IFilter* filter) {
-        for (EntityMap::iterator iter = _entities.begin(); iter != _entities.end(); ++iter) {
+        for (EntityMap::iterator iter = _entities.begin(); iter != _entities.end(); iter++) {
             filter->on_filter(iter->second);
         }
     }

@@ -21,6 +21,7 @@ namespace ZeroEngine {
         EntityPtr create_entity() override;
         EntityPtr create_entity(char* resource_path) override;
         EntityPtr create_entity(std::string path) override;
+        void get_all_entity_id(std::list<EntityId>* list) override;
         void destroy_entity(const EntityId&) override;
         WeakEntityPtr get_entity(const EntityId&) override;
         inline uint32_t get_entity_count() const { return _storage->get_entity_count(); }
@@ -44,6 +45,7 @@ namespace ZeroEngine {
             virtual void store_entity(EntityPtr) = 0;
             virtual void destroy_entity(const EntityId&) = 0;
             virtual void filter_entities(IFilter*) = 0;
+            virtual void get_all_entity_id(std::list<EntityId>* list) = 0;
             virtual uint32_t get_entity_count() const = 0;
             inline virtual ~IEntityStorage() {}
         };
@@ -60,6 +62,7 @@ namespace ZeroEngine {
             WeakEntityPtr retrieve_entity(const EntityId& id) override;
             void store_entity(EntityPtr entity) override;
             void destroy_entity(const EntityId& id) override;
+            void get_all_entity_id(std::list<EntityId>* list) override;
             void filter_entities(IFilter*) override;
             uint32_t get_entity_count() const override;
         };

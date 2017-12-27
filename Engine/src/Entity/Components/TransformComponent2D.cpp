@@ -8,6 +8,7 @@ namespace ZeroEngine {
 
 
     bool TransformComponent2D::initialize(const XmlReader& reader) {
+        LOG_TODO("TransformComponent2D", "Make universal to be used between 2d and 3d");
         assert(strcmp(reader.get_element_name(), name) == 0);
 
         if (!reader.move_to_element("Position")) return false;

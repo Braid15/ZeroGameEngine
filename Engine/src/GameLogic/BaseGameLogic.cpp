@@ -32,6 +32,15 @@ namespace ZeroEngine {
 
     bool BaseGameLogic::shutdown() {
         bool success = true;
+
+        if (_entity_manager->get_entity_count() > 0) {
+            std::list<EntityId> id_list;
+            _entity_manager->get_all_entity_id(&id_list);
+            for (auto it = id_list.begin(); it != id_list.end(); it++) {
+                destroy_entity(*it);
+            }
+        }
+
         _entity_manager->shutdown();
         unregister_event_delegates();
         return success;
