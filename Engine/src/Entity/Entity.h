@@ -3,6 +3,7 @@
 #include "../ZeroEngineStd.h"
 #include "../Time.h"
 #include "EntityComponent.h"
+#include "../Utils/Xml/XmlReader.h"
 
 namespace ZeroEngine {
 
@@ -26,7 +27,7 @@ namespace ZeroEngine {
         explicit Entity(EntityId id, const char* name);
         virtual ~Entity();
         virtual StringRepr to_string() const override;
-        bool initialize();
+        bool initialize(const XmlReader&);
         void post_initialize();
         void destroy();
         void update(Tick delta_time);

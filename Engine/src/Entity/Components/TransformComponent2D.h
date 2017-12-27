@@ -18,8 +18,9 @@ namespace ZeroEngine {
         // @TODO: rotation
     public:
         static const char* name;
-        static EntityComponent* create(const XmlReader&);
-        bool initialize() override;
+        static EntityComponent* create();
+
+        bool initialize(const XmlReader&) override;
         void post_initialize() override;
         const EntityComponentId& get_id() const override;
         inline const char* get_name() const override {return name; }

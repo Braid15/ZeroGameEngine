@@ -6,13 +6,12 @@ namespace ZeroEngine {
 
     EntityFactory::EntityFactory() {
         _last_id = INVALID_ENTITY_ID;
-        _component_creation_map[std::string(TransformComponent2D::name)] = TransformComponent2D::create;
 
+        _component_creation_map[std::string(TransformComponent2D::name)] = TransformComponent2D::create;
     }
 
     std::shared_ptr<Entity> EntityFactory::create_entity() {
         std::shared_ptr<Entity> entity(zero_new Entity(get_next_id()));
-        entity->add_component(std::shared_ptr<EntityComponent>(zero_new TransformComponent2D()));
         entity->post_initialize();
         return entity;
     }
@@ -21,19 +20,21 @@ namespace ZeroEngine {
         XmlReader reader;
         if (reader.load(resource_path)) {
             std::shared_ptr<Entity> entity(zero_new Entity(get_next_id()));
+
             reader.move_to_root_element();
-            entity->set_type(reader.get_element_attribute_value("type"));
-            entity->set_resource_path(reader.get_element_attribute_value("resource"));
-
-            while (reader.move_to_next_element()) {
-                std::shared_ptr<EntityComponent> component = create_component(reader);
-                if (component) {
-                    std::cout << component->get_name() << "\n";
-                    entity->add_component(component);
+            if (entity->initialize(reader)) {
+                while (reader.move_to_next_element()) {
+                    std::shared_ptr<EntityComponent> component = create_component(reader);
+                    if (component) {
+                        component->set_owner(entity);
+                        entity->add_component(component);
+                    }
                 }
+                entity->post_initialize();
+                return entity;
+            } else {
+                LOG_DEBUG("EntityFactory", "Error initializing entity");
             }
-
-            return entity;
         }
         return std::shared_ptr<Entity>();
     }
@@ -45,8 +46,18 @@ namespace ZeroEngine {
     std::shared_ptr<EntityComponent> EntityFactory::create_component(const XmlReader& reader) {
         auto iter = _component_creation_map.find(std::string(reader.get_element_name()));
         if (iter == _component_creation_map.end()) return std::shared_ptr<EntityComponent>();
+        std::shared_ptr<EntityComponent> component(_component_creation_map[std::string(reader.get_element_name())]());
+        if (component) {
+            if (component->initialize(reader)) {
+                return component;
+            } else {
+                LOG_DEBUG("EntityFactory", "Error initializing component " + std::string(component->get_name()));
+            }
+        } else {
+            LOG_DEBUG("EntityFactory" , "Error finding component named " + std::string(component->get_name()));
+        }
 
-        return std::shared_ptr<EntityComponent>(_component_creation_map[std::string(reader.get_element_name())](reader));
+        return std::shared_ptr<EntityComponent>();
     }
 
     EntityId EntityFactory::get_next_id() {

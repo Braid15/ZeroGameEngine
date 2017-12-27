@@ -119,7 +119,9 @@ namespace ZeroEngineAppTest {
 
     class TestMovementController : public IMouseHandler, public IKeyboardHandler {
     private:
+        friend class TestGameView;
         Pen pen;
+        std::vector<EntityId> _entity_id_list;
     public:
         inline TestMovementController() {}
         inline ~TestMovementController() {}
@@ -129,7 +131,11 @@ namespace ZeroEngineAppTest {
                 const char* p = "S:\\projects\\game-engines\\zerogameengine\\engine\\test\\test-entity.xml";
                 ZeroEventManager::queue_event(RequestCreateEntityEvent::create(p));
             } else if (key == Key::space) {
-                ZeroEventManager::queue_event(RequestDestroyEntityEvent::create(Game::get_entity_count()));
+                if (!_entity_id_list.empty()) {
+                    EntityId id = _entity_id_list.back();
+                    _entity_id_list.pop_back();
+                    ZeroEventManager::queue_event(RequestDestroyEntityEvent::create(id));
+                }
             } else if (key == Key::backspace) {
                 pen.remove_last_line();
             } else if (Key_is_numeric(key)) {
@@ -180,8 +186,10 @@ namespace ZeroEngineAppTest {
 
         inline void entity_created_event_delegate(IEventDataPtr event_data) {
             EntityCreatedEvent::ptr data = EntityCreatedEvent::cast(event_data);
-            std::cout << "Entity created: " << data->get_entity_id() << "\n";
-            std::cout << "ENtity count: " << Game::get_entity_count() << "\n";
+            auto entity = Game::get_entity(data->get_entity_id()).lock();
+            _controller->_entity_id_list.push_back(data->get_entity_id());
+
+            std::cout << entity->get_name() << "\n" << entity->create_xml_string() << "\n";
 
             /*
             char* path = "S:\\projects\\game-engines\\zerogameengine\\engine\\assets\\test.png";
@@ -194,8 +202,8 @@ namespace ZeroEngineAppTest {
 
         inline void entity_destroyed_event_delegate(IEventDataPtr event_data) {
             EntityDestroyedEvent::ptr data = EntityDestroyedEvent::cast(event_data);
-            std::cout << "Entity destroyed: " << data->get_entity_id() << "\n";
-            std::cout << "ENtity count: " << Game::get_entity_count() << "\n";
+            auto entity = Game::get_entity(data->get_entity_id()).lock();
+            std::cout << "Entity destroyed: " << entity->get_name() << "\n";
         }
 
         inline void on_register_event_delegates() override {

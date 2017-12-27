@@ -9,14 +9,14 @@ namespace ZeroEngine {
     Entity::Entity(EntityId id) {
         _id = id;
         _type = "Unknown";
-        _resource_path = "";
+        _resource_path = "Unknown";
         _name = "Entity_" + std::to_string(_id); 
     }
 
     Entity::Entity(EntityId id, std::string name) {
         _id = id;
         _type = "Unknown";
-        _resource_path = "";
+        _resource_path = "Unknown";
         _name = name;
     }
 
@@ -39,9 +39,11 @@ namespace ZeroEngine {
         return ret_str.c_str();
     }
 
-    bool Entity::initialize() {
-        bool success = true;
-        return success;
+    bool Entity::initialize(const XmlReader& reader) {
+        assert(strcmp(reader.get_element_name(), "Entity") == 0);
+        _type = reader.get_element_attribute_value("type");
+        _resource_path = reader.get_element_attribute_value("resource");
+        return true;
     }
 
     void Entity::post_initialize() {
@@ -51,8 +53,6 @@ namespace ZeroEngine {
     }
 
     void Entity::destroy() {
-        LOG_DEBUG("Entity", "Called");
-        std::cout << create_xml_string() << "\n";
         _components.clear();
     }
 
@@ -83,5 +83,9 @@ namespace ZeroEngine {
 
     void Entity::add_component(EntityComponentPtr component) {
         std::pair<EntityComponentMap::iterator, bool> success = _components.insert(std::make_pair(component->get_id(), component));
+
+        if (!success.second) {
+            LOG_DEBUG("Entity", "Error adding component");
+        }
     }
 }

@@ -8,7 +8,7 @@
 
 namespace ZeroEngine {
 
-    typedef EntityComponent* (*entity_component_creation_delegate)(const XmlReader&);
+    typedef EntityComponent* (*entity_component_creation_delegate)();
 
     class EntityFactory : public IZeroObject {
     private:

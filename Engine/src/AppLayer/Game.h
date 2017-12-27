@@ -4,10 +4,12 @@
 #include "../ZeroEngineStd.h"
 #include "../Time.h"
 #include "../Framework/IRenderer.h"
+#include "../Entity/Entity.h"
 
 
 namespace ZeroEngine {
 
+    class Entity;
     class GameApp;
 
     //
@@ -22,5 +24,6 @@ namespace ZeroEngine {
         static IRenderer::s_ptr get_renderer();
         static void set(GameApp* app);
         static uint32_t get_entity_count();
+        static std::weak_ptr<Entity> get_entity(const EntityId& id);
     };
 }
