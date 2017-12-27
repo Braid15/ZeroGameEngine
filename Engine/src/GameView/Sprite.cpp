@@ -5,10 +5,9 @@ namespace ZeroEngine {
 
     Sprite::Sprite() {
         _texture = nullptr;
-        _file_path = nullptr;
     }
 
-    Sprite::Sprite(char* file_path) {
+    Sprite::Sprite(std::string file_path) {
         _texture = nullptr;
         _file_path = file_path;
     }
@@ -18,21 +17,21 @@ namespace ZeroEngine {
     }
 
     bool Sprite::load() {
-        if (!_file_path || _texture) return false;
+        if (_file_path.empty() || _texture) return false;
 
         assert(Game::get_renderer());
-        _texture = Game::get_renderer()->create_texture(_file_path);
+        _texture = Game::get_renderer()->create_texture(_file_path.c_str());
 
         return (_texture != nullptr && _texture->load());
     }
 
-    bool Sprite::load(char* file_path) {
+    bool Sprite::load(std::string file_path) {
         // Already loaded
         if (_texture) return false;
 
         _file_path = file_path;
         assert(Game::get_renderer());
-        _texture = Game::get_renderer()->create_texture(_file_path);
+        _texture = Game::get_renderer()->create_texture(_file_path.c_str());
         return (_texture != nullptr && _texture->load());
     }
 

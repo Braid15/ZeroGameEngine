@@ -191,13 +191,6 @@ namespace ZeroEngineAppTest {
 
             std::cout << entity->get_name() << "\n" << entity->create_xml_string() << "\n";
 
-            /*
-            char* path = "S:\\projects\\game-engines\\zerogameengine\\engine\\assets\\test.png";
-
-            Sprite* s = zero_new Sprite(path);
-            s->load();
-            add_screen_element(IScreenElement::ptr(s));
-            */
         }
 
         inline void entity_destroyed_event_delegate(IEventDataPtr event_data) {
@@ -207,7 +200,6 @@ namespace ZeroEngineAppTest {
         }
 
         inline void on_register_event_delegates() override {
-            LOG_DEBUG("TestGameView", "Called");
             ZeroEventManager::register_listener(
                 fastdelegate::MakeDelegate(this, &TestGameView::entity_destroyed_event_delegate),
                 EntityDestroyedEvent::type);

@@ -7,6 +7,7 @@
 #include "../Input/Input.h"
 #include "../Entity/Entity.h"
 #include "../Process/ProcessManager.h"
+#include "../Events/EventData.h"
 
 namespace ZeroEngine {
 
@@ -72,6 +73,9 @@ namespace ZeroEngine {
         inline virtual void on_register_event_delegates() {}
         inline virtual void on_unregister_event_delegates() {}
         inline virtual bool on_msg_proc(AppMsg::ptr msg, bool handled) { return false; }
+
+        virtual void screen_element_render_component_created_event_delegate(IEventDataPtr);
+        virtual void screen_element_render_component_destroyed_event_delegate(IEventDataPtr);
     private:
         HumanView();
         HumanView(const HumanView&);

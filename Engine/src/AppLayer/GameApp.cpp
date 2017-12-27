@@ -10,8 +10,7 @@ namespace ZeroEngine {
     }
 
     GameApp::~GameApp() {
-        zero_delete(_game_logic);
-        zero_delete(_framework);
+
     }
 
     GameApp* GameApp::_app = nullptr;
@@ -135,7 +134,10 @@ namespace ZeroEngine {
 
     void GameApp::shutdown() {
         set_is_running(false);
+        zero_delete(_game_logic);
+
         _framework->shutdown();
+        zero_delete(_framework);
         ZeroEventManager::shutdown();
     }
 

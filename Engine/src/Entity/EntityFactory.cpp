@@ -1,5 +1,7 @@
 #include "EntityFactory.h"
 #include "Components\TransformComponent2D.h"
+#include "Components\ScreenElementRenderComponent.h"
+#include "Components\SpriteRenderComponent.h"
 #include "../Logger/Logging.h"
 
 namespace ZeroEngine {
@@ -8,6 +10,8 @@ namespace ZeroEngine {
         _last_id = INVALID_ENTITY_ID;
 
         _component_creation_map[std::string(TransformComponent2D::name)] = TransformComponent2D::create;
+        _component_creation_map[std::string(ScreenElementRenderComponent::name)] = ScreenElementRenderComponent::create;
+        _component_creation_map[std::string(SpriteRenderComponent::name)] = SpriteRenderComponent::create;
     }
 
     std::shared_ptr<Entity> EntityFactory::create_entity() {

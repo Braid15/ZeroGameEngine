@@ -67,7 +67,7 @@
     <Filter Include="Source\Utils\Xml">
       <UniqueIdentifier>{aa2b11f1-f043-434e-bd24-108aa6668384}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Entity\Component">
+    <Filter Include="Source\Entity\Components">
       <UniqueIdentifier>{0184c207-b441-4571-ab9f-46096998dd8f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -313,7 +313,16 @@
       <Filter>Source\Framework\SdlFramework</Filter>
     </ClInclude>
     <ClInclude Include="src\Entity\Components\TransformComponent2D.h">
-      <Filter>Source\Entity\Component</Filter>
+      <Filter>Source\Entity\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utils\Hash.h">
+      <Filter>Source\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\Components\ScreenElementRenderComponent.h">
+      <Filter>Source\Entity\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\Components\SpriteRenderComponent.h">
+      <Filter>Source\Entity\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -471,7 +480,16 @@
       <Filter>Source\GameView</Filter>
     </ClCompile>
     <ClCompile Include="src\Entity\Components\TransformComponent2D.cpp">
-      <Filter>Source\Entity\Component</Filter>
+      <Filter>Source\Entity\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Utils\Hash.cpp">
+      <Filter>Source\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\Components\ScreenElementRenderComponent.cpp">
+      <Filter>Source\Entity\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\Components\SpriteRenderComponent.cpp">
+      <Filter>Source\Entity\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

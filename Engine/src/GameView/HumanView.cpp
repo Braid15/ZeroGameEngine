@@ -1,5 +1,7 @@
 #include "HumanView.h"
 #include "../AppLayer/Game.h"
+#include "../Events/EventManager.h"
+#include "../ZeroEngineEvents.h"
 
 namespace ZeroEngine {
 
@@ -158,15 +160,30 @@ namespace ZeroEngine {
         _screen_elements.remove(screen_element);
     }
 
-    //
-    // Private members
-    //
+    // -------------------------
+    // HumanView Private Members
+    // -------------------------
+
+    void HumanView::screen_element_render_component_created_event_delegate(IEventDataPtr event_data) {
+        ScreenElementRenderComponentCreatedEvent::s_ptr data = ScreenElementRenderComponentCreatedEvent::cast(event_data);
+        add_screen_element(data->get_screen_element());
+    }
+
+    void HumanView::screen_element_render_component_destroyed_event_delegate(IEventDataPtr event_data) {
+
+    }
 
     void HumanView::register_event_delegates() {
+        REGISTER_EVENT_LISTENER(&HumanView::screen_element_render_component_created_event_delegate,
+                                ScreenElementRenderComponentCreatedEvent::type);
+
         on_register_event_delegates();
     }
 
     void HumanView::unregister_event_delegates() {
+        UNREGISTER_EVENT_LISTENER(&HumanView::screen_element_render_component_created_event_delegate,
+                                  ScreenElementRenderComponentCreatedEvent::type);
+
         on_unregister_event_delegates();
     }
 }

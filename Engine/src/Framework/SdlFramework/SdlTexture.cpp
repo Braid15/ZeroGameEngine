@@ -41,7 +41,6 @@ namespace ZeroEngine {
     }
 
     void SdlTexture::on_render() {
-        LOG_DEBUG("SdlTexture", "called");
         if (!_renderer || !_texture) return;
 
         SDL_Rect render_quad = { get_x(), get_y(), get_width(), get_height() };

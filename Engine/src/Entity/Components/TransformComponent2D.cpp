@@ -1,8 +1,13 @@
 #include "TransformComponent2D.h"
+#include "../../Utils/Hash.h"
 
 namespace ZeroEngine {
 
     const char* TransformComponent2D::name = "TransformComponent2D";
+
+    TransformComponent2D::TransformComponent2D() {
+        set_entity_id(static_cast<EntityComponentId>(Hash::hash(name)));
+    }
 
     bool TransformComponent2D::initialize(const XmlReader& reader) {
         assert(strcmp(reader.get_element_name(), name) == 0);
@@ -19,11 +24,6 @@ namespace ZeroEngine {
     }
 
     void TransformComponent2D::post_initialize() {
-    }
-
-    const EntityComponentId& TransformComponent2D::get_id() const {
-        LOG_TODO("TransformComponent2D", "Id needs to be hashed string");
-        return _id;
     }
 
     void TransformComponent2D::on_write_xml(const XmlWriter& writer) {

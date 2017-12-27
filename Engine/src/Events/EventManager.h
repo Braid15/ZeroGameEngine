@@ -8,6 +8,14 @@
 
 namespace ZeroEngine {
 
+    // Convienience macros
+    #define REGISTER_EVENT_LISTENER(delegate, type) \
+        ZeroEventManager::register_listener(fastdelegate::MakeDelegate(this, (delegate)), (type));
+
+    #define UNREGISTER_EVENT_LISTENER(delegate, type) \
+        ZeroEventManager::unregister_listener(fastdelegate::MakeDelegate(this, (delegate)), (type));
+
+
     // -------------
     // IEventManager
     // -------------

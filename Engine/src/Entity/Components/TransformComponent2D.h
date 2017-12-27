@@ -12,17 +12,15 @@ namespace ZeroEngine {
     private:
         Vector2 _position;
         Vector2 _velocity;
-        // @TEMP
-        EntityComponentId _id = 0;
 
         // @TODO: rotation
     public:
+        TransformComponent2D();
         static const char* name;
         static EntityComponent* create();
 
         bool initialize(const XmlReader&) override;
         void post_initialize() override;
-        const EntityComponentId& get_id() const override;
         inline const char* get_name() const override {return name; }
         inline StringRepr to_string() const { return "TransformComponent2D"; }
 

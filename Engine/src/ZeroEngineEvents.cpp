@@ -120,6 +120,25 @@ namespace ZeroEngine {
         return std::static_pointer_cast<AttachProcessEvent>(data_ptr);
     }
 
+    // --------------------------
+    // SpriteRendererCreatedEvent
+    // --------------------------
+
+    const EventType ScreenElementRenderComponentCreatedEvent::type = 0xbdfc323e;
+
+    IEventDataPtr ScreenElementRenderComponentCreatedEvent::copy() const {
+        return IEventDataPtr(zero_new ScreenElementRenderComponentCreatedEvent(_screen_element));
+    }
+
+    ScreenElementRenderComponentCreatedEvent::s_ptr ScreenElementRenderComponentCreatedEvent::create(std::shared_ptr<IScreenElement> element) {
+        return ScreenElementRenderComponentCreatedEvent::s_ptr(zero_new ScreenElementRenderComponentCreatedEvent(element));
+    }
+
+    ScreenElementRenderComponentCreatedEvent::s_ptr ScreenElementRenderComponentCreatedEvent::cast(IEventDataPtr data_ptr) {
+        assert(data_ptr->is_type(type));
+        return std::static_pointer_cast<ScreenElementRenderComponentCreatedEvent>(data_ptr);
+    }
+
     //
     // DrawLineEvent
     //

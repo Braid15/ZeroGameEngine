@@ -10,16 +10,16 @@ namespace ZeroEngine {
     private:
         // EntityId or reference to Entity owner
         ITexture* _texture;
-        char* _file_path;
+        std::string _file_path;
     public:
         Sprite();
-        Sprite(char* file_path);
+        Sprite(std::string file_path);
         virtual ~Sprite();
         virtual bool load();
-        virtual bool load(char* file_path);
+        virtual bool load(std::string file_path);
         virtual bool render(Tick delta_time) override;
 
-        inline void set_file_path(char* file_path) { _file_path = file_path; }
+        inline void set_file_path(std::string file_path) { _file_path = file_path; }
 
         inline int32_t get_x() const { return _texture->get_x(); }
         inline void set_x(const int32_t x) { _texture->set_x(x); }
