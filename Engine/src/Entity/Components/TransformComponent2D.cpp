@@ -4,10 +4,8 @@
 namespace ZeroEngine {
 
     const char* TransformComponent2D::name = "TransformComponent2D";
+    const EntityComponentId TransformComponent2D::id = Hash::hash(TransformComponent2D::name);
 
-    TransformComponent2D::TransformComponent2D() {
-        set_entity_id(static_cast<EntityComponentId>(Hash::hash(name)));
-    }
 
     bool TransformComponent2D::initialize(const XmlReader& reader) {
         assert(strcmp(reader.get_element_name(), name) == 0);

@@ -2,9 +2,9 @@
 
 namespace ZeroEngine {
     
-    //
+    // -------------------------
     // RequestDestroyEntityEvent
-    //
+    // -------------------------
 
     const EventType RequestDestroyEntityEvent::type = 0x6cf99d0;
 
@@ -21,9 +21,9 @@ namespace ZeroEngine {
         return std::static_pointer_cast<RequestDestroyEntityEvent>(data_ptr);
     }
 
-    //
+    // --------------------
     // EntityDestroyedEvent
-    //
+    // --------------------
 
     const EventType EntityDestroyedEvent::type = 0x616cced;
 
@@ -63,9 +63,9 @@ namespace ZeroEngine {
         return std::static_pointer_cast<RequestCreateEntityEvent>(data_ptr);
     }
 
-    //
+    // ------------------
     // EntityCreatedEvent
-    //
+    // ------------------
 
     const EventType EntityCreatedEvent::type = 0xa7d61b3c;
 
@@ -82,9 +82,9 @@ namespace ZeroEngine {
         return std::static_pointer_cast<EntityCreatedEvent>(data_ptr);
     }
 
-    //
+    // ---------------
     // MoveEntityEvent
-    //
+    // ---------------
 
     const EventType MoveEntityEvent::type = 0x8b2e7298;
 
@@ -101,9 +101,9 @@ namespace ZeroEngine {
         return std::static_pointer_cast<MoveEntityEvent>(data_ptr);
     }
 
-    //
+    // ------------------
     // AttachProcessEvent
-    //
+    // ------------------
 
     const EventType AttachProcessEvent::type = 0xa241c4db;
 
@@ -120,9 +120,9 @@ namespace ZeroEngine {
         return std::static_pointer_cast<AttachProcessEvent>(data_ptr);
     }
 
-    // --------------------------
+    // ---------------------------------
     // ScreenElementRendererCreatedEvent
-    // --------------------------
+    // ---------------------------------
 
     const EventType ScreenElementRenderComponentCreatedEvent::type = 0xbdfc323e;
 

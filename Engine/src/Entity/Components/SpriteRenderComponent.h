@@ -13,15 +13,20 @@ namespace ZeroEngine {
         std::string _texture_resource_path;
 
     public:
-        SpriteRenderComponent();
+        SpriteRenderComponent() = default;
         virtual ~SpriteRenderComponent() {}
+
+        static const EntityComponentId id;
         static const char* name;
         static EntityComponent* create();
 
+        virtual const EntityComponentId& get_id() const override { return id; }
+
         virtual bool on_initialize(const XmlReader&) override;
+        virtual void update(Tick delta_time) override;
 
         virtual inline const char* get_name() const override { return name; }
-        virtual inline StringRepr to_string() const override { return "SpriteRenderComponet"; }
+        virtual inline StringRepr to_string() const override { return "SpriteRenderComponent"; }
     private:
         virtual void on_write_xml_delegate(const XmlWriter& writer) override;
     };

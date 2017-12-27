@@ -24,23 +24,17 @@ namespace ZeroEngine {
         friend class EntityFactory;
         friend class Entity;
         EntityPtr _owner;
-        EntityComponentId _id;
     public:
-        EntityComponent() : _id(INVALID_ENTITY_COMPONENT_ID) {}
+        EntityComponent() {}
         virtual ~EntityComponent() {}
         virtual const char* get_name() const = 0;
         virtual StringRepr to_string() const = 0;
         virtual bool initialize(const XmlReader&) = 0;
         virtual void post_initialize() = 0;
+        virtual const EntityComponentId& get_id() const = 0;
 
-        inline virtual const EntityComponentId& get_id() { return _id; }
         inline virtual void update(Tick delta_time) {}
-
-        // @@TODO: IMPLEMENT
-        // static const EntityComponentId get_id_from_name(const char* name);
-        // static const EntityComponentId get_id_from_name(const std::string& name);
     protected:
-        inline void set_entity_id(EntityComponentId id) { _id = id; }
         inline WeakEntityPtr get_owner() const { return WeakEntityPtr(_owner); }
     private:
         inline void set_owner(EntityPtr owner) { _owner = owner; }

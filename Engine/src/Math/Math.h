@@ -19,6 +19,10 @@ namespace ZeroEngine {
         extern const float_t pi;
 
         extern float_t clamp(const float_t& orig_val, const float_t& min, const float_t& max);
+        extern float_t clamp_min(const float_t& orig_val, const float_t& min);
+        extern float_t clamp_max(const float_t& orig_val, const float_t& max);
+
+
 
         extern float_t power_of(const float_t& orig_val, const int32_t& exponent);
 

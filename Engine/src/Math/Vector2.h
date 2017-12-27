@@ -131,6 +131,7 @@ namespace ZeroEngine {
 
         inline void set(const Vector2& other) { _x = other.get_x(); _y = other.get_y(); }
         inline void set(const Vector2* other) { _x = other->get_x(); _y = other->get_y(); }
+        inline void set(const float_t x, const float_t y) { _x = x; _y = y; }
 
         inline bool is_zero() const { return _x == 0.0 && _y == 0.0; }
 

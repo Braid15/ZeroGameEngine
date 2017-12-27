@@ -39,7 +39,7 @@ namespace ZeroEngine {
         std::string create_xml_string();
 
         template <class ComponentType>
-        inline std::weak_ptr<ComponentType> get_component(const EntityComponentId id) {
+        inline std::weak_ptr<ComponentType> get_component(const EntityComponentId& id) {
             EntityComponentMap::iterator iter = _components.find(id);
             if (iter != _components.end()) {
                 EntityComponentPtr base_class_component(iter->second);
@@ -47,7 +47,7 @@ namespace ZeroEngine {
                 std::weak_ptr<ComponentType> ret_ptr(sub_class_component);
                 return ret_ptr;
             }
-            return weak_ptr<ComponentType>();
+            return std::weak_ptr<ComponentType>();
         }
 
         // @@TODO: These methods rely on EntityComponent::get_id_from_name() which is not yet implemented

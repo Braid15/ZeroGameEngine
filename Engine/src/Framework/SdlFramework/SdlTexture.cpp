@@ -1,5 +1,6 @@
 #include "SdlTexture.h"
 #include "../../Logger/Logging.h"
+#include "../../Math/Math.h"
 
 namespace ZeroEngine {
 
@@ -43,7 +44,7 @@ namespace ZeroEngine {
     void SdlTexture::on_render() {
         if (!_renderer || !_texture) return;
 
-        SDL_Rect render_quad = { get_x(), get_y(), get_width(), get_height() };
+        SDL_Rect render_quad = { (int)get_x(), (int)get_y(), (int)get_width(), (int)get_height() };
         LOG_TODO("SdlTexture", "Need to handle source rect and dest rect. I.E. Sprite sheets");
         SDL_RenderCopy(_renderer, _texture, nullptr, &render_quad);
     }

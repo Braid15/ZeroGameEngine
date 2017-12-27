@@ -15,18 +15,22 @@ namespace ZeroEngine {
 
         // @TODO: rotation
     public:
-        TransformComponent2D();
+        static const EntityComponentId id;
         static const char* name;
         static EntityComponent* create();
+
 
         bool initialize(const XmlReader&) override;
         void post_initialize() override;
         inline const char* get_name() const override {return name; }
         inline StringRepr to_string() const { return "TransformComponent2D"; }
 
+        inline const EntityComponentId& get_id() const override { return id; }
+
         inline const Vector2& get_position() const { return _position; }
         inline void set_position(const Vector2 pos) { _position = pos; }
 
+        // @TODO: Remove velocity as that is physics specific
         inline const Vector2& get_velocity() const { return _velocity; }
         inline void set_velocity(const Vector2 vel) { _velocity = vel; }
     private:

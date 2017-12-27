@@ -24,6 +24,23 @@ namespace ZeroEngine {
             return orig_val;
         }
 
+        // ---------
+        // clamp_min
+        // ---------
+
+        float_t clamp_min(const float_t& orig_val, const float_t& min) {
+            if (orig_val < min) return min;
+            return orig_val;
+        }
+
+        // ---------
+        // clamp_max
+        // ---------
+
+        float_t clamp_max(const float_t& orig_val, const float_t& max) {
+            if (orig_val > max) return max;
+            return orig_val;
+        }
 
         // --------
         // power_of
@@ -37,7 +54,7 @@ namespace ZeroEngine {
             }
             return ret_val;
             */
-            return powf(orig_val, exponent);
+            return powf(orig_val, static_cast<float>(exponent));
         }
 
         #ifdef _DEBUG
@@ -51,7 +68,7 @@ namespace ZeroEngine {
             int exponent_max = 1000;
             for (int base = 2; base < base_max; ++base) {
                 for (int exponent = 2; exponent < exponent_max; ++exponent) {
-                    Math::power_of(base, exponent);
+                    Math::power_of(static_cast<float_t>(base), exponent);
                 }
             }
         }

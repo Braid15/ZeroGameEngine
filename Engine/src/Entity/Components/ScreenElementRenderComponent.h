@@ -11,18 +11,23 @@ namespace ZeroEngine {
     private:
         std::shared_ptr<IScreenElement> _screen_element;
     public:
+        ScreenElementRenderComponent() = default;
+        virtual ~ScreenElementRenderComponent();
+
+        static const EntityComponentId id;
         static const char* name;
         static EntityComponent* create();
 
         explicit ScreenElementRenderComponent(std::shared_ptr<IScreenElement> element);
-        ScreenElementRenderComponent();
 
-        virtual ~ScreenElementRenderComponent();
+        virtual const EntityComponentId& get_id() const { return id; }
 
         bool initialize(const XmlReader&) override;
         inline virtual bool on_initialize(const XmlReader&) { return true; }
+        inline virtual void update(Tick delta_time) override {}
 
         void post_initialize() override;
+
         inline virtual void on_post_initialize() {}
 
         virtual inline const char* get_name() const override { return name; }

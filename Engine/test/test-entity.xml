@@ -1,8 +1,8 @@
 <Entity type="Unknown" resource="Unknown">
 
   <TransformComponent2D>
-    <Position x="1.00" y="1.00" />
-    <Velocity x="1.00" y="1.00" /> 
+    <Position x="50.00" y="60.00" />
+    <Velocity x="0.00" y="0.00" /> 
   </TransformComponent2D>
 
   <SpriteRenderComponent>

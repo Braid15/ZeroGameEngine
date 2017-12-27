@@ -2,14 +2,12 @@
 #include "../../Utils/Hash.h"
 #include "../../Utils/Xml/XmlWriter.h"
 #include "../../Events/EventManager.h"
+#include "../Components/TransformComponent2D.h"
 
 namespace ZeroEngine {
 
     const char* SpriteRenderComponent::name = "SpriteRenderComponent";
-
-    SpriteRenderComponent::SpriteRenderComponent() {
-        set_entity_id(static_cast<EntityComponentId>(Hash::hash(name)));
-    }
+    const EntityComponentId SpriteRenderComponent::id = Hash::hash(SpriteRenderComponent::name);
 
     EntityComponent* SpriteRenderComponent::create() {
         return zero_new SpriteRenderComponent();
@@ -27,6 +25,19 @@ namespace ZeroEngine {
         set_screen_element(_sprite);
 
         return true;
+    }
+
+    void SpriteRenderComponent::update(Tick delta_time) {
+        LOG_TODO("SpriteRenderComponent", "This should be done via events maybe??");
+        auto owner = get_owner().lock();
+        auto component = owner->get_component<TransformComponent2D>(TransformComponent2D::id).lock();
+        if (component) {
+            if (component->get_position() != _sprite->get_position()) {
+                _sprite->set_position(component->get_position());
+            }
+        } else {
+            LOG_DEBUG("SpriteRenderComponent", "Error finding TransformComponent2D on actor " + std::string(owner->get_name()));
+        }
     }
 
     void SpriteRenderComponent::on_write_xml_delegate(const XmlWriter& writer) {

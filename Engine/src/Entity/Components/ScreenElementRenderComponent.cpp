@@ -6,18 +6,13 @@
 namespace ZeroEngine {
 
     const char* ScreenElementRenderComponent::name = "ScreenElementRenderComponent";
+    const EntityComponentId ScreenElementRenderComponent::id = Hash::hash(ScreenElementRenderComponent::name);
 
     EntityComponent* ScreenElementRenderComponent::create() {
         return zero_new ScreenElementRenderComponent();
     }
 
-    ScreenElementRenderComponent::ScreenElementRenderComponent() {
-        set_entity_id(static_cast<EntityComponentId>(Hash::hash(name)));
-    }
-
-
     ScreenElementRenderComponent::ScreenElementRenderComponent(std::shared_ptr<IScreenElement> element) {
-        set_entity_id(static_cast<EntityComponentId>(Hash::hash(name)));
         _screen_element = element;
     }
 
@@ -38,6 +33,7 @@ namespace ZeroEngine {
     }
 
     void ScreenElementRenderComponent::on_write_xml(const XmlWriter& writer) {
+        LOG_TODO("ScreenElementRenderComponent", "There will be issues when writing xml with derived types");
         on_write_xml_delegate(writer);
     }
 }
