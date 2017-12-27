@@ -29,6 +29,7 @@ namespace ZeroEngine {
 
     void SpriteRenderComponent::update(Tick delta_time) {
         LOG_TODO("SpriteRenderComponent", "This should be done via events maybe??");
+        LOG_TODO("SpriteRenderComponent", "This functionality should be in ScreenElementRenderComponent");
         auto owner = get_owner().lock();
         auto component = owner->get_component<TransformComponent2D>(TransformComponent2D::id).lock();
         if (component) {

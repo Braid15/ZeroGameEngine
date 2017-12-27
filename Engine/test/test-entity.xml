@@ -2,7 +2,6 @@
 
   <TransformComponent2D>
     <Position x="50.00" y="60.00" />
-    <Velocity x="0.00" y="0.00" /> 
   </TransformComponent2D>
 
   <SpriteRenderComponent>
