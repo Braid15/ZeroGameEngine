@@ -121,7 +121,7 @@ namespace ZeroEngine {
     }
 
     // --------------------------
-    // SpriteRendererCreatedEvent
+    // ScreenElementRendererCreatedEvent
     // --------------------------
 
     const EventType ScreenElementRenderComponentCreatedEvent::type = 0xbdfc323e;
@@ -139,9 +139,28 @@ namespace ZeroEngine {
         return std::static_pointer_cast<ScreenElementRenderComponentCreatedEvent>(data_ptr);
     }
 
-    //
+    // ------------------------------------------
+    // ScreenElementRenderComponentDestroyedEvent
+    // ------------------------------------------
+
+    const EventType ScreenElementRenderComponentDestroyedEvent::type = 0x3e5bd852;
+
+    IEventDataPtr ScreenElementRenderComponentDestroyedEvent::copy() const {
+        return IEventDataPtr(zero_new ScreenElementRenderComponentDestroyedEvent(_screen_element));
+    }
+
+    ScreenElementRenderComponentDestroyedEvent::s_ptr ScreenElementRenderComponentDestroyedEvent::create(std::shared_ptr<IScreenElement> element) {
+        return ScreenElementRenderComponentDestroyedEvent::s_ptr(zero_new ScreenElementRenderComponentDestroyedEvent(element));
+    }
+
+    ScreenElementRenderComponentDestroyedEvent::s_ptr ScreenElementRenderComponentDestroyedEvent::cast(IEventDataPtr data_ptr) {
+        assert(data_ptr->is_type(type));
+        return std::static_pointer_cast<ScreenElementRenderComponentDestroyedEvent>(data_ptr);
+    }
+
+    // -------------
     // DrawLineEvent
-    //
+    // -------------
 
     const EventType DrawLineEvent::type = 0xd78aad3d;
 

@@ -174,6 +174,32 @@ namespace ZeroEngine {
         ScreenElementRenderComponentCreatedEvent(const ScreenElementRenderComponentCreatedEvent&) {}
     };
 
+
+    // -------------------------------------
+    // ScreenElementRenderComponentDestroyed
+    // -------------------------------------
+
+    class ScreenElementRenderComponentDestroyedEvent : public BaseEventData {
+    private:
+        std::shared_ptr<IScreenElement> _screen_element;
+    public:
+        typedef std::shared_ptr<ScreenElementRenderComponentDestroyedEvent> s_ptr;
+        static const EventType type;
+        static ScreenElementRenderComponentDestroyedEvent::s_ptr create(std::shared_ptr<IScreenElement>);
+        static ScreenElementRenderComponentDestroyedEvent::s_ptr cast(IEventDataPtr);
+
+
+        explicit ScreenElementRenderComponentDestroyedEvent(std::shared_ptr<IScreenElement> element) 
+            : _screen_element(element) {}
+        IEventDataPtr copy() const override;
+        inline const EventType& get_event_type() const override { return type; }
+        inline StringRepr to_string() const override { return "SpriteRendererDestroyedEvent"; }
+        inline std::shared_ptr<IScreenElement> get_screen_element() const { return _screen_element; }
+    private:
+        ScreenElementRenderComponentDestroyedEvent() {}
+        ScreenElementRenderComponentDestroyedEvent(const ScreenElementRenderComponentDestroyedEvent&) {}
+    };
+
     //
     // DrawPrimitiveEvent
     //

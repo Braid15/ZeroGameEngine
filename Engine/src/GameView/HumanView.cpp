@@ -170,12 +170,16 @@ namespace ZeroEngine {
     }
 
     void HumanView::screen_element_render_component_destroyed_event_delegate(IEventDataPtr event_data) {
-
+        ScreenElementRenderComponentDestroyedEvent::s_ptr data = ScreenElementRenderComponentDestroyedEvent::cast(event_data);
+        remove_screen_element(data->get_screen_element());
     }
 
     void HumanView::register_event_delegates() {
         REGISTER_EVENT_LISTENER(&HumanView::screen_element_render_component_created_event_delegate,
                                 ScreenElementRenderComponentCreatedEvent::type);
+
+        REGISTER_EVENT_LISTENER(&HumanView::screen_element_render_component_destroyed_event_delegate,
+                                ScreenElementRenderComponentDestroyedEvent::type);
 
         on_register_event_delegates();
     }
@@ -183,6 +187,9 @@ namespace ZeroEngine {
     void HumanView::unregister_event_delegates() {
         UNREGISTER_EVENT_LISTENER(&HumanView::screen_element_render_component_created_event_delegate,
                                   ScreenElementRenderComponentCreatedEvent::type);
+
+        UNREGISTER_EVENT_LISTENER(&HumanView::screen_element_render_component_destroyed_event_delegate,
+                                  ScreenElementRenderComponentDestroyedEvent::type);
 
         on_unregister_event_delegates();
     }

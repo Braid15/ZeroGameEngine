@@ -1,6 +1,7 @@
 #include "SpriteRenderComponent.h"
 #include "../../Utils/Hash.h"
 #include "../../Utils/Xml/XmlWriter.h"
+#include "../../Events/EventManager.h"
 
 namespace ZeroEngine {
 

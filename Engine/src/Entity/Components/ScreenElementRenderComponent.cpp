@@ -22,6 +22,8 @@ namespace ZeroEngine {
     }
 
     ScreenElementRenderComponent::~ScreenElementRenderComponent() {
+        ZeroEventManager::trigger_event(
+            ScreenElementRenderComponentDestroyedEvent::create(_screen_element));
     }
 
     bool ScreenElementRenderComponent::initialize(const XmlReader& reader) {
