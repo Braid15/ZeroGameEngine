@@ -21,6 +21,7 @@ namespace ZeroEngine {
         int32_t get_attribute_count() const override;
         bool move_to_element(const char* name) override;
         const char* get_attribute_value(const char* name) const override;
+        float_t get_attribute_value_as_float(const char* name) const override;
         const char* get_attribute_value(const int32_t index) const override;
         bool move_to_next_sibling() override;
         bool load_xml_file(const char* file_path) override;

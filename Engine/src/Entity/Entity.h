@@ -66,5 +66,7 @@ namespace ZeroEngine {
     private:
         // should only be called by EntityFactory
         void add_component(EntityComponentPtr);
+        inline void set_type(const char* type) { _type = std::string(type); }
+        inline void set_resource_path(const char* path) { _resource_path = std::string(path); }
     };
 }

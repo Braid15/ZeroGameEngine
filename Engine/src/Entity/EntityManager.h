@@ -19,7 +19,8 @@ namespace ZeroEngine {
         bool shutdown() override;
         void update_entities(Tick delta_time) override;
         EntityPtr create_entity() override;
-        EntityPtr create_entity(const char* resource_path) override;
+        EntityPtr create_entity(char* resource_path) override;
+        EntityPtr create_entity(std::string path) override;
         void destroy_entity(const EntityId&) override;
         WeakEntityPtr get_entity(const EntityId&) override;
         inline uint32_t get_entity_count() const { return _storage->get_entity_count(); }

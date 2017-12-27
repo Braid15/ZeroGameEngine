@@ -4,6 +4,7 @@
 #include "../EntityComponent.h"
 #include "../../Math/Vector2.h"
 #include "../../Utils/Xml/XmlWriter.h"
+#include "../../Utils/Xml/XmlReader.h"
 
 namespace ZeroEngine {
 
@@ -17,6 +18,7 @@ namespace ZeroEngine {
         // @TODO: rotation
     public:
         static const char* name;
+        static EntityComponent* create(const XmlReader&);
         bool initialize() override;
         void post_initialize() override;
         const EntityComponentId& get_id() const override;

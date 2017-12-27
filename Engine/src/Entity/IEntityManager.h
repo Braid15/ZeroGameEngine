@@ -14,7 +14,8 @@ namespace ZeroEngine {
         virtual bool shutdown() = 0;
         virtual void update_entities(Tick delta_time) = 0;
         virtual EntityPtr create_entity() = 0;
-        virtual EntityPtr create_entity(const char* resource_path) = 0;
+        virtual EntityPtr create_entity(char* resource_path) = 0;
+        virtual EntityPtr create_entity(std::string path) = 0;
         virtual uint32_t get_entity_count() const = 0;
         virtual void destroy_entity(const EntityId&) = 0;
         virtual WeakEntityPtr get_entity(const EntityId& entity_id) = 0;

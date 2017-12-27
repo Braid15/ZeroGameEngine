@@ -126,7 +126,8 @@ namespace ZeroEngineAppTest {
 
         inline bool on_key_down(const Key& key) override {
             if (key == Key::enter) {
-                ZeroEventManager::queue_event(RequestCreateEntityEvent::create());
+                const char* p = "S:\\projects\\game-engines\\zerogameengine\\engine\\test\\test-entity.xml";
+                ZeroEventManager::queue_event(RequestCreateEntityEvent::create(p));
             } else if (key == Key::space) {
                 ZeroEventManager::queue_event(RequestDestroyEntityEvent::create(Game::get_entity_count()));
             } else if (key == Key::backspace) {

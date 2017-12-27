@@ -40,18 +40,22 @@ namespace ZeroEngine {
         return std::static_pointer_cast<EntityDestroyedEvent>(data_ptr);
     }
 
-    //
+    // ------------------------
     // RequestCreateEntityEvent
-    //
+    // ------------------------
 
     const EventType RequestCreateEntityEvent::type = 0x817a4c4e;
 
     IEventDataPtr RequestCreateEntityEvent::copy() const {
-        return IEventDataPtr(zero_new RequestCreateEntityEvent());
+        return IEventDataPtr(zero_new RequestCreateEntityEvent(_resource_path));
     }
 
     RequestCreateEntityEvent::ptr RequestCreateEntityEvent::create() {
         return RequestCreateEntityEvent::ptr(zero_new RequestCreateEntityEvent());
+    }
+
+    RequestCreateEntityEvent::ptr RequestCreateEntityEvent::create(const char* path) {
+        return RequestCreateEntityEvent::ptr(zero_new RequestCreateEntityEvent(path));
     }
 
     RequestCreateEntityEvent::ptr RequestCreateEntityEvent::cast(IEventDataPtr data_ptr) {

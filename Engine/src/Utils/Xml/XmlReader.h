@@ -34,6 +34,7 @@ namespace ZeroEngine {
         const char* get_element_value() const;
         bool element_has_attributes() const;
         const char* get_element_attribute_value(const char* name) const;
+        float_t get_element_attribute_value_as_float(const char* name) const;
         const char* get_element_attribute_value(int32_t index) const;
         const char* get_element_attribute_name(const int32_t index) const;
         bool move_to_next_element() const;

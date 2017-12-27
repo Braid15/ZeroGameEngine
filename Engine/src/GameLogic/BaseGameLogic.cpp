@@ -135,6 +135,10 @@ namespace ZeroEngine {
         return _entity_manager->create_entity();
     }
 
+    EntityPtr BaseGameLogic::create_entity(std::string resource_path) {
+        return _entity_manager->create_entity(resource_path);
+    }
+
     void BaseGameLogic::set_entity_manager(IEntityManager* manager) {
         if (_entity_manager) {
             _entity_manager->shutdown();
@@ -152,9 +156,13 @@ namespace ZeroEngine {
 
     void BaseGameLogic::request_create_entity_event_delegate(IEventDataPtr event_data) {
         if (!_is_proxy) {
-            LOG_DEBUG("BaseGameLogic", "called");
             RequestCreateEntityEvent::ptr data = RequestCreateEntityEvent::cast(event_data);
-            EntityPtr entity = create_entity();
+            EntityPtr entity;
+            if (data->get_resource_path().empty()) {
+                entity = create_entity();
+            } else {
+                entity = create_entity(data->get_resource_path());
+            }
             ZeroEventManager::queue_event(EntityCreatedEvent::create(entity->get_id()));
         }
     }

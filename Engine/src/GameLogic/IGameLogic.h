@@ -43,6 +43,7 @@ namespace ZeroEngine {
         virtual void remove_game_view(IGameViewPtr) = 0;
         virtual WeakEntityPtr get_entity(const EntityId& entity_id) = 0;
         virtual EntityPtr create_entity() = 0;
+        virtual EntityPtr create_entity(std::string resource_path) = 0;
         virtual StringRepr to_string() const = 0;
         virtual ~IGameLogic() {}
     };

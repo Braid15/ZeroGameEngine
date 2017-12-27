@@ -32,7 +32,13 @@ namespace ZeroEngine {
         return entity;
     }
 
-    EntityPtr EntityManager::create_entity(const char* resource_path) {
+    EntityPtr EntityManager::create_entity(char* resource_path) {
+        EntityPtr entity = _factory->create_entity(resource_path);
+        _storage->store_entity(entity);
+        return entity;
+    }
+
+    EntityPtr EntityManager::create_entity(std::string resource_path) {
         EntityPtr entity = _factory->create_entity(resource_path);
         _storage->store_entity(entity);
         return entity;

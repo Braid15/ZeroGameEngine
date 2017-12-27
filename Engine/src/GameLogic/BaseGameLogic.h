@@ -50,6 +50,7 @@ namespace ZeroEngine {
 
         virtual WeakEntityPtr get_entity(const EntityId& entity_id) override;
         virtual EntityPtr create_entity() override;
+        virtual EntityPtr create_entity(std::string resource_path) override;
         inline GameViewList get_game_views() { return _game_views; }
         inline IPhysicsPtr get_physics() const { return _physics; }
         inline uint32_t get_entity_count() const { return _entity_manager->get_entity_count(); }

@@ -89,6 +89,18 @@ namespace ZeroEngine {
         return "";
     }
 
+    float_t TinyXmlReaderImpl::get_attribute_value_as_float(const char* name) const {
+        double ret_val = 0.0;
+        if (_current_node) {
+            assert(_current_node->Type() == TiXmlNode::TINYXML_ELEMENT);
+            const TiXmlElement* element = dynamic_cast<TiXmlElement*>(_current_node);
+            if (element->Attribute(name)) {
+                element->Attribute(name, &ret_val);
+            }
+        }
+        return (float_t)ret_val;
+    }
+
     const char* TinyXmlReaderImpl::get_attribute_value(const int32_t index) const {
         if (_current_node) {
             assert(_current_node->Type() == TiXmlNode::TINYXML_ELEMENT);

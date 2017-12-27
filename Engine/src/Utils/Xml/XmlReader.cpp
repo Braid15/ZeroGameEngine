@@ -70,6 +70,10 @@ namespace ZeroEngine {
         return _implementation->get_attribute_value(name);
     }
 
+    float_t XmlReader::get_element_attribute_value_as_float(const char* name) const {
+        return _implementation->get_attribute_value_as_float(name);
+    }
+
     const char* XmlReader::get_element_attribute_value(int32_t index) const {
         return _implementation->get_attribute_value(index);
     }

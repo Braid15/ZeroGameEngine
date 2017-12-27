@@ -57,12 +57,18 @@ namespace ZeroEngine {
     public:
         typedef std::shared_ptr<RequestCreateEntityEvent> ptr;
         static const EventType type;
+        const char* _resource_path;
     public:
-        inline RequestCreateEntityEvent() {}
+        inline RequestCreateEntityEvent() : _resource_path(nullptr) { }
+        inline RequestCreateEntityEvent(const char* path) : _resource_path(path) {}
+
+        inline std::string get_resource_path() const { return std::string(_resource_path); }
+
         IEventDataPtr copy() const override;
         inline const EventType& get_event_type() const override { return type; }
         inline StringRepr to_string() const override { return "RequestCreateEntityEvent"; }
         static RequestCreateEntityEvent::ptr create();
+        static RequestCreateEntityEvent::ptr create(const char* path);
         static RequestCreateEntityEvent::ptr cast(IEventDataPtr);
     };
 
