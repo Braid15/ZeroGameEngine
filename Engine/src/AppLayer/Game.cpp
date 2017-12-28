@@ -23,7 +23,7 @@ namespace ZeroEngine {
         }
     }
 
-    uint32_t Game::get_entity_count() {
+    uint32 Game::get_entity_count() {
         return _app_instance->get_game_logic()->get_entity_count();
     }
 

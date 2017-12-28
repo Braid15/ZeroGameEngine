@@ -6,9 +6,9 @@
 namespace ZeroEngine {
 
     // @@TEMP
-    const unsigned int REFRESH_RATE(1000 / 60);
+    const int32 REFRESH_RATE(1000 / 60);
 
-    const uint32_t INVALID_PLAYER_NUMBER = 0;
+    const uint32 INVALID_PLAYER_NUMBER = 0;
 
     HumanView::HumanView(IRenderer::s_ptr renderer) {
         _renderer = renderer;

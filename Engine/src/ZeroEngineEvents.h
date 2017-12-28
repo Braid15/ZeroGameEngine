@@ -247,22 +247,22 @@ namespace ZeroEngine {
     // @TODO: Change to CreateScreenElementEvent
     class DrawLineEvent : public BaseEventData {
     private:
-        Point<int32_t> _from;
-        Point<int32_t> _to;
+        Point<int32> _from;
+        Point<int32> _to;
         Color _color;
     public:
         typedef std::shared_ptr<DrawLineEvent> ptr;
         static const EventType type;
     public:
-        inline explicit DrawLineEvent(Point<int32_t> from, Point<int32_t> to, Color color) : 
+        inline explicit DrawLineEvent(Point<int32> from, Point<int32> to, Color color) : 
             _from(from), _to(to), _color(color) {}
         IEventDataPtr copy() const override;
         inline const EventType& get_event_type() const override { return type; }
         inline StringRepr to_string() const override { return "DrawLineEvent"; }
-        static DrawLineEvent::ptr create(Point<int32_t> from, Point<int32_t>, Color color);
+        static DrawLineEvent::ptr create(Point<int32> from, Point<int32>, Color color);
         static DrawLineEvent::ptr cast(IEventDataPtr);
-        inline Point<int32_t> get_from_point() const { return _from; }
-        inline Point<int32_t> get_to_point() const { return _to; }
+        inline Point<int32> get_from_point() const { return _from; }
+        inline Point<int32> get_to_point() const { return _to; }
         inline Color get_color() const { return _color; }
     private:
         inline DrawLineEvent() {}

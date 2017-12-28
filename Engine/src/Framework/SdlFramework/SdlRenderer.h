@@ -27,7 +27,7 @@ namespace ZeroEngine {
         bool pre_render() override;
         bool post_render() override;
         void render_present() override;
-        void draw_line(const Point<int32_t>& from, const Point<int32_t>& to, const Color& color) override;
+        void draw_line(const Point<int32>& from, const Point<int32>& to, const Color& color) override;
         const SDL_Window* get_sdl_window() const { return _sdl_window; }
         ITexture* create_texture(const char* file_path) override;
         inline StringRepr to_string() const { return "SdlRenderer"; }
@@ -51,10 +51,10 @@ namespace ZeroEngine {
         // Should not delete SdlRenderer
         inline ~SdlPrimitiveRenderer() {}
         void draw_line(const Vector2& start, const Vector2& end, const Color& color) override;
-        void draw_point(const Point<int32_t>& point, const Color& color) override;
-        void draw_triangle(const Point<int32_t>& v1, const Point<int32_t>& v2,
-                          const Point<int32_t>& v3, const Color& color) override;
-        void draw_circle(const Point<int32_t>& center, const float_t& radius, const Color& color) override;
+        void draw_point(const Point<int32>& point, const Color& color) override;
+        void draw_triangle(const Point<int32>& v1, const Point<int32>& v2,
+                          const Point<int32>& v3, const Color& color) override;
+        void draw_circle(const Point<int32>& center, const float32& radius, const Color& color) override;
         void draw_rect(const Rect& rect, const Color& color) override;
         void draw_text(const std::string& text, const Rect& canvas, const Color& color) override;
     private:

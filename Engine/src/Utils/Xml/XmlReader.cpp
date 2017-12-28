@@ -58,7 +58,7 @@ namespace ZeroEngine {
         return _implementation->get_value();
     }
 
-    int32_t XmlReader::get_element_attribute_count() const {
+    int32 XmlReader::get_element_attribute_count() const {
         return _implementation->get_attribute_count();
     }
 
@@ -70,11 +70,11 @@ namespace ZeroEngine {
         return _implementation->get_attribute_value(name);
     }
 
-    float_t XmlReader::get_element_attribute_value_as_float(const char* name) const {
-        return _implementation->get_attribute_value_as_float(name);
+    float32 XmlReader::get_element_attribute_value_as_f32(const char* name) const {
+        return _implementation->get_attribute_value_as_f32(name);
     }
 
-    const char* XmlReader::get_element_attribute_value(int32_t index) const {
+    const char* XmlReader::get_element_attribute_value(int32 index) const {
         return _implementation->get_attribute_value(index);
     }
 
@@ -90,7 +90,7 @@ namespace ZeroEngine {
         return _implementation->move_to_next_element();
     }
 
-    const char* XmlReader::get_element_attribute_name(const int32_t index) const {
+    const char* XmlReader::get_element_attribute_name(const int32 index) const {
         return _implementation->get_attribute_name(index);
     }
 

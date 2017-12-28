@@ -6,7 +6,7 @@ namespace ZeroEngine {
     // BaseRenderer Public Members
     // ---------------------------
 
-    void BaseRenderer::set_background_color(uint32_t red, uint32_t green, uint32_t blue, uint32_t alpha) {
+    void BaseRenderer::set_background_color(uint32 red, uint32 green, uint32 blue, uint32 alpha) {
         _background_color.set_red(red);
         _background_color.set_green(green);
         _background_color.set_blue(blue);

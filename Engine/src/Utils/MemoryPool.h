@@ -12,29 +12,29 @@ namespace ZeroEngine {
 
     class MemoryPool {
         unsigned char** _memory_array;
-        unsigned int _memory_array_size;
+        int32 _memory_array_size;
         unsigned char* _head;
-        unsigned int _chunk_size;
-        unsigned int _chunk_amount;
+        int32 _chunk_size;
+        int32 _chunk_amount;
         bool _allow_resize;
 
         #ifdef _DEBUG
-        unsigned int _allocations;
-        unsigned int _allocation_peak;
+        int32 _allocations;
+        int32 _allocation_peak;
         std::string _name;
         #endif
 
     public:
         MemoryPool();
         ~MemoryPool();
-        bool initialize(unsigned int chunk_size, 
-                        unsigned int chunk_amount,
+        bool initialize(int32 chunk_size, 
+                        int32 chunk_amount,
                         const char* name="MemoryPool"
         );
         void destroy();
         void* allocate();
         void free_memory( void* memory );
-        inline unsigned int get_chunk_size() const { return _chunk_size; }
+        inline int32 get_chunk_size() const { return _chunk_size; }
         inline void set_all_resize( bool allow ) { _allow_resize = allow; }
 
         #ifdef _DEBUG

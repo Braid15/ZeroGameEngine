@@ -129,7 +129,7 @@ namespace ZeroEngine {
     }
 
     void BaseGameLogic::add_game_view(IGameViewPtr view, EntityId entity_id) {
-        int view_id = static_cast<int>(_game_views.size());
+        int32 view_id = static_cast<int32>(_game_views.size());
         _game_views.push_back(view);
         view->attach(view_id, entity_id);
         view->restore();

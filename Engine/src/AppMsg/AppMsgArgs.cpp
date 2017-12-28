@@ -6,11 +6,11 @@ namespace ZeroEngine {
     // MouseMotionMsgArgs
     //
     
-    MouseMotionMsgArgs::MouseMotionMsgArgs(Tick time_stamp, uint32_t window, uint32_t mouse, MouseButtonStateArray buttons,
-                                           int32_t x_pos, int32_t y_pos, int32_t x_rel, int32_t y_rel) : AppMsgArgs(time_stamp) {
+    MouseMotionMsgArgs::MouseMotionMsgArgs(Tick time_stamp, uint32 window, uint32 mouse, MouseButtonStateArray buttons,
+                                           int32 x_pos, int32 y_pos, int32 x_rel, int32 y_rel) : AppMsgArgs(time_stamp) {
         _window = window;
         _mouse_id = mouse;
-        for (int i = static_cast<int>(MouseButton::begin); i < static_cast<int>(MouseButton::end); ++i) {
+        for (int32 i = static_cast<int32>(MouseButton::begin); i < static_cast<int32>(MouseButton::end); ++i) {
             _button_states[i] = buttons[i];
         }
         _x_y_coordinates.set(x_pos, y_pos);
@@ -18,30 +18,30 @@ namespace ZeroEngine {
     }
 
     bool MouseMotionMsgArgs::is_pressed(MouseButton button) const {
-        return _button_states[static_cast<int>(button)] == ButtonState::pressed;
+        return _button_states[static_cast<int32>(button)] == ButtonState::pressed;
     }
 
     // 
     // MouseButtonMsgArgs
     //
 
-    MouseButtonMsgArgs::MouseButtonMsgArgs(Tick time_stamp, uint32_t window, uint32_t mouse_id,
-                        ButtonState state, uint8_t num_clicks, MouseButton button, int32_t x_pos, int32_t y_pos) 
+    MouseButtonMsgArgs::MouseButtonMsgArgs(Tick time_stamp, uint32 window, uint32 mouse_id,
+                        ButtonState state, uint8 num_clicks, MouseButton button, int32 x_pos, int32 y_pos) 
                         : AppMsgArgs(time_stamp) {
         _window = window;
         _mouse_id = mouse_id;
         _state = state;
         _clicks = num_clicks;
         _button = button;
-        _x_y_coordinates = Point<int32_t>(x_pos, y_pos);
+        _x_y_coordinates = Point<int32>(x_pos, y_pos);
     }
 
     //
     // MouseWheelMsgArgs
     //
 
-    MouseWheelMsgArgs::MouseWheelMsgArgs(Tick time_stamp, uint32_t window, uint32_t mouse,
-                                         int32_t x, int32_t y, MouseWheelDirection direction)
+    MouseWheelMsgArgs::MouseWheelMsgArgs(Tick time_stamp, uint32 window, uint32 mouse,
+                                         int32 x, int32 y, MouseWheelDirection direction)
                                          : AppMsgArgs(time_stamp) {
         _window = window;
         _mouse_id = mouse;
@@ -54,7 +54,7 @@ namespace ZeroEngine {
     // KeyboardMsgArgs
     //
 
-    KeyboardMsgArgs::KeyboardMsgArgs(Tick time_stamp, uint32_t window, Key& key, bool repeat, 
+    KeyboardMsgArgs::KeyboardMsgArgs(Tick time_stamp, uint32 window, Key& key, bool repeat, 
                                      KeyState state, KeyModStateArray mod_states)
                                      : AppMsgArgs(time_stamp) {
         _key_state = state;

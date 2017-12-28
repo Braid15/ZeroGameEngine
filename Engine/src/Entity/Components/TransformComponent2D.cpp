@@ -12,8 +12,8 @@ namespace ZeroEngine {
         assert(strcmp(reader.get_element_name(), name) == 0);
 
         if (!reader.move_to_element("Position")) return false;
-        _position.set_x(reader.get_element_attribute_value_as_float("x"));
-        _position.set_y(reader.get_element_attribute_value_as_float("y"));
+        _position.set_x(reader.get_element_attribute_value_as_f32("x"));
+        _position.set_y(reader.get_element_attribute_value_as_f32("y"));
 
         return true;
     }

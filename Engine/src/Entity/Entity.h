@@ -7,7 +7,7 @@
 
 namespace ZeroEngine {
 
-    typedef uint32_t EntityId;
+    typedef uint32 EntityId;
     extern const EntityId INVALID_ENTITY_ID;
 
     class EntityFactory;

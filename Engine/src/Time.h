@@ -4,5 +4,5 @@ namespace ZeroEngine {
 
     // @@TODO: Make class so I can have methods and statics
     // associated with Time
-    typedef double Tick;
+    typedef float64 Tick;
 }

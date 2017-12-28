@@ -324,6 +324,9 @@
     <ClInclude Include="src\Entity\Components\SpriteRenderComponent.h">
       <Filter>Source\Entity\Components</Filter>
     </ClInclude>
+    <ClInclude Include="src\AtomicTypes.h">
+      <Filter>Source</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Logger\BaseLogger.cpp">

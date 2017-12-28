@@ -4,5 +4,5 @@
 
 namespace ZeroEngine {
 
-    typedef uint32_t EventType;
+    typedef uint32 EventType;
 }

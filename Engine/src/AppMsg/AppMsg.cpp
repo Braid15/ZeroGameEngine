@@ -4,7 +4,7 @@ namespace ZeroEngine {
 
     MemoryPool* AppMsg::_memory_pool = nullptr;
     #ifdef _DEBUG
-    int AppMsg::_allocations = 0;
+    int32 AppMsg::_allocations = 0;
     #endif
 
     AppMsg::AppMsg(AppMsgArgs* args) {

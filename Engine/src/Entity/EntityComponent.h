@@ -6,7 +6,7 @@
 
 namespace ZeroEngine {
 
-    typedef uint32_t EntityComponentId;
+    typedef uint32 EntityComponentId;
     extern const EntityComponentId INVALID_ENTITY_COMPONENT_ID;
 
     class XmlWriter;

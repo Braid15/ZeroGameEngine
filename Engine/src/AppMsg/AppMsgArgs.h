@@ -10,7 +10,7 @@ namespace ZeroEngine {
     // @TODO: MsgArgs should be using MemoryPool 
 
     // @TODO: Put this in different file?
-    enum class ButtonState : int8_t {
+    enum class ButtonState : int8 {
         null = -1,
         begin = 1,
         released = 1,
@@ -70,10 +70,10 @@ namespace ZeroEngine {
     // @TODO: Fields are sdl
     class WindowMsgArgs final : public AppMsgArgs {
     private:
-        uint32_t _window_id;
-        uint8_t _event;
-        int32_t data1;
-        int32_t data2;
+        uint32 _window_id;
+        uint8 _event;
+        int32 data1;
+        int32 data2;
     public:
         inline WindowMsgArgs(Tick create_time) : AppMsgArgs(create_time) {}
         inline ~WindowMsgArgs() {}
@@ -104,9 +104,9 @@ namespace ZeroEngine {
         KeyState _key_state;
         KeyModStateArray _keymod_states;
         Key _key;
-        uint32_t _window;
+        uint32 _window;
     public:
-        KeyboardMsgArgs(Tick time_stamp, uint32_t window, Key& key, bool repeat, KeyState state,
+        KeyboardMsgArgs(Tick time_stamp, uint32 window, Key& key, bool repeat, KeyState state,
                         KeyModStateArray mods);
         inline ~KeyboardMsgArgs() {}
         inline bool is_repeat() const { return _is_repeat; }
@@ -114,7 +114,7 @@ namespace ZeroEngine {
         inline const KeyState& get_key_state() const { return _key_state; }
         inline const KeyModStateArray& get_keymod_states() const { return _keymod_states; }
         inline Key get_key() const { return _key; }
-        inline uint32_t get_window() const { return _window; }
+        inline uint32 get_window() const { return _window; }
         inline StringRepr to_string() const override { return "KeyboardMsgArgs"; }
     };
 
@@ -125,10 +125,10 @@ namespace ZeroEngine {
     // @TODO: Fields are sdl
     class TextEditMsgArgs final : public AppMsgArgs {
     private:
-        uint32_t _window;
+        uint32 _window;
         char _text[32];
-        int32_t _start;
-        int32_t _length;
+        int32 _start;
+        int32 _length;
     public:
         inline TextEditMsgArgs(Tick time_stamp) : AppMsgArgs(time_stamp) {}
         inline ~TextEditMsgArgs() {}
@@ -142,7 +142,7 @@ namespace ZeroEngine {
     // @TODO: Fields are sdl
     class TextInputMsgArgs final : public AppMsgArgs {
     private:
-        uint32_t _window;
+        uint32 _window;
         char _text[32];
     public:
         inline TextInputMsgArgs(Tick time_stamp) : AppMsgArgs(time_stamp) {}
@@ -170,7 +170,7 @@ namespace ZeroEngine {
     //
 
     // @@TODO: This, ButtonState, and MouseWheelDirection need to be in seperate file
-    enum class MouseButton : int8_t {
+    enum class MouseButton : int8 {
         null = -1,
         begin = 1,
         left = 1,
@@ -202,29 +202,29 @@ namespace ZeroEngine {
         return os;
     }
 
-    typedef std::array<ButtonState, static_cast<int>(MouseButton::end)> MouseButtonStateArray;
+    typedef std::array<ButtonState, static_cast<int32>(MouseButton::end)> MouseButtonStateArray;
 
     class MouseMotionMsgArgs final : public AppMsgArgs {
     private:
-        uint32_t _window;
-        uint32_t _mouse_id;
+        uint32 _window;
+        uint32 _mouse_id;
         MouseButtonStateArray _button_states;
-        Point<int32_t> _x_y_coordinates;
-        Point<int32_t> _x_y_relative;
+        Point<int32> _x_y_coordinates;
+        Point<int32> _x_y_relative;
     public:
-        MouseMotionMsgArgs(Tick time_stamp, uint32_t window, uint32_t mouse, 
-                           MouseButtonStateArray buttons, int32_t x_pos,
-                           int32_t y_pos, int32_t x_rel, int32_t y_rel);
+        MouseMotionMsgArgs(Tick time_stamp, uint32 window, uint32 mouse, 
+                           MouseButtonStateArray buttons, int32 x_pos,
+                           int32 y_pos, int32 x_rel, int32 y_rel);
         inline ~MouseMotionMsgArgs() {}
         inline StringRepr to_string() const override { return "MouseMsgArgs"; }
-        inline uint32_t get_window() const { return _window; }
-        inline uint32_t get_mouse_id() const { return _mouse_id; }
-        inline int32_t get_x_pos() const { return _x_y_coordinates.get_x(); }
-        inline int32_t get_y_pos() const { return _x_y_coordinates.get_y(); }
-        inline Point<int32_t> get_coordinates() const { return _x_y_coordinates; }
-        inline int32_t get_x_rel() const { return _x_y_relative.get_x(); }
-        inline int32_t get_y_rel() const { return _x_y_relative.get_y(); }
-        inline Point<int32_t> get_rel_coordinates() const { return _x_y_relative; }
+        inline uint32 get_window() const { return _window; }
+        inline uint32 get_mouse_id() const { return _mouse_id; }
+        inline int32 get_x_pos() const { return _x_y_coordinates.get_x(); }
+        inline int32 get_y_pos() const { return _x_y_coordinates.get_y(); }
+        inline Point<int32> get_coordinates() const { return _x_y_coordinates; }
+        inline int32 get_x_rel() const { return _x_y_relative.get_x(); }
+        inline int32 get_y_rel() const { return _x_y_relative.get_y(); }
+        inline Point<int32> get_rel_coordinates() const { return _x_y_relative; }
         inline MouseButtonStateArray get_button_states() const { return _button_states; }
         bool is_pressed(MouseButton) const;
     };
@@ -235,22 +235,22 @@ namespace ZeroEngine {
 
     class MouseButtonMsgArgs final : public AppMsgArgs {
     private:
-        uint32_t _window;
-        uint32_t _mouse_id;
+        uint32 _window;
+        uint32 _mouse_id;
         ButtonState _state;
-        uint8_t _clicks;
+        uint8 _clicks;
         MouseButton _button;
-        Point<int32_t> _x_y_coordinates;
+        Point<int32> _x_y_coordinates;
     public:
-        MouseButtonMsgArgs(Tick time_stamp, uint32_t window, uint32_t mouse_id, ButtonState state,
-                           uint8_t num_clicks, MouseButton button, int32_t x_pos, int32_t y_pos);
+        MouseButtonMsgArgs(Tick time_stamp, uint32 window, uint32 mouse_id, ButtonState state,
+                           uint8 num_clicks, MouseButton button, int32 x_pos, int32 y_pos);
         inline MouseButtonMsgArgs(Tick time_stamp) : AppMsgArgs(time_stamp) {}
         inline ~MouseButtonMsgArgs() {}
         inline StringRepr to_string() const override { return "MouseButtonMsgArgs"; }
-        inline uint8_t get_num_clicks() const { return _clicks; }
-        inline int32_t get_x_pos() const { return _x_y_coordinates.get_x(); }
-        inline int32_t get_y_pos() const { return _x_y_coordinates.get_y(); }
-        inline Point<int32_t> get_coordinates() const { return _x_y_coordinates; }
+        inline uint8 get_num_clicks() const { return _clicks; }
+        inline int32 get_x_pos() const { return _x_y_coordinates.get_x(); }
+        inline int32 get_y_pos() const { return _x_y_coordinates.get_y(); }
+        inline Point<int32> get_coordinates() const { return _x_y_coordinates; }
         inline MouseButton get_button() const { return _button; }
         inline ButtonState get_state() const { return _state; }
     };
@@ -281,19 +281,19 @@ namespace ZeroEngine {
 
     class MouseWheelMsgArgs final : public AppMsgArgs {
     private:
-        uint32_t _window;
-        uint32_t _mouse_id;
-        Point<int32_t> _x_y_coordinates;
+        uint32 _window;
+        uint32 _mouse_id;
+        Point<int32> _x_y_coordinates;
         MouseWheelDirection _direction;
     public:
-        MouseWheelMsgArgs(Tick time_stamp, uint32_t window, uint32_t mouse,
-                                 int32_t x, int32_t y, MouseWheelDirection dir);
+        MouseWheelMsgArgs(Tick time_stamp, uint32 window, uint32 mouse,
+                                 int32 x, int32 y, MouseWheelDirection dir);
         inline ~MouseWheelMsgArgs() {}
         inline StringRepr to_string() const override { return "MouseWheelMsgArgs"; }
-        inline uint32_t get_window() const { return _window; }
-        inline uint32_t get_mouse() const { return _mouse_id; }
-        inline int32_t get_scroll_amount_x() const { return _x_y_coordinates.get_x(); }
-        inline int32_t get_scroll_amount_y() const { return _x_y_coordinates.get_y(); }
+        inline uint32 get_window() const { return _window; }
+        inline uint32 get_mouse() const { return _mouse_id; }
+        inline int32 get_scroll_amount_x() const { return _x_y_coordinates.get_x(); }
+        inline int32 get_scroll_amount_y() const { return _x_y_coordinates.get_y(); }
         inline MouseWheelDirection get_direction() const { return _direction; }
     };
 
@@ -305,9 +305,9 @@ namespace ZeroEngine {
     class JoyAxisMotionMsgArgs final : public AppMsgArgs {
     private:
         // SDL_JoystickID
-        uint32_t _joystick_id;
-        uint8_t _axis;
-        int8_t _value;
+        uint32 _joystick_id;
+        uint8 _axis;
+        int8 _value;
     public:
         inline JoyAxisMotionMsgArgs(Tick time_stamp) : AppMsgArgs(time_stamp) {}
         inline ~JoyAxisMotionMsgArgs() {}
@@ -322,10 +322,10 @@ namespace ZeroEngine {
     class JoyBallMotionMsgArgs final : public AppMsgArgs {
     private:
         // SDL_JoystickID
-        uint32_t _joystick_id;
-        uint8_t _ball;
-        int16_t _x_rel;
-        int16_t _y_rel;
+        uint32 _joystick_id;
+        uint8 _ball;
+        int16 _x_rel;
+        int16 _y_rel;
     public:
         inline JoyBallMotionMsgArgs(Tick time_stamp) : AppMsgArgs(time_stamp) {}
         inline ~JoyBallMotionMsgArgs() {}
@@ -340,9 +340,9 @@ namespace ZeroEngine {
     class JoyHatMotionMsgArgs final : public AppMsgArgs {
     private:
         // SDL_JoystickID
-        uint32_t _joystick_id;
-        uint8_t _hat;
-        uint8_t _value;
+        uint32 _joystick_id;
+        uint8 _hat;
+        uint8 _value;
     public:
         inline JoyHatMotionMsgArgs(Tick time_stamp) : AppMsgArgs(time_stamp) {}
         inline ~JoyHatMotionMsgArgs() {}
@@ -357,9 +357,9 @@ namespace ZeroEngine {
     class JoyButtonMsgArgs final : public AppMsgArgs {
     private:
         // SDL_JoystickID
-        uint32_t _joystick_id;
-        uint8_t _button;
-        uint8_t _state;
+        uint32 _joystick_id;
+        uint8 _button;
+        uint8 _state;
     public:
         inline JoyButtonMsgArgs(Tick time_stamp) : AppMsgArgs(time_stamp) {}
         inline ~JoyButtonMsgArgs() {}
@@ -373,7 +373,7 @@ namespace ZeroEngine {
     // @TODO: FIelds are sdl
     class JoyDeviceAddedMsgArgs final : public AppMsgArgs {
     private:
-        int32_t _device_id;
+        int32 _device_id;
     public:
         inline JoyDeviceAddedMsgArgs(Tick time_stamp) : AppMsgArgs(time_stamp) {}
         inline ~JoyDeviceAddedMsgArgs() {}
@@ -386,7 +386,7 @@ namespace ZeroEngine {
 
     class JoyDeviceRemovedMsgArgs final : public AppMsgArgs {
     private:
-        int32_t _device_id;
+        int32 _device_id;
     public:
         inline JoyDeviceRemovedMsgArgs(Tick time_stamp) : AppMsgArgs(time_stamp) {}
         inline ~JoyDeviceRemovedMsgArgs() {}
@@ -401,10 +401,10 @@ namespace ZeroEngine {
     class ControllerAxisMotionMsgArgs final : public AppMsgArgs {
     private:
         // SDL_JoystickID
-        uint32_t _which;
+        uint32 _which;
         // SDL_GameControllerAxis
-        uint8_t _axis;
-        int16_t _value;
+        uint8 _axis;
+        int16 _value;
     public:
         inline ControllerAxisMotionMsgArgs(Tick time_stamp) : AppMsgArgs(time_stamp) {}
         inline ~ControllerAxisMotionMsgArgs() {}
@@ -419,9 +419,9 @@ namespace ZeroEngine {
     class ControllerButtonMsgArgs final : public AppMsgArgs {
     private:
         // SDL_JoystickID
-        uint32_t _which;
-        uint8_t _button;
-        uint8_t _state;
+        uint32 _which;
+        uint8 _button;
+        uint8 _state;
     public:
         inline ControllerButtonMsgArgs(Tick time_stamp) : AppMsgArgs(time_stamp) {}
         inline ~ControllerButtonMsgArgs() {}
@@ -436,7 +436,7 @@ namespace ZeroEngine {
     class ControllerDeviceAddedMsgArgs final : public AppMsgArgs {
     private:
         // SDL_events.h line: 393
-        uint32_t _which;
+        uint32 _which;
     public:
         inline ControllerDeviceAddedMsgArgs(Tick time_stamp) : AppMsgArgs(time_stamp) {}
         inline ~ControllerDeviceAddedMsgArgs() {}
@@ -450,7 +450,7 @@ namespace ZeroEngine {
     class ControllerDeviceRemovedMsgArgs final : public AppMsgArgs {
     private:
         // SDL_events.h line: 393
-        uint32_t _which;
+        uint32 _which;
     public:
         inline ControllerDeviceRemovedMsgArgs(Tick time_stamp) : AppMsgArgs(time_stamp) {}
         inline ~ControllerDeviceRemovedMsgArgs() {}
@@ -464,7 +464,7 @@ namespace ZeroEngine {
     class ControllerDeviceRemappedMsgArgs final : public AppMsgArgs {
     private:
         // SDL_events.h line: 393
-        uint32_t _which;
+        uint32 _which;
     public:
         inline ControllerDeviceRemappedMsgArgs(Tick time_stamp) : AppMsgArgs(time_stamp) {}
         inline ~ControllerDeviceRemappedMsgArgs() {}
@@ -481,14 +481,14 @@ namespace ZeroEngine {
     class FingerDownMsgArgs final : public AppMsgArgs {
     private:
         // SDL_TouchID
-        uint32_t _touch_id;
+        uint32 _touch_id;
         // SDL_FingerID
-        uint32_t _finger_id;
-        float_t _x;
-        float_t _y;
-        float_t _delta_x;
-        float_t _delta_y;
-        float_t _pressure;
+        uint32 _finger_id;
+        float32 _x;
+        float32 _y;
+        float32 _delta_x;
+        float32 _delta_y;
+        float32 _pressure;
     public:
         inline FingerDownMsgArgs(Tick time_stamp) : AppMsgArgs(time_stamp) {}
         inline ~FingerDownMsgArgs() {}
@@ -539,7 +539,7 @@ namespace ZeroEngine {
     class DropFileMsgArgs final : public AppMsgArgs {
     private:
         char* _file;
-        uint32_t _window_id;
+        uint32 _window_id;
     public:
         inline DropFileMsgArgs(Tick time_stamp) : AppMsgArgs(time_stamp) {}
         inline ~DropFileMsgArgs() {}
@@ -591,8 +591,8 @@ namespace ZeroEngine {
     class AudioDeviceAddedMsgArgs final : public AppMsgArgs {
     private:
         // SDL_events.hj line: 407
-        uint32_t _which;
-        uint8_t _is_captured;
+        uint32 _which;
+        uint8 _is_captured;
     public:
         inline AudioDeviceAddedMsgArgs(Tick time_stamp) : AppMsgArgs(time_stamp) {}
         inline ~AudioDeviceAddedMsgArgs() {}

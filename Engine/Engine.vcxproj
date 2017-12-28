@@ -207,6 +207,7 @@
     <Text Include="TODO.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\AtomicTypes.h" />
     <ClInclude Include="src\Entity\Components\ScreenElementRenderComponent.h" />
     <ClInclude Include="src\Entity\Components\SpriteRenderComponent.h" />
     <ClInclude Include="src\Entity\Components\TransformComponent2D.h" />

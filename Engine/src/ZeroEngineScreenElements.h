@@ -9,11 +9,11 @@ namespace ZeroEngine {
 
     class LineScreenElement : public BaseScreenElement {
     private:
-        Point<int32_t> _from;
-        Point<int32_t> _to;
+        Point<int32> _from;
+        Point<int32> _to;
         Color _color;
     public:
-        inline LineScreenElement(Point<int32_t> from, Point<int32_t> to, Color color)
+        inline LineScreenElement(Point<int32> from, Point<int32> to, Color color)
             : _from(from), _to(to), _color(color) {
         }
         inline StringRepr to_string() const { return "LineScreenElement"; }

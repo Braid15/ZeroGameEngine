@@ -28,7 +28,7 @@ namespace ZeroEngine {
 
     public:
         BaseRenderer::s_ptr create_renderer() override;
-        IWindow::ptr create_window(std::string title, Point<int32_t> size) override;
+        IWindow::ptr create_window(std::string title, Point<int32> size) override;
         bool on_init() override;
         bool on_shutdown() override;
         void process_input() override;

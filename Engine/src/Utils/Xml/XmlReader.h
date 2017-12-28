@@ -29,14 +29,14 @@ namespace ZeroEngine {
         bool load(char* file_path);
 
         const char* get_element_name() const;
-        int32_t get_element_attribute_count() const;
+        int32 get_element_attribute_count() const;
         bool element_has_value() const;
         const char* get_element_value() const;
         bool element_has_attributes() const;
         const char* get_element_attribute_value(const char* name) const;
-        float_t get_element_attribute_value_as_float(const char* name) const;
-        const char* get_element_attribute_value(int32_t index) const;
-        const char* get_element_attribute_name(const int32_t index) const;
+        float32 get_element_attribute_value_as_f32(const char* name) const;
+        const char* get_element_attribute_value(int32 index) const;
+        const char* get_element_attribute_name(const int32 index) const;
         bool move_to_next_element() const;
         bool move_to_previous_element() const;
 

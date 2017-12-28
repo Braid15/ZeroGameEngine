@@ -7,7 +7,7 @@
 
 namespace ZeroEngine {
 
-    typedef uint32_t GameViewId;
+    typedef uint32 GameViewId;
     extern const GameViewId INVALID_GAME_VIEW_ID;
 
     enum class GameViewType {

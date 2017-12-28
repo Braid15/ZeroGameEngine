@@ -14,10 +14,10 @@ namespace ZeroEngine {
 
     class IRenderer : public IZeroObject {
     public:
-        virtual void set_background_color(uint32_t red,
-                                          uint32_t green, 
-                                          uint32_t blue, 
-                                          uint32_t alpha
+        virtual void set_background_color(uint32 red,
+                                          uint32 green, 
+                                          uint32 blue, 
+                                          uint32 alpha
         ) = 0;
         virtual void set_background_color(const Color& color) = 0;
         virtual bool pre_render() = 0;
@@ -25,7 +25,7 @@ namespace ZeroEngine {
         virtual void shutdown() = 0;
         virtual bool on_restore() = 0;
         // @TODO: I want to factor out primitive drawing into a seperate interface
-        virtual void draw_line(const Point<int32_t>& from, const Point<int32_t>& to, const Color& color) = 0;
+        virtual void draw_line(const Point<int32>& from, const Point<int32>& to, const Color& color) = 0;
         virtual void render_packets() = 0;
         virtual void submit_packet(IRenderPacket::s_ptr) = 0;
         virtual void remove_packet(IRenderPacket::s_ptr) = 0;
@@ -50,13 +50,13 @@ namespace ZeroEngine {
     public:
         inline BaseRenderer() : _primitive_renderer(nullptr) {}
         virtual ~BaseRenderer() { zero_delete(_primitive_renderer); }
-        virtual void set_background_color(uint32_t red, uint32_t green, uint32_t blue, uint32_t alpha) override;
+        virtual void set_background_color(uint32 red, uint32 green, uint32 blue, uint32 alpha) override;
         virtual void set_background_color(const Color& color) override;
         virtual bool pre_render() = 0;
         virtual bool post_render() = 0;
         virtual void shutdown() = 0;
         virtual bool on_restore() = 0;
-        virtual void draw_line(const Point<int32_t>& from, const Point<int32_t>& to, const Color& color) = 0;
+        virtual void draw_line(const Point<int32>& from, const Point<int32>& to, const Color& color) = 0;
         virtual void render_present() = 0;
         virtual void render_packets(); 
         virtual ITexture* create_texture(const char* file_path) = 0;
@@ -77,7 +77,7 @@ namespace ZeroEngine {
         inline bool on_restore() override { return true; }
         inline bool pre_render() override { return true; }
         inline bool post_render() override { return true; }
-        inline void draw_line(const Point<int32_t>& from, const Point<int32_t>& to, const Color& color) override {}
+        inline void draw_line(const Point<int32>& from, const Point<int32>& to, const Color& color) override {}
         inline void render_present() override {}
         inline void render_packets() override {}
         inline void submit_packet(IRenderPacket::s_ptr) override {}

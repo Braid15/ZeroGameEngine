@@ -202,7 +202,7 @@ namespace ZeroEngine {
         return IEventDataPtr(zero_new DrawLineEvent(_from, _to, _color));
     }
 
-    DrawLineEvent::ptr DrawLineEvent::create(Point<int32_t> from, Point<int32_t> to, Color color) {
+    DrawLineEvent::ptr DrawLineEvent::create(Point<int32> from, Point<int32> to, Color color) {
         return DrawLineEvent::ptr(zero_new DrawLineEvent(from, to, color));
     }
 

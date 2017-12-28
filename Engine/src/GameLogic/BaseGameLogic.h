@@ -28,9 +28,9 @@ namespace ZeroEngine {
         HumanView::ptr _human_view;
         bool _render_diagnostics;
         bool _is_proxy;
-        int _human_players_attached;
-        int _ai_players_attached;
-        int _human_games_loaded;
+        int32 _human_players_attached;
+        int32 _ai_players_attached;
+        int32 _human_games_loaded;
     public:
         BaseGameLogic();
         virtual ~BaseGameLogic();
@@ -59,16 +59,16 @@ namespace ZeroEngine {
         virtual EntityPtr create_entity(std::string resource_path) override;
         inline GameViewList get_game_views() { return _game_views; }
         inline IPhysicsPtr get_physics() const { return _physics; }
-        inline uint32_t get_entity_count() const { return _entity_manager->get_entity_count(); }
+        inline uint32 get_entity_count() const { return _entity_manager->get_entity_count(); }
     protected:
         inline const ProcessManager& get_process_manager() const { return *_process_manager; }
         inline void attach_process(Process::ptr process) const { _process_manager->attach_process(process); }
-        inline int get_human_players_attached() const { return _human_players_attached; }
-        inline int get_ai_players_attached() const { return _ai_players_attached; }
-        inline int get_human_games_loaded() const { return _human_games_loaded; }
-        inline void set_human_players_attached(int players) { _human_players_attached = players; }
-        inline void set_ai_layers_attached(int ai) { _ai_players_attached = ai; }
-        inline void set_human_games_loaded(int games) { _human_games_loaded = games; }
+        inline int32 get_human_players_attached() const { return _human_players_attached; }
+        inline int32 get_ai_players_attached() const { return _ai_players_attached; }
+        inline int32 get_human_games_loaded() const { return _human_games_loaded; }
+        inline void set_human_players_attached(int32 players) { _human_players_attached = players; }
+        inline void set_ai_layers_attached(int32 ai) { _ai_players_attached = ai; }
+        inline void set_human_games_loaded(int32 games) { _human_games_loaded = games; }
         inline const BaseGameState& get_game_state() const { return _current_state; }
         inline bool is_rendering_diagnostics() const { return _render_diagnostics; }
         inline void set_render_diagnostics(bool render) { _render_diagnostics = render; }

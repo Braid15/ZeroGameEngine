@@ -12,9 +12,9 @@ namespace ZeroEngine {
         Vector2 _end;
     public:
         Line(const Vector2& start, const Vector2& end) : _start(start), _end(end) {}
-        Line(const Point<float_t>& start, const Point<float_t>& end);
+        Line(const Point<float32>& start, const Point<float32>& end);
         Line(const Line& other) : _start(other.get_start()), _end(other.get_end()) {}
-        Line(const float_t& x1, const float_t& y1, const float_t& x2, const float_t& y2);
+        Line(const float32& x1, const float32& y1, const float32& x2, const float32& y2);
         ~Line() {}
 
         inline const Vector2& get_start() const { return _start; }

@@ -6,7 +6,7 @@
 
 namespace ZeroEngine {
 
-    typedef uint32_t ScreenElementId;
+    typedef uint32 ScreenElementId;
 
     extern const ScreenElementId INVALID_SCREEN_ELEMENT_ID;
 
@@ -16,8 +16,8 @@ namespace ZeroEngine {
         virtual bool lost_device() = 0;
         virtual bool render(Tick delta_time) = 0;
         virtual void update(Tick delta_time) = 0;
-        virtual uint32_t get_z_order() const = 0;
-        virtual void set_z_order(uint32_t const z_order) = 0;
+        virtual uint32 get_z_order() const = 0;
+        virtual void set_z_order(uint32 const z_order) = 0;
         virtual bool is_visible() const = 0;
         virtual void set_visible(bool visible) = 0;
         virtual bool on_msg_proc(AppMsg::ptr app_msg) = 0;
@@ -42,7 +42,7 @@ namespace ZeroEngine {
 
     class BaseScreenElement : public IScreenElement, public IZeroObject {
     private:
-        int32_t _z_order;
+        int32 _z_order;
         bool _is_visible;
         ScreenElementId _id;
     public:
@@ -55,8 +55,8 @@ namespace ZeroEngine {
         inline virtual bool render(Tick delta_time) override { return true; }
         inline virtual void update(Tick delta_time) override {}
         inline virtual bool on_msg_proc(AppMsg::ptr msg) override { return false; }
-        inline uint32_t get_z_order() const override { return _z_order; }
-        inline void set_z_order(uint32_t const z_order) override { _z_order = z_order; }
+        inline uint32 get_z_order() const override { return _z_order; }
+        inline void set_z_order(uint32 const z_order) override { _z_order = z_order; }
         inline bool is_visible() const override { return _is_visible; }
         inline void set_visible(bool visible) override { _is_visible = visible; }
         inline ScreenElementId get_id() const override { return _id; }

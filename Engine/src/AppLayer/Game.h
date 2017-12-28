@@ -23,7 +23,7 @@ namespace ZeroEngine {
         static Tick get_ticks();
         static IRenderer::s_ptr get_renderer();
         static void set(GameApp* app);
-        static uint32_t get_entity_count();
+        static uint32 get_entity_count();
         static std::weak_ptr<Entity> get_entity(const EntityId& id);
     };
 }
