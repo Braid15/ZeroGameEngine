@@ -327,6 +327,9 @@
     <ClInclude Include="src\AtomicTypes.h">
       <Filter>Source</Filter>
     </ClInclude>
+    <ClInclude Include="src\Utils\StringId.h">
+      <Filter>Source\Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Logger\BaseLogger.cpp">
@@ -493,6 +496,9 @@
     </ClCompile>
     <ClCompile Include="src\Entity\Components\SpriteRenderComponent.cpp">
       <Filter>Source\Entity\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Utils\StringId.cpp">
+      <Filter>Source\Utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -280,6 +280,7 @@
     <ClInclude Include="src\Time.h" />
     <ClInclude Include="src\Utils\Hash.h" />
     <ClInclude Include="src\Utils\MemoryPool.h" />
+    <ClInclude Include="src\Utils\StringId.h" />
     <ClInclude Include="src\Utils\Xml\IXmlReaderImpl.h" />
     <ClInclude Include="src\Utils\Xml\IXmlWriterImpl.h" />
     <ClInclude Include="src\Utils\Xml\TinyXmlReaderImpl.h" />
@@ -341,6 +342,7 @@
     <ClCompile Include="src\Rendering\RenderPacketTypes.cpp" />
     <ClCompile Include="src\Utils\Hash.cpp" />
     <ClCompile Include="src\Utils\MemoryPool.cpp" />
+    <ClCompile Include="src\Utils\StringId.cpp" />
     <ClCompile Include="src\Utils\Xml\TinyXmlReaderImpl.cpp" />
     <ClCompile Include="src\Utils\Xml\TinyXmlWriterImpl.cpp" />
     <ClCompile Include="src\Utils\Xml\XmlReader.cpp" />
