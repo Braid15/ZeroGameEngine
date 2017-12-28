@@ -1,4 +1,5 @@
 #include "ZeroEngineEvents.h"
+#include "Utils/StringId.h"
 
 namespace ZeroEngine {
     

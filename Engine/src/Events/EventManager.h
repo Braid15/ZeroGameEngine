@@ -12,25 +12,29 @@ namespace ZeroEngine {
     // Convienience macros
     // -------------------
 
+    #define DEFINE_EVENT(class_name)
+
+    #define DECLARE_EVENT(class_name)
+
     #define REGISTER_EVENT_LISTENER(delegate, type) \
         ZeroEventManager::register_listener(fastdelegate::MakeDelegate(this, (delegate)), (type));
 
     #define UNREGISTER_EVENT_LISTENER(delegate, type) \
         ZeroEventManager::unregister_listener(fastdelegate::MakeDelegate(this, (delegate)), (type));
 
-    #define REGISTER_DELEGATE(class_name, event_type) \
+    #define REGISTER_EVENT_DELEGATE(class_name, event_type) \
         ZeroEventManager::register_listener(           \
             fastdelegate::MakeDelegate(this, &class_name::event_type##_delegate), \
             event_type::type);
 
-    #define UNREGISTER_DELEGATE(class_name, event_type) \
+    #define UNREGISTER_EVENT_DELEGATE(class_name, event_type) \
         ZeroEventManager::unregister_listener( \
             fastdelegate::MakeDelegate(this, &class_name::event_type##_delegate), \
             event_type::type);
 
-    #define DECLARE_DELEGATE_SIG(event_name, var_name) void event_name##_delegate(IEventDataPtr var_name)
+    #define DECLARE_EVENT_DELEGATE_SIG(event_name, var_name) void event_name##_delegate(IEventDataPtr var_name)
 
-    #define DEFINE_DELEGATE_SIG(class_name, event_name, var_name) void class_name::event_name##_delegate(IEventDataPtr var_name)
+    #define DEFINE_EVENT_DELEGATE_SIG(class_name, event_name, var_name) void class_name::event_name##_delegate(IEventDataPtr var_name)
 
 
     // -------------
