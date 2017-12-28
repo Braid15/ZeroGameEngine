@@ -126,6 +126,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_X86;%(PreprocessorDefinitions);</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>S:\projects\Game-Engines\ZeroGameEngine\DllTest1\DllTest1;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessToFile>false</PreprocessToFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -144,6 +145,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_X64;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -159,6 +161,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_X86;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -175,6 +178,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_X64;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -187,16 +191,29 @@
     <Link>
       <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <ClCompile>
+      <PreprocessToFile>false</PreprocessToFile>
+    </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='SDL|x64'">
     <Link>
       <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <ClCompile>
+      <PreprocessToFile>false</PreprocessToFile>
+    </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
     <Text Include="TODO.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\AtomicTypes.h" />
+    <ClInclude Include="src\Entity\Components\ScreenElementRenderComponent.h" />
+    <ClInclude Include="src\Entity\Components\SpriteRenderComponent.h" />
+    <ClInclude Include="src\Entity\Components\TransformComponent2D.h" />
+    <ClInclude Include="src\Framework\ITexture.h" />
+    <ClInclude Include="src\Framework\SdlFramework\SdlTexture.h" />
+    <ClInclude Include="src\GameView\Sprite.h" />
     <ClInclude Include="src\Launcher\GameLauncher.h" />
     <ClInclude Include="src\Math\Line.h" />
     <ClInclude Include="src\Math\Math.h" />
@@ -261,6 +278,7 @@
     <ClInclude Include="src\Process\Process.h" />
     <ClInclude Include="src\Process\ProcessManager.h" />
     <ClInclude Include="src\Time.h" />
+    <ClInclude Include="src\Utils\Hash.h" />
     <ClInclude Include="src\Utils\MemoryPool.h" />
     <ClInclude Include="src\Utils\Xml\IXmlReaderImpl.h" />
     <ClInclude Include="src\Utils\Xml\IXmlWriterImpl.h" />
@@ -282,6 +300,9 @@
     <ClCompile Include="src\AppMsg\AppMsg.cpp" />
     <ClCompile Include="src\AppMsg\AppMsgArgs.cpp" />
     <ClCompile Include="src\AppMsg\AppMsgFactory.cpp" />
+    <ClCompile Include="src\Entity\Components\ScreenElementRenderComponent.cpp" />
+    <ClCompile Include="src\Entity\Components\SpriteRenderComponent.cpp" />
+    <ClCompile Include="src\Entity\Components\TransformComponent2D.cpp" />
     <ClCompile Include="src\Entity\Entity.cpp" />
     <ClCompile Include="src\Entity\EntityComponent.cpp" />
     <ClCompile Include="src\Entity\EntityFactory.cpp" />
@@ -295,10 +316,12 @@
     <ClCompile Include="src\Framework\SdlFramework\SdlFramework.cpp" />
     <ClCompile Include="src\Framework\SdlFramework\SdlMsgTranslator.cpp" />
     <ClCompile Include="src\Framework\SdlFramework\SdlRenderer.cpp" />
+    <ClCompile Include="src\Framework\SdlFramework\SdlTexture.cpp" />
     <ClCompile Include="src\GameLogic\BaseGameLogic.cpp" />
     <ClCompile Include="src\GameView\HumanView.cpp" />
     <ClCompile Include="src\GameView\IGameView.cpp" />
     <ClCompile Include="src\GameView\IScreenElement.cpp" />
+    <ClCompile Include="src\GameView\Sprite.cpp" />
     <ClCompile Include="src\Graphics\Color.cpp" />
     <ClCompile Include="src\Graphics\Point.cpp" />
     <ClCompile Include="src\Graphics\Rect.cpp" />
@@ -316,6 +339,7 @@
     <ClCompile Include="src\Process\Process.cpp" />
     <ClCompile Include="src\Process\ProcessManager.cpp" />
     <ClCompile Include="src\Rendering\RenderPacketTypes.cpp" />
+    <ClCompile Include="src\Utils\Hash.cpp" />
     <ClCompile Include="src\Utils\MemoryPool.cpp" />
     <ClCompile Include="src\Utils\Xml\TinyXmlReaderImpl.cpp" />
     <ClCompile Include="src\Utils\Xml\TinyXmlWriterImpl.cpp" />

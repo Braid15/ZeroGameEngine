@@ -42,6 +42,7 @@
 #include <cassert>
 #include <strstream>
 
+#include "AtomicTypes.h"
 #include "IZeroObject.h"
 #include "Logger/Logging.h"
 

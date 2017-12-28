@@ -67,6 +67,9 @@
     <Filter Include="Source\Utils\Xml">
       <UniqueIdentifier>{aa2b11f1-f043-434e-bd24-108aa6668384}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Entity\Components">
+      <UniqueIdentifier>{0184c207-b441-4571-ab9f-46096998dd8f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ZeroEngine.h">
@@ -300,6 +303,30 @@
     <ClInclude Include="src\Utils\Xml\XmlWriter.h">
       <Filter>Source\Utils\Xml</Filter>
     </ClInclude>
+    <ClInclude Include="src\GameView\Sprite.h">
+      <Filter>Source\GameView</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\ITexture.h">
+      <Filter>Source\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\SdlFramework\SdlTexture.h">
+      <Filter>Source\Framework\SdlFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\Components\TransformComponent2D.h">
+      <Filter>Source\Entity\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utils\Hash.h">
+      <Filter>Source\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\Components\ScreenElementRenderComponent.h">
+      <Filter>Source\Entity\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\Components\SpriteRenderComponent.h">
+      <Filter>Source\Entity\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AtomicTypes.h">
+      <Filter>Source</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Logger\BaseLogger.cpp">
@@ -448,6 +475,24 @@
     </ClCompile>
     <ClCompile Include="src\Utils\Xml\XmlWriter.cpp">
       <Filter>Source\Utils\Xml</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\SdlFramework\SdlTexture.cpp">
+      <Filter>Source\Framework\SdlFramework</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameView\Sprite.cpp">
+      <Filter>Source\GameView</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\Components\TransformComponent2D.cpp">
+      <Filter>Source\Entity\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Utils\Hash.cpp">
+      <Filter>Source\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\Components\ScreenElementRenderComponent.cpp">
+      <Filter>Source\Entity\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\Components\SpriteRenderComponent.cpp">
+      <Filter>Source\Entity\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

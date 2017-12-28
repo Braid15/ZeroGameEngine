@@ -3,6 +3,8 @@
 #include <string>
 #include <map>
 
+#include "../AtomicTypes.h"
+
 namespace ZeroEngine {
 
     // @TODO: This was thrown together quickly
@@ -23,9 +25,9 @@ namespace ZeroEngine {
         static void intialize();
         static void log_debug(std::string agent, std::string msg, std::string func);
 
-        static void log_todo(std::string agent, std::string msg, std::string func, int line);
+        static void log_todo(std::string agent, std::string msg, std::string func, int32 line);
 
-        static void log_unimplemented(std::string file, std::string func, int line);
+        static void log_unimplemented(std::string file, std::string func, int32 line);
 
         static void disable_tag(const char* tag);
         static void enable_tag(const char* tag);
@@ -48,7 +50,7 @@ namespace ZeroEngine {
 #define LOG_DEBUG(agent, msg)                                                               \
     {                                                                                       \
         static bool limit_reached = false;                                                  \
-        static uint32_t count = 0;                                                          \
+        static uint32 count = 0;                                                          \
         if (!limit_reached && count++ == 0) {                                               \
             limit_reached = true;                                                           \
             Logger::log_debug(std::string(agent), std::string(msg), std::string(__func__)); \
@@ -59,7 +61,7 @@ namespace ZeroEngine {
 #define LOG_TODO(agent, msg)                                                                         \
     {                                                                                                \
         static bool limit_reached = false;                                                           \
-        static uint32_t count = 0;                                                                   \
+        static uint32 count = 0;                                                                   \
         if (!limit_reached && count++ == 0) {                                                        \
             limit_reached = true;                                                                    \
             Logger::log_todo(std::string(agent), std::string(msg), std::string(__func__), __LINE__); \
@@ -70,7 +72,7 @@ namespace ZeroEngine {
 #define LOG_UNIMPLEMENTED()                                                                    \
     {                                                                                          \
         static bool limit_reached = false;                                                     \
-        static uint32_t count = 0;                                                             \
+        static uint32 count = 0;                                                             \
         if (!limit_reached && count++ == 0) {                                                  \
             limit_reached = true;                                                              \
             Logger::log_unimplemented(std::string(__FILE__), std::string(__func__), __LINE__); \

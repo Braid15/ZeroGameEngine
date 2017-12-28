@@ -3,10 +3,11 @@
 #include "../ZeroEngineStd.h"
 #include "../Time.h"
 #include "EntityComponent.h"
+#include "../Utils/Xml/XmlReader.h"
 
 namespace ZeroEngine {
 
-    typedef uint32_t EntityId;
+    typedef uint32 EntityId;
     extern const EntityId INVALID_ENTITY_ID;
 
     class EntityFactory;
@@ -17,6 +18,8 @@ namespace ZeroEngine {
         friend class EntityFactory;
         EntityId _id;
         std::string _name;
+        std::string _position_type;
+        std::string _resource_path;
         EntityComponentMap _components;
     public:
         explicit Entity(EntityId id);
@@ -24,7 +27,7 @@ namespace ZeroEngine {
         explicit Entity(EntityId id, const char* name);
         virtual ~Entity();
         virtual StringRepr to_string() const override;
-        bool initialize();
+        bool initialize(const XmlReader&);
         void post_initialize();
         void destroy();
         void update(Tick delta_time);
@@ -33,10 +36,10 @@ namespace ZeroEngine {
         inline void set_name(const char* name) { _name = name; }
         inline void set_name(std::string name) { _name = name; }
         inline const EntityComponentMap* get_components() const { return &_components; }
-
+        std::string create_xml_string();
 
         template <class ComponentType>
-        inline std::weak_ptr<ComponentType> get_component(const EntityComponentId id) {
+        inline std::weak_ptr<ComponentType> get_component(const EntityComponentId& id) {
             EntityComponentMap::iterator iter = _components.find(id);
             if (iter != _components.end()) {
                 EntityComponentPtr base_class_component(iter->second);
@@ -44,7 +47,7 @@ namespace ZeroEngine {
                 std::weak_ptr<ComponentType> ret_ptr(sub_class_component);
                 return ret_ptr;
             }
-            return weak_ptr<ComponentType>();
+            return std::weak_ptr<ComponentType>();
         }
 
         // @@TODO: These methods rely on EntityComponent::get_id_from_name() which is not yet implemented
@@ -64,5 +67,7 @@ namespace ZeroEngine {
     private:
         // should only be called by EntityFactory
         void add_component(EntityComponentPtr);
+        inline void set_type(const char* type) { _position_type = std::string(type); }
+        inline void set_resource_path(const char* path) { _resource_path = std::string(path); }
     };
 }

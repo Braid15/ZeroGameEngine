@@ -12,7 +12,7 @@ namespace ZeroEngine {
         destroy();
     }
 
-    bool MemoryPool::initialize( unsigned int chunk_size, unsigned int chunk_amount, const char* name) {
+    bool MemoryPool::initialize( int32 chunk_size, int32 chunk_amount, const char* name) {
         if (_memory_array) {
             destroy();
         }
@@ -29,16 +29,16 @@ namespace ZeroEngine {
         if ( _allocations != 0 ) {
             str = "***(" + std::to_string( _allocations ) + ")";
         }
-        unsigned long total_chunks = _chunk_amount * _memory_array_size;
-        unsigned long wasted_mem = ( total_chunks - _allocation_peak ) * _chunk_size;
+        uint64 total_chunks = _chunk_amount * _memory_array_size;
+        uint64 wasted_mem = ( total_chunks - _allocation_peak ) * _chunk_size;
         str += "Destroying memory pool: [" + get_name() + ":" + 
-            std::to_string( (unsigned long)_chunk_size ) + "] = " + std::to_string( _allocation_peak ) + 
-            "/"  + std::to_string( (unsigned long)total_chunks ) + " (" + std::to_string( wasted_mem ) +
+            std::to_string( (uint64)_chunk_size ) + "] = " + std::to_string( _allocation_peak ) + 
+            "/"  + std::to_string( (uint64)total_chunks ) + " (" + std::to_string( wasted_mem ) +
             " bytes wasted)\n";
         std::cout << str;
         #endif
 
-        for ( unsigned int i = 0; i < _memory_array_size; ++i ) {
+        for ( int32 i = 0; i < _memory_array_size; ++i ) {
             ::free( _memory_array[ i ] );
         }
         ::free( _memory_array );
@@ -104,8 +104,8 @@ namespace ZeroEngine {
 
         #ifdef _DEBUG
         std::string str( "Growing memory pool: [" + get_name() + ":" + 
-            std::to_string( (unsigned long)_chunk_size ) + "] = " + 
-            std::to_string( (unsigned long)_memory_array_size + 1 ) + "\n" );
+            std::to_string( (uint64)_chunk_size ) + "] = " + 
+            std::to_string( (uint64)_memory_array_size + 1 ) + "\n" );
         // std::cout << str;
         #endif
 
@@ -114,7 +114,7 @@ namespace ZeroEngine {
 
         if ( new_memory_array ) {
             // copy existing pointers to new array
-            for ( unsigned int i = 0; i < _memory_array_size; ++i ) {
+            for ( int32 i = 0; i < _memory_array_size; ++i ) {
                 new_memory_array[ i ] = _memory_array[ i ];
             }
 

@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "GameApp.h"
+#include "../Entity/Entity.h"
 
 namespace ZeroEngine {
 
@@ -22,7 +23,11 @@ namespace ZeroEngine {
         }
     }
 
-    uint32_t Game::get_entity_count() {
+    uint32 Game::get_entity_count() {
         return _app_instance->get_game_logic()->get_entity_count();
+    }
+
+    std::weak_ptr<Entity> Game::get_entity(const EntityId& id) {
+        return _app_instance->get_game_logic()->get_entity(id);
     }
 }

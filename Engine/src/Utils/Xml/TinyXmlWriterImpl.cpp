@@ -14,10 +14,13 @@ namespace ZeroEngine {
     TinyXmlWriterImpl::~TinyXmlWriterImpl() {
         // _element_chain should be empty by this point,
         // but just to be sure.
-        while (!_element_chain.empty()) {
-            TiXmlElement* element = _element_chain.back();
-            _element_chain.pop_back();
-            zero_delete(element);
+        if (_element_chain.empty()) {
+            LOG_DEBUG("TinyXmlWriterImpl", "element chain is not empty");
+            while (!_element_chain.empty()) {
+                TiXmlElement* element = _element_chain.back();
+                _element_chain.pop_back();
+                zero_delete(element);
+            }
         }
     }
 
@@ -77,6 +80,8 @@ namespace ZeroEngine {
             TiXmlElement* root = _element_chain.front();
             _document.LinkEndChild(root);
             _element_chain.clear();
+        } else {
+            _element_chain.pop_back();
         }
     }
 

@@ -9,13 +9,13 @@ namespace ZeroEngine {
 
     namespace Math {
 
-        const float_t pi = 3.14159f;
+        const float32 pi = 3.14159f;
 
         // -----
         // clamp
         // -----
 
-        float_t clamp(const float_t& orig_val, const float_t& min, const float_t& max) {
+        float32 clamp(const float32& orig_val, const float32& min, const float32& max) {
             if (orig_val < min) {
                 return min;
             } else if (orig_val > max) {
@@ -24,20 +24,37 @@ namespace ZeroEngine {
             return orig_val;
         }
 
+        // ---------
+        // clamp_min
+        // ---------
+
+        float32 clamp_min(const float32& orig_val, const float32& min) {
+            if (orig_val < min) return min;
+            return orig_val;
+        }
+
+        // ---------
+        // clamp_max
+        // ---------
+
+        float32 clamp_max(const float32& orig_val, const float32& max) {
+            if (orig_val > max) return max;
+            return orig_val;
+        }
 
         // --------
         // power_of
         // --------
 
-        float_t power_of(const float_t& orig_val, const int32_t& exponent) {
+        float32 power_of(const float32& orig_val, const int32& exponent) {
             /*
-            float_t ret_val = orig_val;
-            for (int i = 1; i < exponent; ++i) {
+            f32 ret_val = orig_val;
+            for (i32 i = 1; i < exponent; ++i) {
                 ret_val *= orig_val;
             }
             return ret_val;
             */
-            return powf(orig_val, exponent);
+            return powf(orig_val, static_cast<float32>(exponent));
         }
 
         #ifdef _DEBUG
@@ -47,11 +64,11 @@ namespace ZeroEngine {
         // powf: 1557 ms
 
         static void power_of_test() {
-            int base_max = 10000;
-            int exponent_max = 1000;
-            for (int base = 2; base < base_max; ++base) {
-                for (int exponent = 2; exponent < exponent_max; ++exponent) {
-                    Math::power_of(base, exponent);
+            int32 base_max = 10000;
+            int32 exponent_max = 1000;
+            for (int32 base = 2; base < base_max; ++base) {
+                for (int32 exponent = 2; exponent < exponent_max; ++exponent) {
+                    Math::power_of(static_cast<float32>(base), exponent);
                 }
             }
         }
@@ -61,7 +78,7 @@ namespace ZeroEngine {
         // absolute_value
         // --------------
 
-        float_t absolute_value(const float_t& orig_val) {
+        float32 absolute_value(const float32& orig_val) {
             return (orig_val < 0) ? orig_val * -1 : orig_val;
         }
 
@@ -69,7 +86,7 @@ namespace ZeroEngine {
         // square
         // ------
 
-        float_t square(const float_t& orig_val) {
+        float32 square(const float32& orig_val) {
             return orig_val * orig_val;
         }
 
@@ -77,7 +94,7 @@ namespace ZeroEngine {
         // cube
         // ----
 
-        float_t cube(const float_t& orig_val) {
+        float32 cube(const float32& orig_val) {
             return orig_val * orig_val * orig_val;
         }
 
@@ -85,7 +102,7 @@ namespace ZeroEngine {
         // square_root
         // -----------
 
-        float_t square_root(const float_t& orig_val) {
+        float32 square_root(const float32& orig_val) {
             return sqrtf(orig_val);
         }
 

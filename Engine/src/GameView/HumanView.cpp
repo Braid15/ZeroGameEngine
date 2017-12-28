@@ -1,12 +1,14 @@
 #include "HumanView.h"
 #include "../AppLayer/Game.h"
+#include "../Events/EventManager.h"
+#include "../ZeroEngineEvents.h"
 
 namespace ZeroEngine {
 
     // @@TEMP
-    const unsigned int REFRESH_RATE(1000 / 60);
+    const int32 REFRESH_RATE(1000 / 60);
 
-    const uint32_t INVALID_PLAYER_NUMBER = 0;
+    const uint32 INVALID_PLAYER_NUMBER = 0;
 
     HumanView::HumanView(IRenderer::s_ptr renderer) {
         _renderer = renderer;
@@ -15,6 +17,7 @@ namespace ZeroEngine {
         _current_tick = 0;
         _last_draw = 0;
         _is_full_speed = true;
+        _controlled_entity_id = INVALID_ENTITY_ID;
         _is_paused = false;
         _process_manager = zero_new ProcessManager();
         _keyboard_handler = std::shared_ptr<IKeyboardHandler>(zero_new NullKeyboardHandler);
@@ -99,7 +102,7 @@ namespace ZeroEngine {
 
     void HumanView::attach(GameViewId view_id, EntityId entity_id) {
         _view_id = view_id;
-        _entity_id = entity_id;
+        _controlled_entity_id = entity_id;
     }
 
     bool HumanView::msg_proc(AppMsg::ptr msg) {
@@ -158,15 +161,37 @@ namespace ZeroEngine {
         _screen_elements.remove(screen_element);
     }
 
-    //
-    // Private members
-    //
+    // -------------------------
+    // HumanView Private Members
+    // -------------------------
+
+    void HumanView::screen_element_render_component_created_event_delegate(IEventDataPtr event_data) {
+        ScreenElementRenderComponentCreatedEvent::s_ptr data = ScreenElementRenderComponentCreatedEvent::cast(event_data);
+        add_screen_element(data->get_screen_element());
+    }
+
+    void HumanView::screen_element_render_component_destroyed_event_delegate(IEventDataPtr event_data) {
+        ScreenElementRenderComponentDestroyedEvent::s_ptr data = ScreenElementRenderComponentDestroyedEvent::cast(event_data);
+        remove_screen_element(data->get_screen_element());
+    }
 
     void HumanView::register_event_delegates() {
+        REGISTER_EVENT_LISTENER(&HumanView::screen_element_render_component_created_event_delegate,
+                                ScreenElementRenderComponentCreatedEvent::type);
+
+        REGISTER_EVENT_LISTENER(&HumanView::screen_element_render_component_destroyed_event_delegate,
+                                ScreenElementRenderComponentDestroyedEvent::type);
+
         on_register_event_delegates();
     }
 
     void HumanView::unregister_event_delegates() {
+        UNREGISTER_EVENT_LISTENER(&HumanView::screen_element_render_component_created_event_delegate,
+                                  ScreenElementRenderComponentCreatedEvent::type);
+
+        UNREGISTER_EVENT_LISTENER(&HumanView::screen_element_render_component_destroyed_event_delegate,
+                                  ScreenElementRenderComponentDestroyedEvent::type);
+
         on_unregister_event_delegates();
     }
 }

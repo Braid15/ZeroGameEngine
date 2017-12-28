@@ -8,21 +8,21 @@ namespace ZeroEngine {
     }
 
     bool Key_is_numeric(const Key& key) {
-        uint32_t key_val = static_cast<uint32_t>(key);
+        uint32 key_val = static_cast<uint32>(key);
         return 0x2F < key_val && key_val < 0x3A;
     }
 
-    const uint32_t INVALID_NUMERIC_KEY = 0xffffffff;
-    uint32_t Key_get_numeric_value(const Key& key) {
+    const uint32 INVALID_NUMERIC_KEY = 0xffffffff;
+    uint32 Key_get_numeric_value(const Key& key) {
         if (Key_is_numeric(key)) {
-            return static_cast<uint32_t>(key) - 0x30;
+            return static_cast<uint32>(key) - 0x30;
         }
         return INVALID_NUMERIC_KEY;
     }
 
     // This depends on the order in which the keys are declared in the enum
     bool Key_is_alpha(const Key& key) {
-        uint32_t hex_val = static_cast<uint32_t>(key);
+        uint32 hex_val = static_cast<uint32>(key);
         // The enum only contains lower case characters
         return 0x60 < hex_val && hex_val < 0x7B;
     }

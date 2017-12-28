@@ -1,8 +1,10 @@
 #include "SdlRenderer.h"
+#include "SdlTexture.h"
 
 namespace ZeroEngine {
 
     SdlRenderer::SdlRenderer(SDL_Window* window) {
+        _sdl_window = window;
         set_background_color(Colors::black());
         _sdl_renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
         if (!_sdl_renderer) {
@@ -12,6 +14,7 @@ namespace ZeroEngine {
     }
 
     SdlRenderer::~SdlRenderer() {
+        // Do not destroy _sdl_window!!
         if (_sdl_renderer) {
             SDL_DestroyRenderer(_sdl_renderer);
             _sdl_renderer = nullptr;
@@ -43,7 +46,11 @@ namespace ZeroEngine {
         return success;
     }
 
-    void SdlRenderer::draw_line(const Point<int32_t>& from, const Point<int32_t>& to, const Color& color) {
+    ITexture* SdlRenderer::create_texture(const char* file_path) {
+        return zero_new SdlTexture(_sdl_renderer, _sdl_window, file_path);
+    }
+
+    void SdlRenderer::draw_line(const Point<int32>& from, const Point<int32>& to, const Color& color) {
         SDL_SetRenderDrawColor(_sdl_renderer, color.get_red(), color.get_green(), color.get_blue(),
                                color.get_alpha());
         SDL_RenderDrawLine(_sdl_renderer, from.get_x(), from.get_y(), to.get_x(), to.get_y());
@@ -61,22 +68,22 @@ namespace ZeroEngine {
     void SdlPrimitiveRenderer::draw_line(const Vector2& start, const Vector2& end, 
                                          const Color& color) {
         set_color(color);
-        SDL_RenderDrawLine(&_renderer->get_sdl_renderer(), start.get_x(),
-                           start.get_y(), end.get_x(), end.get_y());
+        SDL_RenderDrawLine(&_renderer->get_sdl_renderer(), static_cast<int>(start.get_x()),
+                           static_cast<int>(start.get_y()), static_cast<int>(end.get_x()), static_cast<int>(end.get_y()));
     }
 
-    void SdlPrimitiveRenderer::draw_point(const Point<int32_t>& point, const Color& color) {
+    void SdlPrimitiveRenderer::draw_point(const Point<int32>& point, const Color& color) {
         set_color(color);
         SDL_RenderDrawPoint(&_renderer->get_sdl_renderer(), point.get_x(), point.get_y());
     }
 
-    void SdlPrimitiveRenderer::draw_triangle(const Point<int32_t>& v1, const Point<int32_t>& v2,
-                                             const Point<int32_t>&v3, const Color& color) {
+    void SdlPrimitiveRenderer::draw_triangle(const Point<int32>& v1, const Point<int32>& v2,
+                                             const Point<int32>&v3, const Color& color) {
         set_color(color);
         LOG_UNIMPLEMENTED();
     }
 
-    void SdlPrimitiveRenderer::draw_circle(const Point<int32_t>& center, const float_t& radius,
+    void SdlPrimitiveRenderer::draw_circle(const Point<int32>& center, const float32& radius,
                                            const Color& color) {
         set_color(color);
         LOG_UNIMPLEMENTED();

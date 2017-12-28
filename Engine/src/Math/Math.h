@@ -1,8 +1,8 @@
 #pragma once
 
-#include <float.h>
 #include <math.h>
-#include <cstdint>
+#include "../AtomicTypes.h"
+
 
 namespace ZeroEngine {
     
@@ -16,21 +16,25 @@ namespace ZeroEngine {
 
     namespace Math {
 
-        extern const float_t pi;
+        extern const float32 pi;
 
-        extern float_t clamp(const float_t& orig_val, const float_t& min, const float_t& max);
+        extern float32 clamp(const float32& orig_val, const float32& min, const float32& max);
+        extern float32 clamp_min(const float32& orig_val, const float32& min);
+        extern float32 clamp_max(const float32& orig_val, const float32& max);
 
-        extern float_t power_of(const float_t& orig_val, const int32_t& exponent);
 
-        extern float_t absolute_value(const float_t& orig_val);
 
-        extern float_t square(const float_t& orig_val);
+        extern float32 power_of(const float32& orig_val, const int32& exponent);
 
-        extern float_t cube(const float_t& orig_val);
+        extern float32 absolute_value(const float32& orig_val);
 
-        // static T root(const T& orig_val, const int32_t& root_of);
+        extern float32 square(const float32& orig_val);
 
-        extern float_t square_root(const float_t& orig_val);
+        extern float32 cube(const float32& orig_val);
+
+        // static T root(const T& orig_val, const i32& root_of);
+
+        extern float32 square_root(const float32& orig_val);
 
         #ifdef _DEBUG
         extern void run_tests();

@@ -10,55 +10,55 @@ namespace ZeroEngine {
     /* Construction interface */
     public:
         Rect();
-        Rect( const long left, const long top, const long right, const long bottom );
+        Rect( const int64 left, const int64 top, const int64 right, const int64 bottom );
         Rect( const Rect* rect );
         Rect( const Rect& rect );
-        Rect( const Point<long>& top_left, const Point<long>& bottom_right );
-        Rect( const Point<long>* top_left, const Point<long>* bottom_right );
+        Rect( const Point<int64>& top_left, const Point<int64>& bottom_right );
+        Rect( const Point<int64>* top_left, const Point<int64>* bottom_right );
         virtual ~Rect();
 
     /* Getters/setters interface */
     public:
-        long get_y() const;
-        long get_x() const;
-        long get_top() const;
-        long get_bottom() const;
-        long get_right() const;
-        long get_left() const;
-        Point<long> get_center() const;
-        long get_width() const;
-        long get_height() const;
-        Point<long> get_top_left() const;
-        Point<long> get_top_right() const;
-        Point<long> get_bottom_left() const;
-        Point<long> get_bottom_right() const;
-        void set_x( const long x );
-        void set_y( const long y );
-        void set( const long left, const long top, const long right, const long bottom );
-        void set_top( const long top );
-        void set_left( const long left );
-        void set_right( const long right );
-        void set_bottom( const long bottom );
+        int64 get_y() const;
+        int64 get_x() const;
+        int64 get_top() const;
+        int64 get_bottom() const;
+        int64 get_right() const;
+        int64 get_left() const;
+        Point<int64> get_center() const;
+        int64 get_width() const;
+        int64 get_height() const;
+        Point<int64> get_top_left() const;
+        Point<int64> get_top_right() const;
+        Point<int64> get_bottom_left() const;
+        Point<int64> get_bottom_right() const;
+        void set_x( const int64 x );
+        void set_y( const int64 y );
+        void set( const int64 left, const int64 top, const int64 right, const int64 bottom );
+        void set_top( const int64 top );
+        void set_left( const int64 left );
+        void set_right( const int64 right );
+        void set_bottom( const int64 bottom );
 
     /* Method interface */
     public:
         bool is_valid() const;
         bool is_zero() const;
         void reset();
-        void shift_x( const long delta_x );
-        void shift_y( const long delta_y );
-        void move_delta( const long delta_x, const long delta_y );
-        void move_delta( const Point<long>& delta );
-        void move_delta( const Point<long>* delta );
-        void move_to( const long x, const long y );
-        void move_to( const Point<long>* point );
-        void move_to( const Point<long>& point );
-        bool is_collision( const Point<long>& point ) const;
-        bool is_collision( const Point<long>* point ) const;
+        void shift_x( const int64 delta_x );
+        void shift_y( const int64 delta_y );
+        void move_delta( const int64 delta_x, const int64 delta_y );
+        void move_delta( const Point<int64>& delta );
+        void move_delta( const Point<int64>* delta );
+        void move_to( const int64 x, const int64 y );
+        void move_to( const Point<int64>* point );
+        void move_to( const Point<int64>& point );
+        bool is_collision( const Point<int64>& point ) const;
+        bool is_collision( const Point<int64>* point ) const;
         bool is_collision( const Rect& other ) const;
         bool is_collision( const Rect* other ) const;
-        bool is_within( const Point<long>& point ) const;
-        bool is_within( const Point<long>* point ) const;
+        bool is_within( const Point<int64>& point ) const;
+        bool is_within( const Point<int64>* point ) const;
         bool is_within( const Rect& rect ) const;
         bool is_within( const Rect* rect ) const;
 
@@ -76,10 +76,10 @@ namespace ZeroEngine {
         bool operator!=( const Rect& other ) const;
 
     private:
-        long _left;
-        long _right;
-        long _top;
-        long _bottom;
+        int64 _left;
+        int64 _right;
+        int64 _top;
+        int64 _bottom;
 
     /* IType interface */
     public:

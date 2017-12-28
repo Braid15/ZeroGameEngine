@@ -10,8 +10,7 @@ namespace ZeroEngine {
     }
 
     GameApp::~GameApp() {
-        zero_delete(_game_logic);
-        zero_delete(_framework);
+
     }
 
     GameApp* GameApp::_app = nullptr;
@@ -87,11 +86,11 @@ namespace ZeroEngine {
         return _framework->get_current_time();
     }
 
-    Point<int32_t> GameApp::get_screen_size() const {
+    Point<int32> GameApp::get_screen_size() const {
         return _game_options.get_screen_size();
     }
 
-    HumanView::ptr GameApp::get_human_view(uint32_t player_number) {
+    HumanView::ptr GameApp::get_human_view(uint32 player_number) {
         HumanView::ptr ret_view = HumanView::ptr();
         GameViewList views = _game_logic->get_game_views();
 
@@ -135,7 +134,10 @@ namespace ZeroEngine {
 
     void GameApp::shutdown() {
         set_is_running(false);
+        zero_delete(_game_logic);
+
         _framework->shutdown();
+        zero_delete(_framework);
         ZeroEventManager::shutdown();
     }
 

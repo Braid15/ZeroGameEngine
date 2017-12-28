@@ -71,7 +71,7 @@ namespace ZeroEngine {
         return _is_running;
     }
 
-    bool AFramework::initialize_window_and_renderer(std::string title, Point<int32_t> size) {
+    bool AFramework::initialize_window_and_renderer(std::string title, Point<int32> size) {
         _window = create_window(title, size);
         _renderer = create_renderer();
         return (_window != nullptr && _renderer != nullptr);

@@ -12,13 +12,12 @@ namespace ZeroEngine {
 
     class Vector2 : public IZeroObject {
     private:
-        float_t _x;
-        float_t _y;
+        float32 _x;
+        float32 _y;
     public:
         inline Vector2() : _x(0.0), _y(0.0) {}
-        inline Vector2(float_t x, float_t y) : _x(x), _y(y) {}
+        inline Vector2(float32 x, float32 y) : _x(x), _y(y) {}
         inline Vector2(const Vector2& other) : _x(other.get_x()), _y(other.get_y()) {}
-        inline ~Vector2() {}
 
         typedef std::shared_ptr<Vector2> s_ptr;
         typedef std::weak_ptr<Vector2> w_ptr;
@@ -41,8 +40,8 @@ namespace ZeroEngine {
         static Vector2 subtract(const Vector2& v1, const Vector2* v2);
         static Vector2 subtract(const Vector2* v1, const Vector2& v2);
 
-        static Vector2 scalar_multiply(const Vector2& v, const float_t& scalar);
-        static Vector2 scalar_multiply(const Vector2* v, const float_t& scalar);
+        static Vector2 scalar_multiply(const Vector2& v, const float32& scalar);
+        static Vector2 scalar_multiply(const Vector2* v, const float32& scalar);
 
         static Vector2 normalize(const Vector2& v);
         static Vector2 normalize(const Vector2* v);
@@ -50,24 +49,24 @@ namespace ZeroEngine {
 
         static Vector2 euler_integrate(const Vector2& cur_pos,
                                        const Vector2& cur_vel, 
-                                       const float_t& delta);
+                                       const float32& delta);
 
         static Vector2 euler_integrate(const Vector2* cur_pos,
                                        const Vector2* cur_vel,
-                                       const float_t& delta);
+                                       const float32& delta);
 
         static Vector2 euler_integrate(const Vector2* cur_pos,
                                        const Vector2& cur_vel,
-                                       const float_t& delta);
+                                       const float32& delta);
 
         static Vector2 euler_integrate(const Vector2& cur_pos,
                                        const Vector2* cur_vel,
-                                       const float_t& delta);
+                                       const float32& delta);
 
-        static float_t dot_product(const Vector2& v1, const Vector2& v2);
-        static float_t dot_product(const Vector2* v1, const Vector2* v2);
-        static float_t dot_product(const Vector2& v1, const Vector2* v2);
-        static float_t dot_product(const Vector2* v1, const Vector2& v2);
+        static float32 dot_product(const Vector2& v1, const Vector2& v2);
+        static float32 dot_product(const Vector2* v1, const Vector2* v2);
+        static float32 dot_product(const Vector2& v1, const Vector2* v2);
+        static float32 dot_product(const Vector2* v1, const Vector2& v2);
 
         static bool opposite_directions(const Vector2& v1, const Vector2& v2);
         static bool opposite_directions(const Vector2* v1, const Vector2* v2);
@@ -110,27 +109,28 @@ namespace ZeroEngine {
         bool has_same_direction_as(const Vector2* other);
 
 
-        float_t get_dot_product(const Vector2& other);
-        float_t get_dot_product(const Vector2* other);
+        float32 get_dot_product(const Vector2& other);
+        float32 get_dot_product(const Vector2* other);
 
-        float_t get_magnitude() const;
+        float32 get_magnitude() const;
         void normalize();
         inline bool is_unit_vector() const { return get_magnitude() == 1.0; }
 
-        float_t get_projection(const Vector2& other);
-        float_t get_projection(const Vector2* other);
+        float32 get_projection(const Vector2& other);
+        float32 get_projection(const Vector2* other);
 
         void project_onto(const Vector2& other);
         void project_onto(const Vector2* other);
 
-        inline float_t get_x() const { return _x; }
-        inline void set_x(float_t x) { _x = x; }
+        inline float32 get_x() const { return _x; }
+        inline void set_x(float32 x) { _x = x; }
 
-        inline float_t get_y() const { return _y; }
-        inline void set_y(float_t y) { _y = y; }
+        inline float32 get_y() const { return _y; }
+        inline void set_y(float32 y) { _y = y; }
 
         inline void set(const Vector2& other) { _x = other.get_x(); _y = other.get_y(); }
         inline void set(const Vector2* other) { _x = other->get_x(); _y = other->get_y(); }
+        inline void set(const float32 x, const float32 y) { _x = x; _y = y; }
 
         inline bool is_zero() const { return _x == 0.0 && _y == 0.0; }
 
@@ -139,9 +139,9 @@ namespace ZeroEngine {
         inline Vector2 operator+(const Vector2&) const;
         inline Vector2 operator-(const Vector2&) const;
 
-        inline Vector2 operator*(const float_t& scalar) const;
+        inline Vector2 operator*(const float32& scalar) const;
 
-        inline Vector2& operator*=(const float_t& scalar);
+        inline Vector2& operator*=(const float32& scalar);
 
         inline Vector2& operator+=(const Vector2&);
         inline Vector2& operator+=(const Vector2*);
@@ -158,11 +158,11 @@ namespace ZeroEngine {
         inline StringRepr to_string() const { return "Vector2"; }
     };
 
-    inline Vector2 Vector2::operator*(const float_t& scalar) const {
+    inline Vector2 Vector2::operator*(const float32& scalar) const {
         return Vector2(_x * scalar, _y * scalar);
     }
 
-    inline Vector2& Vector2::operator*=(const float_t& scalar) {
+    inline Vector2& Vector2::operator*=(const float32& scalar) {
         _x *= scalar;
         _y *= scalar;
         return *this;

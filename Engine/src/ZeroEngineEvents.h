@@ -6,6 +6,9 @@
 #include "Graphics\Graphics.h"
 #include "Process\Process.h"
 #include "Events/BaseEventData.h"
+#include "Math/Vector2.h"
+#include "Math/Vector3.h"
+#include "Math/Vector4.h"
 
 namespace ZeroEngine {
 
@@ -15,16 +18,16 @@ namespace ZeroEngine {
 
     class RequestDestroyEntityEvent : public BaseEventData {
     private:
-        const EntityId _entity_id;
+        const EntityId _controlled_entity_id;
     public:
         typedef std::shared_ptr<RequestDestroyEntityEvent> ptr;
         static const EventType type;
     public:
-        inline RequestDestroyEntityEvent(const EntityId& id) : _entity_id(id) {}
+        inline RequestDestroyEntityEvent(const EntityId& id) : _controlled_entity_id(id) {}
         IEventDataPtr copy() const override;
         inline const EventType& get_event_type() const override { return type; }
         inline StringRepr to_string() const override { return "RequestDestroyEntityEvent"; }
-        inline const EntityId& get_entity_id() const { return _entity_id; }
+        inline const EntityId& get_entity_id() const { return _controlled_entity_id; }
         static RequestDestroyEntityEvent::ptr create(const EntityId& id);
         static RequestDestroyEntityEvent::ptr cast(IEventDataPtr);
     };
@@ -35,16 +38,16 @@ namespace ZeroEngine {
 
     class EntityDestroyedEvent : public BaseEventData {
     private:
-        const EntityId _entity_id;
+        const EntityId _controlled_entity_id;
     public:
         typedef std::shared_ptr<EntityDestroyedEvent> ptr;
         static const EventType type;
     public:
-        inline EntityDestroyedEvent(const EntityId& id) : _entity_id(id) {}
+        inline EntityDestroyedEvent(const EntityId& id) : _controlled_entity_id(id) {}
         IEventDataPtr copy() const override;
         inline const EventType& get_event_type() const override { return type; }
         inline StringRepr to_string() const override { return "EntityDestroyedEvent"; }
-        inline const EntityId& get_entity_id() const { return _entity_id; }
+        inline const EntityId& get_entity_id() const { return _controlled_entity_id; }
         static EntityDestroyedEvent::ptr create(const EntityId& id);
         static EntityDestroyedEvent::ptr cast(IEventDataPtr);
     };
@@ -57,12 +60,18 @@ namespace ZeroEngine {
     public:
         typedef std::shared_ptr<RequestCreateEntityEvent> ptr;
         static const EventType type;
+        const char* _resource_path;
     public:
-        inline RequestCreateEntityEvent() {}
+        inline RequestCreateEntityEvent() : _resource_path(nullptr) { }
+        inline RequestCreateEntityEvent(const char* path) : _resource_path(path) {}
+
+        inline std::string get_resource_path() const { return std::string(_resource_path); }
+
         IEventDataPtr copy() const override;
         inline const EventType& get_event_type() const override { return type; }
         inline StringRepr to_string() const override { return "RequestCreateEntityEvent"; }
         static RequestCreateEntityEvent::ptr create();
+        static RequestCreateEntityEvent::ptr create(const char* path);
         static RequestCreateEntityEvent::ptr cast(IEventDataPtr);
     };
 
@@ -72,16 +81,16 @@ namespace ZeroEngine {
 
     class EntityCreatedEvent : public BaseEventData {
     private:
-        const EntityId _entity_id;
+        const EntityId _controlled_entity_id;
     public:
         typedef std::shared_ptr<EntityCreatedEvent> ptr;
         static const EventType type;
     public:
-        inline EntityCreatedEvent(const EntityId& entity_id) : _entity_id(entity_id) {}
+        inline EntityCreatedEvent(const EntityId& entity_id) : _controlled_entity_id(entity_id) {}
         IEventDataPtr copy() const override;
         inline const EventType& get_event_type() const override { return type; }
         inline StringRepr to_string() const override { return "EntityCreatedEvent"; }
-        inline const EntityId& get_entity_id() const { return _entity_id; }
+        inline const EntityId& get_entity_id() const { return _controlled_entity_id; }
         static EntityCreatedEvent::ptr create(const EntityId& id);
         static EntityCreatedEvent::ptr cast(IEventDataPtr);
     private:
@@ -95,23 +104,56 @@ namespace ZeroEngine {
     //
 
     class MoveEntityEvent : public BaseEventData {
+    public:
+        enum PositionType { VEC2, VEC3, VEC4 };
     private:
-        // @TODO: This needs to be changed to somehting more less specific
-        const Point<float> _new_location;
-        const EntityId _entity_id;
+        PositionType _position_type;
+
+        union Position {
+            Vector2 vec2;
+            Vector3 vec3;
+            Vector4 vec4;
+
+            Position() {}
+        } _position;
+
+        EntityId _controlled_entity_id;
     public:
         typedef std::shared_ptr<MoveEntityEvent> ptr;
         static const EventType type;
     public:
-        inline MoveEntityEvent(const EntityId id, const Point<float> new_location) : 
-            _entity_id(id), _new_location(new_location) {}
+        MoveEntityEvent(const EntityId id, const Vector2 new_position);
+        MoveEntityEvent(const EntityId id, const Vector3 new_position);
+        MoveEntityEvent(const EntityId id, const Vector4 new_position);
+
+        static MoveEntityEvent::ptr create(const EntityId id, const Vector2 new_pos);
+        static MoveEntityEvent::ptr create(const EntityId id, const Vector3 new_pos);
+        static MoveEntityEvent::ptr create(const EntityId id, const Vector4 new_pos);
+        static MoveEntityEvent::ptr cast(IEventDataPtr);
         IEventDataPtr copy() const override;
+
         inline const EventType& get_event_type() const override { return type; }
         inline StringRepr to_string() const override { return "MoveEntityEvent"; }
-        static MoveEntityEvent::ptr create(const EntityId id, const Point<float> new_location);
-        static MoveEntityEvent::ptr cast(IEventDataPtr);
-        inline const EntityId& get_entity_id() const { return _entity_id; }
-        inline const Point<float> get_new_location() const { return _new_location; }
+
+        inline PositionType get_position_type() const { return _position_type; }
+
+        inline Vector2 get_vec2_position() const { 
+            if (_position_type != VEC2) return Vector2();
+            return _position.vec2;
+        }
+
+        inline Vector3 get_vec3_position() const {
+            if (_position_type != VEC3) return Vector3();
+            return _position.vec3;
+        }
+
+        inline Vector4 get_vec4_position() const {
+            if (_position_type != VEC4) return Vector4();
+            return _position.vec4;
+        }
+
+        inline const EntityId& get_entity_id() const { return _controlled_entity_id; }
+        ~MoveEntityEvent() {}
     private:
         MoveEntityEvent();
         MoveEntityEvent(const MoveEntityEvent&);
@@ -141,6 +183,59 @@ namespace ZeroEngine {
         inline AttachProcessEvent(const AttachProcessEvent&) {}
     };
 
+    // ----------------------------------------
+    // ScreenElementRenderComponentCreatedEvent
+    // ----------------------------------------
+
+    class IScreenElement;
+
+    class ScreenElementRenderComponentCreatedEvent : public BaseEventData {
+    private:
+        std::shared_ptr<IScreenElement> _screen_element;
+    public:
+        typedef std::shared_ptr<ScreenElementRenderComponentCreatedEvent> s_ptr;
+        static const EventType type;
+        static ScreenElementRenderComponentCreatedEvent::s_ptr create(std::shared_ptr<IScreenElement>);
+        static ScreenElementRenderComponentCreatedEvent::s_ptr cast(IEventDataPtr);
+
+
+        explicit ScreenElementRenderComponentCreatedEvent(std::shared_ptr<IScreenElement> element) 
+            : _screen_element(element) {}
+        IEventDataPtr copy() const override;
+        inline const EventType& get_event_type() const override { return type; }
+        inline StringRepr to_string() const override { return "SpriteRendererCreatedEvent"; }
+        inline std::shared_ptr<IScreenElement> get_screen_element() const { return _screen_element; }
+    private:
+        ScreenElementRenderComponentCreatedEvent() {}
+        ScreenElementRenderComponentCreatedEvent(const ScreenElementRenderComponentCreatedEvent&) {}
+    };
+
+
+    // -------------------------------------
+    // ScreenElementRenderComponentDestroyed
+    // -------------------------------------
+
+    class ScreenElementRenderComponentDestroyedEvent : public BaseEventData {
+    private:
+        std::shared_ptr<IScreenElement> _screen_element;
+    public:
+        typedef std::shared_ptr<ScreenElementRenderComponentDestroyedEvent> s_ptr;
+        static const EventType type;
+        static ScreenElementRenderComponentDestroyedEvent::s_ptr create(std::shared_ptr<IScreenElement>);
+        static ScreenElementRenderComponentDestroyedEvent::s_ptr cast(IEventDataPtr);
+
+
+        explicit ScreenElementRenderComponentDestroyedEvent(std::shared_ptr<IScreenElement> element) 
+            : _screen_element(element) {}
+        IEventDataPtr copy() const override;
+        inline const EventType& get_event_type() const override { return type; }
+        inline StringRepr to_string() const override { return "SpriteRendererDestroyedEvent"; }
+        inline std::shared_ptr<IScreenElement> get_screen_element() const { return _screen_element; }
+    private:
+        ScreenElementRenderComponentDestroyedEvent() {}
+        ScreenElementRenderComponentDestroyedEvent(const ScreenElementRenderComponentDestroyedEvent&) {}
+    };
+
     //
     // DrawPrimitiveEvent
     //
@@ -152,22 +247,22 @@ namespace ZeroEngine {
     // @TODO: Change to CreateScreenElementEvent
     class DrawLineEvent : public BaseEventData {
     private:
-        Point<int32_t> _from;
-        Point<int32_t> _to;
+        Point<int32> _from;
+        Point<int32> _to;
         Color _color;
     public:
         typedef std::shared_ptr<DrawLineEvent> ptr;
         static const EventType type;
     public:
-        inline explicit DrawLineEvent(Point<int32_t> from, Point<int32_t> to, Color color) : 
+        inline explicit DrawLineEvent(Point<int32> from, Point<int32> to, Color color) : 
             _from(from), _to(to), _color(color) {}
         IEventDataPtr copy() const override;
         inline const EventType& get_event_type() const override { return type; }
         inline StringRepr to_string() const override { return "DrawLineEvent"; }
-        static DrawLineEvent::ptr create(Point<int32_t> from, Point<int32_t>, Color color);
+        static DrawLineEvent::ptr create(Point<int32> from, Point<int32>, Color color);
         static DrawLineEvent::ptr cast(IEventDataPtr);
-        inline Point<int32_t> get_from_point() const { return _from; }
-        inline Point<int32_t> get_to_point() const { return _to; }
+        inline Point<int32> get_from_point() const { return _from; }
+        inline Point<int32> get_to_point() const { return _to; }
         inline Color get_color() const { return _color; }
     private:
         inline DrawLineEvent() {}

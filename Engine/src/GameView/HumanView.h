@@ -7,25 +7,26 @@
 #include "../Input/Input.h"
 #include "../Entity/Entity.h"
 #include "../Process/ProcessManager.h"
+#include "../Events/EventData.h"
 
 namespace ZeroEngine {
 
-    extern const uint32_t INVALID_PLAYER_NUMBER;
+    extern const uint32 INVALID_PLAYER_NUMBER;
 
     class HumanView : public IGameView {
     private:
         // InputHandler
         // Audio
-        uint32_t _player_number;
+        uint32 _player_number;
         GameViewId _view_id;
         GameViewType _view_type;
         ProcessManager* _process_manager;
-        EntityId _entity_id;
+        EntityId _controlled_entity_id;
         std::shared_ptr<IKeyboardHandler> _keyboard_handler;
         std::shared_ptr<IMouseHandler> _mouse_handler;
 
         // @TEMP 
-        int _mouse_radius = 5;
+        int32 _mouse_radius = 5;
 
         // process manager
         Tick _current_tick;
@@ -55,8 +56,10 @@ namespace ZeroEngine {
         inline void toggle_pause() { _is_paused = !_is_paused; }
         inline virtual void render_text() {}
         inline bool load_game() { return on_load_game(); }
-        inline uint32_t get_player_number() const { return _player_number; }
-        inline void set_player_number(uint32_t number) { _player_number = number; }
+        inline uint32 get_player_number() const { return _player_number; }
+        inline void set_player_number(uint32 number) { _player_number = number; }
+        inline void set_controlled_entity_id(const EntityId id) { _controlled_entity_id = id; }
+        inline const EntityId& get_controlled_entity_id() const { return _controlled_entity_id; }
         typedef std::shared_ptr<HumanView> ptr;
     protected:
         inline void set_mouse_handler(std::shared_ptr<IMouseHandler> handler);
@@ -72,6 +75,9 @@ namespace ZeroEngine {
         inline virtual void on_register_event_delegates() {}
         inline virtual void on_unregister_event_delegates() {}
         inline virtual bool on_msg_proc(AppMsg::ptr msg, bool handled) { return false; }
+
+        virtual void screen_element_render_component_created_event_delegate(IEventDataPtr);
+        virtual void screen_element_render_component_destroyed_event_delegate(IEventDataPtr);
     private:
         HumanView();
         HumanView(const HumanView&);

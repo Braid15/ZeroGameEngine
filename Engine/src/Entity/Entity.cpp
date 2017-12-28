@@ -1,4 +1,5 @@
 #include "Entity.h"
+#include "../Utils/Xml/XmlWriter.h"
 
 namespace ZeroEngine {
 
@@ -7,11 +8,15 @@ namespace ZeroEngine {
 
     Entity::Entity(EntityId id) {
         _id = id;
+        _position_type = "Unknown";
+        _resource_path = "Unknown";
         _name = "Entity_" + std::to_string(_id); 
     }
 
     Entity::Entity(EntityId id, std::string name) {
         _id = id;
+        _position_type = "Unknown";
+        _resource_path = "Unknown";
         _name = name;
     }
 
@@ -21,7 +26,7 @@ namespace ZeroEngine {
     }
 
     Entity::~Entity() {
-        // If not true then destroy was not called
+        // If components isn't empty then destroy was not called
         assert(_components.empty() == true);
     }
 
@@ -34,9 +39,11 @@ namespace ZeroEngine {
         return ret_str.c_str();
     }
 
-    bool Entity::initialize() {
-        bool success = true;
-        return success;
+    bool Entity::initialize(const XmlReader& reader) {
+        assert(strcmp(reader.get_element_name(), "Entity") == 0);
+        _position_type = reader.get_element_attribute_value("type");
+        _resource_path = reader.get_element_attribute_value("resource");
+        return true;
     }
 
     void Entity::post_initialize() {
@@ -55,8 +62,30 @@ namespace ZeroEngine {
         }
     }
 
+    std::string Entity::create_xml_string() {
+        XmlWriter writer;
+        writer.write_start_element("Entity");
+        writer.write_start_attribute("type");
+        writer.write_string(_position_type.c_str());
+        writer.write_end_attribute();
+        writer.write_start_attribute("resource");
+        writer.write_string(_resource_path.c_str());
+        writer.write_end_attribute();
+
+        for (auto iter = _components.begin(); iter != _components.end(); ++iter) {
+            iter->second->on_write_xml(writer);
+        }
+
+        writer.write_end_element();
+
+        return writer.get_xml_string();
+    }
+
     void Entity::add_component(EntityComponentPtr component) {
         std::pair<EntityComponentMap::iterator, bool> success = _components.insert(std::make_pair(component->get_id(), component));
-        std::cout << "Component added to " << to_string() << ": " << ((success.second == true) ? "true." : "false.");
+
+        if (!success.second) {
+            LOG_DEBUG("Entity", "Error adding component");
+        }
     }
 }

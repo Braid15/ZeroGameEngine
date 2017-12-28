@@ -3,6 +3,7 @@
 
 #include <map>
 
+
 // @TODO: This was thrown together quickly and all of it needs to be optimized.
 
 namespace ZeroEngine {
@@ -68,7 +69,7 @@ namespace ZeroEngine {
         #endif
     }
 
-    void Logger::log_todo(std::string agent, std::string msg, std::string func, int line) {
+    void Logger::log_todo(std::string agent, std::string msg, std::string func, int32 line) {
         #ifdef _DEBUG
         intialize();
 
@@ -91,7 +92,7 @@ namespace ZeroEngine {
         #endif
     }
 
-    void Logger::log_unimplemented(std::string file, std::string func, int line) {
+    void Logger::log_unimplemented(std::string file, std::string func, int32 line) {
         #ifdef _DEBUG
         intialize();
         if (_instance->_tag_map[*_instance->_unimplemented_tag]) {

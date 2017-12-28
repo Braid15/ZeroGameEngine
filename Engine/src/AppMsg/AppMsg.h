@@ -97,7 +97,7 @@ namespace ZeroEngine {
         static MemoryPool* _memory_pool;
         AppMsgArgs* _args;
         #ifdef _DEBUG
-        static int _allocations;
+        static int32 _allocations;
         void print_creation_data();
         void print_deletion_data();
         #endif
@@ -241,7 +241,7 @@ namespace ZeroEngine {
         inline Key get_key() const { return _args->get_key(); }
         inline KeyState get_key_state() const { return _args->get_key_state(); }
         // inline char get_key_char() const { return _args->get_key().get_key_char(); }
-        inline uint32_t get_window() const { return _args->get_window(); }
+        inline uint32 get_window() const { return _args->get_window(); }
         inline bool is_key_down() const { return _args->is_pressed(); }
         inline bool is_key_down(const Key& key) const { return (is_key_down() && is_key(key)); }
         inline bool is_key_up() const { return !(_args->is_pressed()); }
@@ -272,7 +272,7 @@ namespace ZeroEngine {
         inline bool is_repeat() const { return _args->is_repeat(); }
         inline Key get_key() const { return _args->get_key(); }
         // inline char get_key_char() const { return _args->get_key().get_key_char(); }
-        inline uint32_t get_window() const { return _args->get_window(); }
+        inline uint32 get_window() const { return _args->get_window(); }
     protected:
         inline ~KeydownMsg() {}
     private:
@@ -297,7 +297,7 @@ namespace ZeroEngine {
         inline bool is_repeat() const { return _args->is_repeat(); }
         inline Key get_key() const { return _args->get_key(); }
         // inline char get_key_char() const { return _args->get_key().get_key_char(); }
-        inline uint32_t get_window() const { return _args->get_window(); }
+        inline uint32 get_window() const { return _args->get_window(); }
     protected:
         inline ~KeyupMsg() {}
     private:
@@ -383,10 +383,10 @@ namespace ZeroEngine {
 
         inline const AppMsgType get_type() const override { return type; }
         inline StringRepr to_string() const override { return "MouseButtonMsg"; }
-        inline uint8_t get_num_clicks() const { return _args->get_num_clicks(); }
-        inline int32_t get_x_pos() const { return _args->get_x_pos(); }
-        inline int32_t get_y_pos() const { return _args->get_y_pos(); }
-        inline Point<int32_t> get_coordinates() const { return _args->get_coordinates(); }
+        inline uint8 get_num_clicks() const { return _args->get_num_clicks(); }
+        inline int32 get_x_pos() const { return _args->get_x_pos(); }
+        inline int32 get_y_pos() const { return _args->get_y_pos(); }
+        inline Point<int32> get_coordinates() const { return _args->get_coordinates(); }
         inline MouseButton get_button() const { return _args->get_button(); }
         inline ButtonState get_state() const { return _args->get_state(); }
         inline bool is_button_up() const { return _args->get_state() == ButtonState::released; }
@@ -412,10 +412,10 @@ namespace ZeroEngine {
 
         inline const AppMsgType get_type() const override { return type; }
         inline StringRepr to_string() const override { return "MouseButtonDownMsg"; }
-        inline uint8_t get_num_clicks() const { return _args->get_num_clicks(); }
-        inline int32_t get_x_pos() const { return _args->get_x_pos(); }
-        inline int32_t get_y_pos() const { return _args->get_y_pos(); }
-        inline Point<int32_t> get_coordinates() const { return _args->get_coordinates(); }
+        inline uint8 get_num_clicks() const { return _args->get_num_clicks(); }
+        inline int32 get_x_pos() const { return _args->get_x_pos(); }
+        inline int32 get_y_pos() const { return _args->get_y_pos(); }
+        inline Point<int32> get_coordinates() const { return _args->get_coordinates(); }
         inline MouseButton get_button() const { return _args->get_button(); }
         inline ButtonState get_state() const { return _args->get_state(); }
     protected:
@@ -439,10 +439,10 @@ namespace ZeroEngine {
 
         inline const AppMsgType get_type() const override { return type; }
         inline StringRepr to_string() const override { return "MouseButtonUpMsg"; }
-        inline uint8_t get_num_clicks() const { return _args->get_num_clicks(); }
-        inline int32_t get_x_pos() const { return _args->get_x_pos(); }
-        inline int32_t get_y_pos() const { return _args->get_y_pos(); }
-        inline Point<int32_t> get_coordinates() const { return _args->get_coordinates(); }
+        inline uint8 get_num_clicks() const { return _args->get_num_clicks(); }
+        inline int32 get_x_pos() const { return _args->get_x_pos(); }
+        inline int32 get_y_pos() const { return _args->get_y_pos(); }
+        inline Point<int32> get_coordinates() const { return _args->get_coordinates(); }
         inline MouseButton get_button() const { return _args->get_button(); }
         inline ButtonState get_state() const { return _args->get_state(); }
     protected:
@@ -466,14 +466,14 @@ namespace ZeroEngine {
 
         inline const AppMsgType get_type() const override { return type; }
         inline StringRepr to_string() const override { return "MouseMotionMsg"; }
-        inline uint32_t get_window() const { return _args->get_window(); }
-        inline uint32_t get_mouse_id() const { return _args->get_mouse_id(); }
-        inline int32_t get_x_pos() const { return _args->get_x_pos(); }
-        inline int32_t get_y_pos() const { return _args->get_y_pos(); }
-        inline Point<int32_t> get_coordinates() const { return _args->get_coordinates(); }
-        inline int32_t get_x_rel() const { return _args->get_x_rel(); }
-        inline int32_t get_y_rel() const { return _args->get_y_rel(); }
-        inline Point<int32_t> get_rel_coordinates() const { return _args->get_rel_coordinates(); }
+        inline uint32 get_window() const { return _args->get_window(); }
+        inline uint32 get_mouse_id() const { return _args->get_mouse_id(); }
+        inline int32 get_x_pos() const { return _args->get_x_pos(); }
+        inline int32 get_y_pos() const { return _args->get_y_pos(); }
+        inline Point<int32> get_coordinates() const { return _args->get_coordinates(); }
+        inline int32 get_x_rel() const { return _args->get_x_rel(); }
+        inline int32 get_y_rel() const { return _args->get_y_rel(); }
+        inline Point<int32> get_rel_coordinates() const { return _args->get_rel_coordinates(); }
         inline bool is_pressed(MouseButton button) const { return _args->is_pressed(button); }
         inline MouseButtonStateArray get_button_states() const { return _args->get_button_states(); }
     protected:
@@ -497,10 +497,10 @@ namespace ZeroEngine {
 
         inline const AppMsgType get_type() const { return type; }
         inline StringRepr to_string() const { return "MouseWheenMsg"; }
-        inline uint32_t get_window() const { return _args->get_window(); }
-        inline uint32_t get_mouse() const { return _args->get_mouse(); }
-        inline int32_t get_scroll_amount_x() const { return _args->get_scroll_amount_x(); }
-        inline int32_t get_scroll_amount_y() const { return _args->get_scroll_amount_y(); }
+        inline uint32 get_window() const { return _args->get_window(); }
+        inline uint32 get_mouse() const { return _args->get_mouse(); }
+        inline int32 get_scroll_amount_x() const { return _args->get_scroll_amount_x(); }
+        inline int32 get_scroll_amount_y() const { return _args->get_scroll_amount_y(); }
         inline MouseWheelDirection get_direction() const { return _args->get_direction(); }
     protected:
         inline ~MouseWheelMsg() {}

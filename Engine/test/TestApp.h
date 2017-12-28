@@ -60,16 +60,16 @@ namespace ZeroEngineAppTest {
     private:
         Color _color;
         bool _drawing;
-        Point<int32_t> _start;
-        Point<int32_t> _end;
+        Point<int32> _start;
+        Point<int32> _end;
 
-        uint32_t _blue = 0x0000FFFF;
-        uint32_t _red = 0xFF0000FF;
-        uint32_t _green = 0x00FF00FF;
+        uint32 _blue = 0x0000FFFF;
+        uint32 _red = 0xFF0000FF;
+        uint32 _green = 0x00FF00FF;
 
-        uint32_t _colors[3] = {_blue, _red, _green };
+        uint32 _colors[3] = {_blue, _red, _green };
 
-        uint32_t _cur_index;
+        uint32 _cur_index;
 
         std::list<LineRenderPacket::s_ptr> _lines;
 
@@ -90,11 +90,11 @@ namespace ZeroEngineAppTest {
             }
         }
 
-        void draw_start(Point<int32_t> start) {
+        void draw_start(Point<int32> start) {
             _start = start;
         }
 
-        void draw_end(Point<int32_t> end) {
+        void draw_end(Point<int32> end) {
             _end = end;
 
             // @TODO: I want this to provide a different interface than the IRenderer interface
@@ -106,7 +106,7 @@ namespace ZeroEngineAppTest {
         }
 
         void remove_last_line() {
-            uint32_t size = static_cast<uint32_t>(_lines.size());
+            uint32 size = static_cast<uint32>(_lines.size());
             if (size > 0) {
                 LineRenderPacket::s_ptr line = _lines.back();
                 _lines.pop_back();
@@ -119,34 +119,71 @@ namespace ZeroEngineAppTest {
 
     class TestMovementController : public IMouseHandler, public IKeyboardHandler {
     private:
+        friend class TestGameView;
         Pen pen;
+        std::vector<EntityId> _entity_id_list;
+        Vector2 _left;
+        Vector2 _right;
+        Vector2 _up;
+        Vector2 _down;
+
+        bool _go_up;
+        bool _go_down;
+        bool _go_right;
+        bool _go_left;
+
+
+
     public:
-        inline TestMovementController() {}
+        inline TestMovementController() 
+            : _left(-10.f, 0.f), _right(10.f, 0.f), _down(0.f, 10.f), _up(0.f, -10.f)
+             , _go_up(false), _go_down(false), _go_right(false), _go_left(false) {}
         inline ~TestMovementController() {}
 
         inline bool on_key_down(const Key& key) override {
             if (key == Key::enter) {
-                // ZeroEventManager::queue_event(RequestCreateEntityEvent::create());
+                const char* p = "S:\\projects\\game-engines\\zerogameengine\\engine\\test\\test-entity.xml";
+                ZeroEventManager::queue_event(RequestCreateEntityEvent::create(p));
             } else if (key == Key::space) {
-                // ZeroEventManager::queue_event(RequestDestroyEntityEvent::create(Game::get_entity_count()));
-                pen.change_line_colors();
+                if (!_entity_id_list.empty()) {
+                    EntityId id = _entity_id_list.back();
+                    _entity_id_list.pop_back();
+                    ZeroEventManager::queue_event(RequestDestroyEntityEvent::create(id));
+                }
             } else if (key == Key::backspace) {
                 pen.remove_last_line();
             } else if (Key_is_numeric(key)) {
                 std::cout << Key_get_numeric_value(key) << "\n";
+            } else if (key == Key::w) {
+                _go_up = true;
+            } else if (key == Key::s) {
+                _go_down = true;
+            } else if (key == Key::a) {
+                _go_left = true;
+            } else if (key == Key::d) {
+                _go_right = true;
             }
             return true;
         }
 
         inline bool on_key_up(const Key& key) override {
+            if (key == Key::w) {
+                _go_up = false;
+            } else if (key == Key::s) {
+                _go_down = false;
+            } else if (key == Key::a) {
+                _go_left = false;
+            } else if (key == Key::d) {
+                _go_right = false;
+            }
+            return true;
+        }
+
+        inline bool on_mouse_move(const Point<int32> pos, const int32 radius) override {
             return false;
         }
 
-        inline bool on_mouse_move(const Point<int32_t> pos, const int radius) override {
-            return false;
-        }
-
-        inline bool on_button_down(const Point<int32_t> pos, const int radius, const MouseButton& button) override {
+        inline bool on_button_down(const Point<int32> pos, const int32 radius, const MouseButton& button) override {
             // In actuality there should be draw start and draw end events which will be handled by the game logic
             if (button == MouseButton::left) {
                 pen.draw_start(pos);
@@ -154,11 +191,27 @@ namespace ZeroEngineAppTest {
             return true;
         }
 
-        inline bool on_button_up(const Point<int32_t> pos, const int radius, const MouseButton& button) override {
+        inline bool on_button_up(const Point<int32> pos, const int32 radius, const MouseButton& button) override {
             if (button == MouseButton::left) {
                 pen.draw_end(pos);
             }
             return true;
+        }
+
+        inline void update(Tick delta_time) {
+            if (_go_up || _go_down || _go_left || _go_right && !_entity_id_list.empty()) {
+                auto entity = Game::get_entity(_entity_id_list.back()).lock();
+                auto transform = entity->get_component<TransformComponent2D>(TransformComponent2D::id).lock();
+
+                Vector2 direction;
+
+                if (_go_up) direction += _up;
+                if (_go_down) direction += _down;
+                if (_go_left) direction += _left;
+                if (_go_right) direction += _right;
+
+                ZeroEventManager::queue_event(MoveEntityEvent::create(entity->get_id(), transform->get_position() + direction));
+            }
         }
     };
 
@@ -171,6 +224,10 @@ namespace ZeroEngineAppTest {
         explicit TestGameView(IRenderer::s_ptr renderer) : HumanView(renderer) {}
         inline StringRepr to_string() const override { return "TestGameView"; }
     protected:
+
+        DECLARE_DELEGATE_SIG(EntityDestroyedEvent, data_ptr) {
+        }
+
         inline bool on_load_game() override {
             _controller = std::shared_ptr<TestMovementController>(zero_new TestMovementController());
             set_keyboard_handler(_controller);
@@ -178,37 +235,27 @@ namespace ZeroEngineAppTest {
             return true;
         }
 
-        inline void entity_created_event_delegate(IEventDataPtr event_data) {
-            EntityCreatedEvent::ptr data = EntityCreatedEvent::cast(event_data);
-            std::cout << "Entity created: " << data->get_entity_id() << "\n";
-            std::cout << "ENtity count: " << Game::get_entity_count() << "\n";
-        }
+        DECLARE_DELEGATE_SIG(EntityCreatedEvent, data_ptr) {
+            EntityCreatedEvent::ptr data = EntityCreatedEvent::cast(data_ptr);
+            auto entity = Game::get_entity(data->get_entity_id()).lock();
+            _controller->_entity_id_list.push_back(data->get_entity_id());
 
-        inline void entity_destroyed_event_delegate(IEventDataPtr event_data) {
-            EntityDestroyedEvent::ptr data = EntityDestroyedEvent::cast(event_data);
-            std::cout << "Entity destroyed: " << data->get_entity_id() << "\n";
-            std::cout << "ENtity count: " << Game::get_entity_count() << "\n";
+            std::cout << entity->get_name() << "\n" << entity->create_xml_string() << "\n";
         }
 
         inline void on_register_event_delegates() override {
-            LOG_DEBUG("TestGameView", "Called");
-            ZeroEventManager::register_listener(
-                fastdelegate::MakeDelegate(this, &TestGameView::entity_destroyed_event_delegate),
-                EntityDestroyedEvent::type);
-
-            ZeroEventManager::register_listener(
-                fastdelegate::MakeDelegate(this, &TestGameView::entity_created_event_delegate),
-                EntityCreatedEvent::type);
+            REGISTER_DELEGATE(TestGameView, EntityDestroyedEvent);
+            REGISTER_DELEGATE(TestGameView, EntityCreatedEvent);
         }
 
         inline void on_unregister_event_delegates() override {
-            ZeroEventManager::unregister_listener(
-                fastdelegate::MakeDelegate(this, &TestGameView::entity_destroyed_event_delegate),
-                EntityDestroyedEvent::type);
+            UNREGISTER_DELEGATE(TestGameView, EntityDestroyedEvent);
+            UNREGISTER_DELEGATE(TestGameView, EntityCreatedEvent);
+        }
 
-            ZeroEventManager::unregister_listener(
-                fastdelegate::MakeDelegate(this, &TestGameView::entity_created_event_delegate),
-                EntityCreatedEvent::type);
+        inline void update(Tick delta_time) override {
+            HumanView::update(delta_time);
+            _controller->update(delta_time);
         }
     };
 }

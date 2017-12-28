@@ -99,12 +99,12 @@ namespace ZeroEngine {
         return success;
     }
 
-    bool BaseEventManager::update(uint32_t max_milliseconds) {
+    bool BaseEventManager::update(uint32 max_milliseconds) {
         Tick current_time = Game::get_ticks();
         Tick max_time = (max_milliseconds == MAX_MILLISECONDS) ? MAX_MILLISECONDS
             : current_time + max_milliseconds;
 
-        int queue_to_process = _active_queue;
+        int32 queue_to_process = _active_queue;
         _active_queue = (_active_queue + 1) % EVENT_MANAGER_QUEUE_COUNT;
         _event_queues[_active_queue].clear();
 
@@ -183,7 +183,7 @@ namespace ZeroEngine {
         return _event_manager->queue_event(event_data);
     }
 
-    bool ZeroEventManager::update(uint32_t max_milliseconds) {
+    bool ZeroEventManager::update(uint32 max_milliseconds) {
         return _event_manager->update(max_milliseconds);
     }
 

@@ -738,7 +738,7 @@ public:
 	virtual bool Accept( TiXmlVisitor* visitor ) const = 0;
 
 protected:
-	TiXmlNode( NodeType _type );
+	TiXmlNode( NodeType _position_type );
 
 	// Copy to the allocated object. Shared functionality between Clone, Copy constructor,
 	// and the assignment operator.

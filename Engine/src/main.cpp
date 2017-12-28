@@ -6,14 +6,13 @@ using namespace ZeroEngine;
 
 static void run_game();
 
-int main( int argc, char* args[] ) {
+int main(int argc, char* args[]) {
 
     #ifdef _DEBUG
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
     #endif
 
-    XmlWriter_TinyXmlImpl_UNIT_TEST();
-    // run_game();
+    run_game();
 
     #ifdef _DEBUG
     _CrtDumpMemoryLeaks();
