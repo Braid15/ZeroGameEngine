@@ -5,7 +5,7 @@
 #include "../AppLayer/GameOptions.h"
 #include "../AppLayer/GameApp.h"
 #include "../AppLayer/Game.h"
-
+#include "../Utils/StringId.h"
 namespace ZeroEngine {
 
     // @TODO: Should make different launchers for different platforms
@@ -22,6 +22,8 @@ namespace ZeroEngine {
         ~GameLauncher() {
             _game->shutdown();
             zero_delete(_game);
+
+            StringIdManager::shutdown();
 
             // Make sure Logger is the last thing to be disposed of
             Logger::shutdown();

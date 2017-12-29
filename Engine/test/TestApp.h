@@ -225,7 +225,7 @@ namespace ZeroEngineAppTest {
         inline StringRepr to_string() const override { return "TestGameView"; }
     protected:
 
-        DECLARE_DELEGATE_SIG(EntityDestroyedEvent, data_ptr) {
+        DECLARE_EVENT_DELEGATE_SIG(EntityDestroyedEvent, data_ptr) {
         }
 
         inline bool on_load_game() override {
@@ -235,7 +235,7 @@ namespace ZeroEngineAppTest {
             return true;
         }
 
-        DECLARE_DELEGATE_SIG(EntityCreatedEvent, data_ptr) {
+        DECLARE_EVENT_DELEGATE_SIG(EntityCreatedEvent, data_ptr) {
             EntityCreatedEvent::ptr data = EntityCreatedEvent::cast(data_ptr);
             auto entity = Game::get_entity(data->get_entity_id()).lock();
             _controller->_entity_id_list.push_back(data->get_entity_id());
@@ -244,13 +244,13 @@ namespace ZeroEngineAppTest {
         }
 
         inline void on_register_event_delegates() override {
-            REGISTER_DELEGATE(TestGameView, EntityDestroyedEvent);
-            REGISTER_DELEGATE(TestGameView, EntityCreatedEvent);
+            REGISTER_EVENT_DELEGATE(TestGameView, EntityDestroyedEvent);
+            REGISTER_EVENT_DELEGATE(TestGameView, EntityCreatedEvent);
         }
 
         inline void on_unregister_event_delegates() override {
-            UNREGISTER_DELEGATE(TestGameView, EntityDestroyedEvent);
-            UNREGISTER_DELEGATE(TestGameView, EntityCreatedEvent);
+            UNREGISTER_EVENT_DELEGATE(TestGameView, EntityDestroyedEvent);
+            UNREGISTER_EVENT_DELEGATE(TestGameView, EntityCreatedEvent);
         }
 
         inline void update(Tick delta_time) override {

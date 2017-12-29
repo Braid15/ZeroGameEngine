@@ -8,17 +8,22 @@ namespace ZeroEngine {
 
     typedef uint32 StringId;
 
-    extern StringId intern_string(const char* str);
+    class StringIdManager {
+    private:
+        static std::map<StringId, const char*> _string_table;
+    public:
+        ~StringIdManager() { _string_table.clear(); }
+        static StringId intern_string(const char* str);
+        static const char* find_string(StringId id);
+        static void shutdown();
 
-    // This should only be used for debugging purposes.
-    // At runtime the engine should only be using StringIds.
-    #ifdef _DEBUG
-    extern const char* find_string(StringId id);
-    #endif
+    private:
+        StringIdManager() {}
+        StringIdManager(const StringIdManager&) {}
+    };
 
-    // @@TODO:
     // Use this macro to create StringId's so
     // that eventually the hashes can be created
     // at compile time rather than runtime.
-    #define STRING_ID(str) intern_string((str))
+    #define STRING_ID(str) StringIdManager::intern_string((str))
 }

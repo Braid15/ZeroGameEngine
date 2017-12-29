@@ -383,12 +383,6 @@
     <ClCompile Include="src\Events\EventManager.cpp">
       <Filter>Source\Events</Filter>
     </ClCompile>
-    <ClCompile Include="src\Events\EventListener.cpp">
-      <Filter>Source\Events</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Events\Events.cpp">
-      <Filter>Source\Events</Filter>
-    </ClCompile>
     <ClCompile Include="src\Entity\Entity.cpp">
       <Filter>Source\Entity</Filter>
     </ClCompile>
@@ -439,9 +433,6 @@
     </ClCompile>
     <ClCompile Include="src\AppLayer\Game.cpp">
       <Filter>Source\AppLayer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Events\BaseEventData.cpp">
-      <Filter>Source\Events</Filter>
     </ClCompile>
     <ClCompile Include="src\Entity\EntityManager.cpp">
       <Filter>Source\Entity</Filter>

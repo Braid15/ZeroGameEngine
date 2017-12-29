@@ -105,9 +105,9 @@
     <IntDir>$(SolutionDir)Engine\obj\debug\x86\</IntDir>
     <OutDir>$(SolutionDir)Engine\bin\x86\</OutDir>
     <TargetName>ZeroEngine_x86_d</TargetName>
-    <IncludePath>$(ProjectDir)src\3rdParty\SDL;$(ProjectDir)src\*;$(ProjectDir)src\3rdParty\TinyXML;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)src\3rdParty\SDL;$(ProjectDir)src\*;$(ProjectDir)src\3rdParty\TinyXML;c:\Program Files (x86)\Visual Leak Detector\include;$(IncludePath)</IncludePath>
     <SourcePath>$(ProjectDir)src\*;$(SourcePath)</SourcePath>
-    <LibraryPath>$(ProjectDir)libs\x86;$(LibraryPath)</LibraryPath>
+    <LibraryPath>C:\Program Files %28x86%29\Visual Leak Detector\lib\Win32;$(ProjectDir)libs\x86;$(LibraryPath)</LibraryPath>
     <ExecutablePath>$(ProjectDir)bin\x86\;$(ExecutablePath)</ExecutablePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -127,10 +127,11 @@
       <PreprocessorDefinitions>_X86;%(PreprocessorDefinitions);</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>S:\projects\Game-Engines\ZeroGameEngine\DllTest1\DllTest1;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessToFile>false</PreprocessToFile>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;vld.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <Profile>true</Profile>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
@@ -308,10 +309,7 @@
     <ClCompile Include="src\Entity\EntityComponent.cpp" />
     <ClCompile Include="src\Entity\EntityFactory.cpp" />
     <ClCompile Include="src\Entity\EntityManager.cpp" />
-    <ClCompile Include="src\Events\BaseEventData.cpp" />
-    <ClCompile Include="src\Events\EventListener.cpp" />
     <ClCompile Include="src\Events\EventManager.cpp" />
-    <ClCompile Include="src\Events\Events.cpp" />
     <ClCompile Include="src\Framework\AFramework.cpp" />
     <ClCompile Include="src\Framework\IRenderer.cpp" />
     <ClCompile Include="src\Framework\SdlFramework\SdlFramework.cpp" />

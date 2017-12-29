@@ -7,7 +7,7 @@ namespace ZeroEngine {
     // RequestDestroyEntityEvent
     // -------------------------
 
-    const EventType RequestDestroyEntityEvent::type = 0x6cf99d0;
+    const EventType RequestDestroyEntityEvent::type = STRING_ID("RequestDestroyEntityEvent");
 
     IEventDataPtr RequestDestroyEntityEvent::copy() const {
         return IEventDataPtr(zero_new RequestDestroyEntityEvent(_controlled_entity_id));
@@ -26,7 +26,7 @@ namespace ZeroEngine {
     // EntityDestroyedEvent
     // --------------------
 
-    const EventType EntityDestroyedEvent::type = 0x616cced;
+    const EventType EntityDestroyedEvent::type = STRING_ID("EntityDestroyedEvent");
 
     IEventDataPtr EntityDestroyedEvent::copy() const {
         return IEventDataPtr(zero_new EntityDestroyedEvent(_controlled_entity_id));
@@ -45,7 +45,7 @@ namespace ZeroEngine {
     // RequestCreateEntityEvent
     // ------------------------
 
-    const EventType RequestCreateEntityEvent::type = 0x817a4c4e;
+    const EventType RequestCreateEntityEvent::type = STRING_ID("RequestCreateEntityEvent");
 
     IEventDataPtr RequestCreateEntityEvent::copy() const {
         return IEventDataPtr(zero_new RequestCreateEntityEvent(_resource_path));
@@ -68,7 +68,7 @@ namespace ZeroEngine {
     // EntityCreatedEvent
     // ------------------
 
-    const EventType EntityCreatedEvent::type = 0xa7d61b3c;
+    const EventType EntityCreatedEvent::type = STRING_ID("EntityCreatedEvent");
 
     IEventDataPtr EntityCreatedEvent::copy() const {
         return IEventDataPtr(zero_new EntityCreatedEvent(_controlled_entity_id));
@@ -87,7 +87,7 @@ namespace ZeroEngine {
     // MoveEntityEvent
     // ---------------
 
-    const EventType MoveEntityEvent::type = 0x8b2e7298;
+    const EventType MoveEntityEvent::type = STRING_ID("MoveEntityEvent");
 
     MoveEntityEvent::MoveEntityEvent(const EntityId id, const Vector2 new_position) {
         _controlled_entity_id = id;
@@ -140,7 +140,7 @@ namespace ZeroEngine {
     // AttachProcessEvent
     // ------------------
 
-    const EventType AttachProcessEvent::type = 0xa241c4db;
+    const EventType AttachProcessEvent::type = STRING_ID("AttachProcessEvent");
 
     IEventDataPtr AttachProcessEvent::copy() const {
         return IEventDataPtr(zero_new AttachProcessEvent(_process));
@@ -159,7 +159,7 @@ namespace ZeroEngine {
     // ScreenElementRendererCreatedEvent
     // ---------------------------------
 
-    const EventType ScreenElementRenderComponentCreatedEvent::type = 0xbdfc323e;
+    const EventType ScreenElementRenderComponentCreatedEvent::type = STRING_ID("ScreenElementRenderComponentCreatedEvent");
 
     IEventDataPtr ScreenElementRenderComponentCreatedEvent::copy() const {
         return IEventDataPtr(zero_new ScreenElementRenderComponentCreatedEvent(_screen_element));
@@ -178,7 +178,7 @@ namespace ZeroEngine {
     // ScreenElementRenderComponentDestroyedEvent
     // ------------------------------------------
 
-    const EventType ScreenElementRenderComponentDestroyedEvent::type = 0x3e5bd852;
+    const EventType ScreenElementRenderComponentDestroyedEvent::type = STRING_ID("ScreenElementRenderComponentDestroyedEvent");
 
     IEventDataPtr ScreenElementRenderComponentDestroyedEvent::copy() const {
         return IEventDataPtr(zero_new ScreenElementRenderComponentDestroyedEvent(_screen_element));
@@ -197,7 +197,7 @@ namespace ZeroEngine {
     // DrawLineEvent
     // -------------
 
-    const EventType DrawLineEvent::type = 0xd78aad3d;
+    const EventType DrawLineEvent::type = STRING_ID("DrawLineEvent");
 
     IEventDataPtr DrawLineEvent::copy() const {
         return IEventDataPtr(zero_new DrawLineEvent(_from, _to, _color));
