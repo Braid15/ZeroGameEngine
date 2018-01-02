@@ -83,11 +83,13 @@ namespace ZeroEngine {
     };
 
 
-    //
+    // ---------------
     // MoveEntityEvent
-    //
+    // ---------------
 
     class MoveEntityEvent : public BaseEventData {
+    DECLARE_EVENT_METHODS(MoveEntityEvent)
+
     public:
         enum PositionType { VEC2, VEC3, VEC4 };
     private:
@@ -103,23 +105,16 @@ namespace ZeroEngine {
 
         EntityId _controlled_entity_id;
     public:
-        typedef std::shared_ptr<MoveEntityEvent> ptr;
-        static const EventType type;
-    public:
         MoveEntityEvent(const EntityId id, const Vector2 new_position);
         MoveEntityEvent(const EntityId id, const Vector3 new_position);
         MoveEntityEvent(const EntityId id, const Vector4 new_position);
 
-        static MoveEntityEvent::ptr create(const EntityId id, const Vector2 new_pos);
-        static MoveEntityEvent::ptr create(const EntityId id, const Vector3 new_pos);
-        static MoveEntityEvent::ptr create(const EntityId id, const Vector4 new_pos);
-        static MoveEntityEvent::ptr cast(IEventDataPtr);
-        IEventDataPtr copy() const override;
-
-        inline const EventType& get_event_type() const override { return type; }
-        inline StringRepr to_string() const override { return "MoveEntityEvent"; }
+        static MoveEntityEvent::s_ptr create(const EntityId id, const Vector2 new_pos);
+        static MoveEntityEvent::s_ptr create(const EntityId id, const Vector3 new_pos);
+        static MoveEntityEvent::s_ptr create(const EntityId id, const Vector4 new_pos);
 
         inline PositionType get_position_type() const { return _position_type; }
+        inline EntityId get_entity_id() const { return _controlled_entity_id; }
 
         inline Vector2 get_vec2_position() const { 
             if (_position_type != VEC2) return Vector2();
@@ -135,12 +130,8 @@ namespace ZeroEngine {
             if (_position_type != VEC4) return Vector4();
             return _position.vec4;
         }
-
-        inline const EntityId& get_entity_id() const { return _controlled_entity_id; }
-        ~MoveEntityEvent() {}
     private:
-        MoveEntityEvent();
-        MoveEntityEvent(const MoveEntityEvent&);
+        MoveEntityEvent() {}
     };
 
     //

@@ -161,7 +161,7 @@ namespace ZeroEngine {
     }
 
     void BaseGameLogic::move_entity_event_delegate(IEventDataPtr event_data) {
-        MoveEntityEvent::ptr data = MoveEntityEvent::cast(event_data);
+        MoveEntityEvent::s_ptr data = MoveEntityEvent::cast(event_data);
         switch (data->get_position_type()) {
             case MoveEntityEvent::VEC2:
                 move_entity(data->get_entity_id(), data->get_vec2_position());

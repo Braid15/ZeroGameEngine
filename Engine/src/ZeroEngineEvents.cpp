@@ -67,7 +67,7 @@ namespace ZeroEngine {
     // MoveEntityEvent
     // ---------------
 
-    const EventType MoveEntityEvent::type = STRING_ID("MoveEntityEvent");
+    DEFINE_EVENT_METHODS(MoveEntityEvent);
 
     MoveEntityEvent::MoveEntityEvent(const EntityId id, const Vector2 new_position) {
         _controlled_entity_id = id;
@@ -87,33 +87,35 @@ namespace ZeroEngine {
         _position.vec4 = new_position;
     }
 
-    IEventDataPtr MoveEntityEvent::copy() const {
+    MoveEntityEvent::s_ptr MoveEntityEvent::create(const EntityId id, const Vector2 new_location) {
+        return MoveEntityEvent::s_ptr(zero_new MoveEntityEvent(id, new_location));
+    }
+
+    MoveEntityEvent::s_ptr MoveEntityEvent::create(const EntityId id, const Vector3 new_location) {
+        return MoveEntityEvent::s_ptr(zero_new MoveEntityEvent(id, new_location));
+    }
+
+    MoveEntityEvent::s_ptr MoveEntityEvent::create(const EntityId id, const Vector4 new_location) {
+        return MoveEntityEvent::s_ptr(zero_new MoveEntityEvent(id, new_location));
+    }
+
+    MoveEntityEvent::MoveEntityEvent(const MoveEntityEvent& other) {
+        _controlled_entity_id = other.get_entity_id();
+        _position_type = other.get_position_type();
         switch (_position_type) {
             case VEC2:
-                return IEventDataPtr(zero_new MoveEntityEvent(_controlled_entity_id, _position.vec2));
+                _position.vec2 = other.get_vec2_position();
+                break;
             case VEC3:
-                return IEventDataPtr(zero_new MoveEntityEvent(_controlled_entity_id, _position.vec3));
+                _position.vec3 = other.get_vec3_position();
+                break;
             case VEC4:
-                return IEventDataPtr(zero_new MoveEntityEvent(_controlled_entity_id, _position.vec4));
+                _position.vec4 = other.get_vec4_position();
+                break;
+            default:
+                LOG_DEBUG("MoveEntityEvent", "Error: Unknown position type");
+                break;
         }
-        return IEventDataPtr();
-    }
-
-    MoveEntityEvent::ptr MoveEntityEvent::create(const EntityId id, const Vector2 new_location) {
-        return MoveEntityEvent::ptr(zero_new MoveEntityEvent(id, new_location));
-    }
-
-    MoveEntityEvent::ptr MoveEntityEvent::create(const EntityId id, const Vector3 new_location) {
-        return MoveEntityEvent::ptr(zero_new MoveEntityEvent(id, new_location));
-    }
-
-    MoveEntityEvent::ptr MoveEntityEvent::create(const EntityId id, const Vector4 new_location) {
-        return MoveEntityEvent::ptr(zero_new MoveEntityEvent(id, new_location));
-    }
-
-    MoveEntityEvent::ptr MoveEntityEvent::cast(IEventDataPtr data_ptr) {
-        assert(data_ptr->get_event_type() == MoveEntityEvent::type);
-        return std::static_pointer_cast<MoveEntityEvent>(data_ptr);
     }
 
     // ------------------
