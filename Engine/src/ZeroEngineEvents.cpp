@@ -136,19 +136,14 @@ namespace ZeroEngine {
     // ScreenElementRendererCreatedEvent
     // ---------------------------------
 
-    const EventType ScreenElementRenderComponentCreatedEvent::type = STRING_ID("ScreenElementRenderComponentCreatedEvent");
-
-    IEventDataPtr ScreenElementRenderComponentCreatedEvent::copy() const {
-        return IEventDataPtr(zero_new ScreenElementRenderComponentCreatedEvent(_screen_element));
-    }
+    DEFINE_EVENT_METHODS(ScreenElementRenderComponentCreatedEvent);
 
     ScreenElementRenderComponentCreatedEvent::s_ptr ScreenElementRenderComponentCreatedEvent::create(std::shared_ptr<IScreenElement> element) {
         return ScreenElementRenderComponentCreatedEvent::s_ptr(zero_new ScreenElementRenderComponentCreatedEvent(element));
     }
 
-    ScreenElementRenderComponentCreatedEvent::s_ptr ScreenElementRenderComponentCreatedEvent::cast(IEventDataPtr data_ptr) {
-        assert(data_ptr->is_type(type));
-        return std::static_pointer_cast<ScreenElementRenderComponentCreatedEvent>(data_ptr);
+    ScreenElementRenderComponentCreatedEvent::ScreenElementRenderComponentCreatedEvent(const ScreenElementRenderComponentCreatedEvent& other) {
+        _screen_element = other.get_screen_element();
     }
 
     // ------------------------------------------
