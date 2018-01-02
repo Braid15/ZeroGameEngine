@@ -236,7 +236,7 @@ namespace ZeroEngineAppTest {
         }
 
         DECLARE_EVENT_DELEGATE_SIG(EntityCreatedEvent, data_ptr) {
-            EntityCreatedEvent::ptr data = EntityCreatedEvent::cast(data_ptr);
+            EntityCreatedEvent::s_ptr data = EntityCreatedEvent::cast(data_ptr);
             auto entity = Game::get_entity(data->get_entity_id()).lock();
             _controller->_entity_id_list.push_back(data->get_entity_id());
 

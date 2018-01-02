@@ -23,7 +23,7 @@ namespace ZeroEngine {
         EntityId _controlled_entity_id;
     public:
         RequestDestroyEntityEvent(const EntityId& id) : _controlled_entity_id(id) {}
-        inline const EntityId& get_entity_id() const { return _controlled_entity_id; }
+        inline EntityId get_entity_id() const { return _controlled_entity_id; }
         static RequestDestroyEntityEvent::s_ptr create(const EntityId& id);
     private:
         RequestDestroyEntityEvent() {}
@@ -40,7 +40,7 @@ namespace ZeroEngine {
         EntityId _controlled_entity_id;
     public:
         EntityDestroyedEvent(const EntityId& id) : _controlled_entity_id(id) {}
-        inline const EntityId& get_entity_id() const { return _controlled_entity_id; }
+        inline EntityId get_entity_id() const { return _controlled_entity_id; }
         static EntityDestroyedEvent::s_ptr create(const EntityId& id);
     private:
         EntityDestroyedEvent() {}
@@ -65,27 +65,21 @@ namespace ZeroEngine {
         static RequestCreateEntityEvent::s_ptr create(const char* path);
     };
 
-    //
+    // ------------------
     // EntityCreatedEvent
-    //
+    // ------------------
 
     class EntityCreatedEvent : public BaseEventData {
+    DECLARE_EVENT_METHODS(EntityCreatedEvent)
+
     private:
-        const EntityId _controlled_entity_id;
+        EntityId _controlled_entity_id;
     public:
-        typedef std::shared_ptr<EntityCreatedEvent> ptr;
-        static const EventType type;
-    public:
-        inline EntityCreatedEvent(const EntityId& entity_id) : _controlled_entity_id(entity_id) {}
-        IEventDataPtr copy() const override;
-        inline const EventType& get_event_type() const override { return type; }
-        inline StringRepr to_string() const override { return "EntityCreatedEvent"; }
-        inline const EntityId& get_entity_id() const { return _controlled_entity_id; }
-        static EntityCreatedEvent::ptr create(const EntityId& id);
-        static EntityCreatedEvent::ptr cast(IEventDataPtr);
+        EntityCreatedEvent(const EntityId& entity_id) : _controlled_entity_id(entity_id) {}
+        inline EntityId get_entity_id() const { return _controlled_entity_id; }
+        static EntityCreatedEvent::s_ptr create(const EntityId& id);
     private:
-        EntityCreatedEvent();
-        EntityCreatedEvent(const EntityCreatedEvent&);
+        EntityCreatedEvent() {}
     };
 
 

@@ -53,19 +53,14 @@ namespace ZeroEngine {
     // EntityCreatedEvent
     // ------------------
 
-    const EventType EntityCreatedEvent::type = STRING_ID("EntityCreatedEvent");
+    DEFINE_EVENT_METHODS(EntityCreatedEvent);
 
-    IEventDataPtr EntityCreatedEvent::copy() const {
-        return IEventDataPtr(zero_new EntityCreatedEvent(_controlled_entity_id));
+    EntityCreatedEvent::s_ptr EntityCreatedEvent::create(const EntityId& id) {
+        return EntityCreatedEvent::s_ptr(zero_new EntityCreatedEvent(id));
     }
 
-    EntityCreatedEvent::ptr EntityCreatedEvent::create(const EntityId& id) {
-        return EntityCreatedEvent::ptr(zero_new EntityCreatedEvent(id));
-    }
-
-    EntityCreatedEvent::ptr EntityCreatedEvent::cast(IEventDataPtr data_ptr) {
-        assert(data_ptr->get_event_type() == EntityCreatedEvent::type);
-        return std::static_pointer_cast<EntityCreatedEvent>(data_ptr);
+    EntityCreatedEvent::EntityCreatedEvent(const EntityCreatedEvent& other) {
+        _controlled_entity_id = other.get_entity_id();
     }
 
     // ---------------
