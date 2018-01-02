@@ -17,7 +17,7 @@ namespace ZeroEngine {
     // -------------------------
 
     class RequestDestroyEntityEvent : public BaseEventData {
-    DECLARE_EVENT_METHODS(RequestDestroyEntityEvent);
+    DECLARE_EVENT_METHODS(RequestDestroyEntityEvent)
 
     private:
         EntityId _controlled_entity_id;
@@ -29,24 +29,21 @@ namespace ZeroEngine {
         RequestDestroyEntityEvent() {}
     };
 
-    //
+    // --------------------
     // EntityDestroyedEvent
-    //
+    // --------------------
 
     class EntityDestroyedEvent : public BaseEventData {
+    DECLARE_EVENT_METHODS(EntityDestroyedEvent)
+
     private:
-        const EntityId _controlled_entity_id;
+        EntityId _controlled_entity_id;
     public:
-        typedef std::shared_ptr<EntityDestroyedEvent> ptr;
-        static const EventType type;
-    public:
-        inline EntityDestroyedEvent(const EntityId& id) : _controlled_entity_id(id) {}
-        IEventDataPtr copy() const override;
-        inline const EventType& get_event_type() const override { return type; }
-        inline StringRepr to_string() const override { return "EntityDestroyedEvent"; }
+        EntityDestroyedEvent(const EntityId& id) : _controlled_entity_id(id) {}
         inline const EntityId& get_entity_id() const { return _controlled_entity_id; }
-        static EntityDestroyedEvent::ptr create(const EntityId& id);
-        static EntityDestroyedEvent::ptr cast(IEventDataPtr);
+        static EntityDestroyedEvent::s_ptr create(const EntityId& id);
+    private:
+        EntityDestroyedEvent() {}
     };
 
     //

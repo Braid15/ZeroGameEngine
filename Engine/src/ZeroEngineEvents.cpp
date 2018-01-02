@@ -21,20 +21,16 @@ namespace ZeroEngine {
     // EntityDestroyedEvent
     // --------------------
 
-    const EventType EntityDestroyedEvent::type = STRING_ID("EntityDestroyedEvent");
+    DEFINE_EVENT_METHODS(EntityDestroyedEvent);
 
-    IEventDataPtr EntityDestroyedEvent::copy() const {
-        return IEventDataPtr(zero_new EntityDestroyedEvent(_controlled_entity_id));
+    EntityDestroyedEvent::s_ptr EntityDestroyedEvent::create(const EntityId& id) {
+        return EntityDestroyedEvent::s_ptr(zero_new EntityDestroyedEvent(id));
     }
 
-    EntityDestroyedEvent::ptr EntityDestroyedEvent::create(const EntityId& id) {
-        return EntityDestroyedEvent::ptr(zero_new EntityDestroyedEvent(id));
+    EntityDestroyedEvent::EntityDestroyedEvent(const EntityDestroyedEvent& other) {
+        _controlled_entity_id = other.get_entity_id();
     }
 
-    EntityDestroyedEvent::ptr EntityDestroyedEvent::cast(IEventDataPtr data_ptr) {
-        assert(data_ptr->get_event_type() == EntityDestroyedEvent::type);
-        return std::static_pointer_cast<EntityDestroyedEvent>(data_ptr);
-    }
 
     // ------------------------
     // RequestCreateEntityEvent
