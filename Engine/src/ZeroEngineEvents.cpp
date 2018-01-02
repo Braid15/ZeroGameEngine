@@ -122,19 +122,14 @@ namespace ZeroEngine {
     // AttachProcessEvent
     // ------------------
 
-    const EventType AttachProcessEvent::type = STRING_ID("AttachProcessEvent");
+    DEFINE_EVENT_METHODS(AttachProcessEvent);
 
-    IEventDataPtr AttachProcessEvent::copy() const {
-        return IEventDataPtr(zero_new AttachProcessEvent(_process));
+    AttachProcessEvent::s_ptr AttachProcessEvent::create(Process::ptr process) {
+        return AttachProcessEvent::s_ptr(zero_new AttachProcessEvent(process));
     }
 
-    AttachProcessEvent::ptr AttachProcessEvent::create(Process::ptr process) {
-        return AttachProcessEvent::ptr(zero_new AttachProcessEvent(process));
-    }
-
-    AttachProcessEvent::ptr AttachProcessEvent::cast(IEventDataPtr data_ptr) {
-        assert(data_ptr->is_type(type));
-        return std::static_pointer_cast<AttachProcessEvent>(data_ptr);
+    AttachProcessEvent::AttachProcessEvent(const AttachProcessEvent& other) {
+        _process = other.get_process();
     }
 
     // ---------------------------------

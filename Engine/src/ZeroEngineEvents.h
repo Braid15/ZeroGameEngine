@@ -22,7 +22,7 @@ namespace ZeroEngine {
     private:
         EntityId _controlled_entity_id;
     public:
-        RequestDestroyEntityEvent(const EntityId& id) : _controlled_entity_id(id) {}
+        explicit RequestDestroyEntityEvent(const EntityId& id) : _controlled_entity_id(id) {}
         inline EntityId get_entity_id() const { return _controlled_entity_id; }
         static RequestDestroyEntityEvent::s_ptr create(const EntityId& id);
     private:
@@ -39,7 +39,7 @@ namespace ZeroEngine {
     private:
         EntityId _controlled_entity_id;
     public:
-        EntityDestroyedEvent(const EntityId& id) : _controlled_entity_id(id) {}
+        explicit EntityDestroyedEvent(const EntityId& id) : _controlled_entity_id(id) {}
         inline EntityId get_entity_id() const { return _controlled_entity_id; }
         static EntityDestroyedEvent::s_ptr create(const EntityId& id);
     private:
@@ -56,8 +56,8 @@ namespace ZeroEngine {
     private:
         std::string _resource_path;
     public:
-        inline RequestCreateEntityEvent() : _resource_path("") { }
-        inline RequestCreateEntityEvent(const char* path) : _resource_path(std::string(path)) {}
+        RequestCreateEntityEvent() : _resource_path("") { }
+        explicit RequestCreateEntityEvent(const char* path) : _resource_path(std::string(path)) {}
 
         inline std::string get_resource_path() const { return _resource_path; }
 
@@ -75,7 +75,7 @@ namespace ZeroEngine {
     private:
         EntityId _controlled_entity_id;
     public:
-        EntityCreatedEvent(const EntityId& entity_id) : _controlled_entity_id(entity_id) {}
+        explicit EntityCreatedEvent(const EntityId& entity_id) : _controlled_entity_id(entity_id) {}
         inline EntityId get_entity_id() const { return _controlled_entity_id; }
         static EntityCreatedEvent::s_ptr create(const EntityId& id);
     private:
@@ -134,28 +134,22 @@ namespace ZeroEngine {
         MoveEntityEvent() {}
     };
 
-    //
+    // ------------------
     // AttachProcessEvent
-    //
+    // ------------------
 
     // Used for sending a process to be attached to the game logic from the game view
     class AttachProcessEvent : public BaseEventData {
+    DECLARE_EVENT_METHODS(AttachProcessEvent)
+
     private:
         Process::ptr _process;
     public:
-        typedef std::shared_ptr<AttachProcessEvent> ptr;
-        static const EventType type;
-    public:
-        inline explicit AttachProcessEvent(Process::ptr process) : _process(process) {}
-        IEventDataPtr copy() const override;
-        inline const EventType& get_event_type() const override { return type; }
-        inline StringRepr to_string() const override { return "AttachProcessEvent"; }
-        static AttachProcessEvent::ptr create(Process::ptr process);
-        static AttachProcessEvent::ptr cast(IEventDataPtr);
+        explicit AttachProcessEvent(Process::ptr process) : _process(process) {}
+        static AttachProcessEvent::s_ptr create(Process::ptr process);
         inline Process::ptr get_process() const { return _process; }
     private:
         inline AttachProcessEvent() {}
-        inline AttachProcessEvent(const AttachProcessEvent&) {}
     };
 
     // ----------------------------------------

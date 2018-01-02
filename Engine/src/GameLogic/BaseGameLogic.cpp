@@ -198,7 +198,7 @@ namespace ZeroEngine {
 
     // NOT REGISTERED
     void BaseGameLogic::attach_process_event_delegate(IEventDataPtr event_data) {
-        AttachProcessEvent::ptr data = AttachProcessEvent::cast(event_data);
+        AttachProcessEvent::s_ptr data = AttachProcessEvent::cast(event_data);
         _process_manager->attach_process(data->get_process());
     }
 
