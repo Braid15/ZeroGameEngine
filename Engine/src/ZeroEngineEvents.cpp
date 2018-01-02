@@ -211,5 +211,20 @@ namespace ZeroEngine {
         assert(data_ptr->is_type(type));
         return std::static_pointer_cast<DrawLineEvent>(data_ptr);
     }
+
+
+    DEFINE_EVENT_METHODS(TestEvent);
+
+    TestEvent::TestEvent() {
+        std::cout << "Created\n";
+    }
+
+    TestEvent::s_ptr TestEvent::create() {
+        return TestEvent::s_ptr(zero_new TestEvent());
+    }
+
+    TestEvent::TestEvent(const TestEvent& other) {
+    }
+
 }
 

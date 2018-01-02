@@ -12,9 +12,40 @@ namespace ZeroEngine {
     // Convienience macros
     // -------------------
 
-    #define DEFINE_EVENT(class_name)
+    #define Q(x) #x
+    #define QUOTE(x) Q(x)
 
-    #define DECLARE_EVENT(class_name)
+    // @NOTE: This does not declare a static create method
+    // since it doesn't know the parameters.
+    #define DECLARE_EVENT_METHODS(class_name)                                       \
+    public:                                                                         \
+        typedef std::shared_ptr<class_name> s_ptr;                                  \
+        static const EventType type;                                                \
+        IEventDataPtr copy() const override;                                        \
+        inline const EventType& get_event_type() const override { return type; }    \
+        inline StringRepr to_string() const override { return QUOTE(class_name); }  \
+        static class_name::s_ptr cast(IEventDataPtr);                               \
+    private:                                                                        \
+        class_name(const class_name&);                                              \
+        
+
+    // @NOTE: This does not define copy ctor.
+    #define DEFINE_EVENT_METHODS(class_name)                          \
+    const EventType class_name::type = STRING_ID(QUOTE(class_name));  \
+                                                                      \
+    IEventDataPtr class_name::copy() const {                          \
+        return IEventDataPtr(zero_new class_name(*this));             \
+    }                                                                 \
+                                                                      \
+    class_name::s_ptr class_name::cast(IEventDataPtr data_ptr) {      \
+        assert(data_ptr->is_type(type));                              \
+        return std::static_pointer_cast<class_name>(data_ptr);        \
+    }
+    
+        
+        
+    // Use copy ctor to handle static event copy methods
+
 
     #define REGISTER_EVENT_LISTENER(delegate, type) \
         ZeroEventManager::register_listener(fastdelegate::MakeDelegate(this, (delegate)), (type));

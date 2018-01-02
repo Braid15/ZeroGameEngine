@@ -1,25 +1,30 @@
 #include "ZeroEngine.h"
 
 #include "../test/TestApp.h"
+
+#ifdef _DEBUG
 #include <vld.h>
+#endif
+
+
 using namespace ZeroEngine;
 
 static void run_game();
 
 int main(int argc, char* args[]) {
 
-    #ifdef _DEBUG
-    //_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-    #endif
+    // #ifdef _DEBUG
+    // _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+    // #endif
 
 
     run_game();
 
     system("PAUSE");
 
-    #ifdef _DEBUG
-    //_CrtDumpMemoryLeaks();
-    #endif
+    // #ifdef _DEBUG
+    // _CrtDumpMemoryLeaks();
+    // #endif
 
     return 0;
 }

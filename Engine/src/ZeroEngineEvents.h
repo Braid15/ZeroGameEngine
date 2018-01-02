@@ -269,4 +269,13 @@ namespace ZeroEngine {
         inline DrawLineEvent(const DrawLineEvent&) {}
     };
 
+
+    class TestEvent : public BaseEventData {
+    DECLARE_EVENT_METHODS(TestEvent)
+
+    public:
+        TestEvent();
+        static TestEvent::s_ptr create();
+    };
+
 }
