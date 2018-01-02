@@ -180,7 +180,7 @@ namespace ZeroEngine {
 
     void BaseGameLogic::request_create_entity_event_delegate(IEventDataPtr event_data) {
         if (!_is_proxy) {
-            RequestCreateEntityEvent::ptr data = RequestCreateEntityEvent::cast(event_data);
+            RequestCreateEntityEvent::s_ptr data = RequestCreateEntityEvent::cast(event_data);
             EntityPtr entity;
             if (data->get_resource_path().empty()) {
                 entity = create_entity();

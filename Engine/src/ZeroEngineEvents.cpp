@@ -31,28 +31,22 @@ namespace ZeroEngine {
         _controlled_entity_id = other.get_entity_id();
     }
 
-
     // ------------------------
     // RequestCreateEntityEvent
     // ------------------------
 
-    const EventType RequestCreateEntityEvent::type = STRING_ID("RequestCreateEntityEvent");
+    DEFINE_EVENT_METHODS(RequestCreateEntityEvent);
 
-    IEventDataPtr RequestCreateEntityEvent::copy() const {
-        return IEventDataPtr(zero_new RequestCreateEntityEvent(_resource_path));
+    RequestCreateEntityEvent::s_ptr RequestCreateEntityEvent::create() {
+        return RequestCreateEntityEvent::s_ptr(zero_new RequestCreateEntityEvent());
     }
 
-    RequestCreateEntityEvent::ptr RequestCreateEntityEvent::create() {
-        return RequestCreateEntityEvent::ptr(zero_new RequestCreateEntityEvent());
+    RequestCreateEntityEvent::s_ptr RequestCreateEntityEvent::create(const char* path) {
+        return RequestCreateEntityEvent::s_ptr(zero_new RequestCreateEntityEvent(path));
     }
 
-    RequestCreateEntityEvent::ptr RequestCreateEntityEvent::create(const char* path) {
-        return RequestCreateEntityEvent::ptr(zero_new RequestCreateEntityEvent(path));
-    }
-
-    RequestCreateEntityEvent::ptr RequestCreateEntityEvent::cast(IEventDataPtr data_ptr) {
-        assert(data_ptr->get_event_type() == RequestCreateEntityEvent::type);
-        return std::static_pointer_cast<RequestCreateEntityEvent>(data_ptr);
+    RequestCreateEntityEvent::RequestCreateEntityEvent(const RequestCreateEntityEvent& other) {
+        _resource_path = other.get_resource_path();
     }
 
     // ------------------

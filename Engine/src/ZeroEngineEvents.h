@@ -46,27 +46,23 @@ namespace ZeroEngine {
         EntityDestroyedEvent() {}
     };
 
-    //
+    // ------------------------
     // RequestCreateEntityEvent
-    //
+    // ------------------------
 
     class RequestCreateEntityEvent : public BaseEventData {
-    public:
-        typedef std::shared_ptr<RequestCreateEntityEvent> ptr;
-        static const EventType type;
-        const char* _resource_path;
-    public:
-        inline RequestCreateEntityEvent() : _resource_path(nullptr) { }
-        inline RequestCreateEntityEvent(const char* path) : _resource_path(path) {}
+    DECLARE_EVENT_METHODS(RequestCreateEntityEvent)
 
-        inline std::string get_resource_path() const { return std::string(_resource_path); }
+    private:
+        std::string _resource_path;
+    public:
+        inline RequestCreateEntityEvent() : _resource_path("") { }
+        inline RequestCreateEntityEvent(const char* path) : _resource_path(std::string(path)) {}
 
-        IEventDataPtr copy() const override;
-        inline const EventType& get_event_type() const override { return type; }
-        inline StringRepr to_string() const override { return "RequestCreateEntityEvent"; }
-        static RequestCreateEntityEvent::ptr create();
-        static RequestCreateEntityEvent::ptr create(const char* path);
-        static RequestCreateEntityEvent::ptr cast(IEventDataPtr);
+        inline std::string get_resource_path() const { return _resource_path; }
+
+        static RequestCreateEntityEvent::s_ptr create();
+        static RequestCreateEntityEvent::s_ptr create(const char* path);
     };
 
     //
