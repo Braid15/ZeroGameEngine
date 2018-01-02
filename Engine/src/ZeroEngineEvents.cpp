@@ -7,19 +7,14 @@ namespace ZeroEngine {
     // RequestDestroyEntityEvent
     // -------------------------
 
-    const EventType RequestDestroyEntityEvent::type = STRING_ID("RequestDestroyEntityEvent");
+    DEFINE_EVENT_METHODS(RequestDestroyEntityEvent);
 
-    IEventDataPtr RequestDestroyEntityEvent::copy() const {
-        return IEventDataPtr(zero_new RequestDestroyEntityEvent(_controlled_entity_id));
+    RequestDestroyEntityEvent::s_ptr RequestDestroyEntityEvent::create(const EntityId& id) {
+        return RequestDestroyEntityEvent::s_ptr(zero_new RequestDestroyEntityEvent(id));
     }
 
-    RequestDestroyEntityEvent::ptr RequestDestroyEntityEvent::create(const EntityId& id) {
-        return RequestDestroyEntityEvent::ptr(zero_new RequestDestroyEntityEvent(id));
-    }
-
-    RequestDestroyEntityEvent::ptr RequestDestroyEntityEvent::cast(IEventDataPtr data_ptr) {
-        assert(data_ptr->get_event_type() == RequestDestroyEntityEvent::type);
-        return std::static_pointer_cast<RequestDestroyEntityEvent>(data_ptr);
+    RequestDestroyEntityEvent::RequestDestroyEntityEvent(const RequestDestroyEntityEvent& other) {
+        _controlled_entity_id = other.get_entity_id();
     }
 
     // --------------------
@@ -211,20 +206,5 @@ namespace ZeroEngine {
         assert(data_ptr->is_type(type));
         return std::static_pointer_cast<DrawLineEvent>(data_ptr);
     }
-
-
-    DEFINE_EVENT_METHODS(TestEvent);
-
-    TestEvent::TestEvent() {
-        std::cout << "Created\n";
-    }
-
-    TestEvent::s_ptr TestEvent::create() {
-        return TestEvent::s_ptr(zero_new TestEvent());
-    }
-
-    TestEvent::TestEvent(const TestEvent& other) {
-    }
-
 }
 

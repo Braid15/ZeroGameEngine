@@ -192,7 +192,7 @@ namespace ZeroEngine {
     }
 
     void BaseGameLogic::request_destroy_entity_event_delegate(IEventDataPtr event_data) {
-        RequestDestroyEntityEvent::ptr data = RequestDestroyEntityEvent::cast(event_data);
+        RequestDestroyEntityEvent::s_ptr data = RequestDestroyEntityEvent::cast(event_data);
         destroy_entity(data->get_entity_id());
     }
 

@@ -12,24 +12,21 @@
 
 namespace ZeroEngine {
 
-    //
+    // -------------------------
     // RequestDestroyEntityEvent
-    //
+    // -------------------------
 
     class RequestDestroyEntityEvent : public BaseEventData {
+    DECLARE_EVENT_METHODS(RequestDestroyEntityEvent);
+
     private:
-        const EntityId _controlled_entity_id;
+        EntityId _controlled_entity_id;
     public:
-        typedef std::shared_ptr<RequestDestroyEntityEvent> ptr;
-        static const EventType type;
-    public:
-        inline RequestDestroyEntityEvent(const EntityId& id) : _controlled_entity_id(id) {}
-        IEventDataPtr copy() const override;
-        inline const EventType& get_event_type() const override { return type; }
-        inline StringRepr to_string() const override { return "RequestDestroyEntityEvent"; }
+        RequestDestroyEntityEvent(const EntityId& id) : _controlled_entity_id(id) {}
         inline const EntityId& get_entity_id() const { return _controlled_entity_id; }
-        static RequestDestroyEntityEvent::ptr create(const EntityId& id);
-        static RequestDestroyEntityEvent::ptr cast(IEventDataPtr);
+        static RequestDestroyEntityEvent::s_ptr create(const EntityId& id);
+    private:
+        RequestDestroyEntityEvent() {}
     };
 
     //
@@ -268,14 +265,4 @@ namespace ZeroEngine {
         inline DrawLineEvent() {}
         inline DrawLineEvent(const DrawLineEvent&) {}
     };
-
-
-    class TestEvent : public BaseEventData {
-    DECLARE_EVENT_METHODS(TestEvent)
-
-    public:
-        TestEvent();
-        static TestEvent::s_ptr create();
-    };
-
 }
