@@ -33,10 +33,6 @@ namespace ZeroEngineAppTest {
             ZeroEventManager::register_listener(
                 fastdelegate::MakeDelegate(this, &TestGameLogic::attach_process_event_delegate),
                 AttachProcessEvent::type);
-
-            ZeroEventManager::register_listener(
-                fastdelegate::MakeDelegate(this, &TestGameLogic::draw_line_event),
-                DrawLineEvent::type);
         }
 
         inline void TestGameLogic::on_unregister_event_delegates() {
@@ -44,15 +40,6 @@ namespace ZeroEngineAppTest {
                 fastdelegate::MakeDelegate(this, &TestGameLogic::attach_process_event_delegate),
                 AttachProcessEvent::type);
 
-            ZeroEventManager::unregister_listener(
-                fastdelegate::MakeDelegate(this, &TestGameLogic::draw_line_event),
-                DrawLineEvent::type);
-        }
-
-        inline void draw_line_event(IEventDataPtr event_data) {
-            DrawLineEvent::ptr data = DrawLineEvent::cast(event_data);
-            GameApp::instance()->get_human_view()->add_screen_element(IScreenElement::ptr(zero_new LineScreenElement(
-                    data->get_from_point(), data->get_to_point(), data->get_color())));
         }
     };
 

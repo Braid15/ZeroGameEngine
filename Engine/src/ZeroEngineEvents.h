@@ -163,7 +163,6 @@ namespace ZeroEngine {
 
     private:
         std::shared_ptr<IScreenElement> _screen_element;
-
     public:
         explicit ScreenElementRenderComponentCreatedEvent(std::shared_ptr<IScreenElement> element) 
             : _screen_element(element) {}
@@ -174,62 +173,22 @@ namespace ZeroEngine {
         ScreenElementRenderComponentCreatedEvent() {}
     };
 
-
     // -------------------------------------
     // ScreenElementRenderComponentDestroyed
     // -------------------------------------
 
     class ScreenElementRenderComponentDestroyedEvent : public BaseEventData {
+    DECLARE_EVENT_METHODS(ScreenElementRenderComponentDestroyedEvent)
+
     private:
         std::shared_ptr<IScreenElement> _screen_element;
     public:
-        typedef std::shared_ptr<ScreenElementRenderComponentDestroyedEvent> s_ptr;
-        static const EventType type;
-        static ScreenElementRenderComponentDestroyedEvent::s_ptr create(std::shared_ptr<IScreenElement>);
-        static ScreenElementRenderComponentDestroyedEvent::s_ptr cast(IEventDataPtr);
-
-
         explicit ScreenElementRenderComponentDestroyedEvent(std::shared_ptr<IScreenElement> element) 
             : _screen_element(element) {}
-        IEventDataPtr copy() const override;
-        inline const EventType& get_event_type() const override { return type; }
-        inline StringRepr to_string() const override { return "SpriteRendererDestroyedEvent"; }
+
+        static ScreenElementRenderComponentDestroyedEvent::s_ptr create(std::shared_ptr<IScreenElement>);
         inline std::shared_ptr<IScreenElement> get_screen_element() const { return _screen_element; }
     private:
         ScreenElementRenderComponentDestroyedEvent() {}
-        ScreenElementRenderComponentDestroyedEvent(const ScreenElementRenderComponentDestroyedEvent&) {}
-    };
-
-    //
-    // DrawPrimitiveEvent
-    //
-
-    // @TEMP:
-    // I don't really want to have to make an event just to draw a line
-    // Used to draw primitive points.
-
-    // @TODO: Change to CreateScreenElementEvent
-    class DrawLineEvent : public BaseEventData {
-    private:
-        Point<int32> _from;
-        Point<int32> _to;
-        Color _color;
-    public:
-        typedef std::shared_ptr<DrawLineEvent> ptr;
-        static const EventType type;
-    public:
-        inline explicit DrawLineEvent(Point<int32> from, Point<int32> to, Color color) : 
-            _from(from), _to(to), _color(color) {}
-        IEventDataPtr copy() const override;
-        inline const EventType& get_event_type() const override { return type; }
-        inline StringRepr to_string() const override { return "DrawLineEvent"; }
-        static DrawLineEvent::ptr create(Point<int32> from, Point<int32>, Color color);
-        static DrawLineEvent::ptr cast(IEventDataPtr);
-        inline Point<int32> get_from_point() const { return _from; }
-        inline Point<int32> get_to_point() const { return _to; }
-        inline Color get_color() const { return _color; }
-    private:
-        inline DrawLineEvent() {}
-        inline DrawLineEvent(const DrawLineEvent&) {}
     };
 }
