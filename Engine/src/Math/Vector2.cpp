@@ -42,55 +42,55 @@ namespace ZeroEngine {
         return *v1 - v2;
     }
 
-    Vector2 Vector2::scalar_multiply(const Vector2& v, const float32& scalar) {
+    Vector2 Vector2::scalar_multiply(const Vector2& v, const Float32& scalar) {
         return v * scalar;
     }
 
-    Vector2 Vector2::scalar_multiply(const Vector2* v, const float32& scalar) {
+    Vector2 Vector2::scalar_multiply(const Vector2* v, const Float32& scalar) {
         return *v * scalar;
     }
 
     Vector2 Vector2::normalize(const Vector2& v) {
-        float32 magnitude = v.get_magnitude();
-        float32 reciprocal = 1 / magnitude;
+        Float32 magnitude = v.get_magnitude();
+        Float32 reciprocal = 1 / magnitude;
         return Vector2(v.get_x() * reciprocal, v.get_y() * reciprocal);
     }
 
     Vector2 Vector2::normalize(const Vector2* v) {
-        float32 magnitude = v->get_magnitude();
-        float32 reciprocal = 1 / magnitude;
+        Float32 magnitude = v->get_magnitude();
+        Float32 reciprocal = 1 / magnitude;
         return Vector2(v->get_x() * reciprocal, v->get_y() * reciprocal);
     }
 
-    Vector2 Vector2::euler_integrate(const Vector2& cur_pos, const Vector2& cur_vel, const float32& delta) {
+    Vector2 Vector2::euler_integrate(const Vector2& cur_pos, const Vector2& cur_vel, const Float32& delta) {
         return cur_pos + (cur_vel * delta);
     }
 
-    Vector2 Vector2::euler_integrate(const Vector2* cur_pos, const Vector2* cur_vel, const float32& delta) {
+    Vector2 Vector2::euler_integrate(const Vector2* cur_pos, const Vector2* cur_vel, const Float32& delta) {
         return *cur_pos + (*cur_vel * delta);
     }
 
-    Vector2 Vector2::euler_integrate(const Vector2* cur_pos, const Vector2& cur_vel, const float32& delta) {
+    Vector2 Vector2::euler_integrate(const Vector2* cur_pos, const Vector2& cur_vel, const Float32& delta) {
         return *cur_pos + (cur_vel * delta);
     }
 
-    Vector2 Vector2::euler_integrate(const Vector2& cur_pos, const Vector2* cur_vel, const float32& delta) {
+    Vector2 Vector2::euler_integrate(const Vector2& cur_pos, const Vector2* cur_vel, const Float32& delta) {
         return cur_pos + (*cur_vel * delta);
     }
 
-    float32 Vector2::dot_product(const Vector2& v1, const Vector2& v2) {
+    Float32 Vector2::dot_product(const Vector2& v1, const Vector2& v2) {
         return (v1.get_x() * v2.get_x()) + (v1.get_y() * v2.get_y());
     }
 
-    float32 Vector2::dot_product(const Vector2* v1, const Vector2* v2) {
+    Float32 Vector2::dot_product(const Vector2* v1, const Vector2* v2) {
         return (v1->get_x() * v2->get_x()) + (v1->get_y() * v2->get_y());
     }
 
-    float32 Vector2::dot_product(const Vector2& v1, const Vector2* v2) {
+    Float32 Vector2::dot_product(const Vector2& v1, const Vector2* v2) {
         return (v1.get_x() * v2->get_x()) + (v1.get_y() * v2->get_y());
     }
 
-    float32 Vector2::dot_product(const Vector2* v1, const Vector2& v2) {
+    Float32 Vector2::dot_product(const Vector2* v1, const Vector2& v2) {
         return (v1->get_x() * v2.get_x()) + (v1->get_y() * v2.get_y());
     }
 
@@ -181,19 +181,19 @@ namespace ZeroEngine {
     // @TODO: Flag to keep track if x or y has changed so that we can cache magnitude
     // instead of calculating it every call?
     // @TODO: Test performance between the two ways to get the magnitude
-    float32 Vector2::get_magnitude() const {
+    Float32 Vector2::get_magnitude() const {
         // return Math::absolute_value(Math::square_root(Math::square(_x) + Math::square(_y)));
         return Math::square_root(Vector2::dot_product(this, this));
     }
 
     void Vector2::normalize() {
-        float32 magnitude = get_magnitude();
-        float32 reciprocal = 1 / magnitude;
+        Float32 magnitude = get_magnitude();
+        Float32 reciprocal = 1 / magnitude;
         _x *= reciprocal;
         _y *= reciprocal;
     }
 
-    float32 Vector2::get_projection(const Vector2& other) {
+    Float32 Vector2::get_projection(const Vector2& other) {
         if (other.is_unit_vector()) {
             return Vector2::dot_product(this, other);
         } else {
@@ -201,7 +201,7 @@ namespace ZeroEngine {
         }
     }
 
-    float32 Vector2::get_projection(const Vector2* other) {
+    Float32 Vector2::get_projection(const Vector2* other) {
         if (other->is_unit_vector()) {
             return Vector2::dot_product(this, other);
         } else {
@@ -251,11 +251,11 @@ namespace ZeroEngine {
         return Vector2::same_directions(this, other);
     }
 
-    float32 Vector2::get_dot_product(const Vector2& other) {
+    Float32 Vector2::get_dot_product(const Vector2& other) {
         return Vector2::dot_product(this, other);
     }
 
-    float32 Vector2::get_dot_product(const Vector2* other) {
+    Float32 Vector2::get_dot_product(const Vector2* other) {
         return Vector2::dot_product(this, other);
     }
 

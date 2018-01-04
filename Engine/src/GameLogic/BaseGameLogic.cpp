@@ -4,7 +4,7 @@
 namespace ZeroEngine {
 
     BaseGameLogic::BaseGameLogic() {
-        _physics = IPhysicsPtr(zero_new NullPhysics());
+        _physics = std::shared_ptr<IPhysics>(zero_new NullPhysics());
         _lifetime = 0;
         _entity_manager = zero_new EntityManager();
         _process_manager = zero_new ProcessManager();
@@ -117,10 +117,6 @@ namespace ZeroEngine {
         LOG_TODO("BaseGameLogic", "pos should be matrix");
     }   
 
-    void BaseGameLogic::move_entity(const EntityId& entity_id, const Vector4& pos) {
-        LOG_TODO("BaseGameLogic", "pos should be matrix");
-    }
-
     void BaseGameLogic::destroy_entity(const EntityId& entity_id) {
         // This needs to be a syncronous trigger event and it needs to happen
         // before the entity is actually destroyed.
@@ -129,7 +125,7 @@ namespace ZeroEngine {
     }
 
     void BaseGameLogic::add_game_view(IGameViewPtr view, EntityId entity_id) {
-        int32 view_id = static_cast<int32>(_game_views.size());
+        Int32 view_id = static_cast<Int32>(_game_views.size());
         _game_views.push_back(view);
         view->attach(view_id, entity_id);
         view->restore();
@@ -168,9 +164,6 @@ namespace ZeroEngine {
                 break;
             case MoveEntityEvent::VEC3:
                 move_entity(data->get_entity_id(), data->get_vec3_position());
-                break;
-            case MoveEntityEvent::VEC4:
-                move_entity(data->get_entity_id(), data->get_vec4_position());
                 break;
             default:
                 LOG_DEBUG("BaseGameLogic", "Error processing MoveEntityEvent");

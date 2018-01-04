@@ -23,7 +23,7 @@ namespace ZeroEngine {
             _game->shutdown();
             zero_delete(_game);
 
-            StringIdManager::shutdown();
+            StringIdManager::get_singleton().shutdown();
 
             // Make sure Logger is the last thing to be disposed of
             Logger::shutdown();

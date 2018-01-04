@@ -11,13 +11,13 @@
 
 namespace ZeroEngine {
 
-    extern const uint32 INVALID_PLAYER_NUMBER;
+    extern const Uint32 INVALID_PLAYER_NUMBER;
 
     class HumanView : public IGameView {
     private:
         // InputHandler
         // Audio
-        uint32 _player_number;
+        Uint32 _player_number;
         GameViewId _view_id;
         GameViewType _view_type;
         ProcessManager* _process_manager;
@@ -26,7 +26,7 @@ namespace ZeroEngine {
         std::shared_ptr<IMouseHandler> _mouse_handler;
 
         // @TEMP 
-        int32 _mouse_radius = 5;
+        Int32 _mouse_radius = 5;
 
         // process manager
         Tick _current_tick;
@@ -56,8 +56,8 @@ namespace ZeroEngine {
         inline void toggle_pause() { _is_paused = !_is_paused; }
         inline virtual void render_text() {}
         inline bool load_game() { return on_load_game(); }
-        inline uint32 get_player_number() const { return _player_number; }
-        inline void set_player_number(uint32 number) { _player_number = number; }
+        inline Uint32 get_player_number() const { return _player_number; }
+        inline void set_player_number(Uint32 number) { _player_number = number; }
         inline void set_controlled_entity_id(const EntityId id) { _controlled_entity_id = id; }
         inline const EntityId& get_controlled_entity_id() const { return _controlled_entity_id; }
         typedef std::shared_ptr<HumanView> ptr;

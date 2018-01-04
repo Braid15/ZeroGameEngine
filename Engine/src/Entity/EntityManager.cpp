@@ -98,7 +98,7 @@ namespace ZeroEngine {
         }
     }
 
-    uint32 EntityManager::StlMapEntityStorage::get_entity_count() const {
-        return static_cast<uint32>(_entities.size());
+    Uint32 EntityManager::StlMapEntityStorage::get_entity_count() const {
+        return static_cast<Uint32>(_entities.size());
     }
 }

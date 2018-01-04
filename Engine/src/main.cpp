@@ -3,8 +3,9 @@
 #include "../test/TestApp.h"
 
 #ifdef _DEBUG
-#include <vld.h>
+#include "3rdParty\VisualLeakDetector\vld.h"
 #endif
+
 
 
 using namespace ZeroEngine;

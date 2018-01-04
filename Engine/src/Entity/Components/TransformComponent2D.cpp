@@ -4,7 +4,7 @@
 namespace ZeroEngine {
 
     const char* TransformComponent2D::name = "TransformComponent2D";
-    const EntityComponentId TransformComponent2D::id = Hash::hash(TransformComponent2D::name);
+    const EntityComponentId TransformComponent2D::id = STRING_ID("TransformComponent2D");
 
 
     bool TransformComponent2D::initialize(const XmlReader& reader) {

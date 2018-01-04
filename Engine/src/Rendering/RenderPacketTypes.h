@@ -16,11 +16,11 @@ namespace ZeroEngine {
     public:
         LineRenderPacket(Vector2& start, Vector2& end, Color color) 
             : BaseRenderPacket(color), _start(start), _end(end) {}
-        LineRenderPacket(float32 x1, float32 y1, float32 x2, float32 y2, Color color);
+        LineRenderPacket(Float32 x1, Float32 y1, Float32 x2, Float32 y2, Color color);
         LineRenderPacket(Line line, Color color) : BaseRenderPacket(color),
             _start(line.get_start()), _end(line.get_end()) {}
         LineRenderPacket(const LineRenderPacket&);
-        LineRenderPacket(Point<int32> start, Point<int32> end, Color color);
+        LineRenderPacket(Point<Int32> start, Point<Int32> end, Color color);
 
 
         void on_render(IPrimitiveRenderer&) override;

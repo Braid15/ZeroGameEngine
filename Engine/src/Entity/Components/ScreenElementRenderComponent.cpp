@@ -2,11 +2,12 @@
 #include "../../Utils/Hash.h"
 #include "../../Events/EventManager.h"
 #include "../../ZeroEngineEvents.h"
+#include "../../Utils/StringId.h"
 
 namespace ZeroEngine {
 
     const char* ScreenElementRenderComponent::name = "ScreenElementRenderComponent";
-    const EntityComponentId ScreenElementRenderComponent::id = Hash::hash(ScreenElementRenderComponent::name);
+    const EntityComponentId ScreenElementRenderComponent::id = STRING_ID("ScreenElementRenderComponent");
 
     EntityComponent* ScreenElementRenderComponent::create() {
         return zero_new ScreenElementRenderComponent();

@@ -158,6 +158,8 @@ namespace ZeroEngine {
 
     class IScreenElement;
 
+    // @TODO: Change name to RenderComponentCreatedEvent
+
     class ScreenElementRenderComponentCreatedEvent : public BaseEventData {
     DECLARE_EVENT_METHODS(ScreenElementRenderComponentCreatedEvent)
 
@@ -176,6 +178,9 @@ namespace ZeroEngine {
     // -------------------------------------
     // ScreenElementRenderComponentDestroyed
     // -------------------------------------
+
+    // @TODO: THis is uneeded. Can just use EntityDestroyedEvent and then
+    // delete the render component by searching via EntityId
 
     class ScreenElementRenderComponentDestroyedEvent : public BaseEventData {
     DECLARE_EVENT_METHODS(ScreenElementRenderComponentDestroyedEvent)

@@ -96,7 +96,7 @@
     <IntDir>$(SolutionDir)Engine\obj\debug\x64\</IntDir>
     <OutDir>$(SolutionDir)Engine\bin\x64\</OutDir>
     <TargetName>ZeroEngine_x64_d</TargetName>
-    <IncludePath>$(ProjectDir)src\3rdParty\SDL;$(ProjectDir)src\*;$(ProjectDir)src\3rdParty\TinyXML;$(IncludePath)</IncludePath>
+    <IncludePath>$(IncludePath);$(ProjectDir)src\3rdParty\SDL;$(ProjectDir)src\*;$(ProjectDir)src\3rdParty\TinyXML;</IncludePath>
     <SourcePath>$(ProjectDir)src\*;$(SourcePath)</SourcePath>
     <LibraryPath>$(ProjectDir)libs\x64\;$(LibraryPath)</LibraryPath>
     <ExecutablePath>$(ProjectDir)bin\x64\;$(ExecutablePath)</ExecutablePath>
@@ -105,7 +105,7 @@
     <IntDir>$(SolutionDir)Engine\obj\debug\x86\</IntDir>
     <OutDir>$(SolutionDir)Engine\bin\x86\</OutDir>
     <TargetName>ZeroEngine_x86_d</TargetName>
-    <IncludePath>$(ProjectDir)src\3rdParty\SDL;$(ProjectDir)src\*;$(ProjectDir)src\3rdParty\TinyXML;c:\Program Files (x86)\Visual Leak Detector\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(IncludePath);$(ProjectDir)src\3rdParty\SDL;$(ProjectDir)src\*;$(ProjectDir)src\3rdParty\TinyXML;</IncludePath>
     <SourcePath>$(ProjectDir)src\*;$(SourcePath)</SourcePath>
     <LibraryPath>C:\Program Files %28x86%29\Visual Leak Detector\lib\Win32;$(ProjectDir)libs\x86;$(LibraryPath)</LibraryPath>
     <ExecutablePath>$(ProjectDir)bin\x86\;$(ExecutablePath)</ExecutablePath>
@@ -125,7 +125,8 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_X86;%(PreprocessorDefinitions);</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>S:\projects\Game-Engines\ZeroGameEngine\DllTest1\DllTest1;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
       <PreprocessToFile>false</PreprocessToFile>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
@@ -147,6 +148,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_X64;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessToFile>false</PreprocessToFile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -163,6 +165,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_X86;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessToFile>false</PreprocessToFile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -180,6 +183,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_X64;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessToFile>false</PreprocessToFile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -209,9 +213,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\AtomicTypes.h" />
+    <ClInclude Include="src\Entity\Components\PhysicsComponent.h" />
     <ClInclude Include="src\Entity\Components\ScreenElementRenderComponent.h" />
     <ClInclude Include="src\Entity\Components\SpriteRenderComponent.h" />
     <ClInclude Include="src\Entity\Components\TransformComponent2D.h" />
+    <ClInclude Include="src\Entity\EntityId.h" />
     <ClInclude Include="src\Framework\ITexture.h" />
     <ClInclude Include="src\Framework\SdlFramework\SdlTexture.h" />
     <ClInclude Include="src\GameView\Sprite.h" />
@@ -221,6 +227,7 @@
     <ClInclude Include="src\Math\Vector2.h" />
     <ClInclude Include="src\Math\Vector3.h" />
     <ClInclude Include="src\Math\Vector4.h" />
+    <ClInclude Include="src\Physics\NullPhysics.h" />
     <ClInclude Include="src\Rendering\IPrimitiveRenderer.h" />
     <ClInclude Include="src\Memory\Memory.h" />
     <ClInclude Include="src\Logger\Logging.h" />
@@ -302,6 +309,7 @@
     <ClCompile Include="src\AppMsg\AppMsg.cpp" />
     <ClCompile Include="src\AppMsg\AppMsgArgs.cpp" />
     <ClCompile Include="src\AppMsg\AppMsgFactory.cpp" />
+    <ClCompile Include="src\Entity\Components\PhysicsComponent.cpp" />
     <ClCompile Include="src\Entity\Components\ScreenElementRenderComponent.cpp" />
     <ClCompile Include="src\Entity\Components\SpriteRenderComponent.cpp" />
     <ClCompile Include="src\Entity\Components\TransformComponent2D.cpp" />

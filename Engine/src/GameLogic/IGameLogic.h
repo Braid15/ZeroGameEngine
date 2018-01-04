@@ -42,7 +42,6 @@ namespace ZeroEngine {
 
         virtual void move_entity(const EntityId& entity_id, const Vector2& pos) = 0;
         virtual void move_entity(const EntityId& entity_id, const Vector3& pos) = 0;
-        virtual void move_entity(const EntityId& entity_id, const Vector4& pos) = 0;
 
         virtual void destroy_entity(const EntityId& entity_id) = 0;
         virtual void add_game_view(IGameViewPtr view, EntityId entity_id=INVALID_ENTITY_ID) = 0;

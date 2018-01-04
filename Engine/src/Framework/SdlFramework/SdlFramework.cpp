@@ -9,7 +9,7 @@ namespace ZeroEngine {
             success = false;
         }
 
-        int32 image_flags = IMG_INIT_PNG;
+        Int32 image_flags = IMG_INIT_PNG;
         if (!(IMG_Init(image_flags) & image_flags)) {
             std::cout << "SDL_Error: " << IMG_GetError() << std::endl;
             success = false;
@@ -64,7 +64,7 @@ namespace ZeroEngine {
         return SDL_GetTicks();
     }
 
-    IWindow::ptr SdlFramework::create_window(std::string title, Point<int32> size) {
+    IWindow::ptr SdlFramework::create_window(std::string title, Point<Int32> size) {
         _sdl_window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_UNDEFINED,
                                    SDL_WINDOWPOS_UNDEFINED, size.get_x(), 
                                    size.get_y(), SDL_WINDOW_SHOWN | SDL_WINDOW_ALLOW_HIGHDPI

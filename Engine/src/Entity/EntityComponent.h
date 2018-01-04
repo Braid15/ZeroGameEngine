@@ -3,10 +3,12 @@
 #include "../ZeroEngineStd.h"
 #include "../Time.h"
 #include "../Utils/Xml/XmlReader.h"
+#include "../Utils/StringId.h"
+#include "EntityId.h"
 
 namespace ZeroEngine {
 
-    typedef uint32 EntityComponentId;
+    typedef StringId EntityComponentId;
     extern const EntityComponentId INVALID_ENTITY_COMPONENT_ID;
 
     class XmlWriter;
@@ -35,7 +37,8 @@ namespace ZeroEngine {
 
         inline virtual void update(Tick delta_time) {}
     protected:
-        inline WeakEntityPtr get_owner() const { return WeakEntityPtr(_owner); }
+        //inline WeakEntityPtr get_owner() const { return WeakEntityPtr(_owner); }
+        inline std::shared_ptr<Entity> get_owner() const { return _owner; }
     private:
         inline void set_owner(EntityPtr owner) { _owner = owner; }
         virtual void on_write_xml(const XmlWriter& writer) = 0;

@@ -3,11 +3,11 @@
 #include "../ZeroEngineStd.h"
 #include "../Time.h"
 #include "EntityComponent.h"
+#include "EntityId.h"
 #include "../Utils/Xml/XmlReader.h"
 
 namespace ZeroEngine {
 
-    typedef uint32 EntityId;
     extern const EntityId INVALID_ENTITY_ID;
 
     class EntityFactory;

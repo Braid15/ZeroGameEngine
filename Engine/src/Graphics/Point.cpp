@@ -11,13 +11,13 @@ namespace ZeroEngine {
      }
 
      template<>
-     inline Point<float32>::Point() {
+     inline Point<Float32>::Point() {
          _x = 0.0f;
          _y = 0.0f;
      }
 
      template <>
-     inline Point<float64>::Point() {
+     inline Point<Float64>::Point() {
          _x = 0.0;
          _y = 0.0;
      }
@@ -159,13 +159,13 @@ namespace ZeroEngine {
      }
 
      template <>
-     inline void Point<float32>::reset() {
+     inline void Point<Float32>::reset() {
          _x = 0.0f;
          _y = 0.0f;
      }
 
      template <>
-     inline void Point<float64>::reset() {
+     inline void Point<Float64>::reset() {
          _x = 0.0;
          _y = 0.0;
      }
@@ -176,87 +176,87 @@ namespace ZeroEngine {
      }
 
      template <>
-     inline bool Point<float32>::is_zero() const {
+     inline bool Point<Float32>::is_zero() const {
          return _x == 0.0f && _y == 0.0f;
      }
 
      template <>
-     inline bool Point<float64>::is_zero() const {
+     inline bool Point<Float64>::is_zero() const {
          return _x == 0.0 && _y == 0.0;
      }
 
      template <>
-     inline StringRepr Point<float32>::to_string() const {
+     inline StringRepr Point<Float32>::to_string() const {
          return "Point<f32>";
      }
 
      template <>
-     inline StringRepr Point<int32>::to_string() const {
+     inline StringRepr Point<Int32>::to_string() const {
          return "Point<i32>";
      }
 
      template <>
-     inline StringRepr Point<float64>::to_string() const {
+     inline StringRepr Point<Float64>::to_string() const {
          return "Point<f64>";
      }
 
      template <>
-     inline StringRepr Point<int64>::to_string() const {
+     inline StringRepr Point<Int64>::to_string() const {
          return "Point<i64>";
      }
 
      template<>
-     inline StringRepr Point<uint8>::to_string() const {
+     inline StringRepr Point<Uint8>::to_string() const {
         return "Point<u8>";
      }
 
     template<>
-    inline StringRepr Point<uint16>::to_string() const {
+    inline StringRepr Point<Uint16>::to_string() const {
         return "Point<u16>";
     }
 
     template<>
-    inline StringRepr Point<uint32>::to_string() const {
+    inline StringRepr Point<Uint32>::to_string() const {
         return "Point<u32>";
     }
 
     template<>
-    inline StringRepr Point<uint64>::to_string() const {
+    inline StringRepr Point<Uint64>::to_string() const {
         return "Point<u64>";
     }
 
     template<>
-    inline StringRepr Point<int8>::to_string() const {
+    inline StringRepr Point<Int8>::to_string() const {
         return "Point<i8>";
     }
 
     template<>
-    inline StringRepr Point<int16>::to_string() const {
+    inline StringRepr Point<Int16>::to_string() const {
         return "Point<i16>";
     }
 
 
-    template class Point<int8>;
-    template class Point<int16>;
-    template class Point<int32>;
-    template class Point<int64>;
+    template class Point<Int8>;
+    template class Point<Int16>;
+    template class Point<Int32>;
+    template class Point<Int64>;
 
-    template class Point<uint8>;
-    template class Point<uint16>;
-    template class Point<uint32>;
-    template class Point<uint64>;
+    template class Point<Uint8>;
+    template class Point<Uint16>;
+    template class Point<Uint32>;
+    template class Point<Uint64>;
 
-    template class Point<float32>;
-    template class Point<float64>;
+    template class Point<Float32>;
+    template class Point<Float64>;
 
 
     #ifdef _DEBUG
     namespace PointUnitTest {
 
         extern void run() {
-            Point<int64> point1;
+            Point<Int64> point1;
             std::cout << point1 << std::endl;
-            Point<float32> point2 = point1.convert<float32>();
+            Point<Float32> point2 = point1.convert<Float32>();
             std::cout << point2 << std::endl;
         }
     }

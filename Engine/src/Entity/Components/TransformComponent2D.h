@@ -21,7 +21,7 @@ namespace ZeroEngine {
 
         bool initialize(const XmlReader&) override;
         void post_initialize() override;
-        inline const char* get_name() const override {return name; }
+        inline const char* get_name() const override { return name; }
         inline StringRepr to_string() const { return "TransformComponent2D"; }
 
         inline const EntityComponentId& get_id() const override { return id; }

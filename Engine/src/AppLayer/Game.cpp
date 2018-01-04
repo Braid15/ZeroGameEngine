@@ -7,10 +7,12 @@ namespace ZeroEngine {
     GameApp* Game::_app_instance = nullptr;
 
     Tick Game::get_ticks() {
+        assert(_app_instance);
         return _app_instance->get_ticks();
     }
 
     IRenderer::s_ptr Game::get_renderer() {
+        assert(_app_instance);
         LOG_TODO("Game", "Provide different interface for client code to interact with renderer");
         return _app_instance->get_renderer();
     }
@@ -23,11 +25,18 @@ namespace ZeroEngine {
         }
     }
 
-    uint32 Game::get_entity_count() {
+    std::shared_ptr<IPhysics> Game::get_physics() {
+        assert(_app_instance);
+        return _app_instance->get_game_logic()->get_physics();
+    }
+
+    Uint32 Game::get_entity_count() {
+        assert(_app_instance);
         return _app_instance->get_game_logic()->get_entity_count();
     }
 
     std::weak_ptr<Entity> Game::get_entity(const EntityId& id) {
+        assert(_app_instance);
         return _app_instance->get_game_logic()->get_entity(id);
     }
 }

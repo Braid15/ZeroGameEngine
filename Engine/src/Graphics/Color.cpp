@@ -2,10 +2,10 @@
 
 namespace ZeroEngine {
 
-    const uint32 Color::_color_val_max = 255;
-    const uint32 Color::_color_val_min = 0;
+    const Uint32 Color::_color_val_max = 255;
+    const Uint32 Color::_color_val_min = 0;
 
-    Color::Color(const uint32& hex_color) {
+    Color::Color(const Uint32& hex_color) {
         LOG_TODO("Color", "THIS ASSUMES LITTLE-ENDIAN");
         convert_from_hex(hex_color);
     }
@@ -24,7 +24,7 @@ namespace ZeroEngine {
         _alpha = other.get_alpha();
     }
 
-    Color::Color(const uint32& r, const uint32& g, const uint32& b, const uint32& a) {
+    Color::Color(const Uint32& r, const Uint32& g, const Uint32& b, const Uint32& a) {
         set_red(r);
         set_green(g);
         set_blue(b);

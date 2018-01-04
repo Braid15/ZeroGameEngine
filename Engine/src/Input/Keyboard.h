@@ -28,7 +28,7 @@ namespace ZeroEngine {
     // can get this data at anypoint by calling this class
     class Keyboard {
     private:
-        static std::array<KeyState, static_cast<int32>(Key::end_enum)> _keyboard_state;
+        static std::array<KeyState, static_cast<Int32>(Key::end_enum)> _keyboard_state;
         // Keymod states
     public:
         inline ~Keyboard() {}

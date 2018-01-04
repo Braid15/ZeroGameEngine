@@ -7,7 +7,7 @@
 namespace ZeroEngine {
 
     const char* SpriteRenderComponent::name = "SpriteRenderComponent";
-    const EntityComponentId SpriteRenderComponent::id = Hash::hash(SpriteRenderComponent::name);
+    const EntityComponentId SpriteRenderComponent::id = STRING_ID("SpriteRenderComponent");
 
     EntityComponent* SpriteRenderComponent::create() {
         return zero_new SpriteRenderComponent();
@@ -30,14 +30,13 @@ namespace ZeroEngine {
     void SpriteRenderComponent::update(Tick delta_time) {
         LOG_TODO("SpriteRenderComponent", "This should be done via events maybe??");
         LOG_TODO("SpriteRenderComponent", "This functionality should be in ScreenElementRenderComponent");
-        auto owner = get_owner().lock();
-        auto component = owner->get_component<TransformComponent2D>(TransformComponent2D::id).lock();
+        auto component = get_owner()->get_component<TransformComponent2D>(TransformComponent2D::id).lock();
         if (component) {
             if (component->get_position() != _sprite->get_position()) {
                 _sprite->set_position(component->get_position());
             }
         } else {
-            LOG_DEBUG("SpriteRenderComponent", "Error finding TransformComponent2D on actor " + std::string(owner->get_name()));
+            LOG_DEBUG("SpriteRenderComponent", "Error finding TransformComponent2D on actor " + std::string(get_owner()->get_name()));
         }
     }
 

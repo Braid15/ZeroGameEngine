@@ -330,6 +330,15 @@
     <ClInclude Include="src\Utils\StringId.h">
       <Filter>Source\Utils</Filter>
     </ClInclude>
+    <ClInclude Include="src\Entity\Components\PhysicsComponent.h">
+      <Filter>Source\Entity\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\EntityId.h">
+      <Filter>Source\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physics\NullPhysics.h">
+      <Filter>Source\Physics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Logger\BaseLogger.cpp">
@@ -340,9 +349,6 @@
     </ClCompile>
     <ClCompile Include="src\Graphics\Point.cpp">
       <Filter>Source\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="src\main.cpp">
-      <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="src\Framework\AFramework.cpp">
       <Filter>Source\Framework</Filter>
@@ -490,6 +496,12 @@
     </ClCompile>
     <ClCompile Include="src\Utils\StringId.cpp">
       <Filter>Source\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\Components\PhysicsComponent.cpp">
+      <Filter>Source\Entity\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp">
+      <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

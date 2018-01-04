@@ -38,13 +38,13 @@ namespace ZeroEngine {
         return true;
     }
 
-    int32 TinyXmlReaderImpl::get_attribute_count() const {
+    Int32 TinyXmlReaderImpl::get_attribute_count() const {
         if (!_current_node) return 0;
 
         assert(_current_node->Type() == TiXmlNode::TINYXML_ELEMENT);
         TiXmlElement* element = dynamic_cast<TiXmlElement*>(_current_node);
         TiXmlAttribute* attribute = element->FirstAttribute();
-        int32 count = 0;
+        Int32 count = 0;
         while (attribute) {
             attribute = attribute->Next();
             count++;
@@ -89,8 +89,8 @@ namespace ZeroEngine {
         return "";
     }
 
-    float32 TinyXmlReaderImpl::get_attribute_value_as_f32(const char* name) const {
-        float64 ret_val = 0.0;
+    Float32 TinyXmlReaderImpl::get_attribute_value_as_f32(const char* name) const {
+        Float64 ret_val = 0.0;
         if (_current_node) {
             assert(_current_node->Type() == TiXmlNode::TINYXML_ELEMENT);
             const TiXmlElement* element = dynamic_cast<TiXmlElement*>(_current_node);
@@ -98,15 +98,15 @@ namespace ZeroEngine {
                 element->Attribute(name, &ret_val);
             }
         }
-        return (float32)ret_val;
+        return (Float32)ret_val;
     }
 
-    const char* TinyXmlReaderImpl::get_attribute_value(const int32 index) const {
+    const char* TinyXmlReaderImpl::get_attribute_value(const Int32 index) const {
         if (_current_node) {
             assert(_current_node->Type() == TiXmlNode::TINYXML_ELEMENT);
             TiXmlElement* element = dynamic_cast<TiXmlElement*>(_current_node);
             TiXmlAttribute* attribute = element->FirstAttribute();
-            int32 current_index = 0;
+            Int32 current_index = 0;
             while (attribute && current_index != index) {
                 attribute = attribute->Next();
                 current_index++;
@@ -153,12 +153,12 @@ namespace ZeroEngine {
         return true;
     }
 
-    const char* TinyXmlReaderImpl::get_attribute_name(const int32 index) const {
+    const char* TinyXmlReaderImpl::get_attribute_name(const Int32 index) const {
         if (_current_node) {
             assert(_current_node->Type() == TiXmlNode::TINYXML_ELEMENT);
             TiXmlElement* element = dynamic_cast<TiXmlElement*>(_current_node);
             TiXmlAttribute* attribute = element->FirstAttribute();
-            int32 count = 0;
+            Int32 count = 0;
             while (attribute) {
                 if (count == index) {
                     return attribute->Name();

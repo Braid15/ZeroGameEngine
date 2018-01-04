@@ -47,16 +47,16 @@ namespace ZeroEngineAppTest {
     private:
         Color _color;
         bool _drawing;
-        Point<int32> _start;
-        Point<int32> _end;
+        Point<Int32> _start;
+        Point<Int32> _end;
 
-        uint32 _blue = 0x0000FFFF;
-        uint32 _red = 0xFF0000FF;
-        uint32 _green = 0x00FF00FF;
+        Uint32 _blue = 0x0000FFFF;
+        Uint32 _red = 0xFF0000FF;
+        Uint32 _green = 0x00FF00FF;
 
-        uint32 _colors[3] = {_blue, _red, _green };
+        Uint32 _colors[3] = {_blue, _red, _green };
 
-        uint32 _cur_index;
+        Uint32 _cur_index;
 
         std::list<LineRenderPacket::s_ptr> _lines;
 
@@ -77,11 +77,11 @@ namespace ZeroEngineAppTest {
             }
         }
 
-        void draw_start(Point<int32> start) {
+        void draw_start(Point<Int32> start) {
             _start = start;
         }
 
-        void draw_end(Point<int32> end) {
+        void draw_end(Point<Int32> end) {
             _end = end;
 
             // @TODO: I want this to provide a different interface than the IRenderer interface
@@ -93,7 +93,7 @@ namespace ZeroEngineAppTest {
         }
 
         void remove_last_line() {
-            uint32 size = static_cast<uint32>(_lines.size());
+            Uint32 size = static_cast<Uint32>(_lines.size());
             if (size > 0) {
                 LineRenderPacket::s_ptr line = _lines.back();
                 _lines.pop_back();
@@ -166,11 +166,11 @@ namespace ZeroEngineAppTest {
             return true;
         }
 
-        inline bool on_mouse_move(const Point<int32> pos, const int32 radius) override {
+        inline bool on_mouse_move(const Point<Int32> pos, const Int32 radius) override {
             return false;
         }
 
-        inline bool on_button_down(const Point<int32> pos, const int32 radius, const MouseButton& button) override {
+        inline bool on_button_down(const Point<Int32> pos, const Int32 radius, const MouseButton& button) override {
             // In actuality there should be draw start and draw end events which will be handled by the game logic
             if (button == MouseButton::left) {
                 pen.draw_start(pos);
@@ -178,7 +178,7 @@ namespace ZeroEngineAppTest {
             return true;
         }
 
-        inline bool on_button_up(const Point<int32> pos, const int32 radius, const MouseButton& button) override {
+        inline bool on_button_up(const Point<Int32> pos, const Int32 radius, const MouseButton& button) override {
             if (button == MouseButton::left) {
                 pen.draw_end(pos);
             }

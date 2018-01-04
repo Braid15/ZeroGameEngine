@@ -8,7 +8,7 @@ namespace ZeroEngine {
 
     enum class Key : unsigned char;
 
-    enum class KeyState : int8 {
+    enum class KeyState : Int8 {
         null = -1,
         released = 0,
         pressed = 1
@@ -67,7 +67,7 @@ namespace ZeroEngine {
         return os;
     }
 
-    typedef std::array<KeyState, static_cast<int32>(KeyMod::end)> KeyModStateArray;
+    typedef std::array<KeyState, static_cast<Int32>(KeyMod::end)> KeyModStateArray;
 
     // @TODO: Make this completely equal to ascii values
     enum class Key : unsigned char {
@@ -199,8 +199,8 @@ namespace ZeroEngine {
     extern bool Key_is(const Key& key1, const Key& key2);
     extern bool Key_is_numeric(const Key& key);
 
-    extern const uint32 INVALID_NUMERIC_KEY;
-    extern uint32 Key_get_numeric_value(const Key& key);
+    extern const Uint32 INVALID_NUMERIC_KEY;
+    extern Uint32 Key_get_numeric_value(const Key& key);
 
     extern bool Key_is_alpha(const Key& key);
     extern bool Key_is_alpha_numeric(const Key& key);

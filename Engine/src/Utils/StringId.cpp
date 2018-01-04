@@ -3,11 +3,14 @@
 
 namespace ZeroEngine {
 
-    std::map<StringId, const char*> StringIdManager::_string_table;
+    StringIdManager& StringIdManager::get_singleton() {
+        static StringIdManager singleton;
+        return singleton;
+    }
 
     StringId StringIdManager::intern_string(const char* str) {
-        std::cout << &_string_table << "\n";
         StringId id = Hash::hash(str);
+
         std::map<StringId, const char*>::iterator it = _string_table.find(id);
 
         if (it == _string_table.end()) {

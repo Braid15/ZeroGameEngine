@@ -7,9 +7,9 @@ namespace ZeroEngine {
     }
 
     // returns success count in upper 16 bits and fail count in lower 16 bits
-    uint32 ProcessManager::update_processes(Tick delta_time) {
-        uint16 success_count = 0;
-        uint16 fail_count = 0;
+    Uint32 ProcessManager::update_processes(Tick delta_time) {
+        Uint16 success_count = 0;
+        Uint16 fail_count = 0;
 
         ProcessList::iterator iter = _process_list.begin();
         while (iter != _process_list.end()) {

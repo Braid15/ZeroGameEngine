@@ -1,3 +1,5 @@
+* Some classes typedef their own pointer. Get rid of them and just use std::shared_ptr or std::weak_ptr
+
 * Rename to Zen
 
 * Go through all classes and make sure they are packed efficiently
