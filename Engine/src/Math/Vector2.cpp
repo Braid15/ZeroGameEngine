@@ -178,6 +178,17 @@ namespace ZeroEngine {
     // Vector2 Public Members
     // ----------------------
 
+    Vector2::Vector2() {
+        _vec[Axis::X] = 0.0f;
+        _vec[Axis::Y] = 0.0f;
+    }
+
+    Vector2::Vector2(const Float32 x, const Float32 y) {
+        _vec[Axis::X] = x;
+        _vec[Axis::Y] = y;
+    }
+
+
     // @TODO: Flag to keep track if x or y has changed so that we can cache magnitude
     // instead of calculating it every call?
     // @TODO: Test performance between the two ways to get the magnitude

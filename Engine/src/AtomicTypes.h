@@ -23,6 +23,8 @@ namespace ZeroEngine {
     typedef float          Float32;
     typedef double         Float64;
 
+    typedef Float32        Degree;
+
     // For consistency
     typedef bool           Bool;
     typedef char           Char;
