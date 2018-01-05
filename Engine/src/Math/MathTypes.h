@@ -39,9 +39,6 @@ namespace ZeroEngine {
     private:
         Float32 _vec[2];
     public:
-        friend class Vector3;
-        friend class Vector4;
-
         static constexpr Vector2& zero();
         static constexpr Vector2& unit_i(); // x-axis unit vector
         static constexpr Vector2& unit_j(); // y-axis unit vector
@@ -81,7 +78,7 @@ namespace ZeroEngine {
         Vector2 get_normalized() const;
         bool is_normalized() const;
 
-        bool has_opposite_direction_as(const Vector2&) const;
+        bool has_opposite_direction_to(const Vector2&) const;
 
         bool has_same_direction_as(const Vector2&) const;
 
@@ -107,8 +104,8 @@ namespace ZeroEngine {
         // @TODO: project_onto(const Vector2&)
 
         inline void set(const Float32 val) { _vec[Axis::x] = val; _vec[Axis::y] = val; }
-        void set(const Float32 x, const Float32 y) { _vec[Axis::x] = x; _vec[Axis::y] = y; }
-        void set(const Vector2& other) { _vec[Axis::x] = other[Axis::x]; _vec[Axis::y] = other[Axis::y]; }
+        inline void set(const Float32 x, const Float32 y) { _vec[Axis::x] = x; _vec[Axis::y] = y; }
+        inline void set(const Vector2& other) { _vec[Axis::x] = other[Axis::x]; _vec[Axis::y] = other[Axis::y]; }
 
         inline Float32 get_x() const { return _vec[Axis::x]; }
         inline void set_x(const Float32 x) { _vec[Axis::x] = x; }
@@ -131,11 +128,6 @@ namespace ZeroEngine {
     private:
         Float32 _vec[3];
     public:
-        // @TODO: See if i can remove these
-        friend class Vector2;
-        friend class Vector4;
-        friend class Matrix3x3;
-
         static constexpr Vector3& zero();
         static constexpr Vector3& unit_i(); // x-axis unit vector
         static constexpr Vector3& unit_j(); // y-axis unit vector
@@ -208,11 +200,28 @@ namespace ZeroEngine {
         Float32 get_dot_product(const Vector3&) const;
         Vector3 get_cross_product(const Vector3&) const;
 
+        void scalar_multiply(const Float32);
+        Vector3 get_scalar_product(const Float32) const;
+
         // @TODO: project_onto(const Vector2&)
 
-        void set(const Float32);
-        void set(const Float32 x, const Float32 y, const Float32 z);
-        void set(const Vector3& other);
+        inline void set(const Float32 scalar) {
+            _vec[Axis::x] = scalar;
+            _vec[Axis::y] = scalar;
+            _vec[Axis::z] = scalar;
+        }
+
+        inline void set(const Float32 x, const Float32 y, const Float32 z) {
+            _vec[Axis::x] = x;
+            _vec[Axis::y] = y;
+            _vec[Axis::z] = z;
+        }
+
+        inline void set(const Vector3& other) {
+            _vec[Axis::x] = other[Axis::x];
+            _vec[Axis::y] = other[Axis::y];
+            _vec[Axis::z] = other[Axis::z];
+        }
 
         inline Float32 get_x() const { return _vec[Axis::x]; }
         inline void set_x(const Float32 x) { _vec[Axis::x] = x; }
@@ -238,14 +247,10 @@ namespace ZeroEngine {
     private:
         Float32 _vec[4];
     public:
-        friend class Vector2;
-        friend class Vector3;
-        friend class Matrix4x4;
-
-        static const Vector4 zero;
-        static const Vector4 unit_i; // x-axis unit vector
-        static const Vector4 unit_j; // y-axis unit vector
-        static const Vector4 unit_k; // z-axis unit vector
+        static constexpr Vector4& zero();
+        static constexpr Vector4& unit_i(); // x-axis unit vector
+        static constexpr Vector4& unit_j(); // y-axis unit vector
+        static constexpr Vector4& unit_k(); // z-axis unit vector
 
         Vector4();
         explicit Vector4(const Float32);
@@ -264,7 +269,7 @@ namespace ZeroEngine {
         Float32 operator[](Int32) const;
 
         operator Vector2();
-        operator Vector4();
+        operator Vector3();
 
         friend Vector4 operator-(const Vector4&); // for negation
         friend Vector4 operator+(const Vector4&, const Vector4&);
@@ -273,15 +278,13 @@ namespace ZeroEngine {
         friend Vector4 operator*(const Float32, const Vector4&);
         friend Vector4 operator*(const Vector4&, const Matrix4x4&);
         friend Vector4 operator*(const Matrix4x4&, const Vector4&);
-        friend Vector4 operator/(const Vector4&, const Float32);
         friend Float32 operator*(const Vector4&, const Vector4&); // dot product
-        friend Vector4 operator^(const Vector4&, const Vector4&); // cross product
+        friend Vector4 operator/(const Vector4&, const Float32);
         friend bool operator==(const Vector4&, const Vector4&);
         friend bool operator!=(const Vector4&, const Vector4&);
-        // @TODO: < && >
 
-        friend Vector3 operator*(const Matrix4x4, const Vector3); // linear transform
-        friend Matrix4x4 operator*(const Matrix4x4, const Matrix4x4); // Matrix 4x4 product
+        // friend Vector3 operator*(const Matrix4x4, const Vector3); // linear transform
+        // friend Matrix4x4 operator*(const Matrix4x4, const Matrix4x4); // Matrix 4x4 product
 
         void normalize();
         Vector4 get_normalized() const;

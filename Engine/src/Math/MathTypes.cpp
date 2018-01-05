@@ -187,12 +187,12 @@ namespace ZeroEngine {
         return get_magnitude() == 1.0f;
     }
 
-    bool Vector2::has_opposite_direction_as(const Vector2& other) const {
+    bool Vector2::has_opposite_direction_to(const Vector2& other) const {
         return get_dot_product(other) < 0;
     }
 
     bool Vector2::has_same_direction_as(const Vector2& other) const {
-        return !(has_opposite_direction_as(other));
+        return !(has_opposite_direction_to(other));
     }
 
     bool Vector2::is_collinear_to(const Vector2& other) const {
@@ -417,10 +417,258 @@ namespace ZeroEngine {
         return get_magnitude() == 1.0f;
     }
 
-    bool Vector3::has_opposite_direction_to(const Vector3& other) {
-
+    bool Vector3::has_opposite_direction_to(const Vector3& other) const {
+        return get_dot_product(other) < 0;
     }
 
+    bool Vector3::has_same_direction_as(const Vector3& other) const {
+        return !(has_opposite_direction_to(other));
+    }
+
+    bool Vector3::is_collinear_to(const Vector3& other) const {
+        return get_dot_product(other) == get_magnitude() * other.get_magnitude();
+    }
+
+    bool Vector3::is_collinear_opposite_to(const Vector3& other) const {
+        return get_dot_product(other) == -(get_magnitude() * other.get_magnitude());
+    }
+
+    bool Vector3::is_perpendicular_to(const Vector3& other) const {
+        return get_dot_product(other) == 0;
+    }
+
+    Float32 Vector3::get_magnitude() const {
+        return Math::square_root(get_magnitude_squared());
+    }
+
+    Float32 Vector3::get_magnitude_squared() const {
+        return (_vec[Axis::x] * _vec[Axis::x]) + (_vec[Axis::y] * _vec[Axis::y]) + (_vec[Axis::z] * _vec[Axis::z]);
+    }
+
+    Float32 Vector3::get_projection(const Vector3& other) const {
+        return (other.is_normalized()) ? get_dot_product(other) : get_dot_product(other.get_normalized());
+    }
+
+    Float32 Vector3::get_dot_product(const Vector3& other) const {
+        return *this * other; 
+    }
+
+    Vector3 Vector3::get_cross_product(const Vector3& other) const {
+        return *this ^ other;
+    }
+
+    void Vector3::scalar_multiply(const Float32 scalar) {
+        *this *= scalar;
+    }
+
+    Vector3 Vector3::get_scalar_product(const Float32 scalar) const {
+        return *this * scalar;
+    }
+
+    // -------
+    // Vector4
+    // -------
+
+    constexpr Vector4& Vector4::zero() {
+        static Vector4 zero_vector = Vector4(0.0f, 0.0f, 0.0f, 0.0f);
+        return zero_vector;
+    }
+
+    constexpr Vector4& Vector4::unit_i() {
+        static Vector4 i_vector = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
+        return i_vector;
+    }
+
+    constexpr Vector4& Vector4::unit_j() {
+        static Vector4 j_vector = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
+        return j_vector;
+    }
+
+    constexpr Vector4& Vector4::unit_k() {
+        static Vector4 k_vector = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
+        return k_vector;
+    }
+
+    Vector4::Vector4() {
+        _vec[Axis::x] = 0.0f;
+        _vec[Axis::y] = 0.0f;
+        _vec[Axis::z] = 0.0f;
+        _vec[Axis::w] = 0.0f;
+    }
+
+    Vector4::Vector4(const Float32 val) {
+        _vec[Axis::x] = val; 
+        _vec[Axis::y] = val;
+        _vec[Axis::z] = val;
+        _vec[Axis::w] = val;
+    }
+
+    Vector4::Vector4(const Float32 x, const Float32 y, const Float32 z, const Float32 w) {
+        _vec[Axis::x] = x;
+        _vec[Axis::y] = y;
+        _vec[Axis::z] = z;
+        _vec[Axis::w] = w;
+    }
+
+    Vector4::Vector4(const Vector4& other) {
+        _vec[Axis::x] = other[Axis::x];
+        _vec[Axis::y] = other[Axis::y];
+        _vec[Axis::z] = other[Axis::z];
+        _vec[Axis::w] = other[Axis::w];
+    }
+
+    Vector4::Vector4(const Vector3& other) {
+        _vec[Axis::x] = other[Axis::x];
+        _vec[Axis::y] = other[Axis::y];
+        _vec[Axis::z] = other[Axis::z];
+        _vec[Axis::w] = 1.0f;
+    }
+
+    Vector4::Vector4(const Vector3& other, const Float32 w) {
+        _vec[Axis::x] = other[Axis::x];
+        _vec[Axis::y] = other[Axis::y];
+        _vec[Axis::z] = other[Axis::z];
+        _vec[Axis::w] = w;
+    }
+
+    Vector4::Vector4(const Vector2& other) {
+        _vec[Axis::x] = other[Axis::x];
+        _vec[Axis::y] = other[Axis::y];
+        _vec[Axis::z] = 1.0f;
+        _vec[Axis::w] = 1.0f;
+    }
+
+    Vector4& Vector4::operator=(const Vector4& other) {
+        _vec[Axis::x] = other[Axis::x];
+        _vec[Axis::y] = other[Axis::y];
+        _vec[Axis::z] = other[Axis::z];
+        _vec[Axis::w] = other[Axis::w];
+        return *this;
+    }
+
+    Vector4& Vector4::operator+=(const Vector4& other) {
+        _vec[Axis::x] += other[Axis::x];
+        _vec[Axis::y] += other[Axis::y];
+        _vec[Axis::z] += other[Axis::z];
+        _vec[Axis::w] += other[Axis::w];
+        return *this;
+    }
+
+    Vector4& Vector4::operator-=(const Vector4& other) {
+        _vec[Axis::x] -= other[Axis::x];
+        _vec[Axis::y] -= other[Axis::y];
+        _vec[Axis::z] -= other[Axis::z];
+        _vec[Axis::w] -= other[Axis::w];
+        return *this;
+    }
+
+    Vector4& Vector4::operator*=(const Float32 scalar) {
+        _vec[Axis::x] *= scalar;
+        _vec[Axis::y] *= scalar;
+        _vec[Axis::z] *= scalar;
+        _vec[Axis::w] *= scalar;
+        return *this;
+    }
+
+    Vector4& Vector4::operator/=(const Float32 scalar) {
+        _vec[Axis::x] /= scalar;
+        _vec[Axis::y] /= scalar;
+        _vec[Axis::z] /= scalar;
+        _vec[Axis::w] /= scalar;
+        return *this;
+    }
+
+    Float32& Vector4::operator[](Int32 index) {
+        assert(Axis::x <= index && index <= Axis::w);
+        return _vec[index];
+    }
+
+    Float32 Vector4::operator[](Int32 index) const {
+        assert(Axis::x <= index && index <= Axis::w);
+        return _vec[index];
+    }
+
+    Vector4::operator Vector2() {
+        return Vector2(_vec[Axis::x], _vec[Axis::y]);
+    }
+
+    Vector4::operator Vector3() {
+        return Vector3(_vec[Axis::x], _vec[Axis::y], _vec[Axis::z]);
+    }
+
+    Vector4 operator-(const Vector4& vec) {
+        return Vector4(-(vec[Axis::x]), -(vec[Axis::y]), -(vec[Axis::z]), -(vec[Axis::w]));
+    }
+
+    Vector4 operator+(const Vector4& lhs, const Vector4& rhs) {
+        return Vector4(lhs[Axis::x] + rhs[Axis::x], lhs[Axis::y] + rhs[Axis::y], lhs[Axis::z] + rhs[Axis::z], lhs[Axis::w] + rhs[Axis::w]);
+    }
+
+    Vector4 operator-(const Vector4& lhs, const Vector4& rhs) {
+        return Vector4(lhs[Axis::x] - rhs[Axis::x], lhs[Axis::y] - rhs[Axis::y], lhs[Axis::z] - rhs[Axis::z], lhs[Axis::w] - rhs[Axis::w]);
+    }
+
+    Vector4 operator*(const Vector4& vec, const Float32 scalar) {
+        return Vector4(vec[Axis::x] * scalar, vec[Axis::y] * scalar, vec[Axis::z] * scalar, vec[Axis::w] * scalar);
+    }
+
+    Vector4 operator*(const Float32 scalar, const Vector4& vec) {
+        return vec * scalar;
+    }
+
+    Vector4 operator*(const Matrix4x4& matrix, const Vector4& vec) {
+        Vector4 ret_vec;
+        for (Uint8 row = 0; row < 4; row++) {
+            Float32 val = (matrix[row][Axis::x] * vec[Axis::x]) + (matrix[row][Axis::y] * vec[Axis::y])
+                        + (matrix[row][Axis::z] * vec[Axis::z]) + (matrix[row][Axis::w] * vec[Axis::w]);
+
+            switch (row) {
+                case 0:
+                    ret_vec.set_x(val);
+                    break;
+                case 1:
+                    ret_vec.set_y(val);
+                    break;
+                case 2:
+                    ret_vec.set_z(val);
+                    break;
+                case 3:
+                    ret_vec.set_w(val);
+                    break;
+                default:
+                    break;
+            }
+
+            return ret_vec;
+        }
+    }
+
+    Vector4 operator*(const Vector4& vec, const Matrix4x4& matrix) {
+        return matrix.get_transposition() * vec;
+    }
+
+    Vector4 operator/(const Vector4& vec, const Float32 scalar) {
+        Float32 reciprocal = 1 / scalar;
+        return Vector4(vec[Axis::x] * reciprocal, vec[Axis::y] * reciprocal, vec[Axis::z] * reciprocal, vec[Axis::w] * reciprocal);
+    }
+
+    Float32 operator*(const Vector4& lhs, const Vector4& rhs) {
+        return (lhs[Axis::x] * rhs[Axis::x])
+             + (lhs[Axis::y] * rhs[Axis::y])
+             + (lhs[Axis::z] * rhs[Axis::z])
+             + (lhs[Axis::w] * rhs[Axis::w]);
+    }
+
+    bool operator==(const Vector4& lhs, const Vector4& rhs) {
+        return lhs[Axis::x] == rhs[Axis::x]
+            && lhs[Axis::y] == rhs[Axis::y]
+            && lhs[Axis::z] == rhs[Axis::z]
+            && lhs[Axis::w] == rhs[Axis::w];
+    }
+
+    bool operator!=(const Vector4& lhs, const Vector4& rhs) {
+        return !(lhs == rhs);
+    }
 
 
     
