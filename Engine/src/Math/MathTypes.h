@@ -65,15 +65,15 @@ namespace ZeroEngine {
         operator Vector4();
 
         friend Vector2 operator-(const Vector2&); // for negation
-        friend Vector2 operator+(const Vector2&, const Vector2&);
         friend Vector2 operator-(const Vector2&, const Vector2&);
+
+        friend Vector2 operator+(const Vector2&, const Vector2&);
+
         friend Vector2 operator*(const Vector2&, const Float32);
         friend Vector2 operator*(const Float32, const Vector2&);
-        friend Vector2 operator*(const Vector2&, const Matrix3x3&);
-        friend Vector2 operator*(const Matrix3x3&, const Vector2&);
+
         friend Vector2 operator/(const Vector2&, const Float32);
-        friend Float32 operator*(const Vector2&, const Vector2&); // dot product
-        friend Vector3 operator^(const Vector2&, const Vector2&); // cross product
+
         friend bool operator==(const Vector2&, const Vector2&);
         friend bool operator!=(const Vector2&, const Vector2&);
 
@@ -162,14 +162,12 @@ namespace ZeroEngine {
         friend Vector3 operator*(const Vector3&, const Float32);
         friend Vector3 operator*(const Float32, const Vector3&);
 
+        /*
         friend Vector3 operator*(const Vector3&, const Matrix4x4&);
         friend Vector3 operator*(const Matrix4x4&, const Vector3&);
+        */
 
         friend Vector3 operator/(const Vector3&, const Float32);
-
-        friend Float32 operator*(const Vector3&, const Vector3&); // dot product
-
-        friend Vector3 operator^(const Vector3&, const Vector3&); // cross product
 
         friend bool operator==(const Vector3&, const Vector3&);
         friend bool operator!=(const Vector3&, const Vector3&);
@@ -270,14 +268,20 @@ namespace ZeroEngine {
         operator Vector3();
 
         friend Vector4 operator-(const Vector4&); // for negation
-        friend Vector4 operator+(const Vector4&, const Vector4&);
         friend Vector4 operator-(const Vector4&, const Vector4&);
+
+        friend Vector4 operator+(const Vector4&, const Vector4&);
+
         friend Vector4 operator*(const Vector4&, const Float32);
         friend Vector4 operator*(const Float32, const Vector4&);
+
+        /*
         friend Vector4 operator*(const Vector4&, const Matrix4x4&);
         friend Vector4 operator*(const Matrix4x4&, const Vector4&);
-        friend Float32 operator*(const Vector4&, const Vector4&); // dot product
+        */
+
         friend Vector4 operator/(const Vector4&, const Float32);
+
         friend bool operator==(const Vector4&, const Vector4&);
         friend bool operator!=(const Vector4&, const Vector4&);
 
@@ -398,8 +402,6 @@ namespace ZeroEngine {
 
         friend bool operator==(const Matrix3x3&, const Matrix3x3&);
         friend bool operator!=(const Matrix3x3&, const Matrix3x3&);
-
-        // @TODO: < && >
 
         Vector2 get_linear_transform(const Vector2&) const;
         Vector3 get_linear_transform(const Vector3&) const;

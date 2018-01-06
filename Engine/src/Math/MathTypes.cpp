@@ -142,6 +142,7 @@ namespace ZeroEngine {
         return Vector2(vec[Axis::x] * scalar, vec[Axis::y] * scalar);
     }
 
+    /*
     // @TODO: Test why this can't just call matrix.get_transposition()
     Vector2 operator*(const Matrix3x3& matrix, const Vector2& vec) {
         Vector2 ret_vec;
@@ -153,18 +154,11 @@ namespace ZeroEngine {
     Vector2 operator*(const Vector2& vec, const Matrix3x3& matrix) {
         return matrix.get_transposition() * vec;
     }
+    */
 
     Vector2 operator/(const Vector2& vec, const Float32 scalar) {
         Float32 reciprocal = 1.0f / scalar;
         return Vector2(vec[Axis::x] * reciprocal, vec[Axis::y] * reciprocal); 
-    }
-
-    Float32 operator*(const Vector2& lhs, const Vector2& rhs) {
-        return (lhs[Axis::x] * rhs[Axis::x]) + (lhs[Axis::y] * rhs[Axis::y]);
-    }
-
-    Vector3 operator^(const Vector2& lhs, const Vector2& rhs) {
-        return Vector3(0.0f, 0.0f, (lhs[Axis::x] * rhs[Axis::y]) - (rhs[Axis::x] * lhs[Axis::y]));
     }
 
     bool operator==(const Vector2& lhs, const Vector2& rhs) {
@@ -224,7 +218,7 @@ namespace ZeroEngine {
     }
 
     Vector3 Vector2::get_cross_product(const Vector2& other) const {
-       return *this ^ other; 
+        return Vector3(0.0f, 0.0f, (_vec[Axis::x] * other[Axis::y]) - (other[Axis::x] * _vec[Axis::y]));
     }
 
     void Vector2::scalar_multiply(const Float32 scalar) {
@@ -374,6 +368,7 @@ namespace ZeroEngine {
         return vec * scalar;
     }
 
+    /*
     Vector3 operator*(const Vector3& vec, const Matrix4x4& matrix) {
         return matrix * Vector4(vec);
     }
@@ -381,20 +376,11 @@ namespace ZeroEngine {
     Vector3 operator*(const Matrix4x4& matrix, const Vector3& vec) {
         return matrix.get_transposition() * Vector4(vec);
     }
+    */
 
     Vector3 operator/(const Vector3& vec, const Float32 scalar) {
         Float32 reciprocal = 1 / scalar;
         return vec * scalar;
-    }
-
-    Float32 operator*(const Vector3& lhs, const Vector3& rhs) {
-        return (lhs[Axis::x] * rhs[Axis::x]) + (lhs[Axis::y] * rhs[Axis::y]) + (lhs[Axis::z] * rhs[Axis::z]);
-    }
-
-    Vector3 operator^(const Vector3& lhs, const Vector3& rhs) {
-        return Vector3((lhs[Axis::y] * rhs[Axis::z]) - (lhs[Axis::z] * rhs[Axis::y]),
-                       (lhs[Axis::z] * rhs[Axis::x]) - (lhs[Axis::x] * rhs[Axis::z]),
-                       (lhs[Axis::x] * rhs[Axis::y]) - (lhs[Axis::y] * rhs[Axis::x]));
     }
 
     bool operator==(const Vector3& lhs, const Vector3& rhs) {
@@ -450,11 +436,13 @@ namespace ZeroEngine {
     }
 
     Float32 Vector3::get_dot_product(const Vector3& other) const {
-        return *this * other; 
+        return (_vec[Axis::x] * other[Axis::x]) + (_vec[Axis::y] * other[Axis::y]) + (_vec[Axis::z] * other[Axis::z]);
     }
 
     Vector3 Vector3::get_cross_product(const Vector3& other) const {
-        return *this ^ other;
+        return Vector3((_vec[Axis::y] * other[Axis::z]) - (_vec[Axis::z] * other[Axis::y]),
+                       (_vec[Axis::z] * other[Axis::x]) - (_vec[Axis::x] * other[Axis::z]),
+                       (_vec[Axis::x] * other[Axis::y]) - (_vec[Axis::y] * other[Axis::x]));
     }
 
     void Vector3::scalar_multiply(const Float32 scalar) {
@@ -616,6 +604,7 @@ namespace ZeroEngine {
         return vec * scalar;
     }
 
+    /*
     Vector4 operator*(const Matrix4x4& matrix, const Vector4& vec) {
         Vector4 ret_vec;
         for (Uint8 row = 0; row < 4; row++) {
@@ -646,17 +635,11 @@ namespace ZeroEngine {
     Vector4 operator*(const Vector4& vec, const Matrix4x4& matrix) {
         return matrix.get_transposition() * vec;
     }
+    */
 
     Vector4 operator/(const Vector4& vec, const Float32 scalar) {
         Float32 reciprocal = 1 / scalar;
         return Vector4(vec[Axis::x] * reciprocal, vec[Axis::y] * reciprocal, vec[Axis::z] * reciprocal, vec[Axis::w] * reciprocal);
-    }
-
-    Float32 operator*(const Vector4& lhs, const Vector4& rhs) {
-        return (lhs[Axis::x] * rhs[Axis::x])
-             + (lhs[Axis::y] * rhs[Axis::y])
-             + (lhs[Axis::z] * rhs[Axis::z])
-             + (lhs[Axis::w] * rhs[Axis::w]);
     }
 
     bool operator==(const Vector4& lhs, const Vector4& rhs) {
