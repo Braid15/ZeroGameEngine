@@ -8,9 +8,11 @@
 
 namespace ZeroEngine {
 
+    // @TODO: Make one transform class which takes care of 2D and 3D so client
+    // code doesn't need to worry about the dimensions
     class TransformComponent2D final : public EntityComponent {
     private:
-        Vector2 _position;
+        Matrix3x3 _transform;
 
         // @TODO: rotation
     public:
@@ -26,8 +28,8 @@ namespace ZeroEngine {
 
         inline const EntityComponentId& get_id() const override { return id; }
 
-        inline const Vector2& get_position() const { return _position; }
-        inline void set_position(const Vector2 pos) { _position = pos; }
+        inline const Matrix3x3& get_transform() const { return _transform; }
+        inline void set_transform(const Matrix3x3& pos) { _transform = pos; }
     private:
         void on_write_xml(const XmlWriter& writer) override;
     };

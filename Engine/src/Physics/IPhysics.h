@@ -8,6 +8,8 @@ namespace ZeroEngine {
     class Vector2;
     class Vector3;
     class Vector4;
+    class Matrix3x3;
+    class Matrix4x4;
 
     // @TODO: This interface should be using a matrix where there
     // needs to be overloads for different vector types.
@@ -23,8 +25,8 @@ namespace ZeroEngine {
         virtual void apply_torque(const Vector3& direction, Float32 newtons, EntityId id) = 0;
 
         // @TODO: Should be using matrix
-        virtual bool kinematic_move(const Vector2& pos, EntityId id) = 0;
-        virtual bool kinematic_move(const Vector3& pos, EntityId id) = 0;
+        virtual bool kinematic_move(const Matrix3x3& pos, EntityId id) = 0;
+        virtual bool kinematic_move(const Matrix4x4& pos, EntityId id) = 0;
 
         virtual Vector3 get_velocity(EntityId id) = 0;
         virtual void set_velocity(const Vector3& vel, EntityId id) = 0;
@@ -32,8 +34,8 @@ namespace ZeroEngine {
         virtual void stop_entity(EntityId id) = 0;
 
         // @TODO: Should be using matrix
-        virtual void set_transform(const Vector2& transform, EntityId id) = 0;
-        virtual void set_transform(const Vector3& transform, EntityId id) = 0;
+        virtual void set_transform(const Matrix3x3& transform, EntityId id) = 0;
+        virtual void set_transform(const Matrix4x4& transform, EntityId id) = 0;
 
         // get_transform()
 

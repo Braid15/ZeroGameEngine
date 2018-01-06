@@ -39,7 +39,7 @@ namespace ZeroEngine {
 
     class BaseTexture : public ITexture {
     private:
-        Vector2 _position;
+        Vector2 _transform;
         Vector2 _dimensions;
     public:
         virtual ~BaseTexture() {}
@@ -69,15 +69,15 @@ namespace ZeroEngine {
         virtual inline Float32 get_width() const override { return _dimensions.get_x(); }
         virtual inline void set_width(const Float32 width) override { _dimensions.set_x(Math::clamp_min(width, 0.0f)); }
 
-        virtual inline const Vector2& get_position() const override { return _position; }
-        virtual inline void set_position(const Vector2& pos) override { _position.set(pos); }
-        virtual inline void set_position(const Vector2* pos) override { _position.set(*pos); }
-        virtual inline void set_position(const Float32 x, const Float32 y) override { _position.set(x, y); }
+        virtual inline const Vector2& get_position() const override { return _transform; }
+        virtual inline void set_position(const Vector2& pos) override { _transform.set(pos); }
+        virtual inline void set_position(const Vector2* pos) override { _transform.set(*pos); }
+        virtual inline void set_position(const Float32 x, const Float32 y) override { _transform.set(x, y); }
 
-        virtual inline Float32 get_x() const override { return _position.get_x(); }
-        virtual inline void set_x(const Float32 x) override { _position.set_x(x); }
+        virtual inline Float32 get_x() const override { return _transform.get_x(); }
+        virtual inline void set_x(const Float32 x) override { _transform.set_x(x); }
 
-        virtual inline Float32 get_y() const override { return _position.get_y(); }
-        virtual inline void set_y(const Float32 y) override { _position.set_y(y); }
+        virtual inline Float32 get_y() const override { return _transform.get_y(); }
+        virtual inline void set_y(const Float32 y) override { _transform.set_y(y); }
     };
 }

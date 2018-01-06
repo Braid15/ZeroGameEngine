@@ -8,14 +8,14 @@ namespace ZeroEngine {
 
     Entity::Entity(EntityId id) {
         _id = id;
-        _position_type = "Unknown";
+        _transform_type = "Unknown";
         _resource_path = "Unknown";
         _name = "Entity_" + std::to_string(_id); 
     }
 
     Entity::Entity(EntityId id, std::string name) {
         _id = id;
-        _position_type = "Unknown";
+        _transform_type = "Unknown";
         _resource_path = "Unknown";
         _name = name;
     }
@@ -41,7 +41,7 @@ namespace ZeroEngine {
 
     bool Entity::initialize(const XmlReader& reader) {
         assert(strcmp(reader.get_element_name(), "Entity") == 0);
-        _position_type = reader.get_element_attribute_value("type");
+        _transform_type = reader.get_element_attribute_value("type");
         _resource_path = reader.get_element_attribute_value("resource");
         return true;
     }
@@ -66,7 +66,7 @@ namespace ZeroEngine {
         XmlWriter writer;
         writer.write_start_element("Entity");
         writer.write_start_attribute("type");
-        writer.write_string(_position_type.c_str());
+        writer.write_string(_transform_type.c_str());
         writer.write_end_attribute();
         writer.write_start_attribute("resource");
         writer.write_string(_resource_path.c_str());

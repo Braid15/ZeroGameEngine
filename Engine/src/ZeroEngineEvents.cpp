@@ -69,48 +69,35 @@ namespace ZeroEngine {
 
     DEFINE_EVENT_METHODS(MoveEntityEvent);
 
-    MoveEntityEvent::MoveEntityEvent(const EntityId id, const Vector2 new_position) {
+    MoveEntityEvent::MoveEntityEvent(const EntityId id, const Matrix3x3 new_position) {
         _controlled_entity_id = id;
-        _position_type = VEC2;
-        _position.vec2 = new_position;
+        _transform_type = MAT3;
+        _transform.mat3 = new_position;
     }
 
-    MoveEntityEvent::MoveEntityEvent(const EntityId id, const Vector3 new_position) {
+    MoveEntityEvent::MoveEntityEvent(const EntityId id, const Matrix4x4 new_position) {
          _controlled_entity_id = id;
-        _position_type = VEC3;
-        _position.vec3 = new_position;       
+        _transform_type = MAT4;
+        _transform.mat4 = new_position;       
     }
 
-    MoveEntityEvent::MoveEntityEvent(const EntityId id, const Vector4 new_position) {
-        _controlled_entity_id = id;
-        _position_type = VEC4;
-        _position.vec4 = new_position;
-    }
-
-    MoveEntityEvent::s_ptr MoveEntityEvent::create(const EntityId id, const Vector2 new_location) {
+    MoveEntityEvent::s_ptr MoveEntityEvent::create(const EntityId id, const Matrix3x3 new_location) {
         return MoveEntityEvent::s_ptr(zero_new MoveEntityEvent(id, new_location));
     }
 
-    MoveEntityEvent::s_ptr MoveEntityEvent::create(const EntityId id, const Vector3 new_location) {
-        return MoveEntityEvent::s_ptr(zero_new MoveEntityEvent(id, new_location));
-    }
-
-    MoveEntityEvent::s_ptr MoveEntityEvent::create(const EntityId id, const Vector4 new_location) {
+    MoveEntityEvent::s_ptr MoveEntityEvent::create(const EntityId id, const Matrix4x4 new_location) {
         return MoveEntityEvent::s_ptr(zero_new MoveEntityEvent(id, new_location));
     }
 
     MoveEntityEvent::MoveEntityEvent(const MoveEntityEvent& other) {
         _controlled_entity_id = other.get_entity_id();
-        _position_type = other.get_position_type();
-        switch (_position_type) {
-            case VEC2:
-                _position.vec2 = other.get_vec2_position();
+        _transform_type = other.get_transform_type();
+        switch (_transform_type) {
+            case MAT3:
+                _transform.mat3 = other.get_transform_2D();
                 break;
-            case VEC3:
-                _position.vec3 = other.get_vec3_position();
-                break;
-            case VEC4:
-                _position.vec4 = other.get_vec4_position();
+            case MAT4:
+                _transform.mat4 = other.get_transform_3D();
                 break;
             default:
                 LOG_DEBUG("MoveEntityEvent", "Error: Unknown position type");

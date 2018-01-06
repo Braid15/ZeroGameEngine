@@ -90,44 +90,36 @@ namespace ZeroEngine {
     DECLARE_EVENT_METHODS(MoveEntityEvent)
 
     public:
-        enum PositionType { VEC2, VEC3, VEC4 };
+        enum TransformType { MAT3, MAT4 };
     private:
-        PositionType _position_type;
+        TransformType _transform_type;
 
-        union Position {
-            Vector2 vec2;
-            Vector3 vec3;
-            Vector4 vec4;
+        union Transform {
+            Matrix3x3 mat3;
+            Matrix4x4 mat4;
 
-            Position() {}
-        } _position;
+            Transform() {}
+        } _transform;
 
         EntityId _controlled_entity_id;
     public:
-        MoveEntityEvent(const EntityId id, const Vector2 new_position);
-        MoveEntityEvent(const EntityId id, const Vector3 new_position);
-        MoveEntityEvent(const EntityId id, const Vector4 new_position);
+        MoveEntityEvent(const EntityId id, const Matrix3x3 new_position);
+        MoveEntityEvent(const EntityId id, const Matrix4x4 new_position);
 
-        static MoveEntityEvent::s_ptr create(const EntityId id, const Vector2 new_pos);
-        static MoveEntityEvent::s_ptr create(const EntityId id, const Vector3 new_pos);
-        static MoveEntityEvent::s_ptr create(const EntityId id, const Vector4 new_pos);
+        static MoveEntityEvent::s_ptr create(const EntityId id, const Matrix3x3 new_pos);
+        static MoveEntityEvent::s_ptr create(const EntityId id, const Matrix4x4 new_pos);
 
-        inline PositionType get_position_type() const { return _position_type; }
+        inline TransformType get_transform_type() const { return _transform_type; }
         inline EntityId get_entity_id() const { return _controlled_entity_id; }
 
-        inline Vector2 get_vec2_position() const { 
-            if (_position_type != VEC2) return Vector2();
-            return _position.vec2;
+        inline Matrix3x3 get_transform_2D() const { 
+            if (_transform_type != MAT3) return Matrix3x3::identity2D();
+            return _transform.mat3;
         }
 
-        inline Vector3 get_vec3_position() const {
-            if (_position_type != VEC3) return Vector3();
-            return _position.vec3;
-        }
-
-        inline Vector4 get_vec4_position() const {
-            if (_position_type != VEC4) return Vector4();
-            return _position.vec4;
+        inline Matrix4x4 get_transform_3D() const {
+            if (_transform_type != MAT4) return Matrix4x4::identity3D();
+            return _transform.mat4;
         }
     private:
         MoveEntityEvent() {}

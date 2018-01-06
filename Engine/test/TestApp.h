@@ -197,7 +197,8 @@ namespace ZeroEngineAppTest {
                 if (_go_left) direction += _left;
                 if (_go_right) direction += _right;
 
-                ZeroEventManager::queue_event(MoveEntityEvent::create(entity->get_id(), transform->get_position() + direction));
+                LOG_TODO("TestMovementController", "Not adding velocity to transform");
+                ZeroEventManager::queue_event(MoveEntityEvent::create(entity->get_id(), transform->get_transform()));
             }
         }
     };

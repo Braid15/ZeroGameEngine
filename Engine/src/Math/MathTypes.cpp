@@ -229,6 +229,12 @@ namespace ZeroEngine {
         return *this * scalar;
     }
 
+    #ifdef _DEBUG
+    void Vector2::run_unit_test() {
+
+    }
+    #endif
+
     // -------
     // Vector3
     // -------
@@ -452,6 +458,12 @@ namespace ZeroEngine {
     Vector3 Vector3::get_scalar_product(const Float32 scalar) const {
         return *this * scalar;
     }
+
+    #ifdef _DEBUG
+    void Vector3::run_unit_test() {
+
+    }
+    #endif
 
     // -------
     // Vector4
@@ -710,6 +722,12 @@ namespace ZeroEngine {
         return *this * scalar;
     }
 
+    #ifdef _DEBUG
+    void Vector4::run_unit_test() {
+
+    }
+    #endif
+
     // ---------
     // Matrix3x3
     // ---------
@@ -933,6 +951,12 @@ namespace ZeroEngine {
     void Matrix3x3::scale(const Vector2& vec) {
         *this = Matrix3x3::get_scaling_2D(vec);
     }
+
+    #ifdef _DEBUG
+    void Matrix3x3::run_unit_test() {
+
+    }
+    #endif
 
     // ---------
     // Matrix4x4
@@ -1190,4 +1214,23 @@ namespace ZeroEngine {
     void Matrix4x4::scale(const Vector3& vec) {
         *this = Matrix4x4::get_scaling_3D(vec);
     }
+
+    #ifdef _DEBUG
+    void Matrix4x4::run_unit_test() {
+
+    }
+    #endif
+
+    #ifdef _DEBUG
+    namespace MathTypes {
+
+        void run_all_unit_tests() {
+            Vector2::run_unit_test();
+            Vector3::run_unit_test();
+            Vector4::run_unit_test();
+            Matrix3x3::run_unit_test();
+            Matrix4x4::run_unit_test();
+        }
+    }
+    #endif
 }

@@ -102,19 +102,19 @@ namespace ZeroEngine {
         _current_state = state;
     }
 
-    void BaseGameLogic::move_entity(const EntityId& entity_id, const Vector2& pos) {
-        LOG_TODO("BaseGameLogic", "pos should be matrix");
+    void BaseGameLogic::move_entity(const EntityId& entity_id, const Matrix3x3& pos) {
         auto entity = get_entity(entity_id).lock();
         auto transform = entity->get_component<TransformComponent2D>(TransformComponent2D::id).lock();
         if (transform) {
-            transform->set_position(pos);
+            transform->set_transform(pos);
         } else {
             LOG_DEBUG("BaseGameLogic", "Error getting TransformComponent2D on entity " + std::string(entity->get_name()));
         }
     }
 
-    void BaseGameLogic::move_entity(const EntityId& entity_id, const Vector3& pos) {
-        LOG_TODO("BaseGameLogic", "pos should be matrix");
+    void BaseGameLogic::move_entity(const EntityId& entity_id, const Matrix4x4& pos) {
+        LOG_TODO("BaseGameLogic", "Need to make universal transform component for 2D and 3D");
+        LOG_UNIMPLEMENTED();
     }   
 
     void BaseGameLogic::destroy_entity(const EntityId& entity_id) {
@@ -158,12 +158,12 @@ namespace ZeroEngine {
 
     void BaseGameLogic::move_entity_event_delegate(IEventDataPtr event_data) {
         MoveEntityEvent::s_ptr data = MoveEntityEvent::cast(event_data);
-        switch (data->get_position_type()) {
-            case MoveEntityEvent::VEC2:
-                move_entity(data->get_entity_id(), data->get_vec2_position());
+        switch (data->get_transform_type()) {
+            case MoveEntityEvent::MAT3:
+                move_entity(data->get_entity_id(), data->get_transform_2D());
                 break;
-            case MoveEntityEvent::VEC3:
-                move_entity(data->get_entity_id(), data->get_vec3_position());
+            case MoveEntityEvent::MAT4:
+                move_entity(data->get_entity_id(), data->get_transform_3D());
                 break;
             default:
                 LOG_DEBUG("BaseGameLogic", "Error processing MoveEntityEvent");

@@ -41,9 +41,8 @@ namespace ZeroEngine {
         void apply_force(const Vector3& direction, const Float32 newtons);
         void apply_torque(const Vector3& direction, const Float32 newtons);
 
-        // @TODO: Should be using matrix
-        bool kinematic_move(const Vector2& pos);
-        bool kinematic_move(const Vector3& pos);
+        bool kinematic_move(const Matrix3x3& pos);
+        bool kinematic_move(const Matrix4x4& pos);
 
         void apply_acceleration(const Float32 acceleration);
         void remove_acceleration();
@@ -54,6 +53,7 @@ namespace ZeroEngine {
         // Vector3 get_velocity() const;
         // void set_velocity(const Vector3& vel);
 
+        // matrix?
         void set_position(const Vector2& pos);
         void set_position(const Vector3& pos);
 

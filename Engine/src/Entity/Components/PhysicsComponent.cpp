@@ -54,11 +54,11 @@ namespace ZeroEngine {
         _game_physics->apply_torque(direction, newtons, get_owner()->get_id());
     }
 
-    bool PhysicsComponent::kinematic_move(const Vector2& pos) {
+    bool PhysicsComponent::kinematic_move(const Matrix3x3& pos) {
         return _game_physics->kinematic_move(pos, get_owner()->get_id());
     }
 
-    bool PhysicsComponent::kinematic_move(const Vector3& pos) {
+    bool PhysicsComponent::kinematic_move(const Matrix4x4& pos) {
         return _game_physics->kinematic_move(pos, get_owner()->get_id());
     }
 

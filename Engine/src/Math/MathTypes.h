@@ -7,8 +7,8 @@
 // These classes are based off of Graphics Gems IV. p.534
 //
 
-// @TODO: Get rid of some of the more complicated operator overloads and put
-// that functionality into functions.
+// @TODO: Vector classes should have euler_integrate() and get_euler_integration() const
+// @TODO: Implement unit testing methods
 
 namespace ZeroEngine {
 
@@ -121,6 +121,10 @@ namespace ZeroEngine {
         inline bool is_zero() const { return (_vec[Axis::x] == 0.0f && _vec[Axis::y] == 0.0f); }
 
         inline StringRepr to_string() const override { return "Vector2"; }
+
+        #ifdef _DEBUG
+        static void run_unit_test();
+        #endif
     };
 
     // -------
@@ -233,6 +237,10 @@ namespace ZeroEngine {
         inline bool is_zero() const { return (_vec[Axis::x] == 0.0f && _vec[Axis::y] == 0.0f && _vec[Axis::z] == 0.0f); }
 
         inline StringRepr to_string() const override { return "Vector3"; }
+
+        #ifdef _DEBUG
+        static void run_unit_test();
+        #endif
     };
 
     // -------
@@ -354,6 +362,10 @@ namespace ZeroEngine {
         inline bool is_zero() const { return (_vec[Axis::x] == 0.0f && _vec[Axis::y] == 0.0f && _vec[Axis::z] == 0.0f && _vec[Axis::w] == 0.0f); }
 
         inline StringRepr to_string() const override { return "Vector4"; }
+
+        #ifdef _DEBUG
+        static void run_unit_test();
+        #endif
     };
 
     // ---------
@@ -417,6 +429,10 @@ namespace ZeroEngine {
         void scale(const Vector2&);
 
         inline StringRepr to_string() const override { return "Matrix3x3"; }
+
+        #ifdef _DEBUG
+        static void run_unit_test();
+        #endif
     };
 
     // ---------
@@ -473,5 +489,16 @@ namespace ZeroEngine {
         void scale(const Vector3&);
 
         inline StringRepr to_string() const override { return "Matrix4x4"; }
+
+        #ifdef _DEBUG
+        static void run_unit_test();
+        #endif
     };
+
+
+    #ifdef _DEBUG
+    namespace MathTypes {
+        extern void run_all_unit_tests();
+    }
+    #endif
 }

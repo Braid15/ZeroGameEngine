@@ -13,6 +13,8 @@ namespace ZeroEngine {
     class Vector2;
     class Vector3;
     class Vector4;
+    class Matrix3x3;
+    class Matrix4x4;
 
     enum class BaseGameState {
         invalid,
@@ -40,8 +42,8 @@ namespace ZeroEngine {
         //virtual void change_state(IGameState) = 0;
         virtual void change_state(BaseGameState) = 0;
 
-        virtual void move_entity(const EntityId& entity_id, const Vector2& pos) = 0;
-        virtual void move_entity(const EntityId& entity_id, const Vector3& pos) = 0;
+        virtual void move_entity(const EntityId& entity_id, const Matrix3x3& pos) = 0;
+        virtual void move_entity(const EntityId& entity_id, const Matrix4x4& pos) = 0;
 
         virtual void destroy_entity(const EntityId& entity_id) = 0;
         virtual void add_game_view(IGameViewPtr view, EntityId entity_id=INVALID_ENTITY_ID) = 0;

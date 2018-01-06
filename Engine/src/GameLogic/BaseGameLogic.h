@@ -44,9 +44,8 @@ namespace ZeroEngine {
         // virtual void change_state(IGameState state) override;
         virtual void change_state(BaseGameState state) override;
 
-        // @TODO: Use matrix
-        virtual void move_entity(const EntityId& entity_id, const Vector2& pos) override;
-        virtual void move_entity(const EntityId& entity_id, const Vector3& pos) override;
+        virtual void move_entity(const EntityId& entity_id, const Matrix3x3& pos) override;
+        virtual void move_entity(const EntityId& entity_id, const Matrix4x4& pos) override;
 
         virtual void destroy_entity(const EntityId& entity_id) override;
         virtual void add_game_view(IGameViewPtr view, EntityId entity_id=INVALID_ENTITY_ID) override;

@@ -20,13 +20,13 @@ namespace ZeroEngine {
         inline void remove_entity(EntityId) override {}
         inline void apply_force(const Vector3&, Float32, EntityId) override {}
         inline void apply_torque(const Vector3&, Float32, EntityId) override {}
-        inline bool kinematic_move(const Vector2&, EntityId) override { return false; }
-        inline bool kinematic_move(const Vector3&, EntityId) override { return false; }
+        inline bool kinematic_move(const Matrix3x3&, EntityId) override { return false; }
+        inline bool kinematic_move(const Matrix4x4&, EntityId) override { return false; }
         inline Vector3 get_velocity(EntityId) override { return Vector3(); }
         inline void set_velocity(const Vector3&, EntityId) override {}
         inline void stop_entity(EntityId) override {}
-        inline void set_transform(const Vector2&, EntityId) override {}
-        inline void set_transform(const Vector3&, EntityId) override {}
+        inline void set_transform(const Matrix3x3&, EntityId) override {}
+        inline void set_transform(const Matrix4x4&, EntityId) override {}
         inline StringRepr to_string() const override { return "NullPhysics"; }
     };
 }
