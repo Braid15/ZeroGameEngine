@@ -113,12 +113,12 @@ namespace ZeroEngine {
         inline EntityId get_entity_id() const { return _controlled_entity_id; }
 
         inline Matrix3x3 get_transform_2D() const { 
-            if (_transform_type != MAT3) return Matrix3x3::identity2D();
+            if (_transform_type != MAT3) return Matrix3x3::identity();
             return _transform.mat3;
         }
 
         inline Matrix4x4 get_transform_3D() const {
-            if (_transform_type != MAT4) return Matrix4x4::identity3D();
+            if (_transform_type != MAT4) return Matrix4x4::identity();
             return _transform.mat4;
         }
     private:

@@ -19,7 +19,8 @@ int main(int argc, char* args[]) {
     // #endif
 
 
-    run_game();
+    // run_game();
+    MathTypes::run_all_unit_tests();
 
     system("PAUSE");
 

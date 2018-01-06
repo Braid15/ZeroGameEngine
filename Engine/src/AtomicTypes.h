@@ -24,8 +24,9 @@ namespace ZeroEngine {
     typedef double         Float64;
 
     typedef Float32        Degree;
+    typedef Float32        Radian;
 
-    // For consistency
+    // Just for consistency in capitalization nameing convention
     typedef bool           Bool;
     typedef char           Char;
 }

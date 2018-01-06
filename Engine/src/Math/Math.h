@@ -18,14 +18,18 @@ namespace ZeroEngine {
 
     namespace Math {
 
-        extern const Float32 pi;
+        constexpr Float32 pi = 3.14159f;
+        constexpr Radian radian_1 = 57.29577f;
 
         extern Float32 clamp(const Float32& orig_val, const Float32& min, const Float32& max);
         extern Float32 clamp_min(const Float32& orig_val, const Float32& min);
         extern Float32 clamp_max(const Float32& orig_val, const Float32& max);
 
+        extern bool floats_equal(const Float32 a, const Float32 b, Float32 epsilon=0.005f);
 
-        extern Float32 angle_to_radian(const Degree& angle);
+        extern Radian degrees_to_radians(const Degree& degree);
+
+        extern Degree radians_to_degrees(const Radian& radian);
 
         extern Float32 power_of(const Float32& orig_val, const Int32& exponent);
 

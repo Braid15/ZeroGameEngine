@@ -9,8 +9,6 @@ namespace ZeroEngine {
 
     namespace Math {
 
-        const Float32 pi = 3.14159f;
-
         // -----
         // clamp
         // -----
@@ -42,12 +40,24 @@ namespace ZeroEngine {
             return orig_val;
         }
 
-        // ---------------
-        // angle_to_radian
-        // ---------------
+        bool floats_equal(const Float32 a, const Float32 b, Float32 epsilon) {
+            return fabs(a - b) < epsilon;
+        }
 
-        Float32 angle_to_radian(const Degree& angle) {
-            return angle * Math::pi / 180.0f;
+        // ----------------
+        // degree_to_radian
+        // ----------------
+
+        Radian degrees_to_radians(const Degree& degree) {
+            return degree * Math::pi / 180.0f;
+        }
+
+        // ----------------
+        // radian_to_degree
+        // ----------------
+
+        Degree radians_to_degrees(const Radian& radian) {
+            return radian * 180.0f / Math::pi;
         }
 
         // ------

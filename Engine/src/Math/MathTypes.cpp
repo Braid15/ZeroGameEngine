@@ -24,9 +24,15 @@ namespace ZeroEngine {
         }
     }
 
+
+
     // -------
     // Vector2
     // -------
+
+    /* Vec2 start */
+
+    /* Vec2 statics start */
 
     const Vector2& Vector2::zero() {
         static Vector2 zero_vec = Vector2(0.0f, 0.0f);
@@ -43,6 +49,10 @@ namespace ZeroEngine {
         return j_vec;
     }
 
+    /* Vec2 statics end */
+
+    /* Vec2 ctor start */
+
     Vector2::Vector2() {
         _vec[Axis::x] = 0.0f;
         _vec[Axis::y] = 0.0f;
@@ -53,9 +63,19 @@ namespace ZeroEngine {
         _vec[Axis::y] = value;
     }
 
+    Vector2::Vector2(const Float64 value) {
+        _vec[Axis::x] = static_cast<Float32>(value);
+        _vec[Axis::y] = static_cast<Float32>(value);
+    }
+
     Vector2::Vector2(const Float32 x, const Float32 y) {
         _vec[Axis::x] = x;
         _vec[Axis::y] = y;
+    }
+
+    Vector2::Vector2(const Float64 x, const Float64 y) {
+        _vec[Axis::x] = static_cast<Float32>(x);
+        _vec[Axis::y] = static_cast<Float32>(y);
     }
 
     Vector2::Vector2(const Vector2& other) {
@@ -72,6 +92,10 @@ namespace ZeroEngine {
         _vec[Axis::x] = other[Axis::x];
         _vec[Axis::y] = other[Axis::y];
     }
+
+    /* Vec2 ctor end */
+
+    /* Vec2 ops start */
 
     Vector2& Vector2::operator=(const Vector2& other) {
         _vec[Axis::x] = other[Axis::x];
@@ -169,8 +193,18 @@ namespace ZeroEngine {
         return !(lhs == rhs);
     }
 
-    void Vector2::normalize() {
+    std::ostream& operator<<(std::ostream& os, const Vector2& vec) {
+        os << "(" << vec.get_x() << ", " << vec.get_y() << ")";
+        return os;
+    }
+
+    /* Vec2 ops end */
+
+    /* Vec2 methods start */
+
+    Vector2& Vector2::normalize() {
         *this *= (1 / get_magnitude());
+        return *this;
     }
 
     Vector2 Vector2::get_normalized() const {
@@ -178,11 +212,11 @@ namespace ZeroEngine {
     }
 
     bool Vector2::is_normalized() const {
-        return get_magnitude() == 1.0f;
+        return Math::floats_equal(get_magnitude(), 1.0f);
     }
 
     bool Vector2::has_opposite_direction_to(const Vector2& other) const {
-        return get_dot_product(other) < 0;
+        return get_dot_product(other) < 0.0f;
     }
 
     bool Vector2::has_same_direction_as(const Vector2& other) const {
@@ -190,15 +224,23 @@ namespace ZeroEngine {
     }
 
     bool Vector2::is_collinear_to(const Vector2& other) const {
-        return get_dot_product(other) == get_magnitude() * other.get_magnitude();
+        if (is_normalized() && other.is_normalized()) {
+            return Math::floats_equal(get_dot_product(other), 1.0f);
+        }
+
+        return Math::floats_equal(get_dot_product(other), get_magnitude() * other.get_magnitude());
     }
 
     bool Vector2::is_collinear_opposite_to(const Vector2& other) const {
-        return get_dot_product(other) == -(get_magnitude() * other.get_magnitude());
+        if (is_normalized() && other.is_normalized()) {
+            return Math::floats_equal(get_dot_product(other), -1.0f);
+        }
+
+        return Math::floats_equal(get_dot_product(other), -(get_magnitude() * other.get_magnitude()));
     }
 
     bool Vector2::is_perpendicular_to(const Vector2& other) const {
-        return get_dot_product(other) == 0;
+        return Math::floats_equal(get_dot_product(other), 0.0f);
     }
 
     Float32 Vector2::get_magnitude() const {
@@ -206,7 +248,7 @@ namespace ZeroEngine {
     }
 
     Float32 Vector2::get_magnitude_squared() const {
-        return (_vec[Axis::x] * _vec[Axis::x]) + (_vec[Axis::y] * _vec[Axis::y]);
+        return Math::absolute_value((_vec[Axis::x] * _vec[Axis::x]) + (_vec[Axis::y] * _vec[Axis::y]));
     }
 
     Float32 Vector2::get_projection(const Vector2& other) const {
@@ -221,23 +263,219 @@ namespace ZeroEngine {
         return Vector3(0.0f, 0.0f, (_vec[Axis::x] * other[Axis::y]) - (other[Axis::x] * _vec[Axis::y]));
     }
 
-    void Vector2::scalar_multiply(const Float32 scalar) {
+    Vector2& Vector2::scalar_multiply(const Float32 scalar) {
         *this *= scalar;
+        return *this;
     }
 
     Vector2 Vector2::get_scalar_product(const Float32 scalar) {
         return *this * scalar;
     }
 
+    Vector2& Vector2::euler_integrate(const Vector2& vec, const Float32 scalar) {
+        *this = *this + (vec * scalar);
+        return *this;
+    }
+
+    Vector2 Vector2::get_euler_integration(const Vector2& vec, const Float32 scalar) const {
+        return *this + (vec * scalar);
+    }
+
+    Float32 Vector2::distance_between(const Vector2& other) const {
+        return (other - *this).get_magnitude();
+    }
+
+    Float32 Vector2::distance_between_squared(const Vector2& other) const {
+        return (other - *this).get_magnitude_squared();
+    }
+
+    Vector2& Vector2::truncate(const Float32 max) {
+        _vec[Axis::x] = Math::clamp_max(_vec[Axis::x], max);
+        _vec[Axis::y] = Math::clamp_max(_vec[Axis::y], max);
+        return *this;
+    }
+
+    Vector2 Vector2::get_truncated(const Float32 max) const {
+        return Vector2(Math::clamp_max(_vec[Axis::x], max), 
+                       Math::clamp_max(_vec[Axis::y], max));
+    }
+
+    Radian Vector2::radians_between(const Vector2& other) const {
+        if (!is_normalized() && other.is_normalized()) {
+            return get_normalized().get_dot_product(other);
+        } else if (is_normalized() && !other.is_normalized()) {
+            return get_dot_product(other.get_normalized());
+        }
+        return get_dot_product(other);
+    }
+
+    Degree Vector2::degrees_between(const Vector2& other) const {
+        if (!is_normalized() && other.is_normalized()) {
+            return Math::radians_to_degrees(get_normalized().get_dot_product(other));
+        } else if (is_normalized() && !other.is_normalized()) {
+            return Math::radians_to_degrees(get_dot_product(other.get_normalized()));
+        }
+        return Math::radians_to_degrees(get_dot_product(other));
+    }
+
+    /* Vec2 methods end */
+
     #ifdef _DEBUG
     void Vector2::run_unit_test() {
+        assert(Vector2() == Vector2());
+        assert(Vector2() != Vector2(1.0f));
+        assert(Vector2::zero() == Vector2(0.0f, 0.0f));
+        assert(Vector2::unit_i() == Vector2(1.0f, 0.0f));
+        assert(Vector2::unit_j() == Vector2(0.0f, 1.0f));
+        assert(Vector2() == Vector2(0.0f, 0.0f));
+        assert(Vector2(2.0f) == Vector2(2.0f, 2.0f));
+        assert(Vector2(1.0f, 1.0f) == Vector2(1.0f, 1.0f));
+        assert(Vector2(Vector2::unit_i()) == Vector2(1.0f, 0.0f));
+        assert(Vector2(Vector3(1.0f, 1.0f, 1.0f)) == Vector2(1.0f, 1.0f));
+        assert(Vector2(Vector4(2.0f, 2.0f, 2.0f, 2.0f)) == Vector2(2.0f, 2.0f));
+
+        Vector2 v(2.0f, 2.0f);
+        v = Vector2(3.0f, 3.0f);
+        assert(v == Vector2(3.0f, 3.0f));
+        
+        v += Vector2(1.0f, 1.0f);
+        assert(v == Vector2(4.0f, 4.0f));
+
+        v -= Vector2(1.0f, 1.0f);
+        assert(v == Vector2(3.0f, 3.0f));
+
+        v *= 2.0f;
+        assert(v == Vector2(6.0f, 6.0f));
+
+        v /= 2.0f;
+        assert(v == Vector2(3.0f, 3.0f));
+
+        assert(v[0] == 3.0f && v[1] == 3.0f);
+
+        // Implicit conversions
+        Vector3 v3;
+        v3 = v;
+        assert(v3 == Vector3(3.0f, 3.0f, 1.0f));
+
+        Vector4 v4;
+        v4 = v;
+        assert(v4 == Vector4(3.0f, 3.0f, 1.0f, 1.0f));
+
+        assert(-v == Vector2(-3.0f, -3.0f));
+
+        assert(Vector2(2.0f, 2.0f) - Vector2(2.0f, 2.0f) == Vector2::zero());
+
+        assert(Vector2(1.0f, 1.0f) + Vector2(1.0f, 1.0f) == Vector2(2.0f, 2.0f));
+
+        assert(Vector2(2.0f, 2.0f) * 2.0f == Vector2(4.0, 4.0));
+        assert(2.0f * Vector2(2.0, 2.0) == Vector2(4.0, 4.0));
+
+        assert(Vector2(4.0, 4.0) / 2.0f == Vector2(2.0, 2.0));
+
+        v[Axis::x] = 5.0f;
+        v[Axis::y] = 5.0f;
+        assert(v.is_normalized() == false);
+        assert(v.get_normalized().is_normalized() == true);
+        v.normalize();
+        assert(v.is_normalized() == true);
+
+
+        v = Vector2(1.0f, 3.0f);
+        assert(v.has_opposite_direction_to(Vector2(1.0f, -3.0f)) == true);
+
+        assert(v.has_same_direction_as(Vector2(3.0f, 1.0f)) == true);
+
+        v = Vector2(1.0f);
+        assert(v.is_collinear_to(Vector2(2.0f)));
+        assert(v.normalize().is_collinear_to(Vector2(2.0f)));
+        assert(v.is_collinear_to(Vector2(2.0f).normalize()));
+
+        v = Vector2(1.0f);
+        assert(v.is_collinear_opposite_to(Vector2(-2.0f)));
+        assert(v.normalize().is_collinear_opposite_to(Vector2(-2.0f)));
+        assert(v.is_collinear_opposite_to(Vector2(-2.0f).normalize()));
+
+        v = Vector2(0.0f, 3.0f);
+        assert(v.is_perpendicular_to(Vector2(3.0f, 0.0f)) == true);
+
+        v[Axis::x] = 2.0f;
+        v[Axis::y] = 5.0f;
+        assert(Math::floats_equal(v.get_magnitude(), 5.38516f) == true);
+        assert(Math::floats_equal(v.get_magnitude_squared(), 29.0f) == true);
+
+        assert(Math::floats_equal(v.get_projection(Vector2(3.0, 9.0)), 5.375f) == true);
+
+        assert(Math::floats_equal(v.get_dot_product(Vector2(4.0f, 9.0f)), 53.0f) == true);
+
+        assert(v.get_cross_product(Vector2(5.0, 5.0)) == Vector3(0.0f, 0.0f, -15.0f));
+
+        v[Axis::x] = 2.0f;
+        v[Axis::y] = 2.0f;
+        v.scalar_multiply(2.0f);
+        assert(v == Vector2(4.0f, 4.0f));
+        assert(v.get_scalar_product(2.0f) == Vector2(8.0f, 8.0f));
+
+        v[Axis::x] = 7.0f;
+        v[Axis::y] = 9.0f;
+        assert(v.get_euler_integration(Vector2(3.0, 2.0), 5.0f) == Vector2(22.0, 19.0));
+        v.euler_integrate(Vector2(3.0, 2.0), 5.0f);
+        assert(v == Vector2(22.0, 19.0));
+
+        v[Axis::x] = 6.0f;
+        v[Axis::y] = 7.0f;
+        assert(Math::floats_equal(v.distance_between(Vector2(3.0, 4.0)), 4.242f));
+        assert(Math::floats_equal(v.distance_between_squared(Vector2(3.0, 4.0)), 18.0f));
+
+        v[Axis::x] = 3.0f;
+        v[Axis::y] = 3.0f;
+        assert(Math::floats_equal(v.radians_between(Vector2(5.0, 7.0)), 36.0f) == true);
+
+        assert(Math::floats_equal(v.degrees_between(Vector2(5.0, 7.0)), 2062.648f) == true);
+
+        v[Axis::x] = 10.0f;
+        v[Axis::y] = 10.0f;
+        v.truncate(6.0f);
+        assert(v == Vector2(6.0f, 6.0f));
+
+        v.make_zero();
+        assert(v == Vector2::zero());
+
+        assert(v.is_zero() == true);
+
+        v.set(3.0f);
+        assert(v == Vector2(3.0f, 3.0f));
+        v.set(1.0f, 2.0f);
+        assert(v == Vector2(1.0f, 2.0f));
+        v.set(Vector2(4.0f, 4.0f));
+        assert(v == Vector2(4.0f, 4.0f));
+
+        assert(v.get_x() == 4.0f);
+        v.set_x(3.0f);
+        assert(v.get_x() == 3.0f);
+
+        assert(v.get_y() == 4.0f);
+        v.set_y(3.0f);
+        assert(v.get_y() == 3.0f);
+
+        v.negate();
+        assert(v.get_x() == -3.0f && v.get_y() == -3.0f);
+
+
 
     }
     #endif
 
+    /* Vec2 end */
+
+    
+
     // -------
     // Vector3
     // -------
+
+    /* Vec3 start */
+
+    /* Vec3 statics start */
 
     const Vector3& Vector3::zero() {
         static Vector3 zero_vec = Vector3(0.0f, 0.0f, 0.0f);
@@ -258,6 +496,10 @@ namespace ZeroEngine {
         static Vector3 k_vec = Vector3(0.0f, 0.0f, 1.0f);
         return k_vec;
     }
+
+    /* Vec3 statics end */
+
+    /* Vec3 ctor start */
 
     Vector3::Vector3() {
         _vec[Axis::x] = 0.0f;
@@ -300,6 +542,10 @@ namespace ZeroEngine {
         _vec[Axis::y] = other[Axis::y];
         _vec[Axis::z] = other[Axis::z];
     }
+
+    /* Vec3 ctor end */
+
+    /* Vec3 ops start */
 
     Vector3& Vector3::operator=(const Vector3& other) {
         _vec[Axis::x] = other[Axis::x];
@@ -397,8 +643,13 @@ namespace ZeroEngine {
         return !(lhs == rhs);
     }
 
-    void Vector3::normalize() {
+    /* Vec3 ops end */
+
+    /* Vec3 methods start */
+
+    Vector3& Vector3::normalize() {
         *this *= (1 / get_magnitude());
+        return *this;
     }
 
     Vector3 Vector3::get_normalized() const {
@@ -459,15 +710,85 @@ namespace ZeroEngine {
         return *this * scalar;
     }
 
+    void Vector3::euler_integrate(const Vector3& vec, const Float32 scalar) {
+        *this = *this + (vec * scalar);
+    }
+
+    Vector3 Vector3::get_euler_integration(const Vector3& vec, const Float32 scalar) const {
+        return *this + (vec * scalar);
+    }
+
+    Float32 Vector3::distance_between(const Vector3& other) const {
+        return (other - *this).get_magnitude();
+    }
+
+    Float32 Vector3::distance_between_squared(const Vector3& other) const {
+        return (other - *this).get_magnitude_squared();
+    }
+
+    void Vector3::truncate(const Float32 max) {
+        _vec[Axis::x] = Math::clamp_max(_vec[Axis::x], max);
+        _vec[Axis::y] = Math::clamp_max(_vec[Axis::y], max);
+        _vec[Axis::z] = Math::clamp_max(_vec[Axis::z], max);
+    }
+
+    Vector3 Vector3::get_truncated(const Float32 max) const {
+        return Vector3(Math::clamp_max(_vec[Axis::x], max),
+                       Math::clamp_max(_vec[Axis::y], max),
+                       Math::clamp_max(_vec[Axis::z], max));
+    }
+
+    Radian Vector3::radians_between(const Vector3& other) const {
+        if (!is_normalized() && other.is_normalized()) {
+            return get_normalized().get_dot_product(other);
+        } else if (is_normalized() && !other.is_normalized()) {
+            return get_dot_product(other.get_normalized());
+        }
+        return get_dot_product(other);
+    }
+
+    Degree Vector3::degrees_between(const Vector3& other) const {
+        if (!is_normalized() && other.is_normalized()) {
+            return Math::radians_to_degrees(get_normalized().get_dot_product(other));
+        } else if (is_normalized() && !other.is_normalized()) {
+            return Math::radians_to_degrees(get_dot_product(other.get_normalized()));
+        }
+        return Math::radians_to_degrees(get_dot_product(other));
+    }
+
+    void Vector3::transform_by_matrix(const Matrix3x3 matrix) {
+        *this = this->get_matrix_transform(matrix);
+    }
+
+    Vector3 Vector3::get_matrix_transform(const Matrix3x3& matrix) const {
+        Vector3 transform;
+
+        transform[Axis::x] = _vec[Axis::x] * matrix[0][0] + _vec[Axis::y] * matrix[1][0] + _vec[Axis::z] * matrix[2][0];
+        transform[Axis::y] = _vec[Axis::x] * matrix[0][1] + _vec[Axis::y] * matrix[1][1] + _vec[Axis::z] * matrix[2][1];
+        transform[Axis::z] = _vec[Axis::x] * matrix[0][2] + _vec[Axis::y] * matrix[1][2] + _vec[Axis::z] * matrix[2][2];
+
+        return transform;
+    }
+
+    /* Vec3 methods end */
+
     #ifdef _DEBUG
     void Vector3::run_unit_test() {
 
     }
     #endif
 
+    /* Vec3 end */
+
+
+
     // -------
     // Vector4
     // -------
+
+    /* Vec4 start */
+
+    /* Vec4 statics start */
 
     const Vector4& Vector4::zero() {
         static Vector4 zero_vec = Vector4(0.0f, 0.0f, 0.0f, 0.0f);
@@ -488,6 +809,10 @@ namespace ZeroEngine {
         static Vector4 k_vec = Vector4(0.0f, 0.0f, 1.0f, 0.0f);
         return k_vec;
     }
+
+    /* Vec4 static end */
+
+    /* Vec4 ctor start */
 
     Vector4::Vector4() {
         _vec[Axis::x] = 0.0f;
@@ -537,6 +862,10 @@ namespace ZeroEngine {
         _vec[Axis::z] = 1.0f;
         _vec[Axis::w] = 1.0f;
     }
+
+    /* Vec4 ctor end */
+
+    /* Vec4 ops start */
 
     Vector4& Vector4::operator=(const Vector4& other) {
         _vec[Axis::x] = other[Axis::x];
@@ -665,8 +994,13 @@ namespace ZeroEngine {
         return !(lhs == rhs);
     }
 
-    void Vector4::normalize() {
+    /* Vec4 ops end */
+
+    /* Vec4 methods start */
+
+    Vector4& Vector4::normalize() {
         *this *= (1 / get_magnitude());
+        return *this;
     }
 
     Vector4 Vector4::get_normalized() const {
@@ -722,17 +1056,155 @@ namespace ZeroEngine {
         return *this * scalar;
     }
 
+    void Vector4::euler_integrate(const Vector4& vec, const Float32 scalar) {
+        *this = *this + (vec * scalar);
+    }
+
+    Vector4 Vector4::get_euler_integration(const Vector4& vec, const Float32 scalar) const {
+        return *this + (vec * scalar);
+    }
+
+    Float32 Vector4::distance_between(const Vector4& other) const {
+        return (other - *this).get_magnitude();
+    }
+
+    Float32 Vector4::distance_between_squared(const Vector4& other) const {
+        return (other - *this).get_magnitude_squared();
+    }
+
+    void Vector4::truncate(const Float32 max) {
+        _vec[Axis::x] = Math::clamp_max(_vec[Axis::x], max);
+        _vec[Axis::y] = Math::clamp_max(_vec[Axis::y], max);
+        _vec[Axis::z] = Math::clamp_max(_vec[Axis::z], max);
+        _vec[Axis::w] = Math::clamp_max(_vec[Axis::w], max);
+    }
+
+    Vector4 Vector4::get_truncated(const Float32 max) const {
+        return Vector4(Math::clamp_max(_vec[Axis::x], max),
+                       Math::clamp_max(_vec[Axis::y], max),
+                       Math::clamp_max(_vec[Axis::z], max),
+                       Math::clamp_max(_vec[Axis::w], max));
+    }
+
+    Radian Vector4::radians_between(const Vector4& other) const {
+        if (!is_normalized() && other.is_normalized()) {
+            return get_normalized().get_dot_product(other);
+        } else if (is_normalized() && !other.is_normalized()) {
+            return get_dot_product(other.get_normalized());
+        }
+        return get_dot_product(other);
+    }
+
+    Degree Vector4::degrees_between(const Vector4& other) const {
+        if (!is_normalized() && other.is_normalized()) {
+            return Math::radians_to_degrees(get_normalized().get_dot_product(other));
+        } else if (is_normalized() && !other.is_normalized()) {
+            return Math::radians_to_degrees(get_dot_product(other.get_normalized()));
+        }
+        return Math::radians_to_degrees(get_dot_product(other));
+    }
+
+    void Vector4::transform_by_matrix(const Matrix4x4& matrix) {
+        *this = this->get_matrix_transform(matrix);
+    }
+
+    Vector4 Vector4::get_matrix_transform(const Matrix4x4& matrix) const {
+        Vector4 transform;
+
+        transform[Axis::x] = _vec[Axis::x] * matrix[0][0] + _vec[Axis::y] * matrix[1][0] + _vec[Axis::z] * matrix[2][0] + _vec[Axis::w] * matrix[3][0];
+        transform[Axis::y] = _vec[Axis::x] * matrix[0][1] + _vec[Axis::y] * matrix[1][1] + _vec[Axis::z] * matrix[2][1] + _vec[Axis::w] * matrix[3][1];
+        transform[Axis::z] = _vec[Axis::x] * matrix[0][2] + _vec[Axis::y] * matrix[1][2] + _vec[Axis::z] * matrix[2][2] + _vec[Axis::w] * matrix[3][2];
+        transform[Axis::w] = _vec[Axis::x] * matrix[0][3] + _vec[Axis::y] * matrix[1][3] + _vec[Axis::z] * matrix[2][3] + _vec[Axis::w] * matrix[3][3];
+
+        return transform;
+    }
+
+    /* Vec4 methods end */
+
     #ifdef _DEBUG
     void Vector4::run_unit_test() {
 
     }
     #endif
 
+    /* Vec4 end */
+
+
+    // -----------------------
+    // Matrix helper functions 
+    // -----------------------
+
+    static void apply_rotation(const AxisIndex axis, const Degree angle, Matrix3x3* matrix) {
+        if (!matrix) return;
+
+        switch (axis) {
+            case Axis::x:
+            {
+                (*matrix)[1][1] = Math::cosine(angle);
+                (*matrix)[1][2] = -Math::sine(angle);
+                (*matrix)[2][1] = Math::sine(angle);
+                (*matrix)[2][2] = Math::cosine(angle);
+                break;
+            }
+            case Axis::y:
+            {
+                (*matrix)[0][0] = Math::cosine(angle);
+                (*matrix)[0][2] = Math::sine(angle);
+                (*matrix)[2][0] = -Math::sine(angle);
+                (*matrix)[2][2] = Math::cosine(angle);
+                break;
+            }
+            default:
+                LOG_DEBUG("apply_rotation", "Trying to rotate Matrix3x3 around invalid axis");
+                break;
+        }
+    }
+
+    static void apply_rotation(const AxisIndex axis, const Degree angle, Matrix4x4* matrix) {
+        if (!matrix) return;
+
+        switch (axis) {
+            case Axis::x:
+            {
+                (*matrix)[1][1] = Math::cosine(angle);
+                (*matrix)[1][2] = -Math::sine(angle);
+                (*matrix)[2][1] = Math::sine(angle);
+                (*matrix)[2][2] = Math::cosine(angle);
+                break;
+            }
+            case Axis::y:
+            {
+                (*matrix)[0][0] = Math::cosine(angle);
+                (*matrix)[0][2] = Math::sine(angle);
+                (*matrix)[2][0] = -Math::sine(angle);
+                (*matrix)[2][2] = Math::cosine(angle);
+                break;
+            }
+            case Axis::z:
+            {
+                (*matrix)[0][0] = Math::cosine(angle);
+                (*matrix)[0][1] = -Math::sine(angle);
+                (*matrix)[1][0] = Math::sine(angle);
+                (*matrix)[1][1] = Math::cosine(angle);
+                break;
+            }
+            default:
+                LOG_DEBUG("apply_rotation", "Trying to rotate Matrix4x4 around invalid axis");
+                break;
+        }
+    }
+
+
+
     // ---------
     // Matrix3x3
     // ---------
 
-    const Matrix3x3& Matrix3x3::identity2D() {
+    /* Mat3 start */
+
+    /* Mat3 statics start */
+
+    const Matrix3x3& Matrix3x3::identity() {
         static Matrix3x3 identity = Matrix3x3(Vector3(1.0, 0.0f, 0.0f),
                                               Vector3(0.0f, 1.0f, 0.0f),
                                               Vector3(0.0f, 0.0f, 1.0f));
@@ -740,14 +1212,14 @@ namespace ZeroEngine {
     }
 
     Matrix3x3 Matrix3x3::get_translation_2D(const Vector2& vec) {
-        Matrix3x3 matrix = Matrix3x3(Matrix3x3::identity2D());
+        Matrix3x3 matrix = Matrix3x3(Matrix3x3::identity());
         matrix[0][Axis::z] = vec[Axis::x];
         matrix[1][Axis::z] = vec[Axis::y];
         return matrix;
     }
 
     Matrix3x3 Matrix3x3::get_rotation_2D(const Vector2& center, const Degree angle) {
-        Float32 radian = Math::angle_to_radian(angle);
+        Float32 radian = Math::degrees_to_radians(angle);
         Float32 c = Math::cosine(radian);
         Float32 s = Math::sine(radian);
 
@@ -761,6 +1233,10 @@ namespace ZeroEngine {
                          Vector3(0.0f, vec[Axis::y], 0.0f),
                          Vector3(0.0f, 0.0f, 1.0f));
     }
+
+    /* Mat3 statics end */
+
+    /* Mat3 ctor start */
 
     Matrix3x3::Matrix3x3() {
         _matrix[0] = Vector3();
@@ -785,6 +1261,10 @@ namespace ZeroEngine {
         _matrix[1] = other[1];
         _matrix[2] = other[2];
     }
+
+    /* Mat3 ctor end */
+
+    /* Mat3 ops start */
 
     Matrix3x3& Matrix3x3::operator=(const Matrix3x3& other) {
         _matrix[0] = other[0];
@@ -877,13 +1357,9 @@ namespace ZeroEngine {
         return !(lhs == rhs);
     }
 
-    Vector2 Matrix3x3::get_linear_transform(const Vector2& vec) const {
-        return Vector2();
-    }
+    /* Mat3 ops end */
 
-    Vector3 Matrix3x3::get_linear_transform(const Vector3& vec) const {
-        return Vector3();
-    }
+    /* Mat3 methods start */
 
     void Matrix3x3::transpose() {
         *this = this->get_transposition();
@@ -905,7 +1381,7 @@ namespace ZeroEngine {
         // In short, I have no idea what is going on here...
         // @TODO: Learn about what's going on in this function.
         Matrix3x3 mat1(*this);
-        Matrix3x3 mat2(identity2D());
+        Matrix3x3 mat2(identity());
         Int32 j;
         Int32 i;
         Int32 k;
@@ -948,9 +1424,31 @@ namespace ZeroEngine {
         *this = Matrix3x3::get_rotation_2D(center, angle);
     }
 
+    void Matrix3x3::rotate_x(const Degree angle) {
+        apply_rotation(Axis::x, angle, this);
+    }
+
+    Matrix3x3 Matrix3x3::get_rotation_x(const Degree angle) const {
+        Matrix3x3 rotation(*this);
+        apply_rotation(Axis::x, angle, &rotation);
+        return rotation;
+    }
+
+    void Matrix3x3::rotate_y(const Degree angle) {
+        apply_rotation(Axis::y, angle, this);
+    }
+
+    Matrix3x3 Matrix3x3::get_rotation_y(const Degree angle) const {
+        Matrix3x3 rotation(*this);
+        apply_rotation(Axis::y, angle, &rotation);
+        return rotation;
+    }
+
     void Matrix3x3::scale(const Vector2& vec) {
         *this = Matrix3x3::get_scaling_2D(vec);
     }
+
+    /* Mat3 methods end */
 
     #ifdef _DEBUG
     void Matrix3x3::run_unit_test() {
@@ -958,11 +1456,19 @@ namespace ZeroEngine {
     }
     #endif
 
+    /* Mat3 end */
+
+
+
     // ---------
     // Matrix4x4
     // ---------
 
-    const Matrix4x4 Matrix4x4::identity3D() {
+    /* Mat4 start */
+
+    /* Mat4 statics start */
+
+    const Matrix4x4 Matrix4x4::identity() {
         Matrix4x4 identity =  Matrix4x4(Vector4(1.0f, 0.0f, 0.0f, 0.0f),
                                         Vector4(0.0f, 1.0f, 0.0f, 0.0f),
                                         Vector4(0.0f, 0.0f, 1.0f, 0.0f),
@@ -971,7 +1477,7 @@ namespace ZeroEngine {
     }
 
     Matrix4x4 Matrix4x4::get_translation_3D(const Vector3& vec) {
-        Matrix4x4 matrix(Matrix4x4::identity3D());
+        Matrix4x4 matrix(Matrix4x4::identity());
         matrix[0][Axis::w] = vec[Axis::x];
         matrix[1][Axis::w] = vec[Axis::y];
         matrix[2][Axis::w] = vec[Axis::z];
@@ -979,14 +1485,14 @@ namespace ZeroEngine {
     }
 
     Matrix4x4 Matrix4x4::get_rotation_3D(const Vector3& axis, const Degree angle) {
-        Float32 radian = Math::angle_to_radian(angle);
+        Float32 radian = Math::degrees_to_radians(angle);
         Float32 c = Math::cosine(radian);
         Float32 s = Math::sine(radian);
         Float32 t = 1.0f - c;
 
         Vector3 norm_axis = axis.get_normalized();
 
-        Matrix4x4 matrix = Matrix4x4::identity3D();
+        Matrix4x4 matrix = Matrix4x4::identity();
 
         matrix[0][0] = t * norm_axis[Axis::x] * norm_axis[Axis::x] + c;
         matrix[0][1] = t * norm_axis[Axis::x] * norm_axis[Axis::y] - s * norm_axis[Axis::z];
@@ -1011,11 +1517,15 @@ namespace ZeroEngine {
     }
 
     Matrix4x4 Matrix4x4::get_perspective_3D(const Float32 val) {
-        Matrix4x4 matrix = Matrix4x4::identity3D();
+        Matrix4x4 matrix = Matrix4x4::identity();
         matrix[3][2] = 1.0f / val;
         matrix[3][3] = 0.0f;
         return matrix;
     }
+
+    /* Mat4 statics end */
+
+    /* Mat4 ctor start */
 
     Matrix4x4::Matrix4x4() {
         _matrix[0] = Vector4();
@@ -1044,6 +1554,10 @@ namespace ZeroEngine {
         _matrix[2] = other[2];
         _matrix[3] = other[3];
     }
+
+    /* Mat4 ctor end */
+
+    /* Mat4 ops start */
 
     Matrix4x4& Matrix4x4::operator=(const Matrix4x4& other) {
         _matrix[0] = other[0];
@@ -1142,13 +1656,9 @@ namespace ZeroEngine {
         return !(lhs == rhs);
     }
 
-    Vector3 Matrix4x4::get_linear_transform(const Vector3& vec) const {
-        return Vector3();
-    }
+    /* Mat4 ops end */
 
-    Vector4 Matrix4x4::get_linear_transform(const Vector4& vec) const {
-        return Vector4();
-    }
+    /* Mat4 methods start */
 
     void Matrix4x4::transpose() {
         *this = this->get_transposition();
@@ -1168,7 +1678,7 @@ namespace ZeroEngine {
     Matrix4x4 Matrix4x4::get_inverse() const {
         // @TODO: See note in Matrix3x3::get_inverse()
         Matrix4x4 mat1(*this);
-        Matrix4x4 mat2(Matrix4x4::identity3D());
+        Matrix4x4 mat2(Matrix4x4::identity());
         Int32 i;
         Int32 j;
         Int32 k;
@@ -1211,15 +1721,49 @@ namespace ZeroEngine {
         *this = Matrix4x4::get_rotation_3D(axis, angle);
     }
 
+    void Matrix4x4::rotate_x(const Degree angle) {
+        apply_rotation(Axis::x, angle, this);
+    }
+
+    Matrix4x4 Matrix4x4::get_rotation_x(const Degree angle) const {
+        Matrix4x4 rotation(*this);
+        apply_rotation(Axis::x, angle, &rotation);
+        return rotation;
+    }
+
+    void Matrix4x4::rotate_y(const Degree angle) {
+        apply_rotation(Axis::y, angle, this);
+    }
+
+    Matrix4x4 Matrix4x4::get_rotation_y(const Degree angle) const {
+        Matrix4x4 rotation(*this);
+        apply_rotation(Axis::y, angle, &rotation);
+        return rotation;
+    }
+
+    void Matrix4x4::rotate_z(const Degree angle) {
+        apply_rotation(Axis::z, angle, this);
+    }
+
+    Matrix4x4 Matrix4x4::get_rotation_z(const Degree angle) const {
+        Matrix4x4 rotation(*this);
+        apply_rotation(Axis::z, angle, &rotation);
+        return rotation;
+    }
+
     void Matrix4x4::scale(const Vector3& vec) {
         *this = Matrix4x4::get_scaling_3D(vec);
     }
+
+    /* Mat4 methods end */
 
     #ifdef _DEBUG
     void Matrix4x4::run_unit_test() {
 
     }
     #endif
+
+    /* Mat4 end */
 
     #ifdef _DEBUG
     namespace MathTypes {
