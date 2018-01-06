@@ -3,7 +3,7 @@
 #include "IRenderPacket.h"
 #include "IPrimitiveRenderer.h"
 #include "../Graphics/Graphics.h"
-#include "../Math/Vector2.h"
+#include "../Math/MathTypes.h"
 #include "../Math/Line.h"
 
 namespace ZeroEngine {

@@ -6,9 +6,7 @@
 #include "Graphics\Graphics.h"
 #include "Process\Process.h"
 #include "Events/BaseEventData.h"
-#include "Math/Vector2.h"
-#include "Math/Vector3.h"
-#include "Math/Vector4.h"
+#include "Math/MathTypes.h"
 
 namespace ZeroEngine {
 
@@ -87,6 +85,7 @@ namespace ZeroEngine {
     // MoveEntityEvent
     // ---------------
 
+    // @TODO: Change to Matrix3x3/Matrix4x4
     class MoveEntityEvent : public BaseEventData {
     DECLARE_EVENT_METHODS(MoveEntityEvent)
 

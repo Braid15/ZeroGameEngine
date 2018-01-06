@@ -2,9 +2,7 @@
 
 #include "../../ZeroEngineStd.h"
 #include "../EntityComponent.h"
-#include "../../Math/Vector2.h"
-#include "../../Math/Vector3.h"
-#include "../../Math/Vector4.h"
+#include "../../Math/MathTypes.h"
 #include "../../Utils/Xml/XmlReader.h"
 #include "../../Utils/Xml/XmlWriter.h"
 #include "../../Physics/IPhysics.h"

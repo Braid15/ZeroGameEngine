@@ -2,7 +2,7 @@
 
 #include "../ZeroEngineStd.h"
 #include "IPhysics.h"
-#include "../Math/Vector3.h"
+#include "../Math/MathTypes.h"
 
 namespace ZeroEngine {
 

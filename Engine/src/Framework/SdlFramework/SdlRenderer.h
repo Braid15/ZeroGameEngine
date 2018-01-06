@@ -4,7 +4,7 @@
 #include "../IRenderer.h"
 #include "../../Rendering/IPrimitiveRenderer.h"
 #include "SdlFramework.h"
-#include "../../Math/Vector2.h"
+#include "../../Math/MathTypes.h"
 
 namespace ZeroEngine {
 

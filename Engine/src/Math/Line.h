@@ -1,7 +1,7 @@
 #pragma once 
 
 #include "../ZeroEngineStd.h"
-#include "Vector2.h"
+#include "MathTypes.h"
 #include "../Graphics/Point.h"
 
 namespace ZeroEngine {

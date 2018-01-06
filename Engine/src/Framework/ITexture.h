@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../ZeroEngineStd.h"
-#include "../Math/Vector2.h"
+#include "../Math/MathTypes.h"
 #include "../Math/Math.h"
 
 namespace ZeroEngine {
@@ -71,7 +71,7 @@ namespace ZeroEngine {
 
         virtual inline const Vector2& get_position() const override { return _position; }
         virtual inline void set_position(const Vector2& pos) override { _position.set(pos); }
-        virtual inline void set_position(const Vector2* pos) override { _position.set(pos); }
+        virtual inline void set_position(const Vector2* pos) override { _position.set(*pos); }
         virtual inline void set_position(const Float32 x, const Float32 y) override { _position.set(x, y); }
 
         virtual inline Float32 get_x() const override { return _position.get_x(); }

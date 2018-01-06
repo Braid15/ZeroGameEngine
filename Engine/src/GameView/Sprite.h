@@ -3,7 +3,7 @@
 #include "../ZeroEngineStd.h"
 #include "IScreenElement.h"
 #include "../Framework/ITexture.h"
-#include "../Math/Vector2.h"
+#include "../Math/MathTypes.h"
 
 namespace ZeroEngine {
 

@@ -53,6 +53,11 @@ namespace ZeroEngine {
         _vec[Axis::y] = value;
     }
 
+    Vector2::Vector2(const Float32 x, const Float32 y) {
+        _vec[Axis::x] = x;
+        _vec[Axis::y] = y;
+    }
+
     Vector2::Vector2(const Vector2& other) {
         _vec[Axis::x] = other[Axis::x];
         _vec[Axis::y] = other[Axis::y];

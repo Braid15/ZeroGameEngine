@@ -10,9 +10,7 @@
 #include "../ZeroEngineEvents.h"
 #include "../Physics/Physics.h"
 #include "../Process/ProcessManager.h"
-#include "../Math/Vector2.h"
-#include "../Math/Vector3.h"
-#include "../Math/Vector4.h"
+#include "../Math/MathTypes.h"
 
 namespace ZeroEngine {
 
