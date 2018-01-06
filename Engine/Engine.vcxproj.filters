@@ -339,6 +339,15 @@
     <ClInclude Include="src\Physics\NullPhysics.h">
       <Filter>Source\Physics</Filter>
     </ClInclude>
+    <ClInclude Include="src\Math\Matrix3x3.h">
+      <Filter>Source\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Math\Matrix4x4.h">
+      <Filter>Source\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Math\MathTypes.h">
+      <Filter>Source\Math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Logger\BaseLogger.cpp">
@@ -502,6 +511,15 @@
     </ClCompile>
     <ClCompile Include="src\main.cpp">
       <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Math\Matrix3x3.cpp">
+      <Filter>Source\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Math\Matrix4x4.cpp">
+      <Filter>Source\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Math\MathTypes.cpp">
+      <Filter>Source\Math</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -23,6 +23,7 @@ namespace ZeroEngine {
         extern Float32 clamp_max(const Float32& orig_val, const Float32& max);
 
 
+        extern Float32 angle_to_radian(const Degree& angle);
 
         extern Float32 power_of(const Float32& orig_val, const Int32& exponent);
 
@@ -31,6 +32,10 @@ namespace ZeroEngine {
         extern Float32 square(const Float32& orig_val);
 
         extern Float32 cube(const Float32& orig_val);
+
+        extern Float32 cosine(const Float32& radian);
+
+        extern Float32 sine(const Float32& radian);
 
         // static T root(const T& orig_val, const i32& root_of);
 

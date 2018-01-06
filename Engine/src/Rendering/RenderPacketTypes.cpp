@@ -19,8 +19,8 @@ namespace ZeroEngine {
     LineRenderPacket::LineRenderPacket(Point<Int32> start, Point<Int32> end, Color color)
         : BaseRenderPacket(color) {
 
-        _start = Vector2(start.get_x(), start.get_y());
-        _end = Vector2(end.get_x(), end.get_y());
+        _start = Vector2(static_cast<Float32>(start.get_x()), static_cast<Float32>(start.get_y()));
+        _end = Vector2(static_cast<Float32>(end.get_x()), static_cast<Float32>(end.get_y()));
     }
 
     void LineRenderPacket::on_render(IPrimitiveRenderer& renderer) {

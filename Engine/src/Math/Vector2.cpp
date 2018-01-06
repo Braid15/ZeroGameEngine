@@ -179,13 +179,13 @@ namespace ZeroEngine {
     // ----------------------
 
     Vector2::Vector2() {
-        _vec[Axis::X] = 0.0f;
-        _vec[Axis::Y] = 0.0f;
+        _vec[0] = 0.0f;
+        _vec[1] = 0.0f;
     }
 
     Vector2::Vector2(const Float32 x, const Float32 y) {
-        _vec[Axis::X] = x;
-        _vec[Axis::Y] = y;
+        _vec[0] = x;
+        _vec[1] = y;
     }
 
 
@@ -220,11 +220,11 @@ namespace ZeroEngine {
         }
     }
 
-    bool Vector2::has_opposite_direction_as(const Vector2& other) {
+    bool Vector2::has_opposite_direction_to(const Vector2& other) {
         return Vector2::opposite_directions(this, other);
     }
 
-    bool Vector2::has_opposite_direction_as(const Vector2* other) {
+    bool Vector2::has_opposite_direction_to(const Vector2* other) {
         return Vector2::opposite_directions(this, other);
     }
 

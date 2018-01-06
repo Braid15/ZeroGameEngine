@@ -94,8 +94,8 @@ namespace ZeroEngine {
         static bool same_directions(const Vector2& v1, const Vector2* v2);
         static bool same_directions(const Vector2* v1, const Vector2& v2);
 
-        bool has_opposite_direction_as(const Vector2& other);
-        bool has_opposite_direction_as(const Vector2* other);
+        bool has_opposite_direction_to(const Vector2& other);
+        bool has_opposite_direction_to(const Vector2* other);
 
         bool is_collinear_to(const Vector2& other);
         bool is_collinear_to(const Vector2* other);

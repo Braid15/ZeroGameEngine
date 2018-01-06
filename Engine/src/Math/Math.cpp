@@ -42,6 +42,30 @@ namespace ZeroEngine {
             return orig_val;
         }
 
+        // ---------------
+        // angle_to_radian
+        // ---------------
+
+        Float32 angle_to_radian(const Degree& angle) {
+            return angle * Math::pi / 180.0f;
+        }
+
+        // ------
+        // cosine
+        // ------
+
+        Float32 cosine(const Float32& radian) {
+            return cosf(radian);
+        }
+
+        // ----
+        // sine
+        // ----
+
+        Float32 sine(const Float32& radian) {
+            return sinf(radian);
+        }
+
         // --------
         // power_of
         // --------
