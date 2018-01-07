@@ -49,6 +49,12 @@ namespace ZeroEngine {
         return j_vec;
     }
 
+    Vector2 Vector2::lerp(const Vector2& vec1, const Vector2& vec2, const Float32 b) {
+        Float32 clamped_b = Math::clamp(b, 0.0f, 1.0f);
+        return Vector2(((1 - clamped_b) * vec1[Axis::x]) + (clamped_b * vec2[Axis::x]),
+                       ((1 - clamped_b) * vec1[Axis::y]) + (clamped_b * vec2[Axis::y]));
+    }
+
     /* Vec2 statics end */
 
     /* Vec2 ctor start */
@@ -262,8 +268,17 @@ namespace ZeroEngine {
         return Math::absolute_value((_vec[Axis::x] * _vec[Axis::x]) + (_vec[Axis::y] * _vec[Axis::y]));
     }
 
-    Float32 Vector2::get_projection(const Vector2& other) const {
-        return (other.is_normalized()) ? get_dot_product(other) : get_dot_product(other.get_normalized());
+    Float32 Vector2::get_scalar_projection(const Vector2& other) const {
+        return get_dot_product(other) / get_magnitude();
+    }
+
+    Vector2 Vector2::get_vector_projection(const Vector2& other) const {
+        return get_dot_product(other) / get_magnitude_squared() * (*this);
+    }
+
+    Vector2& Vector2::project_onto(const Vector2& other) {
+        *this = get_vector_projection(other);
+        return *this;
     }
 
     Float32 Vector2::get_dot_product(const Vector2& other) const {
@@ -406,7 +421,10 @@ namespace ZeroEngine {
         assert(Math::floats_equal(v.get_magnitude(), 5.38516f) == true);
         assert(Math::floats_equal(v.get_magnitude_squared(), 29.0f) == true);
 
-        assert(Math::floats_equal(v.get_projection(Vector2(3.0, 9.0)), 5.375f) == true);
+        assert(Math::floats_equal(v.get_scalar_projection(Vector2(3.0, 9.0)), 9.470f) == true);
+
+        assert(Vector2(4, 2).get_vector_projection(Vector2(3, 5)) == Vector2(4.4, 2.2));
+        assert(Vector2(4, 2).project_onto(Vector2(3, 5)) == Vector2(4.4, 2.2));
 
         assert(Math::floats_equal(v.get_dot_product(Vector2(4.0f, 9.0f)), 53.0f) == true);
 
@@ -494,6 +512,13 @@ namespace ZeroEngine {
     const Vector3& Vector3::unit_k() {
         static Vector3 k_vec = Vector3(0.0f, 0.0f, 1.0f);
         return k_vec;
+    }
+
+    Vector3 Vector3::lerp(const Vector3& vec1, const Vector3& vec2, const Float32 b) {
+        Float32 clamped_b = Math::clamp(b, 0.0f, 1.0f);
+        return Vector3(((1 - clamped_b) * vec1[Axis::x]) + (clamped_b * vec2[Axis::x]),
+                       ((1 - clamped_b) * vec1[Axis::y]) + (clamped_b * vec2[Axis::y]),
+                       ((1 - clamped_b) * vec1[Axis::z]) + (clamped_b * vec2[Axis::z]));
     }
 
     /* Vec3 statics end */
@@ -728,8 +753,17 @@ namespace ZeroEngine {
         return (_vec[Axis::x] * _vec[Axis::x]) + (_vec[Axis::y] * _vec[Axis::y]) + (_vec[Axis::z] * _vec[Axis::z]);
     }
 
-    Float32 Vector3::get_projection(const Vector3& other) const {
-        return (other.is_normalized()) ? get_dot_product(other) : get_dot_product(other.get_normalized());
+    Float32 Vector3::get_scalar_projection(const Vector3& other) const {
+        return get_dot_product(other) / get_magnitude();
+    }
+
+    Vector3 Vector3::get_vector_projection(const Vector3& other) const {
+        return get_dot_product(other) / get_magnitude_squared() * (*this);
+    }
+
+    Vector3& Vector3::project_onto(const Vector3& other) {
+        *this = get_vector_projection(other);
+        return *this;
     }
 
     Float32 Vector3::get_dot_product(const Vector3& other) const {
@@ -876,16 +910,18 @@ namespace ZeroEngine {
 
         assert(Vector3(1, 3, 1).has_same_direction_as(Vector3(3, 1, 1)) == true);
 
-        //assert(Vector3(1, 1, 1).is_collinear_to(Vector3(2, 2, 1)) == true);
+        assert(Vector3(1, 1, 1).is_collinear_to(Vector3(2, 2, 2)) == true);
 
-        //assert(Vector3(1, 1, 1).is_collinear_opposite_to(Vector3(-2, -2, -1)) == true);
+        assert(Vector3(1, 1, 1).is_collinear_opposite_to(Vector3(-2, -2, -2)) == true);
 
-        //assert(Vector3(0, 3, 1).is_perpendicular_to(Vector3(3, 0, 1)) == true);
+        assert(Vector3(0, 0, 1).is_perpendicular_to(Vector3(1, 0, 0)) == true);
 
         assert(Math::floats_equal(Vector3(3, 3, 5).get_magnitude(), 6.557f) == true);
         assert(Math::floats_equal(Vector3(3, 3, 5).get_magnitude_squared(), 43.0f) == true);
 
-        // get_projection()
+        assert(Math::floats_equal(Vector3(3, 3, 3).get_scalar_projection(Vector3(4, 5, 3)), 6.928f) == true);
+        assert(Vector3(5, 3, 2).get_vector_projection(Vector3(6, 5, 3)) == Vector3(6.7, 4.0, 2.6));
+        assert(Vector3(2, 3, 5).project_onto(Vector3(3, 5, 6)) == Vector3(2.6, 4.0, 6.7));
 
         assert(Math::floats_equal(Vector3(3, 4, 5).get_dot_product(Vector3(5, 4, 3)), 46.0f) == true);
 
@@ -906,8 +942,16 @@ namespace ZeroEngine {
         assert(Math::floats_equal(Vector3(2, 9, -3).radians_between(Vector3(-3, -4, 8)), -0.721f) == true);
         assert(Math::floats_equal(Vector3(2, 9, -3).degrees_between(Vector3(-3, -4, 8)), -41.345f) == true);
 
-        // transform_by_matrix()
-        // get_matrix_transform()
+        Matrix3x3 mat;
+        mat[0] = Vector3(3, 0, 2);
+        mat[1] = Vector3(0, 3, 0);
+        mat[2] = Vector3(2, 0, 6);
+        assert(Vector3(3, 4, 3).get_matrix_transform(mat) == Vector3(15, 12, 24));
+
+        mat[0] = Vector3(5, 7, 2);
+        mat[1] = Vector3(2, 3, 0);
+        mat[2] = Vector3(2, 0, 6);
+        assert(Vector3(6, 2, 4).transform_by_matrix(mat) == Vector3(42, 48, 36));
 
         assert(Vector3(1).set(5) == Vector3(5, 5, 5));
         assert(Vector3(1).set(1, 2, 3) == Vector3(1, 2, 3));
@@ -927,9 +971,6 @@ namespace ZeroEngine {
         assert(Vector3(4, 4, 4).make_zero() == Vector3(0));
         assert(Vector3(4).is_zero() == false);
         assert(Vector3(4).make_zero().is_zero() == true);
-
-
-        // @TODO: Commented out functions don't work
     }
     #endif
 
@@ -963,6 +1004,14 @@ namespace ZeroEngine {
     const Vector4& Vector4::unit_k() {
         static Vector4 k_vec = Vector4(0.0f, 0.0f, 1.0f, 0.0f);
         return k_vec;
+    }
+
+    Vector4 Vector4::lerp(const Vector4& vec1, const Vector4& vec2, const Float32 b) {
+        Float32 clamped_b = Math::clamp(b, 0.0f, 1.0f);
+        return Vector4(((1 - clamped_b) * vec1[Axis::x]) + (clamped_b * vec2[Axis::x]),
+                       ((1 - clamped_b) * vec1[Axis::y]) + (clamped_b * vec2[Axis::y]),
+                       ((1 - clamped_b) * vec1[Axis::z]) + (clamped_b * vec2[Axis::z]),
+                       ((1 - clamped_b) * vec1[Axis::w]) + (clamped_b * vec2[Axis::w]));
     }
 
     /* Vec4 static end */
@@ -1211,9 +1260,17 @@ namespace ZeroEngine {
         return (_vec[Axis::x] * _vec[Axis::x]) + (_vec[Axis::y] * _vec[Axis::y]);
     }
 
-    Float32 Vector4::get_projection(const Vector4& other) const {
-        return (other.is_normalized()) ? get_dot_product(other) : get_dot_product(other.get_normalized());
+    Float32 Vector4::get_scalar_projection(const Vector4& other) const {
+        return get_dot_product(other) / get_magnitude();
+    }
 
+    Vector4 Vector4::get_vector_projection(const Vector4& other) const {
+        return get_dot_product(other) / get_magnitude_squared() * (*this);
+    }
+
+    Vector4& Vector4::project_onto(const Vector4& other) {
+        *this = get_vector_projection(other);
+        return *this;
     }
 
     Float32 Vector4::get_dot_product(const Vector4& other) const {

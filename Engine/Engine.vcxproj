@@ -107,7 +107,7 @@
     <TargetName>ZeroEngine_x86_d</TargetName>
     <IncludePath>$(IncludePath);$(ProjectDir)src\3rdParty\SDL;$(ProjectDir)src\*;$(ProjectDir)src\3rdParty\TinyXML;</IncludePath>
     <SourcePath>$(ProjectDir)src\*;$(SourcePath)</SourcePath>
-    <LibraryPath>C:\Program Files %28x86%29\Visual Leak Detector\lib\Win32;$(ProjectDir)libs\x86;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(ProjectDir)libs\x86;$(LibraryPath)</LibraryPath>
     <ExecutablePath>$(ProjectDir)bin\x86\;$(ExecutablePath)</ExecutablePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

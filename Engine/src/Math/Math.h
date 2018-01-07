@@ -25,7 +25,9 @@ namespace ZeroEngine {
         extern Float32 clamp_min(const Float32& orig_val, const Float32& min);
         extern Float32 clamp_max(const Float32& orig_val, const Float32& max);
 
-        extern bool floats_equal(const Float32 a, const Float32 b, Float32 epsilon=0.005f);
+        extern Float32 lerp(const Float32& v0, const Float32& v1, const Float32& t);
+
+        extern bool floats_equal(const Float32 a, const Float32 b, Float32 epsilon=0.1f);
 
         extern Radian degrees_to_radians(const Degree& degree);
 

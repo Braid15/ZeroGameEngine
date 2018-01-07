@@ -44,6 +44,7 @@ namespace ZeroEngine {
         static const Vector2& zero();
         static const Vector2& unit_i(); // x-axis unit vector
         static const Vector2& unit_j(); // y-axis unit vector
+        static Vector2 lerp(const Vector2&, const Vector2&, const Float32);
 
         Vector2();
         explicit Vector2(const Float32);
@@ -99,7 +100,9 @@ namespace ZeroEngine {
         Float32 get_magnitude() const;
         Float32 get_magnitude_squared() const;
 
-        Float32 get_projection(const Vector2&) const;
+        Float32 get_scalar_projection(const Vector2&) const;
+        Vector2 get_vector_projection(const Vector2&) const;
+        Vector2& project_onto(const Vector2&);
 
         Float32 get_dot_product(const Vector2&) const;
         Vector3 get_cross_product(const Vector2&) const;
@@ -163,6 +166,7 @@ namespace ZeroEngine {
         static const Vector3& unit_i(); // x-axis unit vector
         static const Vector3& unit_j(); // y-axis unit vector
         static const Vector3& unit_k(); // z-axis unit vector
+        static Vector3 lerp(const Vector3&, const Vector3&, const Float32);
 
         Vector3();
         explicit Vector3(const Float32);
@@ -220,7 +224,9 @@ namespace ZeroEngine {
         Float32 get_magnitude() const;
         Float32 get_magnitude_squared() const;
 
-        Float32 get_projection(const Vector3&) const;
+        Float32 get_scalar_projection(const Vector3&) const;
+        Vector3 get_vector_projection(const Vector3&) const;
+        Vector3& project_onto(const Vector3&);
 
         Float32 get_dot_product(const Vector3&) const;
         Vector3 get_cross_product(const Vector3&) const;
@@ -302,6 +308,7 @@ namespace ZeroEngine {
         static const Vector4& unit_i(); // x-axis unit vector
         static const Vector4& unit_j(); // y-axis unit vector
         static const Vector4& unit_k(); // z-axis unit vector
+        static Vector4 lerp(const Vector4&, const Vector4&, const Float32);
 
         Vector4();
         explicit Vector4(const Float32);
@@ -354,7 +361,9 @@ namespace ZeroEngine {
         Float32 get_magnitude() const;
         Float32 get_magnitude_squared() const;
 
-        Float32 get_projection(const Vector4&) const;
+        Float32 get_scalar_projection(const Vector4&) const;
+        Vector4 get_vector_projection(const Vector4&) const;
+        Vector4& project_onto(const Vector4&);
 
         Float32 get_dot_product(const Vector4&) const;
 

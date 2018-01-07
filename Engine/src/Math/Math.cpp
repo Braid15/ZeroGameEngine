@@ -44,6 +44,14 @@ namespace ZeroEngine {
             return fabs(a - b) < epsilon;
         }
 
+        // ----
+        // lerp
+        // ----
+
+        Float32 lerp(const Float32& v0, const Float32& v1, const Float32& t) {
+            return ((1 - t) * v0) + (t * v1);
+        }
+
         // ----------------
         // degree_to_radian
         // ----------------
