@@ -464,25 +464,26 @@ namespace ZeroEngine {
         friend bool operator==(const Matrix3x3&, const Matrix3x3&);
         friend bool operator!=(const Matrix3x3&, const Matrix3x3&);
 
-        void transpose();
+        friend std::ostream& operator<<(std::ostream&, const Matrix3x3&);
+
+        Matrix3x3& transpose();
         Matrix3x3 get_transposition() const;
 
-        void inverse();
+        Matrix3x3& inverse();
         Matrix3x3 get_inverse() const;
 
         // @TODO: Test translate ange get_translation_2D()
-        void translate(const Vector2&);
+        Matrix3x3& translate(const Vector2&);
 
-        void rotate(const Vector2& center, const Degree angle);
+        Matrix3x3& rotate(const Vector2& center, const Degree angle);
 
-        void rotate_x(const Degree);
+        Matrix3x3& rotate_x(const Degree);
         Matrix3x3 get_rotation_x(const Degree) const;
 
-        void rotate_y(const Degree);
+        Matrix3x3& rotate_y(const Degree);
         Matrix3x3 get_rotation_y(const Degree) const;
 
-
-        void scale(const Vector2&);
+        Matrix3x3& scale(const Vector2&);
 
         inline StringRepr to_string() const override { return "Matrix3x3"; }
 
@@ -494,6 +495,8 @@ namespace ZeroEngine {
     // ---------
     // Matrix4x4
     // ---------
+
+    /* mat4 decl */
 
     class Matrix4x4 : public virtual IZeroObject {
     private:
@@ -531,26 +534,28 @@ namespace ZeroEngine {
         friend bool operator==(const Matrix4x4&, const Matrix4x4&);
         friend bool operator!=(const Matrix4x4&, const Matrix4x4&);
 
-        void transpose();
+        friend std::ostream& operator<<(std::ostream&, const Matrix4x4&);
+
+        Matrix4x4& transpose();
         Matrix4x4 get_transposition() const;
 
-        void inverse();
+        Matrix4x4& inverse();
         Matrix4x4 get_inverse() const;
 
-        void translate(const Vector3&);
+        Matrix4x4& translate(const Vector3&);
 
-        void rotate(const Vector3& axis, const Degree angle);
+        Matrix4x4& rotate(const Vector3& axis, const Degree angle);
 
-        void rotate_x(const Degree);
+        Matrix4x4& rotate_x(const Degree);
         Matrix4x4 get_rotation_x(const Degree) const;
 
-        void rotate_y(const Degree);
+        Matrix4x4& rotate_y(const Degree);
         Matrix4x4 get_rotation_y(const Degree) const;
 
-        void rotate_z(const Degree);
+        Matrix4x4& rotate_z(const Degree);
         Matrix4x4 get_rotation_z(const Degree) const;
 
-        void scale(const Vector3&);
+        Matrix4x4& scale(const Vector3&);
 
         inline StringRepr to_string() const override { return "Matrix4x4"; }
 

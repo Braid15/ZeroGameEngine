@@ -195,7 +195,7 @@ namespace ZeroEngine {
     }
 
     std::ostream& operator<<(std::ostream& os, const Vector2& vec) {
-        os << "(" << vec.get_x() << ", " << vec.get_y() << ")";
+        os << "[" << vec.get_x() << ", " << vec.get_y() << "]";
         return os;
     }
 
@@ -644,7 +644,7 @@ namespace ZeroEngine {
     }
 
     std::ostream& operator<<(std::ostream& os, const Vector3& vec) {
-        os << "(" << vec[Axis::x] << ", " << vec[Axis::y] << ", " << vec[Axis::z] << ")";
+        os << "[" << vec[Axis::x] << ", " << vec[Axis::y] << ", " << vec[Axis::z] << "]";
         return os;
     }
 
@@ -1012,10 +1012,10 @@ namespace ZeroEngine {
     }
 
     std::ostream& operator<<(std::ostream& os, const Vector4& vec) {
-        os << "(" << vec[Axis::x] << ", "
+        os << "[" << vec[Axis::x] << ", "
            << vec[Axis::y] << ", "
            << vec[Axis::z] << ", "
-           << vec[Axis::w] << ")";
+           << vec[Axis::w] << "]";
 
         return os;
     }
@@ -1395,12 +1395,21 @@ namespace ZeroEngine {
         return !(lhs == rhs);
     }
 
+    std::ostream& operator<<(std::ostream& os, const Matrix3x3& matrix) {
+        os << matrix[0] << "\n"
+           << matrix[1] << "\n"
+           << matrix[2] << "\n";
+
+        return os;
+    }
+
     /* Mat3 ops end */
 
     /* Mat3 methods start */
 
-    void Matrix3x3::transpose() {
+    Matrix3x3& Matrix3x3::transpose() {
         *this = this->get_transposition();
+        return *this;
     }
 
     Matrix3x3 Matrix3x3::get_transposition() const {
@@ -1409,8 +1418,9 @@ namespace ZeroEngine {
                          Vector3(_matrix[0][2], _matrix[1][2], _matrix[2][2]));
     }
 
-    void Matrix3x3::inverse() {
+    Matrix3x3& Matrix3x3::inverse() {
         *this = this->get_inverse();
+        return *this;
     }
 
     Matrix3x3 Matrix3x3::get_inverse() const {
@@ -1454,16 +1464,19 @@ namespace ZeroEngine {
         return mat2;
     }
 
-    void Matrix3x3::translate(const Vector2& vec) {
+    Matrix3x3& Matrix3x3::translate(const Vector2& vec) {
         *this = Matrix3x3::get_translation_2D(vec);
+        return *this;
     }
 
-    void Matrix3x3::rotate(const Vector2& center, const Degree angle) {
+    Matrix3x3& Matrix3x3::rotate(const Vector2& center, const Degree angle) {
         *this = Matrix3x3::get_rotation_2D(center, angle);
+        return *this;
     }
 
-    void Matrix3x3::rotate_x(const Degree angle) {
+    Matrix3x3& Matrix3x3::rotate_x(const Degree angle) {
         apply_rotation(Axis::x, angle, this);
+        return *this;
     }
 
     Matrix3x3 Matrix3x3::get_rotation_x(const Degree angle) const {
@@ -1472,8 +1485,9 @@ namespace ZeroEngine {
         return rotation;
     }
 
-    void Matrix3x3::rotate_y(const Degree angle) {
+    Matrix3x3& Matrix3x3::rotate_y(const Degree angle) {
         apply_rotation(Axis::y, angle, this);
+        return *this;
     }
 
     Matrix3x3 Matrix3x3::get_rotation_y(const Degree angle) const {
@@ -1482,8 +1496,9 @@ namespace ZeroEngine {
         return rotation;
     }
 
-    void Matrix3x3::scale(const Vector2& vec) {
+    Matrix3x3& Matrix3x3::scale(const Vector2& vec) {
         *this = Matrix3x3::get_scaling_2D(vec);
+        return *this;
     }
 
     /* Mat3 methods end */
@@ -1694,12 +1709,23 @@ namespace ZeroEngine {
         return !(lhs == rhs);
     }
 
+    std::ostream& operator<<(std::ostream& os, const Matrix4x4& matrix) {
+        os << matrix[0] << "\n"
+           << matrix[1] << "\n"
+           << matrix[2] << "\n"
+           << matrix[3] << "\n";
+
+        return os;
+    }
+
+
     /* Mat4 ops end */
 
     /* Mat4 methods start */
 
-    void Matrix4x4::transpose() {
+    Matrix4x4& Matrix4x4::transpose() {
         *this = this->get_transposition();
+        return *this;
     }
 
     Matrix4x4 Matrix4x4::get_transposition() const {
@@ -1709,8 +1735,9 @@ namespace ZeroEngine {
                          Vector4(_matrix[0][3], _matrix[1][3], _matrix[2][3], _matrix[3][3]));
     }
 
-    void Matrix4x4::inverse() {
+    Matrix4x4& Matrix4x4::inverse() {
         *this = this->get_inverse();
+        return *this;
     }
 
     Matrix4x4 Matrix4x4::get_inverse() const {
@@ -1751,16 +1778,19 @@ namespace ZeroEngine {
         return mat2;
     }
 
-    void Matrix4x4::translate(const Vector3& vec) {
+    Matrix4x4& Matrix4x4::translate(const Vector3& vec) {
         *this = Matrix4x4::get_translation_3D(vec);
+        return *this;
     }
 
-    void Matrix4x4::rotate(const Vector3& axis, const Degree angle) {
+    Matrix4x4& Matrix4x4::rotate(const Vector3& axis, const Degree angle) {
         *this = Matrix4x4::get_rotation_3D(axis, angle);
+        return *this;
     }
 
-    void Matrix4x4::rotate_x(const Degree angle) {
+    Matrix4x4& Matrix4x4::rotate_x(const Degree angle) {
         apply_rotation(Axis::x, angle, this);
+        return *this;
     }
 
     Matrix4x4 Matrix4x4::get_rotation_x(const Degree angle) const {
@@ -1769,8 +1799,9 @@ namespace ZeroEngine {
         return rotation;
     }
 
-    void Matrix4x4::rotate_y(const Degree angle) {
+    Matrix4x4& Matrix4x4::rotate_y(const Degree angle) {
         apply_rotation(Axis::y, angle, this);
+        return *this;
     }
 
     Matrix4x4 Matrix4x4::get_rotation_y(const Degree angle) const {
@@ -1779,8 +1810,9 @@ namespace ZeroEngine {
         return rotation;
     }
 
-    void Matrix4x4::rotate_z(const Degree angle) {
+    Matrix4x4& Matrix4x4::rotate_z(const Degree angle) {
         apply_rotation(Axis::z, angle, this);
+        return *this;
     }
 
     Matrix4x4 Matrix4x4::get_rotation_z(const Degree angle) const {
@@ -1789,8 +1821,9 @@ namespace ZeroEngine {
         return rotation;
     }
 
-    void Matrix4x4::scale(const Vector3& vec) {
+    Matrix4x4& Matrix4x4::scale(const Vector3& vec) {
         *this = Matrix4x4::get_scaling_3D(vec);
+        return *this;
     }
 
     /* Mat4 methods end */
