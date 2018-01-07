@@ -4,8 +4,6 @@
 #include "IXmlWriterImpl.h"
 #include "../../3rdParty/TinyXML/tinyxml.h"
 
-#include <stack>
-
 namespace ZeroEngine {
 
     // -----------------

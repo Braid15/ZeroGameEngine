@@ -7,9 +7,6 @@
 // These classes are based off of Graphics Gems IV. p.534
 //
 
-// @TODO: Vector classes should have euler_integrate() and get_euler_integration() const
-// @TODO: Implement unit testing methods
-
 namespace ZeroEngine {
 
     // ----

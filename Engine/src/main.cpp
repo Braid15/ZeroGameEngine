@@ -2,9 +2,12 @@
 
 #include "../test/TestApp.h"
 
+/*
 #ifdef _DEBUG
+#pragma comment(lib, "vld.lib")
 #include "3rdParty\VisualLeakDetector\vld.h"
 #endif
+*/
 
 
 

@@ -312,21 +312,11 @@ namespace ZeroEngine {
     }
 
     Radian Vector2::radians_between(const Vector2& other) const {
-        if (!is_normalized() && other.is_normalized()) {
-            return get_normalized().get_dot_product(other);
-        } else if (is_normalized() && !other.is_normalized()) {
-            return get_dot_product(other.get_normalized());
-        }
-        return get_dot_product(other);
+        return get_normalized().get_dot_product(other.get_normalized());
     }
 
     Degree Vector2::degrees_between(const Vector2& other) const {
-        if (!is_normalized() && other.is_normalized()) {
-            return Math::radians_to_degrees(get_normalized().get_dot_product(other));
-        } else if (is_normalized() && !other.is_normalized()) {
-            return Math::radians_to_degrees(get_dot_product(other.get_normalized()));
-        }
-        return Math::radians_to_degrees(get_dot_product(other));
+        return Math::radians_to_degrees(radians_between(other));
     }
 
     /* Vec2 methods end */
@@ -441,9 +431,8 @@ namespace ZeroEngine {
 
         v[Axis::x] = 3.0f;
         v[Axis::y] = 3.0f;
-        assert(Math::floats_equal(v.radians_between(Vector2(5.0, 7.0)), 36.0f) == true);
-
-        assert(Math::floats_equal(v.degrees_between(Vector2(5.0, 7.0)), 2062.648f) == true);
+        assert(Math::floats_equal(v.radians_between(Vector2(5.0, 7.0)), 0.986f) == true);
+        assert(Math::floats_equal(v.degrees_between(Vector2(5.0, 7.0)), 56.52f) == true);
 
         v[Axis::x] = 10.0f;
         v[Axis::y] = 10.0f;
@@ -793,21 +782,11 @@ namespace ZeroEngine {
     }
 
     Radian Vector3::radians_between(const Vector3& other) const {
-        if (!is_normalized() && other.is_normalized()) {
-            return get_normalized().get_dot_product(other);
-        } else if (is_normalized() && !other.is_normalized()) {
-            return get_dot_product(other.get_normalized());
-        }
-        return get_dot_product(other);
+        return get_normalized().get_dot_product(other.get_normalized());
     }
 
     Degree Vector3::degrees_between(const Vector3& other) const {
-        if (!is_normalized() && other.is_normalized()) {
-            return Math::radians_to_degrees(get_normalized().get_dot_product(other));
-        } else if (is_normalized() && !other.is_normalized()) {
-            return Math::radians_to_degrees(get_dot_product(other.get_normalized()));
-        }
-        return Math::radians_to_degrees(get_dot_product(other));
+        return Math::radians_to_degrees(radians_between(other));
     }
 
     Vector3& Vector3::transform_by_matrix(const Matrix3x3 matrix) {
@@ -891,7 +870,7 @@ namespace ZeroEngine {
         v = Vector3(2);
         assert(v.is_normalized() == false);
         assert(v.normalize().is_normalized() == true);
-        assert(v.get_normalized() == v);
+        assert(Vector3(2).get_normalized() == v);
 
         assert(Vector3(1, 3, 1).has_opposite_direction_to(Vector3(1, -3, 1)) == true);
 
@@ -905,6 +884,50 @@ namespace ZeroEngine {
 
         assert(Math::floats_equal(Vector3(3, 3, 5).get_magnitude(), 6.557f) == true);
         assert(Math::floats_equal(Vector3(3, 3, 5).get_magnitude_squared(), 43.0f) == true);
+
+        // get_projection()
+
+        assert(Math::floats_equal(Vector3(3, 4, 5).get_dot_product(Vector3(5, 4, 3)), 46.0f) == true);
+
+        assert(Vector3(6, 5, 4).get_cross_product(Vector3(4, 5, 6)) == Vector3(10, -20, 10));
+
+        assert(Vector3(5, 5, 5).get_scalar_product(2) == Vector3(10, 10, 10));
+        assert(Vector3(5, 5, 5).scalar_multiply(2) == Vector3(10, 10, 10));
+
+        assert(Vector3(7, 5, 3).euler_integrate(Vector3(3, 4, 5), 2) == Vector3(13, 13, 13));
+        assert(Vector3(7, 5, 3).get_euler_integration(Vector3(3, 4, 5), 2) == Vector3(13, 13, 13));
+
+        assert(Math::floats_equal(Vector3(7, 5, 3).distance_between(Vector3(3, 4, 5)), 4.582f) == true);
+        assert(Math::floats_equal(Vector3(7, 5, 3).distance_between_squared(Vector3(3, 4, 5)), 21.0f) == true);
+
+        assert(Vector3(10, 10, 10).truncate(3) == Vector3(3, 3, 3));
+        assert(Vector3(10, 10, 2).get_truncated(3) == Vector3(3, 3, 2));
+
+        assert(Math::floats_equal(Vector3(2, 9, -3).radians_between(Vector3(-3, -4, 8)), -0.721f) == true);
+        assert(Math::floats_equal(Vector3(2, 9, -3).degrees_between(Vector3(-3, -4, 8)), -41.345f) == true);
+
+        // transform_by_matrix()
+        // get_matrix_transform()
+
+        assert(Vector3(1).set(5) == Vector3(5, 5, 5));
+        assert(Vector3(1).set(1, 2, 3) == Vector3(1, 2, 3));
+        assert(Vector3(1).set(Vector3(4, 3, 2)) == Vector3(4, 3, 2));
+
+        assert(Math::floats_equal(Vector3(4).get_x(), 4.0f) == true);
+        assert(Vector3(1).set_x(5) == Vector3(5, 1, 1));
+
+        assert(Math::floats_equal(Vector3(1).get_y(), 1.0f) == true);
+        assert(Vector3(2).set_y(1) == Vector3(2, 1, 2));
+
+        assert(Math::floats_equal(Vector3(1).get_z(), 1.0f) == true);
+        assert(Vector3(3).set_z(5) == Vector3(3, 3, 5));
+
+        assert(Vector3(3, 3, 3).negate() == Vector3(-3, -3, -3));
+
+        assert(Vector3(4, 4, 4).make_zero() == Vector3(0));
+        assert(Vector3(4).is_zero() == false);
+        assert(Vector3(4).make_zero().is_zero() == true);
+
 
         // @TODO: Commented out functions don't work
     }
@@ -1239,21 +1262,11 @@ namespace ZeroEngine {
     }
 
     Radian Vector4::radians_between(const Vector4& other) const {
-        if (!is_normalized() && other.is_normalized()) {
-            return get_normalized().get_dot_product(other);
-        } else if (is_normalized() && !other.is_normalized()) {
-            return get_dot_product(other.get_normalized());
-        }
-        return get_dot_product(other);
+        return get_normalized().get_dot_product(other.get_normalized());
     }
 
     Degree Vector4::degrees_between(const Vector4& other) const {
-        if (!is_normalized() && other.is_normalized()) {
-            return Math::radians_to_degrees(get_normalized().get_dot_product(other));
-        } else if (is_normalized() && !other.is_normalized()) {
-            return Math::radians_to_degrees(get_dot_product(other.get_normalized()));
-        }
-        return Math::radians_to_degrees(get_dot_product(other));
+        return Math::radians_to_degrees(radians_between(other));
     }
 
     Vector4& Vector4::transform_by_matrix(const Matrix4x4& matrix) {
