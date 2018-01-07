@@ -51,8 +51,10 @@ namespace ZeroEngine {
         Vector2();
         explicit Vector2(const Float32);
         explicit Vector2(const Float64);
+        explicit Vector2(const Int32);
         Vector2(const Float32 x, const Float32 y);
         Vector2(const Float64 x, const Float64 y);
+        Vector2(const Int32 x, const Int32 y);
         Vector2(const Vector2&);
         Vector2(const Vector3&);
         Vector2(const Vector4&);
@@ -167,10 +169,16 @@ namespace ZeroEngine {
 
         Vector3();
         explicit Vector3(const Float32);
+        explicit Vector3(const Float64);
+        explicit Vector3(const Int32);
         Vector3(const Float32 x, const Float32 y, const Float32 z);
+        Vector3(const Float64 x, const Float64 y, const Float64 z);
+        Vector3(const Int32 x, const Int32 y, const Int32 z);
         Vector3(const Vector3&);
         Vector3(const Vector2&);
         Vector3(const Vector2&, const Float32 z);
+        Vector3(const Vector2&, const Float64 z);
+        Vector3(const Vector2&, const Int32 z);
         Vector3(const Vector4&);
 
         Vector3& operator=(const Vector3&);

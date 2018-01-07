@@ -68,12 +68,22 @@ namespace ZeroEngine {
         _vec[Axis::y] = static_cast<Float32>(value);
     }
 
+    Vector2::Vector2(const Int32 value) {
+        _vec[Axis::x] = static_cast<Float32>(value);
+        _vec[Axis::y] = static_cast<Float32>(value);
+    }
+
     Vector2::Vector2(const Float32 x, const Float32 y) {
         _vec[Axis::x] = x;
         _vec[Axis::y] = y;
     }
 
     Vector2::Vector2(const Float64 x, const Float64 y) {
+        _vec[Axis::x] = static_cast<Float32>(x);
+        _vec[Axis::y] = static_cast<Float32>(y);
+    }
+
+    Vector2::Vector2(const Int32 x, const Int32 y) {
         _vec[Axis::x] = static_cast<Float32>(x);
         _vec[Axis::y] = static_cast<Float32>(y);
     }
@@ -373,6 +383,8 @@ namespace ZeroEngine {
 
         assert(Vector2(4.0, 4.0) / 2.0f == Vector2(2.0, 2.0));
 
+        assert(Vector2(2) != Vector2::zero());
+
         v[Axis::x] = 5.0f;
         v[Axis::y] = 5.0f;
         assert(v.is_normalized() == false);
@@ -511,10 +523,34 @@ namespace ZeroEngine {
         _vec[Axis::z] = scalar;
     }
 
+    Vector3::Vector3(const Float64 scalar) {
+        _vec[Axis::x] = static_cast<Float32>(scalar);
+        _vec[Axis::y] = static_cast<Float32>(scalar);
+        _vec[Axis::z] = static_cast<Float32>(scalar);
+    }
+
+    Vector3::Vector3(const Int32 scalar) {
+        _vec[Axis::x] = static_cast<Float32>(scalar);
+        _vec[Axis::y] = static_cast<Float32>(scalar);
+        _vec[Axis::z] = static_cast<Float32>(scalar);
+    }
+
     Vector3::Vector3(const Float32 x, const Float32 y, const Float32 z) {
         _vec[Axis::x] = x;
         _vec[Axis::y] = y;
         _vec[Axis::z] = z;
+    }
+
+    Vector3::Vector3(const Float64 x, const Float64 y, const Float64 z) {
+        _vec[Axis::x] = static_cast<Float32>(x);
+        _vec[Axis::y] = static_cast<Float32>(y);
+        _vec[Axis::z] = static_cast<Float32>(z);
+    }
+
+    Vector3::Vector3(const Int32 x, const Int32 y, const Int32 z) {
+        _vec[Axis::x] = static_cast<Float32>(x);
+        _vec[Axis::y] = static_cast<Float32>(y);
+        _vec[Axis::z] = static_cast<Float32>(z);
     }
 
     Vector3::Vector3(const Vector3& other) {
@@ -533,6 +569,18 @@ namespace ZeroEngine {
         _vec[Axis::x] = other[Axis::x];
         _vec[Axis::y] = other[Axis::y];
         _vec[Axis::z] = z;
+    }
+
+    Vector3::Vector3(const Vector2& other, const Float64 z) {
+        _vec[Axis::x] = other[Axis::x];
+        _vec[Axis::y] = other[Axis::y];
+        _vec[Axis::z] = static_cast<Float32>(z);
+    }
+
+    Vector3::Vector3(const Vector2& other, const Int32 z) {
+        _vec[Axis::x] = other[Axis::x];
+        _vec[Axis::y] = other[Axis::y];
+        _vec[Axis::z] = static_cast<Float32>(z);
     }
 
     Vector3::Vector3(const Vector4& other) {
@@ -618,19 +666,9 @@ namespace ZeroEngine {
         return vec * scalar;
     }
 
-    /*
-    Vector3 operator*(const Vector3& vec, const Matrix4x4& matrix) {
-        return matrix * Vector4(vec);
-    }
-
-    Vector3 operator*(const Matrix4x4& matrix, const Vector3& vec) {
-        return matrix.get_transposition() * Vector4(vec);
-    }
-    */
-
     Vector3 operator/(const Vector3& vec, const Float32 scalar) {
-        Float32 reciprocal = 1 / scalar;
-        return vec * scalar;
+        Float32 reciprocal = 1.0f / scalar;
+        return vec * reciprocal;
     }
 
     bool operator==(const Vector3& lhs, const Vector3& rhs) {
@@ -791,7 +829,84 @@ namespace ZeroEngine {
 
     #ifdef _DEBUG
     void Vector3::run_unit_test() {
+        assert(Vector3(0, 0, 0) == Vector3::zero());
+        assert(Vector3(1, 0, 0) == Vector3::unit_i());
+        assert(Vector3(0, 1, 0) == Vector3::unit_j());
+        assert(Vector3(0, 0, 1) == Vector3::unit_k());
 
+        assert(Vector3() == Vector3::zero());
+        assert(Vector3(4) == Vector3(4, 4, 4));
+        assert(Vector3(2, 2, 2) == Vector3(2, 2, 2));
+
+        assert(Vector3(Vector3::unit_i()) == Vector3(1, 0, 0));
+        assert(Vector3(Vector2(3, 3)) == Vector3(3, 3, 1));
+        assert(Vector3(Vector2(3, 3), 5) == Vector3(3, 3, 5));
+        assert(Vector3(Vector4(1, 2, 3, 4)) == Vector3(1, 2, 3));
+
+        Vector3 v;
+        v = Vector3(5, 5, 5);
+        assert(v == Vector3(5, 5, 5));
+
+        v += Vector3(5, 5, 5);
+        assert(v == Vector3(10, 10, 10));
+
+        v -= Vector3(5, 5, 5);
+        assert(v == Vector3(5, 5, 5));
+
+        v *= 2.0f;
+        assert(v == Vector3(10, 10, 10));
+
+        v /= 2.0f;
+        assert(v == Vector3(5, 5, 5));
+
+        assert(Math::floats_equal(v[Axis::x], 5.0f) == true);
+        assert(Math::floats_equal(v[Axis::y], 5.0f) == true);
+        assert(Math::floats_equal(v[Axis::z], 5.0f) == true);
+
+        Vector2 v2 = v;
+        assert(v2 == Vector2(5));
+
+        Vector4 v4 = v;
+        assert(v4 == Vector4(5, 5, 5, 1));
+
+        v = Vector3(5);
+        assert(-v == Vector3(-5));
+
+        v = Vector3(5);
+        assert(v + Vector3(1) == Vector3(6));
+
+        v = Vector3(6);
+        assert(v - Vector3(2) == Vector3(4));
+
+        v = Vector3(4);
+        assert(v / 2 == Vector3(2));
+
+        v = Vector3(5);
+        assert(v != Vector3::zero());
+
+        assert(Vector3(4) * 2 == Vector3(8));
+        assert(2 * Vector3(4) == Vector3(8));
+
+
+        v = Vector3(2);
+        assert(v.is_normalized() == false);
+        assert(v.normalize().is_normalized() == true);
+        assert(v.get_normalized() == v);
+
+        assert(Vector3(1, 3, 1).has_opposite_direction_to(Vector3(1, -3, 1)) == true);
+
+        assert(Vector3(1, 3, 1).has_same_direction_as(Vector3(3, 1, 1)) == true);
+
+        //assert(Vector3(1, 1, 1).is_collinear_to(Vector3(2, 2, 1)) == true);
+
+        //assert(Vector3(1, 1, 1).is_collinear_opposite_to(Vector3(-2, -2, -1)) == true);
+
+        //assert(Vector3(0, 3, 1).is_perpendicular_to(Vector3(3, 0, 1)) == true);
+
+        assert(Math::floats_equal(Vector3(3, 3, 5).get_magnitude(), 6.557f) == true);
+        assert(Math::floats_equal(Vector3(3, 3, 5).get_magnitude_squared(), 43.0f) == true);
+
+        // @TODO: Commented out functions don't work
     }
     #endif
 
@@ -1243,7 +1358,7 @@ namespace ZeroEngine {
     /* Mat3 statics start */
 
     const Matrix3x3& Matrix3x3::identity() {
-        static Matrix3x3 identity = Matrix3x3(Vector3(1.0, 0.0f, 0.0f),
+        static Matrix3x3 identity = Matrix3x3(Vector3(1.0f, 0.0f, 0.0f),
                                               Vector3(0.0f, 1.0f, 0.0f),
                                               Vector3(0.0f, 0.0f, 1.0f));
         return identity;
