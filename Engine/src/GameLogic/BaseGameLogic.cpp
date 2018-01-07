@@ -106,7 +106,7 @@ namespace ZeroEngine {
         auto entity = get_entity(entity_id).lock();
         auto transform = entity->get_component<TransformComponent2D>(TransformComponent2D::id).lock();
         if (transform) {
-            transform->set_transform(pos);
+            transform->set_matrix(pos);
         } else {
             LOG_DEBUG("BaseGameLogic", "Error getting TransformComponent2D on entity " + std::string(entity->get_name()));
         }

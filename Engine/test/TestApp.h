@@ -123,7 +123,7 @@ namespace ZeroEngineAppTest {
 
     public:
         inline TestMovementController() 
-            : _left(-10.f, 0.f), _right(10.f, 0.f), _down(0.f, 10.f), _up(0.f, -10.f)
+            : _left(-1, 0), _right(1, 0), _down(0, 1), _up(0, -1)
              , _go_up(false), _go_down(false), _go_right(false), _go_left(false) {}
         inline ~TestMovementController() {}
 
@@ -197,8 +197,9 @@ namespace ZeroEngineAppTest {
                 if (_go_left) direction += _left;
                 if (_go_right) direction += _right;
 
-                LOG_TODO("TestMovementController", "Not adding velocity to transform");
-                ZeroEventManager::queue_event(MoveEntityEvent::create(entity->get_id(), transform->get_transform()));
+                direction *= delta_time;
+
+                ZeroEventManager::queue_event(MoveEntityEvent::create(entity->get_id(), Matrix3x3::get_translation_2D(direction)));
             }
         }
     };

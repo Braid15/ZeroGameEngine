@@ -13,9 +13,12 @@ namespace ZeroEngine {
     class TransformComponent2D final : public EntityComponent {
     private:
         Matrix3x3 _transform;
+        Vector3 _position;
 
         // @TODO: rotation
     public:
+        TransformComponent2D() : _transform(Matrix3x3::identity()), 
+            _position(Vector3::unit_k()) {}
         static const EntityComponentId id;
         static const char* name;
         static EntityComponent* create();
@@ -28,8 +31,16 @@ namespace ZeroEngine {
 
         inline const EntityComponentId& get_id() const override { return id; }
 
-        inline const Matrix3x3& get_transform() const { return _transform; }
-        inline void set_transform(const Matrix3x3& pos) { _transform = pos; }
+        inline Vector2 get_position() const { 
+            return Vector2(_transform[0][Axis::z], _transform[1][Axis::z]); 
+        }
+
+        inline const Matrix3x3& get_matrix() const { return _transform; }
+
+        inline void set_matrix(const Matrix3x3& mat) { 
+            _transform = _transform * mat; 
+        }
+
     private:
         void on_write_xml(const XmlWriter& writer) override;
     };

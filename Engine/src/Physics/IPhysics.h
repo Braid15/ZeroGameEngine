@@ -34,8 +34,8 @@ namespace ZeroEngine {
         virtual void stop_entity(EntityId id) = 0;
 
         // @TODO: Should be using matrix
-        virtual void set_transform(const Matrix3x3& transform, EntityId id) = 0;
-        virtual void set_transform(const Matrix4x4& transform, EntityId id) = 0;
+        virtual void set_matrix(const Matrix3x3& transform, EntityId id) = 0;
+        virtual void set_matrix(const Matrix4x4& transform, EntityId id) = 0;
 
         // get_transform()
 

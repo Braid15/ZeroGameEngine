@@ -7,6 +7,9 @@
 // These classes are based off of Graphics Gems IV. p.534
 //
 
+// @TODO: Maybe cache magnitudes for vector classes so they only 
+// need to be calculated when necessary
+
 namespace ZeroEngine {
 
     // ----
@@ -312,7 +315,11 @@ namespace ZeroEngine {
 
         Vector4();
         explicit Vector4(const Float32);
+        explicit Vector4(const Float64);
+        explicit Vector4(const Int32);
         Vector4(const Float32 x, const Float32 y, const Float32 z, const Float32 w);
+        Vector4(const Float64 x, const Float64 y, const Float64 z, const Float64 w);
+        Vector4(const Int32 x, const Int32 y, const Int32 z, const Int32 w);
         Vector4(const Vector4&);
         Vector4(const Vector3&);
         Vector4(const Vector3&, const Float32 w);

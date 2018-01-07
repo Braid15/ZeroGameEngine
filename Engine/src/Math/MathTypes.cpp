@@ -1032,11 +1032,39 @@ namespace ZeroEngine {
         _vec[Axis::w] = val;
     }
 
+    Vector4::Vector4(const Float64 val) {
+        _vec[Axis::x] = static_cast<Float32>(val); 
+        _vec[Axis::y] = static_cast<Float32>(val);
+        _vec[Axis::z] = static_cast<Float32>(val);
+        _vec[Axis::w] = static_cast<Float32>(val);
+    }
+
+    Vector4::Vector4(const Int32 val) {
+        _vec[Axis::x] = static_cast<Float32>(val); 
+        _vec[Axis::y] = static_cast<Float32>(val);
+        _vec[Axis::z] = static_cast<Float32>(val);
+        _vec[Axis::w] = static_cast<Float32>(val);
+    }
+
     Vector4::Vector4(const Float32 x, const Float32 y, const Float32 z, const Float32 w) {
         _vec[Axis::x] = x;
         _vec[Axis::y] = y;
         _vec[Axis::z] = z;
         _vec[Axis::w] = w;
+    }
+
+    Vector4::Vector4(const Float64 x, const Float64 y, const Float64 z, const Float64 w) {
+        _vec[Axis::x] = static_cast<Float32>(x); 
+        _vec[Axis::y] = static_cast<Float32>(y);
+        _vec[Axis::z] = static_cast<Float32>(z);
+        _vec[Axis::w] = static_cast<Float32>(w);
+    }
+
+    Vector4::Vector4(const Int32 x, const Int32 y, const Int32 z, const Int32 w) {
+        _vec[Axis::x] = static_cast<Float32>(x); 
+        _vec[Axis::y] = static_cast<Float32>(y);
+        _vec[Axis::z] = static_cast<Float32>(z);
+        _vec[Axis::w] = static_cast<Float32>(w);
     }
 
     Vector4::Vector4(const Vector4& other) {
@@ -1148,39 +1176,6 @@ namespace ZeroEngine {
     Vector4 operator*(const Float32 scalar, const Vector4& vec) {
         return vec * scalar;
     }
-
-    /*
-    Vector4 operator*(const Matrix4x4& matrix, const Vector4& vec) {
-        Vector4 ret_vec;
-        for (Uint8 row = 0; row < 4; row++) {
-            Float32 val = (matrix[row][Axis::x] * vec[Axis::x]) + (matrix[row][Axis::y] * vec[Axis::y])
-                        + (matrix[row][Axis::z] * vec[Axis::z]) + (matrix[row][Axis::w] * vec[Axis::w]);
-
-            switch (row) {
-                case 0:
-                    ret_vec.set_x(val);
-                    break;
-                case 1:
-                    ret_vec.set_y(val);
-                    break;
-                case 2:
-                    ret_vec.set_z(val);
-                    break;
-                case 3:
-                    ret_vec.set_w(val);
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        return ret_vec;
-    }
-
-    Vector4 operator*(const Vector4& vec, const Matrix4x4& matrix) {
-        return matrix.get_transposition() * vec;
-    }
-    */
 
     Vector4 operator/(const Vector4& vec, const Float32 scalar) {
         Float32 reciprocal = 1 / scalar;
@@ -1346,6 +1341,16 @@ namespace ZeroEngine {
 
     #ifdef _DEBUG
     void Vector4::run_unit_test() {
+        assert(Vector4(0, 0, 0, 0) == Vector4::zero());
+        assert(Vector4(1, 0, 0, 0) == Vector4::unit_i());
+        assert(Vector4(0, 1, 0, 0) == Vector4::unit_j());
+        assert(Vector4(0, 0, 1, 0) == Vector4::unit_k());
+
+        assert(Vector4() == Vector4::zero());
+        assert(Vector4(2) == Vector4(2, 2, 2, 2));
+        assert(Vector4(Vector4(3)) == Vector4(3, 3, 3, 3));
+
+
 
     }
     #endif

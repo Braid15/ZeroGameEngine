@@ -20,8 +20,8 @@ int main(int argc, char* args[]) {
     // #endif
 
 
-    // run_game();
-    MathTypes::run_all_unit_tests();
+    run_game();
+    // MathTypes::run_all_unit_tests();
 
     system("PAUSE");
 
