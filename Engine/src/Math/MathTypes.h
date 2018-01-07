@@ -129,7 +129,7 @@ namespace ZeroEngine {
         Vector2 get_truncated(const Float32 max) const;
 
         inline Vector2& make_zero() { *this = Vector2::zero(); return *this; }
-        inline bool is_zero() const { return (_vec[Axis::x] == 0.0f && _vec[Axis::y] == 0.0f); }
+        inline bool is_zero() const { return *this == Vector2::zero(); }
 
         inline Vector2& set(const Float32 val) { _vec[Axis::x] = val; _vec[Axis::y] = val; return *this; }
         inline Vector2& set(const Float32 x, const Float32 y) { _vec[Axis::x] = x; _vec[Axis::y] = y; return *this; }
@@ -196,6 +196,8 @@ namespace ZeroEngine {
         friend bool operator==(const Vector3&, const Vector3&);
         friend bool operator!=(const Vector3&, const Vector3&);
 
+        friend std::ostream& operator<<(std::ostream&, const Vector3&);
+
         Vector3& normalize();
         Vector3 get_normalized() const;
         bool is_normalized() const;
@@ -218,56 +220,59 @@ namespace ZeroEngine {
         Float32 get_dot_product(const Vector3&) const;
         Vector3 get_cross_product(const Vector3&) const;
 
-        void scalar_multiply(const Float32);
+        Vector3& scalar_multiply(const Float32);
         Vector3 get_scalar_product(const Float32) const;
 
-        void euler_integrate(const Vector3&, const Float32);
+        Vector3& euler_integrate(const Vector3&, const Float32);
         Vector3 get_euler_integration(const Vector3&, const Float32) const;
 
         Float32 distance_between(const Vector3&) const;
         Float32 distance_between_squared(const Vector3&) const;
 
-        void truncate(const Float32);
+        Vector3& truncate(const Float32);
         Vector3 get_truncated(const Float32) const;
 
         Radian radians_between(const Vector3&) const;
         Degree degrees_between(const Vector3&) const;
 
         // row-major transformation
-        void transform_by_matrix(const Matrix3x3);
+        Vector3& transform_by_matrix(const Matrix3x3);
         Vector3 get_matrix_transform(const Matrix3x3&) const;
 
-        inline void set(const Float32 scalar) {
+        inline Vector3& set(const Float32 scalar) {
             _vec[Axis::x] = scalar;
             _vec[Axis::y] = scalar;
             _vec[Axis::z] = scalar;
+            return *this;
         }
 
-        inline void set(const Float32 x, const Float32 y, const Float32 z) {
+        inline Vector3& set(const Float32 x, const Float32 y, const Float32 z) {
             _vec[Axis::x] = x;
             _vec[Axis::y] = y;
             _vec[Axis::z] = z;
+            return *this;
         }
 
-        inline void set(const Vector3& other) {
+        inline Vector3& set(const Vector3& other) {
             _vec[Axis::x] = other[Axis::x];
             _vec[Axis::y] = other[Axis::y];
             _vec[Axis::z] = other[Axis::z];
+            return *this;
         }
 
         inline Float32 get_x() const { return _vec[Axis::x]; }
-        inline void set_x(const Float32 x) { _vec[Axis::x] = x; }
+        inline Vector3& set_x(const Float32 x) { _vec[Axis::x] = x; return *this; }
 
         inline Float32 get_y() const { return _vec[Axis::y]; }
-        inline void set_y(const Float32 y) { _vec[Axis::y] = y; }
+        inline Vector3& set_y(const Float32 y) { _vec[Axis::y] = y; return *this;}
 
         inline Float32 get_z() const { return _vec[Axis::z]; }
-        inline void set_z(const Float32 z) { _vec[Axis::z] = z; }
+        inline Vector3& set_z(const Float32 z) { _vec[Axis::z] = z; return *this; }
 
-        inline void negate() { _vec[Axis::x] *= -1; _vec[Axis::y] *= -1; _vec[Axis::z] *= -1; }
+        inline Vector3& negate() { _vec[Axis::x] *= -1; _vec[Axis::y] *= -1; _vec[Axis::z] *= -1; return *this; }
 
-        inline void make_zero() { *this = Vector3::zero(); }
-        inline bool is_zero() const { return (_vec[Axis::x] == 0.0f && _vec[Axis::y] == 0.0f && _vec[Axis::z] == 0.0f); }
+        inline Vector3& make_zero() { *this = Vector3::zero(); return *this; }
+        inline bool is_zero() const { return *this == Vector3::zero(); }
 
         inline StringRepr to_string() const override { return "Vector3"; }
 
@@ -325,6 +330,8 @@ namespace ZeroEngine {
         friend bool operator==(const Vector4&, const Vector4&);
         friend bool operator!=(const Vector4&, const Vector4&);
 
+        friend std::ostream& operator<<(std::ostream&, const Vector4&);
+
         Vector4& normalize();
         Vector4 get_normalized() const;
         bool is_normalized() const;
@@ -346,61 +353,70 @@ namespace ZeroEngine {
 
         Float32 get_dot_product(const Vector4&) const;
 
-        void scalar_multiply(const Float32);
+        Vector4& scalar_multiply(const Float32);
         Vector4 get_scalar_product(const Float32) const;
 
-        void euler_integrate(const Vector4&, const Float32);
+        Vector4& euler_integrate(const Vector4&, const Float32);
         Vector4 get_euler_integration(const Vector4&, const Float32) const;
 
         Float32 distance_between(const Vector4&) const;
         Float32 distance_between_squared(const Vector4&) const;
 
-        void truncate(const Float32);
+        Vector4& truncate(const Float32);
         Vector4 get_truncated(const Float32) const;
 
         Radian radians_between(const Vector4&) const;
         Degree degrees_between(const Vector4&) const;
 
-        void transform_by_matrix(const Matrix4x4&);
+        Vector4& transform_by_matrix(const Matrix4x4&);
         Vector4 get_matrix_transform(const Matrix4x4&) const;
 
-        inline void set(const Float32 scalar) {
+        inline Vector4& set(const Float32 scalar) {
             _vec[Axis::x] = scalar;
             _vec[Axis::y] = scalar;
             _vec[Axis::z] = scalar;
             _vec[Axis::w] = scalar;
+            return *this;
         }
 
-        inline void set(const Float32 x, const Float32 y, const Float32 z, const Float32 w) {
+        inline Vector4& set(const Float32 x, const Float32 y, const Float32 z, const Float32 w) {
             _vec[Axis::x] = x;
             _vec[Axis::y] = y;
             _vec[Axis::z] = z;
             _vec[Axis::w] = w;
+            return *this;
         }
 
-        inline void set(const Vector4& other) {
+        inline Vector4& set(const Vector4& other) {
             _vec[Axis::x] = other[Axis::x];
             _vec[Axis::y] = other[Axis::y];
             _vec[Axis::z] = other[Axis::z];
             _vec[Axis::w] = other[Axis::w];
+            return *this;
         }
 
         inline Float32 get_x() const { return _vec[Axis::x]; }
-        inline void set_x(const Float32 x) { _vec[Axis::x] = x; }
+        inline Vector4& set_x(const Float32 x) { _vec[Axis::x] = x; return *this; }
 
         inline Float32 get_y() const { return _vec[Axis::y]; }
-        inline void set_y(const Float32 y) { _vec[Axis::y] = y; }
+        inline Vector4& set_y(const Float32 y) { _vec[Axis::y] = y; return *this; }
 
         inline Float32 get_z() const { return _vec[Axis::z]; }
-        inline void set_z(const Float32 z) { _vec[Axis::z] = z; }
+        inline Vector4& set_z(const Float32 z) { _vec[Axis::z] = z; return *this; }
 
         inline Float32 get_w() const { return _vec[Axis::w]; }
-        inline void set_w(const Float32 w) { _vec[Axis::w] = w; }
+        inline Vector4& set_w(const Float32 w) { _vec[Axis::w] = w; return *this; }
 
-        inline void negate() { _vec[Axis::x] *= -1; _vec[Axis::y] *= -1; _vec[Axis::z] *= -1; _vec[Axis::w] *= -1; }
+        inline Vector4& negate() { 
+            _vec[Axis::x] *= -1; 
+            _vec[Axis::y] *= -1; 
+            _vec[Axis::z] *= -1; 
+            _vec[Axis::w] *= -1; 
+            return *this;
+        }
 
-        inline void make_zero() { *this = Vector4::zero(); }
-        inline bool is_zero() const { return (_vec[Axis::x] == 0.0f && _vec[Axis::y] == 0.0f && _vec[Axis::z] == 0.0f && _vec[Axis::w] == 0.0f); }
+        inline Vector4& make_zero() { *this = Vector4::zero(); return *this; }
+        inline bool is_zero() const { return *this == Vector4::zero(); }
 
         inline StringRepr to_string() const override { return "Vector4"; }
 

@@ -186,7 +186,8 @@ namespace ZeroEngine {
     }
 
     bool operator==(const Vector2& lhs, const Vector2& rhs) {
-        return (lhs[Axis::x] == rhs[Axis::x]) && (lhs[Axis::y] == rhs[Axis::y]);
+        return Math::floats_equal(lhs[Axis::x], rhs[Axis::x])
+            && Math::floats_equal(lhs[Axis::y], rhs[Axis::y]);
     }
 
     bool operator!=(const Vector2& lhs, const Vector2& rhs) {
@@ -459,9 +460,6 @@ namespace ZeroEngine {
 
         v.negate();
         assert(v.get_x() == -3.0f && v.get_y() == -3.0f);
-
-
-
     }
     #endif
 
@@ -636,11 +634,18 @@ namespace ZeroEngine {
     }
 
     bool operator==(const Vector3& lhs, const Vector3& rhs) {
-        return (lhs[Axis::x] == rhs[Axis::x]) && (lhs[Axis::y] == rhs[Axis::y]) && (lhs[Axis::z] == rhs[Axis::z]);
+        return Math::floats_equal(lhs[Axis::x], rhs[Axis::x])
+            && Math::floats_equal(lhs[Axis::y], rhs[Axis::y])
+            && Math::floats_equal(lhs[Axis::z], rhs[Axis::z]);
     }
 
     bool operator!=(const Vector3& lhs, const Vector3& rhs) {
         return !(lhs == rhs);
+    }
+
+    std::ostream& operator<<(std::ostream& os, const Vector3& vec) {
+        os << "(" << vec[Axis::x] << ", " << vec[Axis::y] << ", " << vec[Axis::z] << ")";
+        return os;
     }
 
     /* Vec3 ops end */
@@ -657,11 +662,11 @@ namespace ZeroEngine {
     }
 
     bool Vector3::is_normalized() const {
-        return get_magnitude() == 1.0f;
+        return Math::floats_equal(get_magnitude(), 1.0f);
     }
 
     bool Vector3::has_opposite_direction_to(const Vector3& other) const {
-        return get_dot_product(other) < 0;
+        return get_dot_product(other) < 0.0f;
     }
 
     bool Vector3::has_same_direction_as(const Vector3& other) const {
@@ -669,15 +674,23 @@ namespace ZeroEngine {
     }
 
     bool Vector3::is_collinear_to(const Vector3& other) const {
-        return get_dot_product(other) == get_magnitude() * other.get_magnitude();
+        if (is_normalized() && other.is_normalized()) {
+            return Math::floats_equal(get_dot_product(other), 1.0f);
+        }
+
+        return Math::floats_equal(get_dot_product(other), get_magnitude() * other.get_magnitude());
     }
 
     bool Vector3::is_collinear_opposite_to(const Vector3& other) const {
-        return get_dot_product(other) == -(get_magnitude() * other.get_magnitude());
+        if (is_normalized() && other.is_normalized()) {
+            return Math::floats_equal(get_dot_product(other), -1.0f);
+        }
+
+        return Math::floats_equal(get_dot_product(other), -(get_magnitude() * other.get_magnitude()));
     }
 
     bool Vector3::is_perpendicular_to(const Vector3& other) const {
-        return get_dot_product(other) == 0;
+        return Math::floats_equal(get_dot_product(other), 0.0f);
     }
 
     Float32 Vector3::get_magnitude() const {
@@ -702,16 +715,18 @@ namespace ZeroEngine {
                        (_vec[Axis::x] * other[Axis::y]) - (_vec[Axis::y] * other[Axis::x]));
     }
 
-    void Vector3::scalar_multiply(const Float32 scalar) {
+    Vector3& Vector3::scalar_multiply(const Float32 scalar) {
         *this *= scalar;
+        return *this;
     }
 
     Vector3 Vector3::get_scalar_product(const Float32 scalar) const {
         return *this * scalar;
     }
 
-    void Vector3::euler_integrate(const Vector3& vec, const Float32 scalar) {
+    Vector3& Vector3::euler_integrate(const Vector3& vec, const Float32 scalar) {
         *this = *this + (vec * scalar);
+        return *this;
     }
 
     Vector3 Vector3::get_euler_integration(const Vector3& vec, const Float32 scalar) const {
@@ -726,10 +741,11 @@ namespace ZeroEngine {
         return (other - *this).get_magnitude_squared();
     }
 
-    void Vector3::truncate(const Float32 max) {
+    Vector3& Vector3::truncate(const Float32 max) {
         _vec[Axis::x] = Math::clamp_max(_vec[Axis::x], max);
         _vec[Axis::y] = Math::clamp_max(_vec[Axis::y], max);
         _vec[Axis::z] = Math::clamp_max(_vec[Axis::z], max);
+        return *this;
     }
 
     Vector3 Vector3::get_truncated(const Float32 max) const {
@@ -756,8 +772,9 @@ namespace ZeroEngine {
         return Math::radians_to_degrees(get_dot_product(other));
     }
 
-    void Vector3::transform_by_matrix(const Matrix3x3 matrix) {
+    Vector3& Vector3::transform_by_matrix(const Matrix3x3 matrix) {
         *this = this->get_matrix_transform(matrix);
+        return *this;
     }
 
     Vector3 Vector3::get_matrix_transform(const Matrix3x3& matrix) const {
@@ -984,14 +1001,23 @@ namespace ZeroEngine {
     }
 
     bool operator==(const Vector4& lhs, const Vector4& rhs) {
-        return lhs[Axis::x] == rhs[Axis::x]
-            && lhs[Axis::y] == rhs[Axis::y]
-            && lhs[Axis::z] == rhs[Axis::z]
-            && lhs[Axis::w] == rhs[Axis::w];
+        return Math::floats_equal(lhs[Axis::x], rhs[Axis::x])
+            && Math::floats_equal(lhs[Axis::y], rhs[Axis::y])
+            && Math::floats_equal(lhs[Axis::z], rhs[Axis::z])
+            && Math::floats_equal(lhs[Axis::w], rhs[Axis::w]);
     }
 
     bool operator!=(const Vector4& lhs, const Vector4& rhs) {
         return !(lhs == rhs);
+    }
+
+    std::ostream& operator<<(std::ostream& os, const Vector4& vec) {
+        os << "(" << vec[Axis::x] << ", "
+           << vec[Axis::y] << ", "
+           << vec[Axis::z] << ", "
+           << vec[Axis::w] << ")";
+
+        return os;
     }
 
     /* Vec4 ops end */
@@ -1008,7 +1034,7 @@ namespace ZeroEngine {
     }
 
     bool Vector4::is_normalized() const {
-        return get_magnitude() == 1.0f;
+        return Math::floats_equal(get_magnitude(), 1.0f);
     }
 
     bool Vector4::has_opposite_direction_to(const Vector4& other) const {
@@ -1020,15 +1046,23 @@ namespace ZeroEngine {
     }
 
     bool Vector4::is_collinear_to(const Vector4& other) const {
-        return get_dot_product(other) == get_magnitude() * other.get_magnitude();
+        if (is_normalized() && other.is_normalized()) {
+            return Math::floats_equal(get_dot_product(other), 1.0f);
+        }
+
+        return Math::floats_equal(get_dot_product(other), get_magnitude() * other.get_magnitude());
     }
 
     bool Vector4::is_collinear_opposite_to(const Vector4& other) const {
-        return get_dot_product(other) == -(get_magnitude() * other.get_magnitude());
+        if (is_normalized() && other.is_normalized()) {
+            return Math::floats_equal(get_dot_product(other), -1.0f);
+        }
+
+        return Math::floats_equal(get_dot_product(other), -(get_magnitude() * other.get_magnitude()));
     }
 
     bool Vector4::is_perpendicular_to(const Vector4& other) const {
-        return get_dot_product(other) == 0;
+        return Math::floats_equal(get_dot_product(other), 0.0f);
     }
 
     Float32 Vector4::get_magnitude() const {
@@ -1048,16 +1082,18 @@ namespace ZeroEngine {
         return (_vec[Axis::x] * other[Axis::x]) + (_vec[Axis::y] * other[Axis::y]);
     }
 
-    void Vector4::scalar_multiply(const Float32 scalar) {
+    Vector4& Vector4::scalar_multiply(const Float32 scalar) {
         *this *= scalar;
+        return *this;
     }
 
     Vector4 Vector4::get_scalar_product(const Float32 scalar) const {
         return *this * scalar;
     }
 
-    void Vector4::euler_integrate(const Vector4& vec, const Float32 scalar) {
+    Vector4& Vector4::euler_integrate(const Vector4& vec, const Float32 scalar) {
         *this = *this + (vec * scalar);
+        return *this;
     }
 
     Vector4 Vector4::get_euler_integration(const Vector4& vec, const Float32 scalar) const {
@@ -1072,11 +1108,12 @@ namespace ZeroEngine {
         return (other - *this).get_magnitude_squared();
     }
 
-    void Vector4::truncate(const Float32 max) {
+    Vector4& Vector4::truncate(const Float32 max) {
         _vec[Axis::x] = Math::clamp_max(_vec[Axis::x], max);
         _vec[Axis::y] = Math::clamp_max(_vec[Axis::y], max);
         _vec[Axis::z] = Math::clamp_max(_vec[Axis::z], max);
         _vec[Axis::w] = Math::clamp_max(_vec[Axis::w], max);
+        return *this;
     }
 
     Vector4 Vector4::get_truncated(const Float32 max) const {
@@ -1104,8 +1141,9 @@ namespace ZeroEngine {
         return Math::radians_to_degrees(get_dot_product(other));
     }
 
-    void Vector4::transform_by_matrix(const Matrix4x4& matrix) {
+    Vector4& Vector4::transform_by_matrix(const Matrix4x4& matrix) {
         *this = this->get_matrix_transform(matrix);
+        return *this;
     }
 
     Vector4 Vector4::get_matrix_transform(const Matrix4x4& matrix) const {
