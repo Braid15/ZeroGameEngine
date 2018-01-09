@@ -29,5 +29,6 @@ namespace ZeroEngine {
         virtual void draw_circle(const Point<Int32>& center, const Float32& radius, const Color& color) = 0;
         virtual void draw_rect(const Rect& rect, const Color& color) = 0;
         virtual void draw_text(const std::string& text, const Rect& canvas, const Color& color) = 0;
+        virtual void draw_vertices(Vector2 vertices[], Int32 count, const Color& color) = 0;
     };
 }

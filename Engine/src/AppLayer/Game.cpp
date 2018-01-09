@@ -39,4 +39,14 @@ namespace ZeroEngine {
         assert(_app_instance);
         return _app_instance->get_game_logic()->get_entity(id);
     }
+
+    Uint32 Game::get_screen_width() {
+        assert(_app_instance);
+        return _app_instance->get_screen_size().get_x();
+    }
+
+    Uint32 Game::get_screen_height() {
+        assert(_app_instance);
+        return _app_instance->get_screen_size().get_y();
+    }
 }

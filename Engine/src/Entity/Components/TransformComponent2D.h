@@ -12,13 +12,14 @@ namespace ZeroEngine {
     // code doesn't need to worry about the dimensions
     class TransformComponent2D final : public EntityComponent {
     private:
-        Matrix3x3 _transform;
         Vector3 _position;
-
-        // @TODO: rotation
+        Degree _rotation;
+        Vector3 _scale;
     public:
-        TransformComponent2D() : _transform(Matrix3x3::identity()), 
-            _position(Vector3::unit_k()) {}
+        TransformComponent2D() : 
+            _position(Vector3(0, 0, 1)), _rotation(0.0f), 
+            _scale(Vector3(1, 1, 1)) {}
+
         static const EntityComponentId id;
         static const char* name;
         static EntityComponent* create();
@@ -32,13 +33,21 @@ namespace ZeroEngine {
         inline const EntityComponentId& get_id() const override { return id; }
 
         inline Vector2 get_position() const { 
-            return Vector2(_transform[0][Axis::z], _transform[1][Axis::z]); 
+            return Vector2(_position);
         }
 
-        inline const Matrix3x3& get_matrix() const { return _transform; }
+        inline void set_position(const Vector2& pos) {
+            _position.set(pos);
+        }
 
-        inline void set_matrix(const Matrix3x3& mat) { 
-            _transform = _transform * mat; 
+        inline const Matrix3x3& get_world_transform() const { 
+            return Matrix3x3::get_scaling_2D(_scale) 
+                * Matrix3x3::get_rotation_2D(_position, _rotation)
+                * Matrix3x3::get_translation_2D(_position);
+        }
+
+        inline void set_world_transform(const Matrix3x3& mat) { 
+            _position.transform_by_matrix(mat);
         }
 
     private:

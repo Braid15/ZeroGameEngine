@@ -54,6 +54,7 @@ namespace ZeroEngine {
         virtual WeakEntityPtr get_entity(const EntityId& entity_id) override;
         virtual EntityPtr create_entity() override;
         virtual EntityPtr create_entity(std::string resource_path) override;
+        virtual EntityPtr create_entity(std::string resource_path, Vector3 pos) override;
         inline GameViewList get_game_views() { return _game_views; }
         inline std::shared_ptr<IPhysics> get_physics() const { return _physics; }
         inline Uint32 get_entity_count() const { return _entity_manager->get_entity_count(); }

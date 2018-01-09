@@ -27,5 +27,7 @@ namespace ZeroEngine {
         static void set(GameApp* app);
         static Uint32 get_entity_count();
         static std::weak_ptr<Entity> get_entity(const EntityId& id);
+        static Uint32 get_screen_width();
+        static Uint32 get_screen_height();
     };
 }

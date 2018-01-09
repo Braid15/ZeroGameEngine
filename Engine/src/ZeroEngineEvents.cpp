@@ -45,9 +45,15 @@ namespace ZeroEngine {
         return RequestCreateEntityEvent::s_ptr(zero_new RequestCreateEntityEvent(path));
     }
 
+    RequestCreateEntityEvent::s_ptr RequestCreateEntityEvent::create(const char* path, Vector3 pos) {
+        return RequestCreateEntityEvent::s_ptr(zero_new RequestCreateEntityEvent(path, pos));
+    }
+
     RequestCreateEntityEvent::RequestCreateEntityEvent(const RequestCreateEntityEvent& other) {
         _resource_path = other.get_resource_path();
+        _position = other.get_initial_position();
     }
+
 
     // ------------------
     // EntityCreatedEvent

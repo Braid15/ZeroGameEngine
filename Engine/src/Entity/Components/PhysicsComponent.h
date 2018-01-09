@@ -9,11 +9,12 @@
 
 namespace ZeroEngine {
 
-    class PhysicsComponent : public EntityComponent {
+    class RigidBodyComponent : public EntityComponent {
     private:
-        Vector3 _rigid_body_location;
-        Vector3 _rigid_body_orientation;
-        Vector3 _rigid_body_scale;
+        Vector3 _location;
+        Vector3 _orientation;
+        Vector3 _scale;
+        Vector3 _velocity;
         Float32 _acceleration;
         Float32 _angular_acceleration;
         Float32 _max_velocity;
@@ -22,8 +23,8 @@ namespace ZeroEngine {
         std::shared_ptr<IPhysics> _game_physics;
 
     public:
-        PhysicsComponent();
-        ~PhysicsComponent();
+        RigidBodyComponent();
+        ~RigidBodyComponent();
 
         static const EntityComponentId id;
         static const char* name;
@@ -49,9 +50,9 @@ namespace ZeroEngine {
         void apply_angular_acceleration(const Float32 acceleration);
         void remove_angular_acceleration();
 
-        // Should be using matrix
-        // Vector3 get_velocity() const;
-        // void set_velocity(const Vector3& vel);
+        inline Vector3 get_velocity() const { return _velocity; }
+        void set_velocity(const Vector3& vel) { _velocity = vel; }
+        void set_veloctiy(const Vector2& vel) { _velocity = Vector3(vel); }
 
         // matrix?
         void set_position(const Vector2& pos);

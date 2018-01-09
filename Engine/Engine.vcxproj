@@ -225,7 +225,9 @@
     <ClInclude Include="src\Math\Line.h" />
     <ClInclude Include="src\Math\Math.h" />
     <ClInclude Include="src\Math\MathTypes.h" />
+    <ClInclude Include="src\Physics\IRigidBody.h" />
     <ClInclude Include="src\Physics\NullPhysics.h" />
+    <ClInclude Include="src\Physics\ZeroEnginePhysics.h" />
     <ClInclude Include="src\Rendering\IPrimitiveRenderer.h" />
     <ClInclude Include="src\Memory\Memory.h" />
     <ClInclude Include="src\Logger\Logging.h" />
@@ -339,6 +341,7 @@
     <ClCompile Include="src\Math\Line.cpp" />
     <ClCompile Include="src\Math\Math.cpp" />
     <ClCompile Include="src\Math\MathTypes.cpp" />
+    <ClCompile Include="src\Physics\ZeroEnginePhysics.cpp" />
     <ClCompile Include="src\Process\Process.cpp" />
     <ClCompile Include="src\Process\ProcessManager.cpp" />
     <ClCompile Include="src\Rendering\RenderPacketTypes.cpp" />

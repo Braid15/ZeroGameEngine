@@ -457,6 +457,7 @@ namespace ZeroEngine {
         static const Matrix3x3& identity();
         static Matrix3x3 get_translation_2D(const Vector2&);
         static Matrix3x3 get_rotation_2D(const Vector2& center, const Degree angle);
+        static Matrix3x3 get_rotation_2D(const Degree angle);
         static Matrix3x3 get_scaling_2D(const Vector2&);
 
     public:
@@ -492,6 +493,7 @@ namespace ZeroEngine {
 
         Matrix3x3& inverse();
         Matrix3x3 get_inverse() const;
+
 
         // @TODO: Test translate ange get_translation_2D()
         Matrix3x3& translate(const Vector2&);

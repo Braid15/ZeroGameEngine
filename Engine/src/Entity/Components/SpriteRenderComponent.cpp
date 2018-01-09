@@ -33,6 +33,20 @@ namespace ZeroEngine {
 
         auto component = get_owner()->get_component<TransformComponent2D>(TransformComponent2D::id).lock();
         if (component) {
+            LOG_TODO("SpriteRenderComponent", "REFACTOR!");
+            /*
+            Vector3 size(_sprite->get_width(), _sprite->get_height(), 1.0f);
+            Vector3 position(_sprite->get_position(), 1.0f);
+
+            Matrix3x3 world_transform = component->get_world_transform();
+
+            size.transform_by_matrix(world_transform);
+            position.transform_by_matrix(world_transform);
+
+            _sprite->set_position(position);
+            _sprite->set_height(size.get_y());
+            _sprite->set_width(size.get_x());
+            */
             if (component->get_position() != _sprite->get_position()) {
                 _sprite->set_position(component->get_position());
             }

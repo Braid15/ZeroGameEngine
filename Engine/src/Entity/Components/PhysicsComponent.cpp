@@ -2,95 +2,121 @@
 #include "../../Utils/Hash.h"
 #include "../../Utils/StringId.h"
 #include "../../AppLayer/Game.h"
+#include "../../Logger/Logging.h"
+#include "TransformComponent2D.h"
 
 namespace ZeroEngine {
 
-    const char* PhysicsComponent::name = "PhysicsComponent";
-    const EntityComponentId PhysicsComponent::id = STRING_ID("PhysicsComponent");
+    const char* RigidBodyComponent::name = "PhysicsComponent";
+    const EntityComponentId RigidBodyComponent::id = STRING_ID("PhysicsComponent");
 
     // These constants are the ones used in GameCodeingComplete
     static const Float32 DEFAULT_MAX_VELOCITY = 7.2f;
     static const Float32 DEFAULT_MAX_ANGULAR_VELOCITY = 1.2f; 
 
-    EntityComponent* PhysicsComponent::create() {
+    EntityComponent* RigidBodyComponent::create() {
         LOG_UNIMPLEMENTED();
         return nullptr;
     }
 
-    PhysicsComponent::PhysicsComponent() {
-        // set vector3's
+    RigidBodyComponent::RigidBodyComponent() {
+        _location = Vector3(0);
+        _orientation = Vector3(0);
+        _scale = Vector3(1);
+        _velocity = Vector3(0);
         _acceleration = 0.0f;
         _angular_acceleration = 0.0f;
         _max_velocity = DEFAULT_MAX_VELOCITY;
         _max_angular_velocity = DEFAULT_MAX_ANGULAR_VELOCITY;
-        LOG_UNIMPLEMENTED();
     }
 
-    PhysicsComponent::~PhysicsComponent() {
+    RigidBodyComponent::~RigidBodyComponent() {
         _game_physics->remove_entity(get_owner()->get_id());
     }
 
-    bool PhysicsComponent::initialize(const XmlReader& reader) {
+    bool RigidBodyComponent::initialize(const XmlReader& reader) {
         _game_physics = Game::get_physics();
         assert(_game_physics);
         LOG_UNIMPLEMENTED();
         return true;
     }
 
-    void PhysicsComponent::post_initialize() {
+    void RigidBodyComponent::post_initialize() {
         LOG_UNIMPLEMENTED();
         // _game_physics->add_shape(whatever this shape is)
     }
 
-    void PhysicsComponent::update(Tick delta_time) {
-        LOG_UNIMPLEMENTED();
+    void RigidBodyComponent::update(Tick delta_time) {
+        auto transform = get_owner()->get_component<TransformComponent2D>(TransformComponent2D::id).lock();
+
+        if (!transform) {
+            LOG_DEBUG("RigidBodyComponent", "Error getting transform component from " + std::string(get_owner()->get_name()));
+            return;
+        }
+
+        if (_acceleration != 0.0f) {
+            Float32 acceleration = _acceleration / 1000.0f * delta_time;
+            _game_physics->apply_force(_velocity, acceleration, get_owner()->get_id());
+        }
+
+        if (_angular_acceleration != 0.0f) {
+            Float32 acceleration = _angular_acceleration / 1000.0f * delta_time;
+            _game_physics->apply_torque(_velocity, acceleration, get_owner()->get_id());
+        }
     }
 
-    void PhysicsComponent::apply_force(const Vector3& direction, const Float32 newtons) {
+    void RigidBodyComponent::apply_force(const Vector3& direction, const Float32 newtons) {
         _game_physics->apply_force(direction, newtons, get_owner()->get_id());
     }
 
-    void PhysicsComponent::apply_torque(const Vector3& direction, const Float32 newtons) {
+    void RigidBodyComponent::apply_torque(const Vector3& direction, const Float32 newtons) {
         _game_physics->apply_torque(direction, newtons, get_owner()->get_id());
     }
 
-    bool PhysicsComponent::kinematic_move(const Matrix3x3& pos) {
+    bool RigidBodyComponent::kinematic_move(const Matrix3x3& pos) {
         return _game_physics->kinematic_move(pos, get_owner()->get_id());
     }
 
-    bool PhysicsComponent::kinematic_move(const Matrix4x4& pos) {
+    bool RigidBodyComponent::kinematic_move(const Matrix4x4& pos) {
         return _game_physics->kinematic_move(pos, get_owner()->get_id());
     }
 
-    void PhysicsComponent::apply_acceleration(const Float32 acceleration) {
+    void RigidBodyComponent::apply_acceleration(const Float32 acceleration) {
         _acceleration = acceleration;
     }
 
-    void PhysicsComponent::remove_acceleration() {
+    void RigidBodyComponent::remove_acceleration() {
         _acceleration = 0.0f;
     }
 
-    void PhysicsComponent::apply_angular_acceleration(const Float32 acceleration) {
+    void RigidBodyComponent::apply_angular_acceleration(const Float32 acceleration) {
         _angular_acceleration = acceleration;
     }
 
-    void PhysicsComponent::remove_angular_acceleration() {
+    void RigidBodyComponent::remove_angular_acceleration() {
         _angular_acceleration = 0.0f;
     }
 
-    void PhysicsComponent::set_position(const Vector2& pos) {
-        // set owner transofrm then call kinematic_move
+    void RigidBodyComponent::set_position(const Vector2& pos) {
+        auto transform = get_owner()->get_component<TransformComponent2D>(TransformComponent2D::id).lock();
+        if (transform) {
+            Matrix3x3 mat = transform->get_world_transform();
+            mat[0][Axis::z] = pos[Axis::x];
+            mat[1][Axis::z] = pos[Axis::y];
+
+            kinematic_move(mat);
+        }
     }
 
-    void PhysicsComponent::set_position(const Vector3& pos) {
-        // set owner transofrm then call kinematic_move
+    void RigidBodyComponent::set_position(const Vector3& pos) {
+        LOG_UNIMPLEMENTED();
     }
 
-    void PhysicsComponent::stop() {
+    void RigidBodyComponent::stop() {
         _game_physics->stop_entity(get_owner()->get_id()); 
     }
 
-    void PhysicsComponent::on_write_xml(const XmlWriter& writer) {
+    void RigidBodyComponent::on_write_xml(const XmlWriter& writer) {
 
     }
 }

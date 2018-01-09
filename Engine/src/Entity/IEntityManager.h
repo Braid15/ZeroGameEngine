@@ -8,6 +8,8 @@
 
 namespace ZeroEngine {
 
+    class Vector3;
+
     class IEntityManager : public IZeroObject {
     public:
         virtual bool initialize() = 0;
@@ -16,6 +18,7 @@ namespace ZeroEngine {
         virtual EntityPtr create_entity() = 0;
         virtual EntityPtr create_entity(char* resource_path) = 0;
         virtual EntityPtr create_entity(std::string path) = 0;
+        virtual EntityPtr create_entity(std::string path, Vector3 pos) = 0;
         virtual Uint32 get_entity_count() const = 0;
         virtual void get_all_entity_id(std::list<EntityId>* list) = 0;
         virtual void destroy_entity(const EntityId&) = 0;
@@ -24,6 +27,7 @@ namespace ZeroEngine {
         virtual ~IEntityManager() {}
     };
 
+    // @TODO: Delete
     class NullEntityManager : public IEntityManager {
     public:
         inline bool initialize() override { return true; }

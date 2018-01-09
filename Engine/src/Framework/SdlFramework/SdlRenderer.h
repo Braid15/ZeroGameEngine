@@ -57,6 +57,7 @@ namespace ZeroEngine {
         void draw_circle(const Point<Int32>& center, const Float32& radius, const Color& color) override;
         void draw_rect(const Rect& rect, const Color& color) override;
         void draw_text(const std::string& text, const Rect& canvas, const Color& color) override;
+        void draw_vertices(Vector2 vertices[], Int32 count, const Color& color) override;
     private:
         inline SdlPrimitiveRenderer() { _renderer = nullptr; }
         inline SdlPrimitiveRenderer(const SdlPrimitiveRenderer&) { _renderer = nullptr; }

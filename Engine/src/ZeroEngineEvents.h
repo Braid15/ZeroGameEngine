@@ -53,14 +53,20 @@ namespace ZeroEngine {
 
     private:
         std::string _resource_path;
+        Vector3 _position;
     public:
-        RequestCreateEntityEvent() : _resource_path("") { }
-        explicit RequestCreateEntityEvent(const char* path) : _resource_path(std::string(path)) {}
+        RequestCreateEntityEvent() : _resource_path(""), _position(Vector3(0)) { }
+        explicit RequestCreateEntityEvent(const char* path) : _resource_path(std::string(path)),
+            _position(Vector3(0)) {}
+        RequestCreateEntityEvent(const char* path, Vector3 pos) : _resource_path(std::string(path)),
+            _position(Vector3(pos)) {}
 
         inline std::string get_resource_path() const { return _resource_path; }
+        inline const Vector3& get_initial_position() const { return _position; }
 
         static RequestCreateEntityEvent::s_ptr create();
         static RequestCreateEntityEvent::s_ptr create(const char* path);
+        static RequestCreateEntityEvent::s_ptr create(const char* path, Vector3 pos);
     };
 
     // ------------------

@@ -25,8 +25,9 @@ namespace ZeroEngine {
         inline Vector3 get_velocity(EntityId) override { return Vector3(); }
         inline void set_velocity(const Vector3&, EntityId) override {}
         inline void stop_entity(EntityId) override {}
-        inline void set_matrix(const Matrix3x3&, EntityId) override {}
-        inline void set_matrix(const Matrix4x4&, EntityId) override {}
+        inline void set_world_transform(const Matrix3x3&, EntityId) override {}
+        inline void set_world_transform(const Matrix4x4&, EntityId) override {}
+        inline void add_entity(const EntityId& id) {}
         inline StringRepr to_string() const override { return "NullPhysics"; }
     };
 }

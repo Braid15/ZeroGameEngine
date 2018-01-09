@@ -91,7 +91,24 @@ namespace ZeroEngine {
 
     void SdlPrimitiveRenderer::draw_rect(const Rect& rect, const Color& color) {
         set_color(color);
-        LOG_UNIMPLEMENTED();
+        SDL_Rect sdl_rect = { rect.get_x(), rect.get_y(), rect.get_width(), rect.get_height() };
+        SDL_RenderDrawRect(&_renderer->get_sdl_renderer(), &sdl_rect);
+    }
+
+    void SdlPrimitiveRenderer::draw_vertices(Vector2 vertices[], Int32 count, const Color& color) {
+        LOG_TODO("SdlPrimitiveRenderer", "REFACTOR!");
+        set_color(color);
+        if (vertices) {
+            for (int i = 0; i < count; i++) {
+                if (i + 1 != count) {
+                    SDL_RenderDrawLine(&_renderer->get_sdl_renderer(), vertices[i].get_x(), vertices[i].get_y(),
+                                       vertices[i+1].get_x(), vertices[i+1].get_y());
+                } else {
+                    SDL_RenderDrawLine(&_renderer->get_sdl_renderer(), vertices[i].get_x(), vertices[i].get_y(),
+                                       vertices[0].get_x(), vertices[0].get_y());
+                }
+            }
+        }
     }
 
     void SdlPrimitiveRenderer::draw_text(const std::string& text, const Rect& canvas, const Color& color) {

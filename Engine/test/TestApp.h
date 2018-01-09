@@ -113,6 +113,11 @@ namespace ZeroEngineAppTest {
         Vector2 _right;
         Vector2 _up;
         Vector2 _down;
+        Vector3 _vertices[4];
+        Vector2 _verts[4];
+
+        std::shared_ptr<VertexRenderPacket> _render_packet;
+        Rect _rect;
 
         bool _go_up;
         bool _go_down;
@@ -121,16 +126,51 @@ namespace ZeroEngineAppTest {
 
 
 
+
     public:
         inline TestMovementController() 
             : _left(-1, 0), _right(1, 0), _down(0, 1), _up(0, -1)
-             , _go_up(false), _go_down(false), _go_right(false), _go_left(false) {}
+             , _go_up(false), _go_down(false), _go_right(false), _go_left(false) {
+
+            _vertices[0] = Vector3(Game::get_screen_width() / 2, Game::get_screen_height() / 2, 1);
+            _vertices[1] = Vector3(_vertices[0].get_x() + 100, _vertices[0].get_y(), 1.0f);
+            _vertices[2] = Vector3(_vertices[1].get_x(), _vertices[1].get_y() + 100, 1.0f);
+            _vertices[3] = Vector3(_vertices[2].get_x() - 100, _vertices[2].get_y(), 1.0f);
+
+            //_rect.set(_vertices[0][0], _vertices[0][1], _vertices[1][0], _vertices[2][1]);
+            _verts[0] = Vector2(_vertices[0]);
+            _verts[1] = Vector2(_vertices[1]);
+            _verts[2] = Vector2(_vertices[2]);
+            _verts[3] = Vector2(_vertices[3]);
+
+
+            _render_packet = std::make_shared<VertexRenderPacket>(_verts, 4, Colors::white());
+        }
         inline ~TestMovementController() {}
+
+        inline void send_rect_packet() {
+            //Game::get_renderer()->remove_packet(_render_packet);
+            //_rect.set(_vertices[0][0], _vertices[0][1], _vertices[1][0], _vertices[2][1]);
+            _verts[0] = Vector2(_vertices[0]);
+            _verts[1] = Vector2(_vertices[1]);
+            _verts[2] = Vector2(_vertices[2]);
+            _verts[3] = Vector2(_vertices[3]);
+
+
+            _render_packet->set_vertices(_verts, 4);
+            //_render_packet->set_rect(_rect);
+            //Game::get_renderer()->submit_packet(t);
+        }
 
         inline bool on_key_down(const Key& key) override {
             if (key == Key::enter) {
+                Game::get_renderer()->submit_packet(_render_packet);
+
+                /*
                 const char* p = "S:\\projects\\game-engines\\zerogameengine\\engine\\test\\test-entity.xml";
-                ZeroEventManager::queue_event(RequestCreateEntityEvent::create(p));
+                Vector3 pos = Vector3(Game::get_screen_width() / 2, Game::get_screen_height() / 2, 1);
+                ZeroEventManager::queue_event(RequestCreateEntityEvent::create(p, pos));
+                */
             } else if (key == Key::space) {
                 if (!_entity_id_list.empty()) {
                     EntityId id = _entity_id_list.back();
@@ -186,9 +226,11 @@ namespace ZeroEngineAppTest {
         }
 
         inline void update(Tick delta_time) {
-            if (_go_up || _go_down || _go_left || _go_right && !_entity_id_list.empty()) {
+            if (_go_up || _go_down || _go_left || _go_right /*&& !_entity_id_list.empty()*/) {
+                /*
                 auto entity = Game::get_entity(_entity_id_list.back()).lock();
                 auto transform = entity->get_component<TransformComponent2D>(TransformComponent2D::id).lock();
+                */
 
                 Vector2 direction;
 
@@ -199,9 +241,49 @@ namespace ZeroEngineAppTest {
 
                 direction *= delta_time;
 
-                ZeroEventManager::queue_event(MoveEntityEvent::create(entity->get_id(), Matrix3x3::get_translation_2D(direction)));
+                Matrix3x3 mat = Matrix3x3::identity();
+
+                /*
+                Vector2 scale_mat(1, 1);
+                if (_go_up) {
+                    scale_mat.set(1.2);
+                } else if (_go_down) {
+                    scale_mat.set(0.7);
+                }
+
+                Vector2 center = Vector2(static_cast<Float32>(_rect.get_center().get_x()), static_cast<Float32>(_rect.get_center().get_y()));
+                // Fixed point scaling
+                mat = mat * Matrix3x3::get_translation_2D(center);
+                mat = mat * Matrix3x3::get_scaling_2D(scale_mat);
+                mat = mat * Matrix3x3::get_translation_2D(-center);
+                */
+
+                Float32 degree = 0.0f;
+
+                if (_go_up) {
+                    degree = 2;
+                } else if (_go_down) {
+                    degree = -2;
+                }
+
+                //Vector2 center = Vector2(static_cast<Float32>(_rect.get_x()), static_cast<Float32>(_rect.get_y()));
+                //mat = mat * Matrix3x3::get_translation_2D(center);
+                mat = mat * Matrix3x3::get_rotation_2D(Vector2(_vertices[0].get_x(), _vertices[0].get_y()), degree);
+                //mat = mat * Matrix3x3::get_translation_2D(-center);
+
+
+
+                //mat = Matrix3x3::get_rotation_2D(transform->get_position(), 90); // * Matrix3x3::get_translation_2D(direction);
+                for (auto& vert : _vertices) {
+                    vert.transform_by_matrix(mat);
+                }
+
+                send_rect_packet();
+
+                //ZeroEventManager::queue_event(MoveEntityEvent::create(entity->get_id(), mat));
             }
         }
+
     };
 
 

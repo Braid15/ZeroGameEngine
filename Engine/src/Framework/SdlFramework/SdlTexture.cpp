@@ -44,7 +44,7 @@ namespace ZeroEngine {
     void SdlTexture::on_render() {
         if (!_renderer || !_texture) return;
 
-        SDL_Rect render_quad = { (Int32)get_x(), (Int32)get_y(), (Int32)get_width(), (Int32)get_height() };
+        SDL_Rect render_quad = { static_cast<Int32>(get_x()), static_cast<Int32>(get_y()), static_cast<Int32>(get_width()), static_cast<Int32>(get_height()) };
         LOG_TODO("SdlTexture", "Need to handle source rect and dest rect. I.E. Sprite sheets");
         SDL_RenderCopy(_renderer, _texture, nullptr, &render_quad);
     }

@@ -34,6 +34,40 @@ namespace ZeroEngine {
                         entity->add_component(component);
                     }
                 }
+
+                entity->post_initialize();
+                return entity;
+            } else {
+                LOG_DEBUG("EntityFactory", "Error initializing entity");
+            }
+        }
+        return std::shared_ptr<Entity>();
+    }
+
+    // @TODO: This is temporary. Need to pass in entity transform instead of reading it from file
+    std::shared_ptr<Entity> EntityFactory::create_entity(std::string path, Vector3 pos) {
+        XmlReader reader;
+        char* resource_path = const_cast<char*>(path.c_str());
+        if (reader.load(resource_path)) {
+            std::shared_ptr<Entity> entity(zero_new Entity(get_next_id()));
+
+            reader.move_to_root_element();
+            if (entity->initialize(reader)) {
+                while (reader.move_to_next_element()) {
+                    std::shared_ptr<EntityComponent> component = create_component(reader);
+                    if (component) {
+                        component->set_owner(entity);
+                        entity->add_component(component);
+                    }
+                }
+
+                LOG_TODO("EntityFactory", "REFACTOR THIS!");
+
+                auto transform = entity->get_component<TransformComponent2D>(TransformComponent2D::id).lock();
+                if (transform) {
+                    transform->set_position(pos);
+                }
+
                 entity->post_initialize();
                 return entity;
             } else {

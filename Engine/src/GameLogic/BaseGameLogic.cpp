@@ -106,7 +106,7 @@ namespace ZeroEngine {
         auto entity = get_entity(entity_id).lock();
         auto transform = entity->get_component<TransformComponent2D>(TransformComponent2D::id).lock();
         if (transform) {
-            transform->set_matrix(pos);
+            transform->set_world_transform(pos);
         } else {
             LOG_DEBUG("BaseGameLogic", "Error getting TransformComponent2D on entity " + std::string(entity->get_name()));
         }
@@ -147,6 +147,10 @@ namespace ZeroEngine {
         return _entity_manager->create_entity(resource_path);
     }
 
+    EntityPtr BaseGameLogic::create_entity(std::string resource_path, Vector3 pos) {
+        return _entity_manager->create_entity(resource_path, pos);
+    }
+
     void BaseGameLogic::set_entity_manager(IEntityManager* manager) {
         if (_entity_manager) {
             _entity_manager->shutdown();
@@ -177,8 +181,8 @@ namespace ZeroEngine {
             EntityPtr entity;
             if (data->get_resource_path().empty()) {
                 entity = create_entity();
-            } else {
-                entity = create_entity(data->get_resource_path());
+            } else if (data->get_initial_position() != Vector3::zero()) {
+                entity = create_entity(data->get_resource_path(), data->get_initial_position());
             }
             ZeroEventManager::queue_event(EntityCreatedEvent::create(entity->get_id()));
         }

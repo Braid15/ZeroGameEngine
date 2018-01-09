@@ -7,6 +7,8 @@
 
 namespace ZeroEngine {
     
+    class Vector3;
+
     class EntityManager : public IEntityManager {
     private:
         class IEntityStorage;
@@ -21,6 +23,7 @@ namespace ZeroEngine {
         EntityPtr create_entity() override;
         EntityPtr create_entity(char* resource_path) override;
         EntityPtr create_entity(std::string path) override;
+        EntityPtr create_entity(std::string path, Vector3 pos);
         void get_all_entity_id(std::list<EntityId>* list) override;
         void destroy_entity(const EntityId&) override;
         WeakEntityPtr get_entity(const EntityId&) override;

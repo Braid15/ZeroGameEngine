@@ -1,4 +1,5 @@
 #include "EntityManager.h"
+#include "../Math/MathTypes.h"
 
 namespace ZeroEngine {
 
@@ -40,6 +41,12 @@ namespace ZeroEngine {
 
     EntityPtr EntityManager::create_entity(std::string resource_path) {
         EntityPtr entity = _factory->create_entity(resource_path);
+        _storage->store_entity(entity);
+        return entity;
+    }
+
+    EntityPtr EntityManager::create_entity(std::string path, Vector3 pos) {
+        EntityPtr entity = _factory->create_entity(path, pos);
         _storage->store_entity(entity);
         return entity;
     }

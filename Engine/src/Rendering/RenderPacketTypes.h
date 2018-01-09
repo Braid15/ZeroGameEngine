@@ -28,4 +28,30 @@ namespace ZeroEngine {
         typedef std::shared_ptr<LineRenderPacket> s_ptr;
     };
 
+    class RectRenderPacket final : public BaseRenderPacket {
+    private:
+        Rect _rect;
+    public:
+        RectRenderPacket(Rect rect, Color color) : BaseRenderPacket(color),
+            _rect(rect) {}
+
+        inline void set_rect(Rect rect) { _rect = rect; }
+        void on_render(IPrimitiveRenderer&) override;
+        inline StringRepr to_string() const override { return "RectRenderPacket"; }
+        typedef std::shared_ptr<RectRenderPacket> s_ptr;
+    };
+
+    class VertexRenderPacket final : public BaseRenderPacket {
+    private:
+        Vector2* _vertices;
+        size_t _size;
+    public:
+        VertexRenderPacket(Vector2* vertices, size_t size, Color color) : BaseRenderPacket(color), 
+            _vertices(vertices), _size(size) {}
+
+        inline void set_vertices(Vector2* vertices, size_t size) { _vertices = vertices; _size = size; }
+        void on_render(IPrimitiveRenderer&) override;
+        inline StringRepr to_string() const override { return "VertexRenderPacket"; }
+    };
+
 }

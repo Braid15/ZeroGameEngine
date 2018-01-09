@@ -828,8 +828,9 @@ namespace ZeroEngine {
         return *this;
     }
 
-    Vector3 Vector3::get_matrix_transform(const Matrix3x3& matrix) const {
+    Vector3 Vector3::get_matrix_transform(const Matrix3x3& m) const {
         Vector3 transform;
+        Matrix3x3 matrix = m.get_transposition();
 
         transform[Axis::x] = _vec[Axis::x] * matrix[0][0] + _vec[Axis::y] * matrix[1][0] + _vec[Axis::z] * matrix[2][0];
         transform[Axis::y] = _vec[Axis::x] * matrix[0][1] + _vec[Axis::y] * matrix[1][1] + _vec[Axis::z] * matrix[2][1];
@@ -1326,8 +1327,9 @@ namespace ZeroEngine {
         return *this;
     }
 
-    Vector4 Vector4::get_matrix_transform(const Matrix4x4& matrix) const {
+    Vector4 Vector4::get_matrix_transform(const Matrix4x4& mat) const {
         Vector4 transform;
+        Matrix4x4 matrix = mat.get_transposition();
 
         transform[Axis::x] = _vec[Axis::x] * matrix[0][0] + _vec[Axis::y] * matrix[1][0] + _vec[Axis::z] * matrix[2][0] + _vec[Axis::w] * matrix[3][0];
         transform[Axis::y] = _vec[Axis::x] * matrix[0][1] + _vec[Axis::y] * matrix[1][1] + _vec[Axis::z] * matrix[2][1] + _vec[Axis::w] * matrix[3][1];
@@ -1453,6 +1455,16 @@ namespace ZeroEngine {
 
         return Matrix3x3(Vector3(c, -s, center[Axis::x] * (1.0f - c) + center[Axis::y] * s),
                          Vector3(s, c, center[Axis::y] * (1.0f - c) - center[Axis::x] * s),
+                         Vector3(0.0f, 0.0f, 1.0f));
+    }
+
+    Matrix3x3 Matrix3x3::get_rotation_2D(const Degree angle) {
+        Float32 radian = Math::degrees_to_radians(angle);
+        Float32 c = Math::cosine(radian);
+        Float32 s = Math::sine(radian);
+
+        return Matrix3x3(Vector3(c, -s, 0.0f),
+                         Vector3(s, c, 0.0f),
                          Vector3(0.0f, 0.0f, 1.0f));
     }
 

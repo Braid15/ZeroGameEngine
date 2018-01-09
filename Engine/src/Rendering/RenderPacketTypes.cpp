@@ -26,4 +26,13 @@ namespace ZeroEngine {
     void LineRenderPacket::on_render(IPrimitiveRenderer& renderer) {
         renderer.draw_line(_start, _end, get_color());
     }
+
+
+    void RectRenderPacket::on_render(IPrimitiveRenderer& renderer) {
+        renderer.draw_rect(_rect, get_color());
+    }
+
+    void VertexRenderPacket::on_render(IPrimitiveRenderer& renderer) {
+        renderer.draw_vertices(_vertices, _size, get_color());
+    }
 }

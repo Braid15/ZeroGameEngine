@@ -333,6 +333,12 @@
     <ClInclude Include="src\Math\MathTypes.h">
       <Filter>Source\Math</Filter>
     </ClInclude>
+    <ClInclude Include="src\Physics\IRigidBody.h">
+      <Filter>Source\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physics\ZeroEnginePhysics.h">
+      <Filter>Source\Physics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Logger\BaseLogger.cpp">
@@ -490,6 +496,9 @@
     </ClCompile>
     <ClCompile Include="src\Math\MathTypes.cpp">
       <Filter>Source\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Physics\ZeroEnginePhysics.cpp">
+      <Filter>Source\Physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

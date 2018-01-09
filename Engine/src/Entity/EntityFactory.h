@@ -8,6 +8,8 @@
 
 namespace ZeroEngine {
 
+    class Vector3;
+
     typedef EntityComponent* (*entity_component_creation_delegate)();
 
     class EntityFactory : public IZeroObject {
@@ -24,6 +26,7 @@ namespace ZeroEngine {
         std::shared_ptr<Entity> create_entity();
         std::shared_ptr<Entity> create_entity(char* resource_path);
         std::shared_ptr<Entity> create_entity(std::string resource_path);
+        std::shared_ptr<Entity> create_entity(std::string resource_path, Vector3 pos);
         // modify_entity()
     protected:
         std::shared_ptr<EntityComponent> create_component(const XmlReader&);
