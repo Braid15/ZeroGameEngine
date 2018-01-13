@@ -1,6 +1,17 @@
+#include "stdafx.h"
 #include "SdlFramework.h"
 
-namespace ZeroEngine {
+#pragma comment(lib, "SDL2.lib")
+#pragma comment(lib, "SDL2_image.lib")
+#pragma comment(lib, "SDL2_mixer.lib")
+#pragma comment(lib, "SDL2_ttf.lib")
+
+
+
+
+namespace ZeroSdlFramework {
+
+    using namespace ZeroEngine;
 
     bool SdlFramework::on_init() {
         bool success = true;

@@ -131,10 +131,12 @@
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Windows</SubSystem>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
       <Profile>true</Profile>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>/NODEFAULTLIB:libcmt.lib %(AdditionalOptions)</AdditionalOptions>
+      <EntryPointSymbol>WinMainCRTStartup</EntryPointSymbol>
     </Link>
     <PostBuildEvent>
       <Command>
@@ -151,9 +153,11 @@
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Windows</SubSystem>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
       <Profile>true</Profile>
+      <AdditionalOptions>/NODEFAULTLIB:libcmt.lib %(AdditionalOptions)</AdditionalOptions>
+      <EntryPointSymbol>WinMainCRTStartup</EntryPointSymbol>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -171,7 +175,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -189,12 +193,13 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='SDL|Win32'">
     <Link>
-      <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Console</SubSystem>
     </Link>
     <ClCompile>
       <PreprocessToFile>false</PreprocessToFile>
@@ -202,7 +207,8 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='SDL|x64'">
     <Link>
-      <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Console</SubSystem>
     </Link>
     <ClCompile>
       <PreprocessToFile>false</PreprocessToFile>
@@ -220,7 +226,6 @@
     <ClInclude Include="src\Entity\Transform.h" />
     <ClInclude Include="src\FilePaths.h" />
     <ClInclude Include="src\Framework\ITexture.h" />
-    <ClInclude Include="src\Framework\SdlFramework\SdlTexture.h" />
     <ClInclude Include="src\GameView\AScene.h" />
     <ClInclude Include="src\GameView\ISceneNode.h" />
     <ClInclude Include="src\GameView\SceneNode.h" />
@@ -257,12 +262,9 @@
     <ClInclude Include="src\Events\EventType.h" />
     <ClInclude Include="src\Framework\Framework.h" />
     <ClInclude Include="src\Framework\IMsgTranslator.h" />
-    <ClInclude Include="src\Framework\SdlFramework\SdlFramework.h" />
-    <ClInclude Include="src\Framework\SdlFramework\SdlMsgTranslator.h" />
     <ClInclude Include="src\Framework\AFramework.h" />
     <ClInclude Include="src\Framework\IRenderer.h" />
     <ClInclude Include="src\Framework\IWindow.h" />
-    <ClInclude Include="src\Framework\SdlFramework\SdlRenderer.h" />
     <ClInclude Include="src\GameLogic\BaseGameLogic.h" />
     <ClInclude Include="src\GameLogic\GameLogicInclude.h" />
     <ClInclude Include="src\GameLogic\IGameLogic.h" />
@@ -324,10 +326,6 @@
     <ClCompile Include="src\Events\EventManager.cpp" />
     <ClCompile Include="src\Framework\AFramework.cpp" />
     <ClCompile Include="src\Framework\IRenderer.cpp" />
-    <ClCompile Include="src\Framework\SdlFramework\SdlFramework.cpp" />
-    <ClCompile Include="src\Framework\SdlFramework\SdlMsgTranslator.cpp" />
-    <ClCompile Include="src\Framework\SdlFramework\SdlRenderer.cpp" />
-    <ClCompile Include="src\Framework\SdlFramework\SdlTexture.cpp" />
     <ClCompile Include="src\GameLogic\BaseGameLogic.cpp" />
     <ClCompile Include="src\GameView\AScene.cpp" />
     <ClCompile Include="src\GameView\HumanView.cpp" />

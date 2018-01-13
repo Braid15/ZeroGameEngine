@@ -1,6 +1,14 @@
+#include "stdafx.h"
 #include "SdlMsgTranslator.h"
 
-namespace ZeroEngine {
+#pragma comment(lib, "SDL2.lib")
+#pragma comment(lib, "SDL2_image.lib")
+#pragma comment(lib, "SDL2_mixer.lib")
+#pragma comment(lib, "SDL2_ttf.lib")
+
+namespace ZeroSdlFramework {
+
+    using namespace ZeroEngine;
 
     static Key sdl_keysym_to_keycode_conversion(SDL_Keysym);
 

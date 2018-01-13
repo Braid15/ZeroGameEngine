@@ -1,3 +1,4 @@
+
 #include "ZeroEngine.h"
 
 #include "../test/TestApp.h"
@@ -7,12 +8,37 @@
 #include "3rdParty\VisualLeakDetector\vld.h"
 #endif
 
+#define _SDL_FRAMEWORK
 
+#ifdef _SDL_FRAMEWORK
+#pragma comment(lib, "SdlFramework_debug.lib")
+#include "../../SdlFramework/SdlFramework.h"
+#endif
 
 using namespace ZeroEngine;
+using namespace ZeroSdlFramework;
 
-static void run_game();
+static void run_game() {
+    // @TODO: Load options from file.
+    GameOptions options;
 
+    // Launcher takes care of deleting these pointers
+    GameApp* game = zero_new ZeroEngineAppTest::MockZeroEngineApp(options);
+    AFramework* framework = zero_new SdlFramework();
+
+    GameLauncher* launcher = zero_new GameLauncher(game, framework);
+    launcher->launch();
+
+    zero_delete(launcher);
+}
+
+INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine, INT nCmdShow) {
+    run_game();
+    system("PAUSE");
+    return 0;
+}
+
+/*
 int main(int argc, char* args[]) {
 
     // #ifdef _DEBUG
@@ -31,17 +57,6 @@ int main(int argc, char* args[]) {
 
     return 0;
 }
+*/
 
-void run_game() {
-    // @TODO: Load options from file.
-    GameOptions options;
 
-    // Launcher takes care of deleting these pointers
-    GameApp* game = zero_new ZeroEngineAppTest::MockZeroEngineApp(options);
-    AFramework* framework = zero_new SdlFramework();
-
-    GameLauncher* launcher = zero_new GameLauncher(game, framework);
-    launcher->launch();
-
-    zero_delete(launcher);
-}

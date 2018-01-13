@@ -1,7 +1,15 @@
+#include "stdafx.h"
 #include "SdlRenderer.h"
 #include "SdlTexture.h"
 
-namespace ZeroEngine {
+#pragma comment(lib, "SDL2.lib")
+#pragma comment(lib, "SDL2_image.lib")
+#pragma comment(lib, "SDL2_mixer.lib")
+#pragma comment(lib, "SDL2_ttf.lib")
+
+namespace ZeroSdlFramework {
+
+    using namespace ZeroEngine;
 
     SdlRenderer::SdlRenderer(SDL_Window* window) {
         _sdl_window = window;
@@ -91,7 +99,13 @@ namespace ZeroEngine {
 
     void SdlPrimitiveRenderer::draw_rect(const Rect& rect, const Color& color) {
         set_color(color);
-        SDL_Rect sdl_rect = { rect.get_x(), rect.get_y(), rect.get_width(), rect.get_height() };
+        SDL_Rect sdl_rect = { 
+            static_cast<int>(rect.get_x()), 
+            static_cast<int>(rect.get_y()), 
+            static_cast<int>(rect.get_width()), 
+            static_cast<int>(rect.get_height())
+        };
+
         SDL_RenderDrawRect(&_renderer->get_sdl_renderer(), &sdl_rect);
     }
 
@@ -101,11 +115,11 @@ namespace ZeroEngine {
         if (vertices) {
             for (int i = 0; i < count; i++) {
                 if (i + 1 != count) {
-                    SDL_RenderDrawLine(&_renderer->get_sdl_renderer(), vertices[i].get_x(), vertices[i].get_y(),
-                                       vertices[i+1].get_x(), vertices[i+1].get_y());
+                    SDL_RenderDrawLine(&_renderer->get_sdl_renderer(), static_cast<int>(vertices[i].get_x()), static_cast<int>(vertices[i].get_y()),
+                                       static_cast<int>(vertices[i+1].get_x()), static_cast<int>(vertices[i+1].get_y()));
                 } else {
-                    SDL_RenderDrawLine(&_renderer->get_sdl_renderer(), vertices[i].get_x(), vertices[i].get_y(),
-                                       vertices[0].get_x(), vertices[0].get_y());
+                    SDL_RenderDrawLine(&_renderer->get_sdl_renderer(), static_cast<int>(vertices[i].get_x()), static_cast<int>(vertices[i].get_y()),
+                                       static_cast<int>(vertices[0].get_x()), static_cast<int>(vertices[0].get_y()));
                 }
             }
         }

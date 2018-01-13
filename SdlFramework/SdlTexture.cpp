@@ -1,8 +1,11 @@
+#include "stdafx.h"
 #include "SdlTexture.h"
-#include "../../Logger/Logging.h"
-#include "../../Math/Math.h"
+#include "../Engine/src/Logger/Logging.h"
+#include "../Engine/src/Math/Math.h"
 
-namespace ZeroEngine {
+namespace ZeroSdlFramework {
+
+    using namespace ZeroEngine;
 
     SdlTexture::SdlTexture(SDL_Renderer* renderer, SDL_Window* window, const char* file_path) {
         _renderer = renderer;

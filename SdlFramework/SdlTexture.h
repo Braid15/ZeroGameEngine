@@ -1,13 +1,13 @@
 #pragma once
 
-#include "../../ZeroEngineStd.h"
-#include "../ITexture.h"
-#include "../../3rdParty/SDL/SDL.h"
-#include "../../3rdParty/SDL/SDL_image.h"
+#include "../Engine/src/ZeroEngineStd.h"
+#include "../Engine/src/Framework/ITexture.h"
+#include "../Engine/src/3rdParty/SDL/SDL.h"
+#include "../Engine/src/3rdParty/SDL/SDL_image.h"
 
-namespace ZeroEngine {
+namespace ZeroSdlFramework {
 
-    class SdlTexture final : public BaseTexture {
+    class SdlTexture final : public ZeroEngine::BaseTexture {
     private:
         SDL_Renderer* _renderer;
         SDL_Texture* _texture;
@@ -18,7 +18,7 @@ namespace ZeroEngine {
         ~SdlTexture();
         bool load() override;
         void on_render() override;
-        inline StringRepr to_string() const { return "SdlTexture"; }
+        inline ZeroEngine::StringRepr to_string() const { return "SdlTexture"; }
     private:
         SdlTexture() : _renderer(nullptr), _texture(nullptr), _window(nullptr), _file_path(nullptr) {}
         SdlTexture(const SdlTexture&) : _renderer(nullptr), _texture(nullptr), 

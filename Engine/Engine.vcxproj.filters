@@ -25,9 +25,6 @@
     <Filter Include="Source\Utils">
       <UniqueIdentifier>{59746baf-b482-45e3-874a-1f9b2f7f4b26}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Framework\SdlFramework">
-      <UniqueIdentifier>{f6c1e5b8-b4e7-4942-a724-ee85b9b38a15}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\AppMsg">
       <UniqueIdentifier>{c1cbecb8-ca83-4643-8aa8-cf6c3c8a5ea1}</UniqueIdentifier>
     </Filter>
@@ -132,9 +129,6 @@
     <ClInclude Include="src\AppLayer\AppLayer.h">
       <Filter>Source\AppLayer</Filter>
     </ClInclude>
-    <ClInclude Include="src\Framework\SdlFramework\SdlFramework.h">
-      <Filter>Source\Framework\SdlFramework</Filter>
-    </ClInclude>
     <ClInclude Include="src\AppMsg\AppMsgArgs.h">
       <Filter>Source\AppMsg</Filter>
     </ClInclude>
@@ -146,9 +140,6 @@
     </ClInclude>
     <ClInclude Include="src\Framework\IMsgTranslator.h">
       <Filter>Source\Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Framework\SdlFramework\SdlMsgTranslator.h">
-      <Filter>Source\Framework\SdlFramework</Filter>
     </ClInclude>
     <ClInclude Include="src\Input\Keys.h">
       <Filter>Source\Input</Filter>
@@ -237,9 +228,6 @@
     <ClInclude Include="src\Graphics\Color.h">
       <Filter>Source\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="src\Framework\SdlFramework\SdlRenderer.h">
-      <Filter>Source\Framework\SdlFramework</Filter>
-    </ClInclude>
     <ClInclude Include="src\ZeroEngineScreenElements.h">
       <Filter>Source</Filter>
     </ClInclude>
@@ -305,9 +293,6 @@
     </ClInclude>
     <ClInclude Include="src\Framework\ITexture.h">
       <Filter>Source\Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Framework\SdlFramework\SdlTexture.h">
-      <Filter>Source\Framework\SdlFramework</Filter>
     </ClInclude>
     <ClInclude Include="src\Utils\Hash.h">
       <Filter>Source\Utils</Filter>
@@ -380,9 +365,6 @@
     <ClCompile Include="src\AppLayer\GameOptions.cpp">
       <Filter>Source\AppLayer</Filter>
     </ClCompile>
-    <ClCompile Include="src\Framework\SdlFramework\SdlFramework.cpp">
-      <Filter>Source\Framework\SdlFramework</Filter>
-    </ClCompile>
     <ClCompile Include="src\AppMsg\AppMsgFactory.cpp">
       <Filter>Source\AppMsg</Filter>
     </ClCompile>
@@ -391,9 +373,6 @@
     </ClCompile>
     <ClCompile Include="src\AppMsg\AppMsg.cpp">
       <Filter>Source\AppMsg</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Framework\SdlFramework\SdlMsgTranslator.cpp">
-      <Filter>Source\Framework\SdlFramework</Filter>
     </ClCompile>
     <ClCompile Include="src\Input\Keys.cpp">
       <Filter>Source\Input</Filter>
@@ -440,9 +419,6 @@
     <ClCompile Include="src\Graphics\Color.cpp">
       <Filter>Source\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="src\Framework\SdlFramework\SdlRenderer.cpp">
-      <Filter>Source\Framework\SdlFramework</Filter>
-    </ClCompile>
     <ClCompile Include="src\Framework\IRenderer.cpp">
       <Filter>Source\Framework</Filter>
     </ClCompile>
@@ -484,9 +460,6 @@
     </ClCompile>
     <ClCompile Include="src\Utils\Xml\XmlWriter.cpp">
       <Filter>Source\Utils\Xml</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Framework\SdlFramework\SdlTexture.cpp">
-      <Filter>Source\Framework\SdlFramework</Filter>
     </ClCompile>
     <ClCompile Include="src\GameView\Sprite.cpp">
       <Filter>Source\GameView</Filter>
