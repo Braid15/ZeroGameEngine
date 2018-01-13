@@ -11,11 +11,11 @@ namespace ZeroEngine {
 
     class IGamepadHandler : public IZeroObject {
     public:
-        virtual bool on_trigger(const GamepadTriggerName& trigger_name, const float32 pressure) = 0;
+        virtual bool on_trigger(const GamepadTriggerName& trigger_name, const Float32 pressure) = 0;
         virtual bool on_button_up(const GamepadButtonName& button_name) = 0;
-        virtual bool on_button_down(const GamepadButtonName& button_name, const float32 pressure) = 0;
+        virtual bool on_button_down(const GamepadButtonName& button_name, const Float32 pressure) = 0;
         virtual bool on_directional_pad(const GamepadDirectionalName& directional_name) = 0;
-        virtual bool on_joystick_move(const GamepadJoystickName& joystick_name, const float32 x, const float32 y) = 0;
+        virtual bool on_joystick_move(const GamepadJoystickName& joystick_name, const Float32 x, const Float32 y) = 0;
         virtual StringRepr to_string() const = 0;
         virtual ~IGamepadHandler() {}
     };

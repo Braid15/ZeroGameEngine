@@ -7,6 +7,8 @@
 
 namespace ZeroEngine {
     
+    class Vector3;
+
     class EntityManager : public IEntityManager {
     private:
         class IEntityStorage;
@@ -21,10 +23,11 @@ namespace ZeroEngine {
         EntityPtr create_entity() override;
         EntityPtr create_entity(char* resource_path) override;
         EntityPtr create_entity(std::string path) override;
+        EntityPtr create_entity(std::string path, Vector3 pos);
         void get_all_entity_id(std::list<EntityId>* list) override;
         void destroy_entity(const EntityId&) override;
         WeakEntityPtr get_entity(const EntityId&) override;
-        inline uint32 get_entity_count() const { return _storage->get_entity_count(); }
+        inline Uint32 get_entity_count() const { return _storage->get_entity_count(); }
         inline StringRepr to_string() const override { return "EntityManager"; }
     private:
         struct IFilter {
@@ -46,7 +49,7 @@ namespace ZeroEngine {
             virtual void destroy_entity(const EntityId&) = 0;
             virtual void filter_entities(IFilter*) = 0;
             virtual void get_all_entity_id(std::list<EntityId>* list) = 0;
-            virtual uint32 get_entity_count() const = 0;
+            virtual Uint32 get_entity_count() const = 0;
             inline virtual ~IEntityStorage() {}
         };
 
@@ -64,7 +67,7 @@ namespace ZeroEngine {
             void destroy_entity(const EntityId& id) override;
             void get_all_entity_id(std::list<EntityId>* list) override;
             void filter_entities(IFilter*) override;
-            uint32 get_entity_count() const override;
+            Uint32 get_entity_count() const override;
         };
     };
 }

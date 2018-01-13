@@ -10,9 +10,7 @@
 namespace ZeroEngine {
 
     class IGameState;
-    class Vector2;
-    class Vector3;
-    class Vector4;
+    class Transform;
 
     enum class BaseGameState {
         invalid,
@@ -40,9 +38,7 @@ namespace ZeroEngine {
         //virtual void change_state(IGameState) = 0;
         virtual void change_state(BaseGameState) = 0;
 
-        virtual void move_entity(const EntityId& entity_id, const Vector2& pos) = 0;
-        virtual void move_entity(const EntityId& entity_id, const Vector3& pos) = 0;
-        virtual void move_entity(const EntityId& entity_id, const Vector4& pos) = 0;
+        virtual void move_entity(const EntityId& entity_id, const Transform& transform) = 0;
 
         virtual void destroy_entity(const EntityId& entity_id) = 0;
         virtual void add_game_view(IGameViewPtr view, EntityId entity_id=INVALID_ENTITY_ID) = 0;
@@ -50,6 +46,7 @@ namespace ZeroEngine {
         virtual WeakEntityPtr get_entity(const EntityId& entity_id) = 0;
         virtual EntityPtr create_entity() = 0;
         virtual EntityPtr create_entity(std::string resource_path) = 0;
+        virtual EntityPtr create_entity(std::string resource_path, Vector3 pos) = 0;
         virtual StringRepr to_string() const = 0;
         virtual ~IGameLogic() {}
     };

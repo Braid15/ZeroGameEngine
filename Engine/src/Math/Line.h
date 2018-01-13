@@ -1,7 +1,7 @@
 #pragma once 
 
 #include "../ZeroEngineStd.h"
-#include "Vector2.h"
+#include "MathTypes.h"
 #include "../Graphics/Point.h"
 
 namespace ZeroEngine {
@@ -12,9 +12,9 @@ namespace ZeroEngine {
         Vector2 _end;
     public:
         Line(const Vector2& start, const Vector2& end) : _start(start), _end(end) {}
-        Line(const Point<float32>& start, const Point<float32>& end);
+        Line(const Point<Float32>& start, const Point<Float32>& end);
         Line(const Line& other) : _start(other.get_start()), _end(other.get_end()) {}
-        Line(const float32& x1, const float32& y1, const float32& x2, const float32& y2);
+        Line(const Float32& x1, const Float32& y1, const Float32& x2, const Float32& y2);
         ~Line() {}
 
         inline const Vector2& get_start() const { return _start; }

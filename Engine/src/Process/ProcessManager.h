@@ -13,17 +13,17 @@ namespace ZeroEngine {
         ProcessList _process_list;
     public:
         ~ProcessManager();
-        uint32 update_processes(Tick delta_time);
+        Uint32 update_processes(Tick delta_time);
         Process::weak_ptr attach_process(Process::ptr process);
         void abort_all_processes(bool immediate=false);
-        inline uint32 get_process_count() const;
+        inline Uint32 get_process_count() const;
         inline StringRepr to_string() const { return "ProcessManager"; }
     private:
         void clear_all_processes();
     };
 
 
-    inline uint32 ProcessManager::get_process_count() const {
-        return static_cast<uint32>(_process_list.size());
+    inline Uint32 ProcessManager::get_process_count() const {
+        return static_cast<Uint32>(_process_list.size());
     }
 }

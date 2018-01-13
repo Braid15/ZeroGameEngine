@@ -1,214 +1,150 @@
 #include "ZeroEngineEvents.h"
+#include "Utils/StringId.h"
 
 namespace ZeroEngine {
     
+    // @TODO: Get rid of macros. THey make things more complicated by hiding things.
+
     // -------------------------
     // RequestDestroyEntityEvent
     // -------------------------
 
-    const EventType RequestDestroyEntityEvent::type = 0x6cf99d0;
+    DEFINE_EVENT_METHODS(RequestDestroyEntityEvent);
 
-    IEventDataPtr RequestDestroyEntityEvent::copy() const {
-        return IEventDataPtr(zero_new RequestDestroyEntityEvent(_controlled_entity_id));
+    RequestDestroyEntityEvent::s_ptr RequestDestroyEntityEvent::create(const EntityId& id) {
+        return RequestDestroyEntityEvent::s_ptr(zero_new RequestDestroyEntityEvent(id));
     }
 
-    RequestDestroyEntityEvent::ptr RequestDestroyEntityEvent::create(const EntityId& id) {
-        return RequestDestroyEntityEvent::ptr(zero_new RequestDestroyEntityEvent(id));
-    }
-
-    RequestDestroyEntityEvent::ptr RequestDestroyEntityEvent::cast(IEventDataPtr data_ptr) {
-        assert(data_ptr->get_event_type() == RequestDestroyEntityEvent::type);
-        return std::static_pointer_cast<RequestDestroyEntityEvent>(data_ptr);
+    RequestDestroyEntityEvent::RequestDestroyEntityEvent(const RequestDestroyEntityEvent& other) {
+        _controlled_entity_id = other.get_entity_id();
     }
 
     // --------------------
     // EntityDestroyedEvent
     // --------------------
 
-    const EventType EntityDestroyedEvent::type = 0x616cced;
+    DEFINE_EVENT_METHODS(EntityDestroyedEvent);
 
-    IEventDataPtr EntityDestroyedEvent::copy() const {
-        return IEventDataPtr(zero_new EntityDestroyedEvent(_controlled_entity_id));
+    EntityDestroyedEvent::s_ptr EntityDestroyedEvent::create(const EntityId& id) {
+        return EntityDestroyedEvent::s_ptr(zero_new EntityDestroyedEvent(id));
     }
 
-    EntityDestroyedEvent::ptr EntityDestroyedEvent::create(const EntityId& id) {
-        return EntityDestroyedEvent::ptr(zero_new EntityDestroyedEvent(id));
-    }
-
-    EntityDestroyedEvent::ptr EntityDestroyedEvent::cast(IEventDataPtr data_ptr) {
-        assert(data_ptr->get_event_type() == EntityDestroyedEvent::type);
-        return std::static_pointer_cast<EntityDestroyedEvent>(data_ptr);
+    EntityDestroyedEvent::EntityDestroyedEvent(const EntityDestroyedEvent& other) {
+        _controlled_entity_id = other.get_entity_id();
     }
 
     // ------------------------
     // RequestCreateEntityEvent
     // ------------------------
 
-    const EventType RequestCreateEntityEvent::type = 0x817a4c4e;
+    DEFINE_EVENT_METHODS(RequestCreateEntityEvent);
 
-    IEventDataPtr RequestCreateEntityEvent::copy() const {
-        return IEventDataPtr(zero_new RequestCreateEntityEvent(_resource_path));
+    RequestCreateEntityEvent::s_ptr RequestCreateEntityEvent::create() {
+        return RequestCreateEntityEvent::s_ptr(zero_new RequestCreateEntityEvent());
     }
 
-    RequestCreateEntityEvent::ptr RequestCreateEntityEvent::create() {
-        return RequestCreateEntityEvent::ptr(zero_new RequestCreateEntityEvent());
+    RequestCreateEntityEvent::s_ptr RequestCreateEntityEvent::create(const char* path) {
+        return RequestCreateEntityEvent::s_ptr(zero_new RequestCreateEntityEvent(path));
     }
 
-    RequestCreateEntityEvent::ptr RequestCreateEntityEvent::create(const char* path) {
-        return RequestCreateEntityEvent::ptr(zero_new RequestCreateEntityEvent(path));
+    RequestCreateEntityEvent::s_ptr RequestCreateEntityEvent::create(const char* path, Vector3 pos) {
+        return RequestCreateEntityEvent::s_ptr(zero_new RequestCreateEntityEvent(path, pos));
     }
 
-    RequestCreateEntityEvent::ptr RequestCreateEntityEvent::cast(IEventDataPtr data_ptr) {
-        assert(data_ptr->get_event_type() == RequestCreateEntityEvent::type);
-        return std::static_pointer_cast<RequestCreateEntityEvent>(data_ptr);
+    RequestCreateEntityEvent::RequestCreateEntityEvent(const RequestCreateEntityEvent& other) {
+        _resource_path = other.get_resource_path();
+        _position = other.get_initial_position();
     }
+
 
     // ------------------
     // EntityCreatedEvent
     // ------------------
 
-    const EventType EntityCreatedEvent::type = 0xa7d61b3c;
+    DEFINE_EVENT_METHODS(EntityCreatedEvent);
 
-    IEventDataPtr EntityCreatedEvent::copy() const {
-        return IEventDataPtr(zero_new EntityCreatedEvent(_controlled_entity_id));
+    EntityCreatedEvent::s_ptr EntityCreatedEvent::create(const EntityId& id) {
+        return EntityCreatedEvent::s_ptr(zero_new EntityCreatedEvent(id));
     }
 
-    EntityCreatedEvent::ptr EntityCreatedEvent::create(const EntityId& id) {
-        return EntityCreatedEvent::ptr(zero_new EntityCreatedEvent(id));
-    }
-
-    EntityCreatedEvent::ptr EntityCreatedEvent::cast(IEventDataPtr data_ptr) {
-        assert(data_ptr->get_event_type() == EntityCreatedEvent::type);
-        return std::static_pointer_cast<EntityCreatedEvent>(data_ptr);
+    EntityCreatedEvent::EntityCreatedEvent(const EntityCreatedEvent& other) {
+        _controlled_entity_id = other.get_entity_id();
     }
 
     // ---------------
     // MoveEntityEvent
     // ---------------
 
-    const EventType MoveEntityEvent::type = 0x8b2e7298;
+    DEFINE_EVENT_METHODS(MoveEntityEvent);
 
-    MoveEntityEvent::MoveEntityEvent(const EntityId id, const Vector2 new_position) {
-        _controlled_entity_id = id;
-        _position_type = VEC2;
-        _position.vec2 = new_position;
+
+    MoveEntityEvent::MoveEntityEvent(const MoveEntityEvent& other) {
+        _transform = other._transform;
+        _controlled_entity_id = other._controlled_entity_id;
     }
 
-    MoveEntityEvent::MoveEntityEvent(const EntityId id, const Vector3 new_position) {
-         _controlled_entity_id = id;
-        _position_type = VEC3;
-        _position.vec3 = new_position;       
-    }
-
-    MoveEntityEvent::MoveEntityEvent(const EntityId id, const Vector4 new_position) {
-        _controlled_entity_id = id;
-        _position_type = VEC4;
-        _position.vec4 = new_position;
-    }
-
-    IEventDataPtr MoveEntityEvent::copy() const {
-        switch (_position_type) {
-            case VEC2:
-                return IEventDataPtr(zero_new MoveEntityEvent(_controlled_entity_id, _position.vec2));
-            case VEC3:
-                return IEventDataPtr(zero_new MoveEntityEvent(_controlled_entity_id, _position.vec3));
-            case VEC4:
-                return IEventDataPtr(zero_new MoveEntityEvent(_controlled_entity_id, _position.vec4));
-        }
-        return IEventDataPtr();
-    }
-
-    MoveEntityEvent::ptr MoveEntityEvent::create(const EntityId id, const Vector2 new_location) {
-        return MoveEntityEvent::ptr(zero_new MoveEntityEvent(id, new_location));
-    }
-
-    MoveEntityEvent::ptr MoveEntityEvent::create(const EntityId id, const Vector3 new_location) {
-        return MoveEntityEvent::ptr(zero_new MoveEntityEvent(id, new_location));
-    }
-
-    MoveEntityEvent::ptr MoveEntityEvent::create(const EntityId id, const Vector4 new_location) {
-        return MoveEntityEvent::ptr(zero_new MoveEntityEvent(id, new_location));
-    }
-
-    MoveEntityEvent::ptr MoveEntityEvent::cast(IEventDataPtr data_ptr) {
-        assert(data_ptr->get_event_type() == MoveEntityEvent::type);
-        return std::static_pointer_cast<MoveEntityEvent>(data_ptr);
-    }
 
     // ------------------
     // AttachProcessEvent
     // ------------------
 
-    const EventType AttachProcessEvent::type = 0xa241c4db;
+    DEFINE_EVENT_METHODS(AttachProcessEvent);
 
-    IEventDataPtr AttachProcessEvent::copy() const {
-        return IEventDataPtr(zero_new AttachProcessEvent(_process));
+    AttachProcessEvent::s_ptr AttachProcessEvent::create(Process::ptr process) {
+        return AttachProcessEvent::s_ptr(zero_new AttachProcessEvent(process));
     }
 
-    AttachProcessEvent::ptr AttachProcessEvent::create(Process::ptr process) {
-        return AttachProcessEvent::ptr(zero_new AttachProcessEvent(process));
-    }
-
-    AttachProcessEvent::ptr AttachProcessEvent::cast(IEventDataPtr data_ptr) {
-        assert(data_ptr->is_type(type));
-        return std::static_pointer_cast<AttachProcessEvent>(data_ptr);
+    AttachProcessEvent::AttachProcessEvent(const AttachProcessEvent& other) {
+        _process = other.get_process();
     }
 
     // ---------------------------------
     // ScreenElementRendererCreatedEvent
     // ---------------------------------
 
-    const EventType ScreenElementRenderComponentCreatedEvent::type = 0xbdfc323e;
-
-    IEventDataPtr ScreenElementRenderComponentCreatedEvent::copy() const {
-        return IEventDataPtr(zero_new ScreenElementRenderComponentCreatedEvent(_screen_element));
-    }
+    DEFINE_EVENT_METHODS(ScreenElementRenderComponentCreatedEvent);
 
     ScreenElementRenderComponentCreatedEvent::s_ptr ScreenElementRenderComponentCreatedEvent::create(std::shared_ptr<IScreenElement> element) {
         return ScreenElementRenderComponentCreatedEvent::s_ptr(zero_new ScreenElementRenderComponentCreatedEvent(element));
     }
 
-    ScreenElementRenderComponentCreatedEvent::s_ptr ScreenElementRenderComponentCreatedEvent::cast(IEventDataPtr data_ptr) {
-        assert(data_ptr->is_type(type));
-        return std::static_pointer_cast<ScreenElementRenderComponentCreatedEvent>(data_ptr);
+    ScreenElementRenderComponentCreatedEvent::ScreenElementRenderComponentCreatedEvent(const ScreenElementRenderComponentCreatedEvent& other) {
+        _screen_element = other.get_screen_element();
     }
 
     // ------------------------------------------
     // ScreenElementRenderComponentDestroyedEvent
     // ------------------------------------------
 
-    const EventType ScreenElementRenderComponentDestroyedEvent::type = 0x3e5bd852;
-
-    IEventDataPtr ScreenElementRenderComponentDestroyedEvent::copy() const {
-        return IEventDataPtr(zero_new ScreenElementRenderComponentDestroyedEvent(_screen_element));
-    }
+    DEFINE_EVENT_METHODS(ScreenElementRenderComponentDestroyedEvent);
 
     ScreenElementRenderComponentDestroyedEvent::s_ptr ScreenElementRenderComponentDestroyedEvent::create(std::shared_ptr<IScreenElement> element) {
         return ScreenElementRenderComponentDestroyedEvent::s_ptr(zero_new ScreenElementRenderComponentDestroyedEvent(element));
     }
 
-    ScreenElementRenderComponentDestroyedEvent::s_ptr ScreenElementRenderComponentDestroyedEvent::cast(IEventDataPtr data_ptr) {
-        assert(data_ptr->is_type(type));
-        return std::static_pointer_cast<ScreenElementRenderComponentDestroyedEvent>(data_ptr);
+    ScreenElementRenderComponentDestroyedEvent::ScreenElementRenderComponentDestroyedEvent(const ScreenElementRenderComponentDestroyedEvent& other) {
+        _screen_element = other.get_screen_element();
     }
 
-    // -------------
-    // DrawLineEvent
-    // -------------
+    // -----------------------
+    // NewRenderComponentEvent
+    // -----------------------
 
-    const EventType DrawLineEvent::type = 0xd78aad3d;
+    DEFINE_EVENT_METHODS(NewRenderComponentEvent);
 
-    IEventDataPtr DrawLineEvent::copy() const {
-        return IEventDataPtr(zero_new DrawLineEvent(_from, _to, _color));
+    NewRenderComponentEvent::NewRenderComponentEvent(const NewRenderComponentEvent& other) {
+        _entity_id = other._entity_id;
+        _scene_node = other._scene_node;
     }
 
-    DrawLineEvent::ptr DrawLineEvent::create(Point<int32> from, Point<int32> to, Color color) {
-        return DrawLineEvent::ptr(zero_new DrawLineEvent(from, to, color));
-    }
+    // -----------------------------
+    // ModifiedRenderComponentsEvent
+    // -----------------------------
 
-    DrawLineEvent::ptr DrawLineEvent::cast(IEventDataPtr data_ptr) {
-        assert(data_ptr->is_type(type));
-        return std::static_pointer_cast<DrawLineEvent>(data_ptr);
+    DEFINE_EVENT_METHODS(ModifiedRenderComponentEvent);
+
+    ModifiedRenderComponentEvent::ModifiedRenderComponentEvent(const ModifiedRenderComponentEvent& other) {
+        _entity_id = other._entity_id;
     }
 }
 

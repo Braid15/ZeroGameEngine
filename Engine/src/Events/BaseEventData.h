@@ -6,15 +6,16 @@
 
 namespace ZeroEngine {
 
-  class BaseEventData : public IEventData {
+    class BaseEventData : public IEventData {
     private:
         const Tick _timestamp;
     public:
-        inline virtual ~BaseEventData() {};
-        virtual const EventType& get_event_type() const = 0;
-        inline bool is_type(const EventType& type) const { return get_event_type() == type; }
-        virtual StringRepr to_string() const = 0;
         virtual IEventDataPtr copy() const = 0;
+        virtual const EventType& get_event_type() const = 0;
+        virtual StringRepr to_string() const = 0;       
+
+        inline virtual ~BaseEventData() {};
+        inline bool is_type(const EventType& type) const { return get_event_type() == type; }
         inline virtual void serialize(IEventDataStream out) const override {}
         inline const Tick& get_timestamp() const override { return _timestamp; }
     protected:

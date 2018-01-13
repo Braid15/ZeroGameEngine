@@ -3,11 +3,12 @@
 #include "../ZeroEngineStd.h"
 #include "../Time.h"
 #include "EntityComponent.h"
+#include "EntityId.h"
 #include "../Utils/Xml/XmlReader.h"
+#include "Transform.h"
 
 namespace ZeroEngine {
 
-    typedef uint32 EntityId;
     extern const EntityId INVALID_ENTITY_ID;
 
     class EntityFactory;
@@ -18,9 +19,10 @@ namespace ZeroEngine {
         friend class EntityFactory;
         EntityId _id;
         std::string _name;
-        std::string _position_type;
+        std::string _transform_type;
         std::string _resource_path;
         EntityComponentMap _components;
+        Transform _transform;
     public:
         explicit Entity(EntityId id);
         explicit Entity(EntityId id, std::string name);
@@ -36,6 +38,8 @@ namespace ZeroEngine {
         inline void set_name(const char* name) { _name = name; }
         inline void set_name(std::string name) { _name = name; }
         inline const EntityComponentMap* get_components() const { return &_components; }
+        inline Transform& get_transform() { return _transform; }
+        inline void set_transform(const Transform& transform) { _transform = transform; LOG_TODO("Entity", "Optimize"); }
         std::string create_xml_string();
 
         template <class ComponentType>
@@ -67,7 +71,8 @@ namespace ZeroEngine {
     private:
         // should only be called by EntityFactory
         void add_component(EntityComponentPtr);
-        inline void set_type(const char* type) { _position_type = std::string(type); }
         inline void set_resource_path(const char* path) { _resource_path = std::string(path); }
+        inline void set_transform_type(const char* type) { _transform_type = std::string(type); LOG_TODO("Entity", "What is this variable for??"); }
     };
+
 }

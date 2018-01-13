@@ -1,11 +1,19 @@
+#include "stdafx.h"
 #include "SdlMsgTranslator.h"
 
-namespace ZeroEngine {
+#pragma comment(lib, "SDL2.lib")
+#pragma comment(lib, "SDL2_image.lib")
+#pragma comment(lib, "SDL2_mixer.lib")
+#pragma comment(lib, "SDL2_ttf.lib")
+
+namespace ZeroSdlFramework {
+
+    using namespace ZeroEngine;
 
     static Key sdl_keysym_to_keycode_conversion(SDL_Keysym);
 
     const AppMsg* const SdlMsgTranslator::get_translated_message() {
-        uint32 time = _sdl_event.common.timestamp;
+        Uint32 time = _sdl_event.common.timestamp;
         switch (_sdl_event.type) {
             case SDL_QUIT:
                 return _factory->create_message(AppMsgType::quit, zero_new EmptyMsgArgs(time));
@@ -34,20 +42,20 @@ namespace ZeroEngine {
             case SDL_KEYDOWN:
             case SDL_KEYUP:
             {
-                uint16 mod_state = _sdl_event.key.keysym.mod;
+                Uint16 mod_state = _sdl_event.key.keysym.mod;
                 KeyModStateArray keymod_states = { KeyState::null };
-                keymod_states[static_cast<int32>(KeyMod::left_shift)] = (mod_state == KMOD_LSHIFT || mod_state == KMOD_SHIFT) ? KeyState::pressed : KeyState::released;
-                keymod_states[static_cast<int32>(KeyMod::right_shift)] = (mod_state == KMOD_RSHIFT || mod_state == KMOD_SHIFT) ? KeyState::pressed : KeyState::released;
-                keymod_states[static_cast<int32>(KeyMod::left_alt)] = (mod_state == KMOD_LALT || mod_state == KMOD_ALT) ? KeyState::pressed : KeyState::released;
-                keymod_states[static_cast<int32>(KeyMod::right_alt)] = (mod_state == KMOD_RALT || mod_state == KMOD_ALT) ? KeyState::pressed : KeyState::released;
-                keymod_states[static_cast<int32>(KeyMod::left_control)] = (mod_state == KMOD_LCTRL || mod_state == KMOD_CTRL) ? KeyState::pressed : KeyState::released;
-                keymod_states[static_cast<int32>(KeyMod::right_control)] = (mod_state == KMOD_RCTRL || mod_state == KMOD_CTRL) ? KeyState::pressed : KeyState::released;
-                keymod_states[static_cast<int32>(KeyMod::caps_lock)] = (mod_state == KMOD_CAPS) ? KeyState::pressed : KeyState::released;
+                keymod_states[static_cast<Int32>(KeyMod::left_shift)] = (mod_state == KMOD_LSHIFT || mod_state == KMOD_SHIFT) ? KeyState::pressed : KeyState::released;
+                keymod_states[static_cast<Int32>(KeyMod::right_shift)] = (mod_state == KMOD_RSHIFT || mod_state == KMOD_SHIFT) ? KeyState::pressed : KeyState::released;
+                keymod_states[static_cast<Int32>(KeyMod::left_alt)] = (mod_state == KMOD_LALT || mod_state == KMOD_ALT) ? KeyState::pressed : KeyState::released;
+                keymod_states[static_cast<Int32>(KeyMod::right_alt)] = (mod_state == KMOD_RALT || mod_state == KMOD_ALT) ? KeyState::pressed : KeyState::released;
+                keymod_states[static_cast<Int32>(KeyMod::left_control)] = (mod_state == KMOD_LCTRL || mod_state == KMOD_CTRL) ? KeyState::pressed : KeyState::released;
+                keymod_states[static_cast<Int32>(KeyMod::right_control)] = (mod_state == KMOD_RCTRL || mod_state == KMOD_CTRL) ? KeyState::pressed : KeyState::released;
+                keymod_states[static_cast<Int32>(KeyMod::caps_lock)] = (mod_state == KMOD_CAPS) ? KeyState::pressed : KeyState::released;
 
                 KeyState state = _sdl_event.key.state == 1 ? KeyState::pressed : KeyState::released;
                 Key key = sdl_keysym_to_keycode_conversion(_sdl_event.key.keysym);
 
-                uint32 window = _sdl_event.key.windowID;
+                Uint32 window = _sdl_event.key.windowID;
                 bool repeat = _sdl_event.key.repeat == 1;
 
                 KeyboardMsgArgs* args = zero_new KeyboardMsgArgs(time, window, key, repeat, state, keymod_states);
@@ -70,13 +78,13 @@ namespace ZeroEngine {
             case SDL_MOUSEMOTION:
             {
 
-                uint32 state = _sdl_event.motion.state;
-                uint32 mouse = _sdl_event.motion.which;
-                uint32 window = _sdl_event.motion.windowID;
-                int32 x_pos = _sdl_event.motion.x;
-                int32 y_pos = _sdl_event.motion.y;
-                int32 y_rel = _sdl_event.motion.yrel;
-                int32 x_rel = _sdl_event.motion.xrel;
+                Uint32 state = _sdl_event.motion.state;
+                Uint32 mouse = _sdl_event.motion.which;
+                Uint32 window = _sdl_event.motion.windowID;
+                Int32 x_pos = _sdl_event.motion.x;
+                Int32 y_pos = _sdl_event.motion.y;
+                Int32 y_rel = _sdl_event.motion.yrel;
+                Int32 x_rel = _sdl_event.motion.xrel;
 
                 // SDL_MouseMotionEvent.state returns a bitmask of the current state of the mouse.
                 // Perform bitwise & to check if a button is pressed.
@@ -84,19 +92,19 @@ namespace ZeroEngine {
 
                 MouseButtonStateArray button_states;
 
-                int32 left_button = static_cast<int32>(MouseButton::left);
+                Int32 left_button = static_cast<Int32>(MouseButton::left);
                 button_states[left_button] = (state & 1 << (left_button - 1)) ? ButtonState::pressed : ButtonState::released;
 
-                int32 middle_button = static_cast<int32>(MouseButton::middle);
+                Int32 middle_button = static_cast<Int32>(MouseButton::middle);
                 button_states[middle_button] = (state & 1 << (middle_button - 1)) ? ButtonState::pressed : ButtonState::released;
 
-                int32 right_button = static_cast<int32>(MouseButton::right);
+                Int32 right_button = static_cast<Int32>(MouseButton::right);
                 button_states[right_button] = (state & 1 << (right_button - 1)) ? ButtonState::pressed : ButtonState::released;
 
-                int32 button_four = static_cast<int32>(MouseButton::four);
+                Int32 button_four = static_cast<Int32>(MouseButton::four);
                 button_states[button_four] = (state & 1 << (button_four - 1)) ? ButtonState::pressed : ButtonState::released;
 
-                int32 button_five = static_cast<int32>(MouseButton::five);
+                Int32 button_five = static_cast<Int32>(MouseButton::five);
                 button_states[button_five] = (state & 1 << (button_five - 1)) ? ButtonState::pressed : ButtonState::released;
 
                 MouseMotionMsgArgs* args = 
@@ -108,10 +116,10 @@ namespace ZeroEngine {
             case SDL_MOUSEBUTTONDOWN:
             case SDL_MOUSEBUTTONUP:
             {
-                uint32 window = _sdl_event.button.windowID;
-                uint32 which = _sdl_event.button.which;
+                Uint32 window = _sdl_event.button.windowID;
+                Uint32 which = _sdl_event.button.which;
                 ButtonState state = (_sdl_event.type == SDL_MOUSEBUTTONDOWN) ? ButtonState::pressed : ButtonState::released;
-                uint8 clicks = _sdl_event.button.clicks;
+                Uint8 clicks = _sdl_event.button.clicks;
 
                 MouseButton button = MouseButton::null;
 
@@ -127,8 +135,8 @@ namespace ZeroEngine {
                     button = MouseButton::five;
                 }
 
-                int32 x = _sdl_event.button.x;
-                int32 y = _sdl_event.button.y;
+                Int32 x = _sdl_event.button.x;
+                Int32 y = _sdl_event.button.y;
 
                 MouseButtonMsgArgs* args = 
                     zero_new MouseButtonMsgArgs(time, window, which, state, clicks, button, x, y);
@@ -146,10 +154,10 @@ namespace ZeroEngine {
             // @TODO: Doesn't handle scrolling along x axis
             case SDL_MOUSEWHEEL:
             {
-                uint32 mouse = _sdl_event.wheel.which;
-                uint32 window = _sdl_event.wheel.windowID;
-                int32 x = _sdl_event.wheel.x;
-                int32 y = _sdl_event.wheel.y;
+                Uint32 mouse = _sdl_event.wheel.which;
+                Uint32 window = _sdl_event.wheel.windowID;
+                Int32 x = _sdl_event.wheel.x;
+                Int32 y = _sdl_event.wheel.y;
 
                 // So the values are never flipped
                 if (_sdl_event.wheel.direction == SDL_MOUSEWHEEL_FLIPPED) {

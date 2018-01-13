@@ -10,16 +10,14 @@
 #include "../ZeroEngineEvents.h"
 #include "../Physics/Physics.h"
 #include "../Process/ProcessManager.h"
-#include "../Math/Vector2.h"
-#include "../Math/Vector3.h"
-#include "../Math/Vector4.h"
+#include "../Math/MathTypes.h"
 
 namespace ZeroEngine {
 
 
     class BaseGameLogic : public IGameLogic {
     private:
-        IPhysicsPtr _physics;
+        std::shared_ptr<IPhysics> _physics;
         Tick _lifetime;
         IEntityManager* _entity_manager;
         ProcessManager* _process_manager;
@@ -28,9 +26,9 @@ namespace ZeroEngine {
         HumanView::ptr _human_view;
         bool _render_diagnostics;
         bool _is_proxy;
-        int32 _human_players_attached;
-        int32 _ai_players_attached;
-        int32 _human_games_loaded;
+        Int32 _human_players_attached;
+        Int32 _ai_players_attached;
+        Int32 _human_games_loaded;
     public:
         BaseGameLogic();
         virtual ~BaseGameLogic();
@@ -46,9 +44,7 @@ namespace ZeroEngine {
         // virtual void change_state(IGameState state) override;
         virtual void change_state(BaseGameState state) override;
 
-        virtual void move_entity(const EntityId& entity_id, const Vector2& pos) override;
-        virtual void move_entity(const EntityId& entity_id, const Vector3& pos) override;
-        virtual void move_entity(const EntityId& entity_id, const Vector4& pos) override;
+        virtual void move_entity(const EntityId& entity_id, const Transform& pos) override;
 
         virtual void destroy_entity(const EntityId& entity_id) override;
         virtual void add_game_view(IGameViewPtr view, EntityId entity_id=INVALID_ENTITY_ID) override;
@@ -57,18 +53,19 @@ namespace ZeroEngine {
         virtual WeakEntityPtr get_entity(const EntityId& entity_id) override;
         virtual EntityPtr create_entity() override;
         virtual EntityPtr create_entity(std::string resource_path) override;
+        virtual EntityPtr create_entity(std::string resource_path, Vector3 pos) override;
         inline GameViewList get_game_views() { return _game_views; }
-        inline IPhysicsPtr get_physics() const { return _physics; }
-        inline uint32 get_entity_count() const { return _entity_manager->get_entity_count(); }
+        inline std::shared_ptr<IPhysics> get_physics() const { return _physics; }
+        inline Uint32 get_entity_count() const { return _entity_manager->get_entity_count(); }
     protected:
         inline const ProcessManager& get_process_manager() const { return *_process_manager; }
         inline void attach_process(Process::ptr process) const { _process_manager->attach_process(process); }
-        inline int32 get_human_players_attached() const { return _human_players_attached; }
-        inline int32 get_ai_players_attached() const { return _ai_players_attached; }
-        inline int32 get_human_games_loaded() const { return _human_games_loaded; }
-        inline void set_human_players_attached(int32 players) { _human_players_attached = players; }
-        inline void set_ai_layers_attached(int32 ai) { _ai_players_attached = ai; }
-        inline void set_human_games_loaded(int32 games) { _human_games_loaded = games; }
+        inline Int32 get_human_players_attached() const { return _human_players_attached; }
+        inline Int32 get_ai_players_attached() const { return _ai_players_attached; }
+        inline Int32 get_human_games_loaded() const { return _human_games_loaded; }
+        inline void set_human_players_attached(Int32 players) { _human_players_attached = players; }
+        inline void set_ai_layers_attached(Int32 ai) { _ai_players_attached = ai; }
+        inline void set_human_games_loaded(Int32 games) { _human_games_loaded = games; }
         inline const BaseGameState& get_game_state() const { return _current_state; }
         inline bool is_rendering_diagnostics() const { return _render_diagnostics; }
         inline void set_render_diagnostics(bool render) { _render_diagnostics = render; }

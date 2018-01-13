@@ -4,7 +4,11 @@
 // This file will include all standard header files 
 // ------------------------------------------------
 
+#ifndef _UNICODE
 #define _UNICODE
+#endif // !_UNICODE
+
+#define _WIN_OS
 
 
 // Framework is SDL so this isn't really ever needed

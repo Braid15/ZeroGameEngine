@@ -2,17 +2,17 @@
 
 namespace ZeroEngine {
 
-    std::array<ButtonState, static_cast<int32>(MouseButton::end)> Mouse::_button_states = { ButtonState::released };
+    std::array<ButtonState, static_cast<Int32>(MouseButton::end)> Mouse::_button_states = { ButtonState::released };
 
-    Point<int32> Mouse::_pointer_position(0, 0);
+    Point<Int32> Mouse::_pointer_position(0, 0);
 
     MouseWheelDirection Mouse::_wheel_direction = MouseWheelDirection::null;
 
     bool Mouse::is_pressed(const MouseButton& button) {
-        return _button_states[static_cast<int32>(button)] == ButtonState::pressed;
+        return _button_states[static_cast<Int32>(button)] == ButtonState::pressed;
     }
 
-    const Point<int32>& Mouse::position() {
+    const Point<Int32>& Mouse::position() {
         return _pointer_position;
     }
 
@@ -27,7 +27,7 @@ namespace ZeroEngine {
     }
 
     void Mouse::set(const MouseButtonMsg* const msg) {
-        _button_states[static_cast<int32>(msg->get_button())] = msg->get_state();
+        _button_states[static_cast<Int32>(msg->get_button())] = msg->get_state();
     }
 
     void Mouse::set(const MouseWheelMsg* const msg) {

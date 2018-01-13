@@ -2,19 +2,21 @@
 
 #include "../../ZeroEngineStd.h"
 #include "../EntityComponent.h"
-#include "ScreenElementRenderComponent.h"
+#include "../Components/BaseRenderComponent.h"
 #include "../../GameView/Sprite.h"
 
 namespace ZeroEngine {
 
-    class SpriteRenderComponent : public ScreenElementRenderComponent {
+    class TextureRenderComponent_2D : public BaseRenderComponent {
     private:
-        std::shared_ptr<Sprite> _sprite;
         std::string _texture_resource_path;
 
+    protected:
+        virtual std::shared_ptr<SceneNode> create_scene_node() override;
+        virtual bool initialize_delegate(const XmlReader&) override;
     public:
-        SpriteRenderComponent() = default;
-        virtual ~SpriteRenderComponent() {}
+        TextureRenderComponent_2D() = default;
+        virtual ~TextureRenderComponent_2D() {}
 
         static const EntityComponentId id;
         static const char* name;
@@ -22,12 +24,9 @@ namespace ZeroEngine {
 
         virtual const EntityComponentId& get_id() const override { return id; }
 
-        virtual bool on_initialize(const XmlReader&) override;
-        virtual void update(Tick delta_time) override;
-
         virtual inline const char* get_name() const override { return name; }
-        virtual inline StringRepr to_string() const override { return "SpriteRenderComponent"; }
+        virtual inline StringRepr to_string() const override { return "TextureRenderComponent_2D"; }
     private:
-        virtual void on_write_xml_delegate(const XmlWriter& writer) override;
+        virtual void write_inherited_xml(const XmlWriter& writer) override;
     };
 }

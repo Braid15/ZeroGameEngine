@@ -11,21 +11,21 @@ namespace ZeroEngine {
         class StdHashImpl;
         static StdHashImpl _implementation;
     public:
-        static int32 hash(std::string);
-        static int32 hash(const char*);
+        static Uint32 hash(std::string);
+        static Uint32 hash(const char*);
     private:
         Hash() {}
         Hash(const Hash&) {}
 
         class IHashImpl {
         public:
-            virtual int32 hash(std::string) const = 0;
+            virtual Uint32 hash(std::string) const = 0;
         };
 
         class StdHashImpl : public IHashImpl {
         public:
-            inline int32 hash(std::string str) const override {
-                return static_cast<int32>(std::hash<std::string>{}(str));
+            inline Uint32 hash(std::string str) const override {
+                return static_cast<Uint32>(std::hash<std::string>{}(str));
             }
         };
     };

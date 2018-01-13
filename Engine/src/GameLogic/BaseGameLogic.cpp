@@ -1,10 +1,13 @@
 #include "BaseGameLogic.h"
-#include "../Entity/Components/TransformComponent2D.h"
+#include "../Entity/Transform.h"
 
 namespace ZeroEngine {
 
+    using std::shared_ptr;
+    using std::static_pointer_cast;
+
     BaseGameLogic::BaseGameLogic() {
-        _physics = IPhysicsPtr(zero_new NullPhysics());
+        _physics = std::shared_ptr<IPhysics>(zero_new NullPhysics());
         _lifetime = 0;
         _entity_manager = zero_new EntityManager();
         _process_manager = zero_new ProcessManager();
@@ -102,23 +105,9 @@ namespace ZeroEngine {
         _current_state = state;
     }
 
-    void BaseGameLogic::move_entity(const EntityId& entity_id, const Vector2& pos) {
-        LOG_TODO("BaseGameLogic", "pos should be matrix");
-        auto entity = get_entity(entity_id).lock();
-        auto transform = entity->get_component<TransformComponent2D>(TransformComponent2D::id).lock();
-        if (transform) {
-            transform->set_position(pos);
-        } else {
-            LOG_DEBUG("BaseGameLogic", "Error getting TransformComponent2D on entity " + std::string(entity->get_name()));
-        }
-    }
-
-    void BaseGameLogic::move_entity(const EntityId& entity_id, const Vector3& pos) {
-        LOG_TODO("BaseGameLogic", "pos should be matrix");
-    }   
-
-    void BaseGameLogic::move_entity(const EntityId& entity_id, const Vector4& pos) {
-        LOG_TODO("BaseGameLogic", "pos should be matrix");
+    void BaseGameLogic::move_entity(const EntityId& entity_id, const Transform& transform) {
+        std::shared_ptr<Entity> entity = get_entity(entity_id).lock();
+        entity->set_transform(transform);
     }
 
     void BaseGameLogic::destroy_entity(const EntityId& entity_id) {
@@ -129,7 +118,7 @@ namespace ZeroEngine {
     }
 
     void BaseGameLogic::add_game_view(IGameViewPtr view, EntityId entity_id) {
-        int32 view_id = static_cast<int32>(_game_views.size());
+        Int32 view_id = static_cast<Int32>(_game_views.size());
         _game_views.push_back(view);
         view->attach(view_id, entity_id);
         view->restore();
@@ -151,6 +140,10 @@ namespace ZeroEngine {
         return _entity_manager->create_entity(resource_path);
     }
 
+    EntityPtr BaseGameLogic::create_entity(std::string resource_path, Vector3 pos) {
+        return _entity_manager->create_entity(resource_path, pos);
+    }
+
     void BaseGameLogic::set_entity_manager(IEntityManager* manager) {
         if (_entity_manager) {
             _entity_manager->shutdown();
@@ -161,44 +154,33 @@ namespace ZeroEngine {
     }
 
     void BaseGameLogic::move_entity_event_delegate(IEventDataPtr event_data) {
-        MoveEntityEvent::ptr data = MoveEntityEvent::cast(event_data);
-        switch (data->get_position_type()) {
-            case MoveEntityEvent::VEC2:
-                move_entity(data->get_entity_id(), data->get_vec2_position());
-                break;
-            case MoveEntityEvent::VEC3:
-                move_entity(data->get_entity_id(), data->get_vec3_position());
-                break;
-            case MoveEntityEvent::VEC4:
-                move_entity(data->get_entity_id(), data->get_vec4_position());
-                break;
-            default:
-                LOG_DEBUG("BaseGameLogic", "Error processing MoveEntityEvent");
-                break;
-        }
+        assert(event_data->is_type(MoveEntityEvent::type));
+
+        shared_ptr<MoveEntityEvent> data = static_pointer_cast<MoveEntityEvent>(event_data);
+        move_entity(data->get_entity_id(), data->get_transform());
     }
 
     void BaseGameLogic::request_create_entity_event_delegate(IEventDataPtr event_data) {
         if (!_is_proxy) {
-            RequestCreateEntityEvent::ptr data = RequestCreateEntityEvent::cast(event_data);
+            RequestCreateEntityEvent::s_ptr data = RequestCreateEntityEvent::cast(event_data);
             EntityPtr entity;
             if (data->get_resource_path().empty()) {
                 entity = create_entity();
-            } else {
-                entity = create_entity(data->get_resource_path());
+            } else if (data->get_initial_position() != Vector3::zero()) {
+                entity = create_entity(data->get_resource_path(), data->get_initial_position());
             }
             ZeroEventManager::queue_event(EntityCreatedEvent::create(entity->get_id()));
         }
     }
 
     void BaseGameLogic::request_destroy_entity_event_delegate(IEventDataPtr event_data) {
-        RequestDestroyEntityEvent::ptr data = RequestDestroyEntityEvent::cast(event_data);
+        RequestDestroyEntityEvent::s_ptr data = RequestDestroyEntityEvent::cast(event_data);
         destroy_entity(data->get_entity_id());
     }
 
     // NOT REGISTERED
     void BaseGameLogic::attach_process_event_delegate(IEventDataPtr event_data) {
-        AttachProcessEvent::ptr data = AttachProcessEvent::cast(event_data);
+        AttachProcessEvent::s_ptr data = AttachProcessEvent::cast(event_data);
         _process_manager->attach_process(data->get_process());
     }
 

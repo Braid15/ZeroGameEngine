@@ -1,8 +1,11 @@
+#include "stdafx.h"
 #include "SdlTexture.h"
-#include "../../Logger/Logging.h"
-#include "../../Math/Math.h"
+#include "../Engine/src/Logger/Logging.h"
+#include "../Engine/src/Math/Math.h"
 
-namespace ZeroEngine {
+namespace ZeroSdlFramework {
+
+    using namespace ZeroEngine;
 
     SdlTexture::SdlTexture(SDL_Renderer* renderer, SDL_Window* window, const char* file_path) {
         _renderer = renderer;
@@ -27,8 +30,8 @@ namespace ZeroEngine {
         if (surface) {
             _texture = SDL_CreateTextureFromSurface(_renderer, surface);
             if (_texture) {
-                set_width(static_cast<float32>(surface->w));
-                set_height(static_cast<float32>(surface->h));
+                set_width(static_cast<Float32>(surface->w));
+                set_height(static_cast<Float32>(surface->h));
                 SDL_FreeSurface(surface);
                 success = true;
             } else {
@@ -44,7 +47,7 @@ namespace ZeroEngine {
     void SdlTexture::on_render() {
         if (!_renderer || !_texture) return;
 
-        SDL_Rect render_quad = { (int32)get_x(), (int32)get_y(), (int32)get_width(), (int32)get_height() };
+        SDL_Rect render_quad = { static_cast<Int32>(get_x()), static_cast<Int32>(get_y()), static_cast<Int32>(get_width()), static_cast<Int32>(get_height()) };
         LOG_TODO("SdlTexture", "Need to handle source rect and dest rect. I.E. Sprite sheets");
         SDL_RenderCopy(_renderer, _texture, nullptr, &render_quad);
     }

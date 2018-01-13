@@ -20,7 +20,7 @@ namespace ZeroEngine {
         virtual ~AFramework();
         bool initialize();
         bool shutdown();
-        bool initialize_window_and_renderer(std::string title, Point<int32> size);
+        bool initialize_window_and_renderer(std::string title, Point<Int32> size);
         virtual StringRepr to_string() const = 0;
         virtual Tick get_current_time() const = 0;
         virtual void run_main_loop();
@@ -38,7 +38,7 @@ namespace ZeroEngine {
         virtual bool on_init() = 0;
         virtual bool on_shutdown() = 0;
         virtual BaseRenderer::s_ptr create_renderer() = 0;
-        virtual IWindow::ptr create_window(std::string title, Point<int32> size) = 0;
+        virtual IWindow::ptr create_window(std::string title, Point<Int32> size) = 0;
     private:
         bool _is_running;
         AppMsgFactory* _msg_factory;

@@ -43,7 +43,7 @@ namespace ZeroEngine {
         virtual bool load_game();
         void run();
         inline BaseGameLogic* get_game_logic() const { return _game_logic; }
-        HumanView::ptr get_human_view(uint32 player_number=INVALID_PLAYER_NUMBER);
+        HumanView::ptr get_human_view(Uint32 player_number=INVALID_PLAYER_NUMBER);
 
         IRenderer::s_ptr get_renderer() const;
         Tick get_ticks() const;
@@ -53,7 +53,7 @@ namespace ZeroEngine {
         bool initialize();
         void shutdown();
         inline bool is_running() const { return _is_running; }
-        Point<int32> get_screen_size() const;
+        Point<Int32> get_screen_size() const;
         virtual StringRepr to_string() const override { return "ZeroEngineApp"; }
 
     protected:

@@ -14,27 +14,40 @@ namespace ZeroEngine {
 
     // @TODO: Compile errors with templates. Try and fix and implement
 
+    // @TODO: Make constexpr
+
     namespace Math {
 
-        extern const float32 pi;
+        constexpr Float32 pi = 3.14159f;
+        constexpr Radian radian_1 = 57.29577f;
 
-        extern float32 clamp(const float32& orig_val, const float32& min, const float32& max);
-        extern float32 clamp_min(const float32& orig_val, const float32& min);
-        extern float32 clamp_max(const float32& orig_val, const float32& max);
+        extern Float32 clamp(const Float32& orig_val, const Float32& min, const Float32& max);
+        extern Float32 clamp_min(const Float32& orig_val, const Float32& min);
+        extern Float32 clamp_max(const Float32& orig_val, const Float32& max);
 
+        extern Float32 lerp(const Float32& v0, const Float32& v1, const Float32& t);
 
+        extern bool floats_equal(const Float32 a, const Float32 b, Float32 epsilon=0.1f);
 
-        extern float32 power_of(const float32& orig_val, const int32& exponent);
+        extern Radian degrees_to_radians(const Degree& degree);
 
-        extern float32 absolute_value(const float32& orig_val);
+        extern Degree radians_to_degrees(const Radian& radian);
 
-        extern float32 square(const float32& orig_val);
+        extern Float32 power_of(const Float32& orig_val, const Int32& exponent);
 
-        extern float32 cube(const float32& orig_val);
+        extern Float32 absolute_value(const Float32& orig_val);
+
+        extern Float32 square(const Float32& orig_val);
+
+        extern Float32 cube(const Float32& orig_val);
+
+        extern Float32 cosine(const Float32& radian);
+
+        extern Float32 sine(const Float32& radian);
 
         // static T root(const T& orig_val, const i32& root_of);
 
-        extern float32 square_root(const float32& orig_val);
+        extern Float32 square_root(const Float32& orig_val);
 
         #ifdef _DEBUG
         extern void run_tests();
