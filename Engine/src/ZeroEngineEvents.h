@@ -7,6 +7,8 @@
 #include "Process\Process.h"
 #include "Events/BaseEventData.h"
 #include "Math/MathTypes.h"
+#include "Entity\Transform.h"
+#include "GameView\SceneNode.h"
 
 namespace ZeroEngine {
 
@@ -91,45 +93,24 @@ namespace ZeroEngine {
     // MoveEntityEvent
     // ---------------
 
-    // @TODO: Change to Matrix3x3/Matrix4x4
     class MoveEntityEvent : public BaseEventData {
     DECLARE_EVENT_METHODS(MoveEntityEvent)
 
-    public:
-        enum TransformType { MAT3, MAT4 };
     private:
-        TransformType _transform_type;
-
-        union Transform {
-            Matrix3x3 mat3;
-            Matrix4x4 mat4;
-
-            Transform() {}
-        } _transform;
-
+        Transform _transform;
         EntityId _controlled_entity_id;
+
     public:
-        MoveEntityEvent(const EntityId id, const Matrix3x3 new_position);
-        MoveEntityEvent(const EntityId id, const Matrix4x4 new_position);
+        MoveEntityEvent(const EntityId& id, Transform transform) : 
+            _controlled_entity_id(id), _transform(transform) {}
 
-        static MoveEntityEvent::s_ptr create(const EntityId id, const Matrix3x3 new_pos);
-        static MoveEntityEvent::s_ptr create(const EntityId id, const Matrix4x4 new_pos);
-
-        inline TransformType get_transform_type() const { return _transform_type; }
         inline EntityId get_entity_id() const { return _controlled_entity_id; }
-
-        inline Matrix3x3 get_transform_2D() const { 
-            if (_transform_type != MAT3) return Matrix3x3::identity();
-            return _transform.mat3;
-        }
-
-        inline Matrix4x4 get_transform_3D() const {
-            if (_transform_type != MAT4) return Matrix4x4::identity();
-            return _transform.mat4;
-        }
+        inline Transform get_transform() const { return _transform; }
     private:
         MoveEntityEvent() {}
     };
+
+
 
     // ------------------
     // AttachProcessEvent
@@ -192,5 +173,43 @@ namespace ZeroEngine {
         inline std::shared_ptr<IScreenElement> get_screen_element() const { return _screen_element; }
     private:
         ScreenElementRenderComponentDestroyedEvent() {}
+    };
+
+    // -----------------------
+    // NewRenderComponentEvent
+    // -----------------------
+
+    class NewRenderComponentEvent : public BaseEventData {
+    DECLARE_EVENT_METHODS(NewRenderComponentEvent)
+
+    private:
+        EntityId _entity_id;
+        std::shared_ptr<SceneNode> _scene_node;
+    public:
+        NewRenderComponentEvent() : _entity_id(invalid_entity_id()) {}
+        NewRenderComponentEvent(const EntityId& id, std::shared_ptr<SceneNode> node) :
+            _entity_id(id), _scene_node(node) {}
+
+
+        inline EntityId get_entity_id() const { return _entity_id; }
+        inline std::shared_ptr<SceneNode> get_scene_node() const { return _scene_node; }
+    };
+
+    // ----------------------------
+    // ModifiedRenderComponentEvent
+    // ----------------------------
+
+    class SceneNode;
+
+    class ModifiedRenderComponentEvent : public BaseEventData {
+    DECLARE_EVENT_METHODS(ModifiedRenderComponentEvent)
+
+    private:
+        EntityId _entity_id;
+    public:
+        ModifiedRenderComponentEvent() : _entity_id(invalid_entity_id()) {}
+        ModifiedRenderComponentEvent(const EntityId& id) : _entity_id(id) {}
+
+        inline EntityId get_entity_id() const { return _entity_id; }
     };
 }

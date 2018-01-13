@@ -1,21 +1,21 @@
 #include "EntityFactory.h"
-#include "Components\TransformComponent2D.h"
-#include "Components\ScreenElementRenderComponent.h"
 #include "Components\SpriteRenderComponent.h"
 #include "../Logger/Logging.h"
 
 namespace ZeroEngine {
 
-    EntityFactory::EntityFactory() {
-        _last_id = INVALID_ENTITY_ID;
+    using std::make_shared;
 
-        _component_creation_map[std::string(TransformComponent2D::name)] = TransformComponent2D::create;
-        _component_creation_map[std::string(ScreenElementRenderComponent::name)] = ScreenElementRenderComponent::create;
-        _component_creation_map[std::string(SpriteRenderComponent::name)] = SpriteRenderComponent::create;
+    EntityFactory::EntityFactory() {
+        _last_id = invalid_entity_id();
+
+        // @TODO: WOuld like to use entity id instead of name, but the code that uses this map is currently
+        // putting in the component types name from the xml file
+        _component_creation_map[std::string(TextureRenderComponent_2D::name)] = TextureRenderComponent_2D::create;
     }
 
     std::shared_ptr<Entity> EntityFactory::create_entity() {
-        std::shared_ptr<Entity> entity(zero_new Entity(get_next_id()));
+        std::shared_ptr<Entity> entity = make_shared<Entity>(get_next_id());
         entity->post_initialize();
         return entity;
     }
@@ -62,11 +62,7 @@ namespace ZeroEngine {
                 }
 
                 LOG_TODO("EntityFactory", "REFACTOR THIS!");
-
-                auto transform = entity->get_component<TransformComponent2D>(TransformComponent2D::id).lock();
-                if (transform) {
-                    transform->set_position(pos);
-                }
+                entity->get_transform().set_position(pos);
 
                 entity->post_initialize();
                 return entity;

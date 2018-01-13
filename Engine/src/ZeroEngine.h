@@ -27,6 +27,4 @@
 #include "Math/MathTypes.h"
 #include "Utils/Xml/XmlReader.h"
 #include "Utils/Xml/XmlWriter.h"
-#include "Entity/Components/ScreenElementRenderComponent.h"
 #include "Entity/Components/SpriteRenderComponent.h"
-#include "Entity/Components/TransformComponent2D.h"

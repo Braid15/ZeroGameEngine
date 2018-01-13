@@ -70,6 +70,12 @@
     <Filter Include="Source\Entity\Components">
       <UniqueIdentifier>{0184c207-b441-4571-ab9f-46096998dd8f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Assets">
+      <UniqueIdentifier>{6005cb94-08c9-4777-a2c6-fd5fe2f23091}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Entities">
+      <UniqueIdentifier>{255b3e26-d517-443f-ae3e-948073490056}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ZeroEngine.h">
@@ -303,14 +309,8 @@
     <ClInclude Include="src\Framework\SdlFramework\SdlTexture.h">
       <Filter>Source\Framework\SdlFramework</Filter>
     </ClInclude>
-    <ClInclude Include="src\Entity\Components\TransformComponent2D.h">
-      <Filter>Source\Entity\Components</Filter>
-    </ClInclude>
     <ClInclude Include="src\Utils\Hash.h">
       <Filter>Source\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Entity\Components\ScreenElementRenderComponent.h">
-      <Filter>Source\Entity\Components</Filter>
     </ClInclude>
     <ClInclude Include="src\Entity\Components\SpriteRenderComponent.h">
       <Filter>Source\Entity\Components</Filter>
@@ -338,6 +338,24 @@
     </ClInclude>
     <ClInclude Include="src\Physics\ZeroEnginePhysics.h">
       <Filter>Source\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\FilePaths.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\Transform.h">
+      <Filter>Source\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameView\ISceneNode.h">
+      <Filter>Source\GameView</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameView\SceneNode.h">
+      <Filter>Source\GameView</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameView\AScene.h">
+      <Filter>Source\GameView</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity\Components\BaseRenderComponent.h">
+      <Filter>Source\Entity\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -473,14 +491,8 @@
     <ClCompile Include="src\GameView\Sprite.cpp">
       <Filter>Source\GameView</Filter>
     </ClCompile>
-    <ClCompile Include="src\Entity\Components\TransformComponent2D.cpp">
-      <Filter>Source\Entity\Components</Filter>
-    </ClCompile>
     <ClCompile Include="src\Utils\Hash.cpp">
       <Filter>Source\Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Entity\Components\ScreenElementRenderComponent.cpp">
-      <Filter>Source\Entity\Components</Filter>
     </ClCompile>
     <ClCompile Include="src\Entity\Components\SpriteRenderComponent.cpp">
       <Filter>Source\Entity\Components</Filter>
@@ -499,6 +511,18 @@
     </ClCompile>
     <ClCompile Include="src\Physics\ZeroEnginePhysics.cpp">
       <Filter>Source\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\Transform.cpp">
+      <Filter>Source\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameView\SceneNode.cpp">
+      <Filter>Source\GameView</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameView\AScene.cpp">
+      <Filter>Source\GameView</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity\Components\BaseRenderComponent.cpp">
+      <Filter>Source\Entity\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

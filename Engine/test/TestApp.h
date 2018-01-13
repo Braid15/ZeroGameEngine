@@ -123,6 +123,9 @@ namespace ZeroEngineAppTest {
         bool _go_down;
         bool _go_right;
         bool _go_left;
+        bool _start;
+        Tick _start_time;
+        Vector2 _start_pos;
 
 
 
@@ -142,9 +145,12 @@ namespace ZeroEngineAppTest {
             _verts[1] = Vector2(_vertices[1]);
             _verts[2] = Vector2(_vertices[2]);
             _verts[3] = Vector2(_vertices[3]);
+            _start = false;
 
 
             _render_packet = std::make_shared<VertexRenderPacket>(_verts, 4, Colors::white());
+
+            Game::get_renderer()->submit_packet(_render_packet);
         }
         inline ~TestMovementController() {}
 
@@ -164,8 +170,10 @@ namespace ZeroEngineAppTest {
 
         inline bool on_key_down(const Key& key) override {
             if (key == Key::enter) {
-                Game::get_renderer()->submit_packet(_render_packet);
 
+                _start = true;
+                _start_time = Game::get_ticks();
+                _start_pos = _vertices[0];
                 /*
                 const char* p = "S:\\projects\\game-engines\\zerogameengine\\engine\\test\\test-entity.xml";
                 Vector3 pos = Vector3(Game::get_screen_width() / 2, Game::get_screen_height() / 2, 1);
@@ -226,7 +234,7 @@ namespace ZeroEngineAppTest {
         }
 
         inline void update(Tick delta_time) {
-            if (_go_up || _go_down || _go_left || _go_right /*&& !_entity_id_list.empty()*/) {
+            if (_go_up || _go_down || _go_left || _go_right /*&& !_entity_id_list.empty()*/ || _start) {
                 /*
                 auto entity = Game::get_entity(_entity_id_list.back()).lock();
                 auto transform = entity->get_component<TransformComponent2D>(TransformComponent2D::id).lock();
@@ -234,10 +242,12 @@ namespace ZeroEngineAppTest {
 
                 Vector2 direction;
 
+                /*
                 if (_go_up) direction += _up;
                 if (_go_down) direction += _down;
                 if (_go_left) direction += _left;
                 if (_go_right) direction += _right;
+                */
 
                 direction *= delta_time;
 
@@ -263,13 +273,26 @@ namespace ZeroEngineAppTest {
                 if (_go_up) {
                     degree = 2;
                 } else if (_go_down) {
-                    degree = -2;
+                    //degree = -2;
                 }
 
                 //Vector2 center = Vector2(static_cast<Float32>(_rect.get_x()), static_cast<Float32>(_rect.get_y()));
                 //mat = mat * Matrix3x3::get_translation_2D(center);
-                mat = mat * Matrix3x3::get_rotation_2D(Vector2(_vertices[0].get_x(), _vertices[0].get_y()), degree);
+                //mat = mat * Matrix3x3::get_rotation_2D(Vector2(_vertices[0].get_x(), _vertices[0].get_y()), degree);
                 //mat = mat * Matrix3x3::get_translation_2D(-center);
+
+                static Int32 count = 0;
+
+                Float32 speed = .04f;
+                Float32 covered = (Game::get_ticks() - _start_time) * speed;
+                Float32 journey = covered / _start_pos.distance_between(Vector2::zero());
+
+                if (_vertices[0].get_x() >= 0 && _vertices[0].get_y() >= 0) {
+                    mat = Matrix3x3::get_translation_2D(Vector2::lerp(_start_pos, Vector2::zero(), journey) - Vector2(_vertices[0]));
+                }
+
+
+                //mat = Matrix3x3::get_translation_2D(direction);
 
 
 

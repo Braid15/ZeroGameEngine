@@ -214,12 +214,16 @@
   <ItemGroup>
     <ClInclude Include="src\AtomicTypes.h" />
     <ClInclude Include="src\Entity\Components\PhysicsComponent.h" />
-    <ClInclude Include="src\Entity\Components\ScreenElementRenderComponent.h" />
+    <ClInclude Include="src\Entity\Components\BaseRenderComponent.h" />
     <ClInclude Include="src\Entity\Components\SpriteRenderComponent.h" />
-    <ClInclude Include="src\Entity\Components\TransformComponent2D.h" />
     <ClInclude Include="src\Entity\EntityId.h" />
+    <ClInclude Include="src\Entity\Transform.h" />
+    <ClInclude Include="src\FilePaths.h" />
     <ClInclude Include="src\Framework\ITexture.h" />
     <ClInclude Include="src\Framework\SdlFramework\SdlTexture.h" />
+    <ClInclude Include="src\GameView\AScene.h" />
+    <ClInclude Include="src\GameView\ISceneNode.h" />
+    <ClInclude Include="src\GameView\SceneNode.h" />
     <ClInclude Include="src\GameView\Sprite.h" />
     <ClInclude Include="src\Launcher\GameLauncher.h" />
     <ClInclude Include="src\Math\Line.h" />
@@ -310,13 +314,13 @@
     <ClCompile Include="src\AppMsg\AppMsgArgs.cpp" />
     <ClCompile Include="src\AppMsg\AppMsgFactory.cpp" />
     <ClCompile Include="src\Entity\Components\PhysicsComponent.cpp" />
-    <ClCompile Include="src\Entity\Components\ScreenElementRenderComponent.cpp" />
+    <ClCompile Include="src\Entity\Components\BaseRenderComponent.cpp" />
     <ClCompile Include="src\Entity\Components\SpriteRenderComponent.cpp" />
-    <ClCompile Include="src\Entity\Components\TransformComponent2D.cpp" />
     <ClCompile Include="src\Entity\Entity.cpp" />
     <ClCompile Include="src\Entity\EntityComponent.cpp" />
     <ClCompile Include="src\Entity\EntityFactory.cpp" />
     <ClCompile Include="src\Entity\EntityManager.cpp" />
+    <ClCompile Include="src\Entity\Transform.cpp" />
     <ClCompile Include="src\Events\EventManager.cpp" />
     <ClCompile Include="src\Framework\AFramework.cpp" />
     <ClCompile Include="src\Framework\IRenderer.cpp" />
@@ -325,9 +329,11 @@
     <ClCompile Include="src\Framework\SdlFramework\SdlRenderer.cpp" />
     <ClCompile Include="src\Framework\SdlFramework\SdlTexture.cpp" />
     <ClCompile Include="src\GameLogic\BaseGameLogic.cpp" />
+    <ClCompile Include="src\GameView\AScene.cpp" />
     <ClCompile Include="src\GameView\HumanView.cpp" />
     <ClCompile Include="src\GameView\IGameView.cpp" />
     <ClCompile Include="src\GameView\IScreenElement.cpp" />
+    <ClCompile Include="src\GameView\SceneNode.cpp" />
     <ClCompile Include="src\GameView\Sprite.cpp" />
     <ClCompile Include="src\Graphics\Color.cpp" />
     <ClCompile Include="src\Graphics\Point.cpp" />

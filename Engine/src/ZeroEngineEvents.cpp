@@ -3,6 +3,8 @@
 
 namespace ZeroEngine {
     
+    // @TODO: Get rid of macros. THey make things more complicated by hiding things.
+
     // -------------------------
     // RequestDestroyEntityEvent
     // -------------------------
@@ -75,41 +77,12 @@ namespace ZeroEngine {
 
     DEFINE_EVENT_METHODS(MoveEntityEvent);
 
-    MoveEntityEvent::MoveEntityEvent(const EntityId id, const Matrix3x3 new_position) {
-        _controlled_entity_id = id;
-        _transform_type = MAT3;
-        _transform.mat3 = new_position;
-    }
-
-    MoveEntityEvent::MoveEntityEvent(const EntityId id, const Matrix4x4 new_position) {
-         _controlled_entity_id = id;
-        _transform_type = MAT4;
-        _transform.mat4 = new_position;       
-    }
-
-    MoveEntityEvent::s_ptr MoveEntityEvent::create(const EntityId id, const Matrix3x3 new_location) {
-        return MoveEntityEvent::s_ptr(zero_new MoveEntityEvent(id, new_location));
-    }
-
-    MoveEntityEvent::s_ptr MoveEntityEvent::create(const EntityId id, const Matrix4x4 new_location) {
-        return MoveEntityEvent::s_ptr(zero_new MoveEntityEvent(id, new_location));
-    }
 
     MoveEntityEvent::MoveEntityEvent(const MoveEntityEvent& other) {
-        _controlled_entity_id = other.get_entity_id();
-        _transform_type = other.get_transform_type();
-        switch (_transform_type) {
-            case MAT3:
-                _transform.mat3 = other.get_transform_2D();
-                break;
-            case MAT4:
-                _transform.mat4 = other.get_transform_3D();
-                break;
-            default:
-                LOG_DEBUG("MoveEntityEvent", "Error: Unknown position type");
-                break;
-        }
+        _transform = other._transform;
+        _controlled_entity_id = other._controlled_entity_id;
     }
+
 
     // ------------------
     // AttachProcessEvent
@@ -151,6 +124,27 @@ namespace ZeroEngine {
 
     ScreenElementRenderComponentDestroyedEvent::ScreenElementRenderComponentDestroyedEvent(const ScreenElementRenderComponentDestroyedEvent& other) {
         _screen_element = other.get_screen_element();
+    }
+
+    // -----------------------
+    // NewRenderComponentEvent
+    // -----------------------
+
+    DEFINE_EVENT_METHODS(NewRenderComponentEvent);
+
+    NewRenderComponentEvent::NewRenderComponentEvent(const NewRenderComponentEvent& other) {
+        _entity_id = other._entity_id;
+        _scene_node = other._scene_node;
+    }
+
+    // -----------------------------
+    // ModifiedRenderComponentsEvent
+    // -----------------------------
+
+    DEFINE_EVENT_METHODS(ModifiedRenderComponentEvent);
+
+    ModifiedRenderComponentEvent::ModifiedRenderComponentEvent(const ModifiedRenderComponentEvent& other) {
+        _entity_id = other._entity_id;
     }
 }
 

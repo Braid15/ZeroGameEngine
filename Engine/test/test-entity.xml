@@ -1,8 +1,8 @@
 <Entity type="Unknown" resource="Unknown">
 
-  <TransformComponent2D>
+  <TransformComponent>
     <Position x="0.00" y="0.00" />
-  </TransformComponent2D>
+  </TransformComponent>
 
   <SpriteRenderComponent>
     <Texture resource="S:\\projects\\game-engines\\zerogameengine\\engine\\assets\\test.png" />

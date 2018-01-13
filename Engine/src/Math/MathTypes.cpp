@@ -2,6 +2,54 @@
 
 namespace ZeroEngine {
 
+    #define ROW_MAJOR_MATRICES
+    //#define COLUMN_MAJOR_MATRICES
+
+    // ----------------
+    // Helper Functions
+    // ----------------
+
+    /* Vector2D
+
+    static void transform_vector_by_matrix(Vector3* const out, const Vector3* const vec, const Matrix3x3* const mat) {
+        #ifdef ROW_MAJOR_MATRICES
+        (*out)[Axis::x] = (*vec)[Axis::x] * (*mat)[0][0] + (*vec)[Axis::y] * (*mat)[1][0] + (*vec)[Axis::z] * (*mat)[2][0];
+        (*out)[Axis::y] = (*vec)[Axis::x] * (*mat)[0][1] + (*vec)[Axis::y] * (*mat)[1][1] + (*vec)[Axis::z] * (*mat)[2][1];
+        (*out)[Axis::z] = (*vec)[Axis::x] * (*mat)[0][2] + (*vec)[Axis::y] * (*mat)[1][2] + (*vec)[Axis::z] * (*mat)[2][2];
+        #else
+        (*out)[Axis::x] = (*vec)[Axis::x] * (*mat)[0][0] + (*vec)[Axis::y] * (*mat)[0][1] + (*vec)[Axis::z] * (*mat)[0][2];
+        (*out)[Axis::y] = (*vec)[Axis::x] * (*mat)[1][0] + (*vec)[Axis::y] * (*mat)[1][1] + (*vec)[Axis::z] * (*mat)[1][2];
+        (*out)[Axis::z] = (*vec)[Axis::x] * (*mat)[2][0] + (*vec)[Axis::y] * (*mat)[2][1] + (*vec)[Axis::z] * (*mat)[2][2];
+        #endif
+    }
+    */
+
+    static void transform_vector_by_matrix(Vector3* const out, const Vector3* const vec, const Matrix3x3* const mat) {
+        #ifdef ROW_MAJOR_MATRICES
+        (*out)[Axis::x] = (*vec)[Axis::x] * (*mat)[0][0] + (*vec)[Axis::y] * (*mat)[1][0] + (*vec)[Axis::z] * (*mat)[2][0];
+        (*out)[Axis::y] = (*vec)[Axis::x] * (*mat)[0][1] + (*vec)[Axis::y] * (*mat)[1][1] + (*vec)[Axis::z] * (*mat)[2][1];
+        (*out)[Axis::z] = (*vec)[Axis::x] * (*mat)[0][2] + (*vec)[Axis::y] * (*mat)[1][2] + (*vec)[Axis::z] * (*mat)[2][2];
+        #else
+        (*out)[Axis::x] = (*vec)[Axis::x] * (*mat)[0][0] + (*vec)[Axis::y] * (*mat)[0][1] + (*vec)[Axis::z] * (*mat)[0][2];
+        (*out)[Axis::y] = (*vec)[Axis::x] * (*mat)[1][0] + (*vec)[Axis::y] * (*mat)[1][1] + (*vec)[Axis::z] * (*mat)[1][2];
+        (*out)[Axis::z] = (*vec)[Axis::x] * (*mat)[2][0] + (*vec)[Axis::y] * (*mat)[2][1] + (*vec)[Axis::z] * (*mat)[2][2];
+        #endif
+    }
+
+    static void transform_vector_by_matrix(Vector4* const out, const Vector4* const vec, const Matrix4x4* const mat) {
+        #ifdef ROW_MAJOR_MATRICES
+        (*out)[Axis::x] = (*vec)[Axis::x] * (*mat)[0][0] + (*vec)[Axis::y] * (*mat)[1][0] + (*vec)[Axis::z] * (*mat)[2][0] + (*vec)[Axis::w] * (*mat)[3][0];
+        (*out)[Axis::y] = (*vec)[Axis::x] * (*mat)[0][1] + (*vec)[Axis::y] * (*mat)[1][1] + (*vec)[Axis::z] * (*mat)[2][1] + (*vec)[Axis::w] * (*mat)[3][1];
+        (*out)[Axis::z] = (*vec)[Axis::x] * (*mat)[0][2] + (*vec)[Axis::y] * (*mat)[1][2] + (*vec)[Axis::z] * (*mat)[2][2] + (*vec)[Axis::w] * (*mat)[3][2];
+        (*out)[Axis::w] = (*vec)[Axis::x] * (*mat)[0][3] + (*vec)[Axis::y] * (*mat)[1][3] + (*vec)[Axis::z] * (*mat)[2][3] + (*vec)[Axis::w] * (*mat)[3][3];
+        #else
+        (*out)[Axis::x] = (*vec)[Axis::x] * (*mat)[0][0] + (*vec)[Axis::y] * (*mat)[0][1] + (*vec)[Axis::z] * (*mat)[0][2] + (*vec)[Axis::w] * (*mat)[0][3];
+        (*out)[Axis::y] = (*vec)[Axis::x] * (*mat)[1][0] + (*vec)[Axis::y] * (*mat)[1][1] + (*vec)[Axis::z] * (*mat)[1][2] + (*vec)[Axis::w] * (*mat)[1][3];
+        (*out)[Axis::z] = (*vec)[Axis::x] * (*mat)[2][0] + (*vec)[Axis::y] * (*mat)[2][1] + (*vec)[Axis::z] * (*mat)[2][2] + (*vec)[Axis::w] * (*mat)[2][3];
+        (*out)[Axis::w] = (*vec)[Axis::x] * (*mat)[3][0] + (*vec)[Axis::y] * (*mat)[3][1] + (*vec)[Axis::z] * (*mat)[3][2] + (*vec)[Axis::w] * (*mat)[3][3];
+        #endif
+    }
+
     // ----
     // Axis
     // ----
@@ -824,17 +872,16 @@ namespace ZeroEngine {
     }
 
     Vector3& Vector3::transform_by_matrix(const Matrix3x3 matrix) {
-        *this = this->get_matrix_transform(matrix);
+        Vector3 transform;
+        transform_vector_by_matrix(&transform, this, &matrix);
+        *this = transform;
+
         return *this;
     }
 
-    Vector3 Vector3::get_matrix_transform(const Matrix3x3& m) const {
+    Vector3 Vector3::get_matrix_transform(const Matrix3x3& mat) const {
         Vector3 transform;
-        Matrix3x3 matrix = m.get_transposition();
-
-        transform[Axis::x] = _vec[Axis::x] * matrix[0][0] + _vec[Axis::y] * matrix[1][0] + _vec[Axis::z] * matrix[2][0];
-        transform[Axis::y] = _vec[Axis::x] * matrix[0][1] + _vec[Axis::y] * matrix[1][1] + _vec[Axis::z] * matrix[2][1];
-        transform[Axis::z] = _vec[Axis::x] * matrix[0][2] + _vec[Axis::y] * matrix[1][2] + _vec[Axis::z] * matrix[2][2];
+        transform_vector_by_matrix(&transform, this, &mat);
 
         return transform;
     }
@@ -1323,18 +1370,16 @@ namespace ZeroEngine {
     }
 
     Vector4& Vector4::transform_by_matrix(const Matrix4x4& matrix) {
-        *this = this->get_matrix_transform(matrix);
+        Vector4 transform;
+        transform_vector_by_matrix(&transform, this, &matrix);
+        *this = transform;
+
         return *this;
     }
 
     Vector4 Vector4::get_matrix_transform(const Matrix4x4& mat) const {
         Vector4 transform;
-        Matrix4x4 matrix = mat.get_transposition();
-
-        transform[Axis::x] = _vec[Axis::x] * matrix[0][0] + _vec[Axis::y] * matrix[1][0] + _vec[Axis::z] * matrix[2][0] + _vec[Axis::w] * matrix[3][0];
-        transform[Axis::y] = _vec[Axis::x] * matrix[0][1] + _vec[Axis::y] * matrix[1][1] + _vec[Axis::z] * matrix[2][1] + _vec[Axis::w] * matrix[3][1];
-        transform[Axis::z] = _vec[Axis::x] * matrix[0][2] + _vec[Axis::y] * matrix[1][2] + _vec[Axis::z] * matrix[2][2] + _vec[Axis::w] * matrix[3][2];
-        transform[Axis::w] = _vec[Axis::x] * matrix[0][3] + _vec[Axis::y] * matrix[1][3] + _vec[Axis::z] * matrix[2][3] + _vec[Axis::w] * matrix[3][3];
+        transform_vector_by_matrix(&transform, this, &mat);
 
         return transform;
     }
@@ -1443,8 +1488,15 @@ namespace ZeroEngine {
 
     Matrix3x3 Matrix3x3::get_translation_2D(const Vector2& vec) {
         Matrix3x3 matrix = Matrix3x3(Matrix3x3::identity());
+
+        #ifdef ROW_MAJOR_MATRICES
+        matrix[2][Axis::x] = vec[Axis::x];
+        matrix[2][Axis::y] = vec[Axis::y];
+        #else
         matrix[0][Axis::z] = vec[Axis::x];
         matrix[1][Axis::z] = vec[Axis::y];
+        #endif
+
         return matrix;
     }
 
@@ -1733,9 +1785,17 @@ namespace ZeroEngine {
 
     Matrix4x4 Matrix4x4::get_translation_3D(const Vector3& vec) {
         Matrix4x4 matrix(Matrix4x4::identity());
+
+        #ifdef ROW_MAJOR_MATRICES
+        matrix[3][Axis::x] = vec[Axis::x];
+        matrix[3][Axis::y] = vec[Axis::y];
+        matrix[3][Axis::z] = vec[Axis::z];
+        #else
         matrix[0][Axis::w] = vec[Axis::x];
         matrix[1][Axis::w] = vec[Axis::y];
         matrix[2][Axis::w] = vec[Axis::z];
+        #endif
+
         return matrix;
     }
 

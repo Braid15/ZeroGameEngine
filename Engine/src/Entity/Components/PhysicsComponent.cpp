@@ -3,7 +3,7 @@
 #include "../../Utils/StringId.h"
 #include "../../AppLayer/Game.h"
 #include "../../Logger/Logging.h"
-#include "TransformComponent2D.h"
+#include "../Transform.h"
 
 namespace ZeroEngine {
 
@@ -47,12 +47,8 @@ namespace ZeroEngine {
     }
 
     void RigidBodyComponent::update(Tick delta_time) {
-        auto transform = get_owner()->get_component<TransformComponent2D>(TransformComponent2D::id).lock();
+        Transform transform = get_owner()->get_transform();
 
-        if (!transform) {
-            LOG_DEBUG("RigidBodyComponent", "Error getting transform component from " + std::string(get_owner()->get_name()));
-            return;
-        }
 
         if (_acceleration != 0.0f) {
             Float32 acceleration = _acceleration / 1000.0f * delta_time;
@@ -98,14 +94,12 @@ namespace ZeroEngine {
     }
 
     void RigidBodyComponent::set_position(const Vector2& pos) {
-        auto transform = get_owner()->get_component<TransformComponent2D>(TransformComponent2D::id).lock();
-        if (transform) {
-            Matrix3x3 mat = transform->get_world_transform();
-            mat[0][Axis::z] = pos[Axis::x];
-            mat[1][Axis::z] = pos[Axis::y];
+        Transform transform = get_owner()->get_transform();
+        Matrix3x3 mat = transform.get_world_transform();
+        mat[0][Axis::z] = pos[Axis::x];
+        mat[1][Axis::z] = pos[Axis::y];
 
-            kinematic_move(mat);
-        }
+        kinematic_move(mat);
     }
 
     void RigidBodyComponent::set_position(const Vector3& pos) {
